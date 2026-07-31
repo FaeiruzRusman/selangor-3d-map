@@ -7,25 +7,8 @@ const START_VIEW = {
   bearing: 0
 };
 
-const locations = {
-  "shah-alam": { center: [101.5183, 3.0738], zoom: 14.8, pitch: 66, bearing: 0 },
-  "klang": { center: [101.4496, 3.0449], zoom: 14.4, pitch: 62, bearing: 0 },
-  "petaling-jaya": { center: [101.6444, 3.1073], zoom: 14.6, pitch: 64, bearing: 0 },
-  "subang-jaya": { center: [101.5851, 3.0567], zoom: 14.5, pitch: 64, bearing: 0 },
-  "puchong": { center: [101.6168, 3.0327], zoom: 14.3, pitch: 62, bearing: 0 },
-  "kajang": { center: [101.7882, 2.9935], zoom: 14.2, pitch: 62, bearing: 0 },
-  "bangi": { center: [101.7735, 2.9213], zoom: 14.2, pitch: 62, bearing: 0 },
-  "ampang": { center: [101.7600, 3.1502], zoom: 14.3, pitch: 62, bearing: 0 },
-  "selayang": { center: [101.6543, 3.2530], zoom: 14.2, pitch: 62, bearing: 0 },
-  "rawang": { center: [101.5767, 3.3213], zoom: 14.1, pitch: 60, bearing: 0 },
-  "kwasa": { center: [101.5721, 3.1658], zoom: 15.4, pitch: 68, bearing: 0 },
-  "cyberjaya": { center: [101.6440, 2.9213], zoom: 14.3, pitch: 62, bearing: 0 },
-  "sepang": { center: [101.7100, 2.6914], zoom: 13.5, pitch: 58, bearing: 0 },
-  "kuala-selangor": { center: [101.2549, 3.3377], zoom: 13.9, pitch: 58, bearing: 0 },
-  "tanjong-karang": { center: [101.1711, 3.4245], zoom: 13.8, pitch: 56, bearing: 0 },
-  "sabak-bernam": { center: [100.9879, 3.7698], zoom: 13.7, pitch: 56, bearing: 0 },
-  "kuala-kubu-bharu": { center: [101.6554, 3.5647], zoom: 13.9, pitch: 60, bearing: 0 }
-};
+let locations = {};
+let cityCommands = {};
 
 const basemapStyles = {
   standard: "mapbox://styles/mapbox/standard",
@@ -51,7 +34,92 @@ const layerState = {
   buildings: true
 };
 
+loadUrbanHierarchy();
 initialiseMap();
+
+
+async function loadUrbanHierarchy() {
+  const statusEl = document.getElementById("urbanPolicyStatus");
+  const explorerEl = document.getElementById("urbanExplorer");
+  const countEl = document.getElementById("urbanLocationCount");
+
+  try {
+    const response = await fetch("config/urban-hierarchy.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const config = await response.json();
+    const groups = Array.isArray(config.groups) ? config.groups : [];
+
+    locations = {};
+    cityCommands = {};
+    explorerEl.innerHTML = "";
+
+    let total = 0;
+
+    groups.forEach((group) => {
+      const cities = Array.isArray(group.cities) ? group.cities : [];
+      if (!cities.length) return;
+
+      const section = document.createElement("section");
+      section.className = "urban-group";
+
+      const heading = document.createElement("h3");
+      heading.textContent = group.name || "Hierarki Bandar";
+      section.appendChild(heading);
+
+      const grid = document.createElement("div");
+      grid.className = "quick-grid";
+
+      cities.forEach((city) => {
+        if (!city?.key || !Array.isArray(city.center)) return;
+
+        locations[city.key] = {
+          center: city.center,
+          zoom: city.zoom ?? 14,
+          pitch: city.pitch ?? 62,
+          bearing: 0
+        };
+
+        const aliases = [city.name, ...(city.aliases || [])]
+          .filter(Boolean)
+          .map((value) => value.toLowerCase());
+
+        aliases.forEach((alias) => {
+          cityCommands[alias] = [city.key, city.name];
+        });
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = city.name;
+        button.addEventListener("click", () => flyToLocation(city.key));
+        grid.appendChild(button);
+        total += 1;
+      });
+
+      section.appendChild(grid);
+      explorerEl.appendChild(section);
+    });
+
+    countEl.textContent = String(total);
+
+    if (total === 0) {
+      statusEl.className = "policy-status warning";
+      statusEl.textContent =
+        "Senarai bandar rasmi DPN3 belum dimasukkan. Tiada bandar andaian dipaparkan.";
+      explorerEl.innerHTML =
+        '<p class="empty-state">Kemaskini <code>config/urban-hierarchy.json</code> selepas senarai rasmi DPN3 diterbitkan.</p>';
+    } else {
+      statusEl.className = "policy-status ready";
+      statusEl.textContent = `${total} bandar rasmi DPN3 dimuatkan.`;
+    }
+  } catch (error) {
+    console.error("Urban hierarchy config error:", error);
+    statusEl.className = "policy-status error";
+    statusEl.textContent = "Konfigurasi bandar DPN3 gagal dimuatkan.";
+    explorerEl.innerHTML =
+      '<p class="empty-state">Semak fail <code>config/urban-hierarchy.json</code>.</p>';
+  }
+}
 
 function initialiseMap() {
   mapboxgl.accessToken = MAPBOX_PUBLIC_TOKEN;
@@ -407,9 +475,9 @@ function flyToLocation(key) {
 
 async function runFlythrough() {
   const sequence = [
-    { center: [101.5183, 3.0738], zoom: 10.5, pitch: 35, bearing: 0, duration: 2200 },
-    { center: [101.5183, 3.0738], zoom: 13.8, pitch: 58, bearing: 0, duration: 2400 },
-    { center: [101.5721, 3.1658], zoom: 15.5, pitch: 68, bearing: 0, duration: 2600 }
+    { center: [101.48, 3.18], zoom: 8.2, pitch: 28, bearing: 0, duration: 2200 },
+    { center: [101.48, 3.18], zoom: 10.2, pitch: 48, bearing: 0, duration: 2400 },
+    { center: [101.48, 3.18], zoom: 11.4, pitch: 58, bearing: 0, duration: 2400 }
   ];
 
   for (const step of sequence) {
@@ -485,9 +553,6 @@ document.getElementById("searchForm").addEventListener("submit", async (event) =
   }
 });
 
-document.querySelectorAll("[data-location]").forEach((button) => {
-  button.addEventListener("click", () => flyToLocation(button.dataset.location));
-});
 
 document.getElementById("urbanLayerToggle").addEventListener("change", (event) => {
   layerState.urban = event.target.checked;
@@ -565,6 +630,7 @@ document.getElementById("locateBtn").addEventListener("click", () => {
         center: coordinates,
         zoom: 16,
         pitch: 55,
+        bearing: 0,
         duration: 1800
       });
 
@@ -621,27 +687,8 @@ document.getElementById("chatForm").addEventListener("submit", (event) => {
   input.value = "";
 
   const normalized = command.toLowerCase();
-  let response = "Arahan belum dikenali. Cuba “zoom Shah Alam”, “papar sekolah”, “terrain tutup” atau “mod malam”.";
+  let response = "Arahan belum dikenali. Cuba “papar sekolah”, “terrain tutup” atau “mod malam”.";
 
-  const cityCommands = {
-    "shah alam": ["shah-alam", "Shah Alam"],
-    "petaling jaya": ["petaling-jaya", "Petaling Jaya"],
-    "subang jaya": ["subang-jaya", "Subang Jaya"],
-    "puchong": ["puchong", "Puchong"],
-    "kajang": ["kajang", "Kajang"],
-    "bangi": ["bangi", "Bangi"],
-    "ampang": ["ampang", "Ampang"],
-    "selayang": ["selayang", "Selayang"],
-    "rawang": ["rawang", "Rawang"],
-    "kwasa": ["kwasa", "Kwasa Damansara"],
-    "cyberjaya": ["cyberjaya", "Cyberjaya"],
-    "sepang": ["sepang", "Sepang"],
-    "kuala selangor": ["kuala-selangor", "Kuala Selangor"],
-    "tanjong karang": ["tanjong-karang", "Tanjong Karang"],
-    "sabak bernam": ["sabak-bernam", "Sabak Bernam"],
-    "kuala kubu bharu": ["kuala-kubu-bharu", "Kuala Kubu Bharu"],
-    "klang": ["klang", "Klang"]
-  };
   const matchedCity = Object.keys(cityCommands).find((name) => normalized.includes(name));
 
   if (matchedCity) {

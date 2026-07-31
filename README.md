@@ -1,71 +1,68 @@
-# SUO 3D GeoPortal v1.0
+# SUO 3D GeoPortal v1.2 — DPN3 Ready
 
-Prototaip **Selangor Urban Observatory 3D GeoPortal** menggunakan Mapbox GL JS dan GitHub Pages.
+Versi ini menukar modul lokasi bandar kepada **Urban Explorer berasaskan konfigurasi**.
 
-## Fungsi utama
+## Prinsip utama
 
-- Peta 3D Mapbox
-- Terrain 3D
-- Bangunan 3D melalui Mapbox Standard
-- Carian lokasi Malaysia
-- Basemap switcher
-- Layer GIS GeoJSON
-- Feature popup dan panel maklumat
-- KPI dashboard
-- Fly-through Selangor dengan orientasi utara
-- Ukuran jarak
-- Geolokasi
-- Mod malam
-- AI ChatGIS asas berasaskan arahan
-- Paparan responsif desktop dan telefon
-- Orientasi peta dikunci ke utara
-- 17 lokasi bandar dan pekan utama Selangor
+- Hanya bandar yang disahkan dalam **Dasar Perbandaran Negara Ketiga (DPN3)** boleh dimasukkan.
+- Tiada bandar andaian atau senarai DPN2 dimasukkan sebagai ganti.
+- Orientasi peta sentiasa menghadap utara (`bearing: 0`).
+- Bandar, hierarki, koordinat dan tahap zoom dibaca daripada:
 
-## Struktur
+```text
+config/urban-hierarchy.json
+```
+
+## Status semasa
+
+Fail konfigurasi bandar sengaja dikosongkan kerana senarai bandar rasmi DPN3 belum dimasukkan ke dalam projek ini. Portal akan memaparkan notis dan tidak menghasilkan butang bandar palsu.
+
+## Format konfigurasi selepas senarai rasmi diperoleh
+
+```json
+{
+  "metadata": {
+    "title": "Hierarki Bandar Selangor - DPN3",
+    "policy": "Dasar Perbandaran Negara Ketiga (DPN3)",
+    "status": "official",
+    "official_only": true
+  },
+  "groups": [
+    {
+      "name": "Nama hierarki rasmi DPN3",
+      "cities": [
+        {
+          "key": "nama-bandar",
+          "name": "Nama Bandar",
+          "center": [101.0000, 3.0000],
+          "zoom": 14,
+          "pitch": 62,
+          "aliases": ["nama alternatif"]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Fail utama
 
 ```text
 index.html
 styles.css
 app.js
-README.md
+config/urban-hierarchy.json
 data/
-  urban-focus.geojson
-  facilities.geojson
-  mobility-corridor.geojson
 ```
 
-## Cara terbitkan ke GitHub Pages
+## GitHub Pages
 
-1. Cipta repository baharu, contohnya `SUO-3D-GeoPortal`.
-2. Upload semua fail dan folder dalam projek ini.
-3. Buka `Settings`.
-4. Pilih `Pages`.
-5. Di bahagian `Build and deployment`, pilih:
-   - Source: `Deploy from a branch`
-   - Branch: `main`
-   - Folder: `/root`
-6. Tekan `Save`.
-
-URL akan berbentuk:
+Upload semua fail dan folder, kemudian aktifkan:
 
 ```text
-https://USERNAME.github.io/SUO-3D-GeoPortal/
+Settings → Pages → Deploy from a branch → main → /root
 ```
-
-## Mapbox token
-
-Token public dimasukkan dalam `app.js`:
-
-```javascript
-const MAPBOX_PUBLIC_TOKEN = "pk...";
-```
-
-Untuk production, tetapkan URL restrictions dalam akaun Mapbox kepada domain GitHub Pages atau domain rasmi SUO.
-
-## Tukar data GIS
-
-Gantikan kandungan fail GeoJSON dalam folder `data` dengan data sebenar yang mempunyai sistem koordinat WGS84, EPSG:4326.
 
 ## Nota
 
-KPI, carta dan layer dalam versi ini ialah data demonstrasi. Ia disediakan sebagai asas UI dan fungsi untuk integrasi data sebenar kemudian.
+Apabila dokumen rasmi DPN3 dan senarai bandar Selangor diperoleh, hanya `config/urban-hierarchy.json` perlu dikemas kini. `app.js`, Urban Explorer, KPI bandar dan arahan ChatGIS akan berubah secara automatik.

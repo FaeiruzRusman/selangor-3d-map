@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO 3D GeoPortal v1.0 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO 3D GeoPortal v1.0</title>
+  <meta name="description" content="SUO 3D GeoPortal v1.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO 3D GeoPortal v1.2</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>3D GeoPortal <span>v1.0</span></h1>
+        <h1>3D GeoPortal <span>v1.2</span></h1>
       </div>
     </div>
 
@@ -111,27 +111,15 @@
       </section>
 
       <section class="panel">
-        <p class="section-label">LOKASI PANTAS</p>
-        <h2>Fokus bandar</h2>
-        <div class="quick-grid">
-          <button type="button" data-location="shah-alam">Shah Alam</button>
-          <button type="button" data-location="klang">Klang</button>
-          <button type="button" data-location="petaling-jaya">Petaling Jaya</button>
-          <button type="button" data-location="subang-jaya">Subang Jaya</button>
-          <button type="button" data-location="puchong">Puchong</button>
-          <button type="button" data-location="kajang">Kajang</button>
-          <button type="button" data-location="bangi">Bangi</button>
-          <button type="button" data-location="ampang">Ampang</button>
-          <button type="button" data-location="selayang">Selayang</button>
-          <button type="button" data-location="rawang">Rawang</button>
-          <button type="button" data-location="kwasa">Kwasa Damansara</button>
-          <button type="button" data-location="cyberjaya">Cyberjaya</button>
-          <button type="button" data-location="sepang">Sepang</button>
-          <button type="button" data-location="kuala-selangor">Kuala Selangor</button>
-          <button type="button" data-location="tanjong-karang">Tanjong Karang</button>
-          <button type="button" data-location="sabak-bernam">Sabak Bernam</button>
-          <button type="button" data-location="kuala-kubu-bharu">Kuala Kubu Bharu</button>
+        <div class="panel-heading">
+          <div>
+            <p class="section-label">URBAN EXPLORER</p>
+            <h2>Bandar DPN3 Selangor</h2>
+          </div>
+          <span id="urbanPolicyBadge" class="policy-badge">DPN3</span>
         </div>
+        <div id="urbanPolicyStatus" class="policy-status">Memuatkan konfigurasi rasmi...</div>
+        <div id="urbanExplorer" class="urban-explorer"></div>
       </section>
 
       <section class="panel">
@@ -197,8 +185,8 @@
         </article>
         <article class="kpi-card">
           <span>Lokasi Fokus</span>
-          <strong>17</strong>
-          <small>Bandar utama</small>
+          <strong id="urbanLocationCount">0</strong>
+          <small>Bandar rasmi DPN3</small>
         </article>
         <article class="kpi-card">
           <span>Status Sistem</span>
@@ -240,7 +228,7 @@
         </div>
 
         <div id="chatMessages" class="chat-messages">
-          <div class="chat-bubble bot">Taip arahan seperti “zoom Shah Alam”, “papar sekolah” atau “mod malam”.</div>
+          <div class="chat-bubble bot">Arahan bandar hanya akan berfungsi untuk bandar rasmi yang disenaraikan dalam konfigurasi DPN3.</div>
         </div>
 
         <form id="chatForm" class="chat-form">
