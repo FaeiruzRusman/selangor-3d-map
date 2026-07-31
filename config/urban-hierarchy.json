@@ -1,11 +1,297 @@
 {
   "metadata": {
-    "title": "Hierarki Bandar Selangor - Dasar Perbandaran Negara Ketiga",
-    "policy": "Dasar Perbandaran Negara Ketiga (DPN3)",
-    "status": "awaiting_official_publication",
-    "official_only": true,
-    "last_verified": "2026-07-31",
-    "note": "Senarai bandar tidak diisi secara andaian. Masukkan hanya senarai rasmi DPN3 selepas dokumen rasmi diterbitkan oleh PLANMalaysia/KPKT."
+    "title": "Hierarki Bandar Selangor - Dasar Perbandaran Negara Kedua",
+    "policy": "Dasar Perbandaran Negara Kedua (DPN2)",
+    "status": "source_geojson",
+    "official_only": false,
+    "source_file": "data/hierarki_bandar_selangor_dpn2.geojson",
+    "note": "Senarai bandar dan hierarki dijana terus daripada fail GeoJSON DPN2 yang dibekalkan pengguna."
   },
-  "groups": []
+  "groups": [
+    {
+      "name": "Bandar Negeri",
+      "cities": [
+        {
+          "key": "shah-alam",
+          "name": "Shah Alam",
+          "center": [
+            101.532,
+            3.0738
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Petaling",
+          "aliases": [
+            "Shah Alam"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bandar Utama",
+      "cities": [
+        {
+          "key": "ampang-jaya",
+          "name": "Ampang Jaya",
+          "center": [
+            101.7632,
+            3.1491
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Gombak / Hulu Langat",
+          "aliases": [
+            "Ampang Jaya"
+          ]
+        },
+        {
+          "key": "cyberjaya",
+          "name": "Cyberjaya",
+          "center": [
+            101.6482,
+            2.9213
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Sepang",
+          "aliases": [
+            "Cyberjaya"
+          ]
+        },
+        {
+          "key": "kajang",
+          "name": "Kajang",
+          "center": [
+            101.7909,
+            2.9935
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Hulu Langat",
+          "aliases": [
+            "Kajang"
+          ]
+        },
+        {
+          "key": "klang",
+          "name": "Klang",
+          "center": [
+            101.4496,
+            3.0449
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Klang",
+          "aliases": [
+            "Klang"
+          ]
+        },
+        {
+          "key": "petaling-jaya",
+          "name": "Petaling Jaya",
+          "center": [
+            101.6444,
+            3.1073
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Petaling",
+          "aliases": [
+            "Petaling Jaya"
+          ]
+        },
+        {
+          "key": "puchong",
+          "name": "Puchong",
+          "center": [
+            101.6168,
+            3.0327
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Petaling",
+          "aliases": [
+            "Puchong"
+          ]
+        },
+        {
+          "key": "selayang",
+          "name": "Selayang",
+          "center": [
+            101.6538,
+            3.2543
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Gombak",
+          "aliases": [
+            "Selayang"
+          ]
+        },
+        {
+          "key": "subang-jaya",
+          "name": "Subang Jaya",
+          "center": [
+            101.5851,
+            3.0567
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Petaling",
+          "aliases": [
+            "Subang Jaya"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bandar Tempatan",
+      "cities": [
+        {
+          "key": "banting",
+          "name": "Banting",
+          "center": [
+            101.5037,
+            2.8136
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Kuala Langat",
+          "aliases": [
+            "Banting"
+          ]
+        },
+        {
+          "key": "kuala-kubu-bharu",
+          "name": "Kuala Kubu Bharu",
+          "center": [
+            101.656,
+            3.5652
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Hulu Selangor",
+          "aliases": [
+            "Kuala Kubu Bharu"
+          ]
+        },
+        {
+          "key": "kuala-selangor",
+          "name": "Kuala Selangor",
+          "center": [
+            101.2524,
+            3.3377
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Kuala Selangor",
+          "aliases": [
+            "Kuala Selangor"
+          ]
+        },
+        {
+          "key": "rawang",
+          "name": "Rawang",
+          "center": [
+            101.5767,
+            3.3213
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Gombak",
+          "aliases": [
+            "Rawang"
+          ]
+        },
+        {
+          "key": "sabak-bernam",
+          "name": "Sabak Bernam",
+          "center": [
+            100.9879,
+            3.7697
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Sabak Bernam",
+          "aliases": [
+            "Sabak Bernam"
+          ]
+        },
+        {
+          "key": "semenyih",
+          "name": "Semenyih",
+          "center": [
+            101.8432,
+            2.9511
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Hulu Langat",
+          "aliases": [
+            "Semenyih"
+          ]
+        },
+        {
+          "key": "sepang",
+          "name": "Sepang",
+          "center": [
+            101.7495,
+            2.6931
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Sepang",
+          "aliases": [
+            "Sepang"
+          ]
+        },
+        {
+          "key": "sungai-besar",
+          "name": "Sungai Besar",
+          "center": [
+            100.9867,
+            3.6746
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Sabak Bernam",
+          "aliases": [
+            "Sungai Besar"
+          ]
+        },
+        {
+          "key": "tanjong-karang",
+          "name": "Tanjong Karang",
+          "center": [
+            101.1701,
+            3.4244
+          ],
+          "zoom": 14,
+          "pitch": 60,
+          "bearing": 0,
+          "district": "Kuala Selangor",
+          "aliases": [
+            "Tanjong Karang"
+          ]
+        }
+      ]
+    }
+  ]
 }
