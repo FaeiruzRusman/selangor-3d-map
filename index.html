@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portal pemetaan 3D interaktif menggunakan Mapbox GL JS dan GitHub Pages." />
+  <title>Selangor 3D GeoPortal</title>
+
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">MAPBOX 3D WEB GIS</p>
+      <h1>Selangor 3D GeoPortal</h1>
+    </div>
+    <button id="menuBtn" class="icon-btn" aria-label="Buka atau tutup panel">☰</button>
+  </header>
+
+  <main>
+    <aside id="sidebar" class="sidebar">
+      <section>
+        <h2>Carian lokasi</h2>
+        <form id="searchForm" class="search-box">
+          <input id="searchInput" type="search" placeholder="Contoh: Shah Alam" autocomplete="off" />
+          <button type="submit">Cari</button>
+        </form>
+        <div id="searchResults" class="results" aria-live="polite"></div>
+      </section>
+
+      <section>
+        <h2>Paparan peta</h2>
+        <label class="control-row">
+          <span>Bangunan 3D</span>
+          <input id="buildingsToggle" type="checkbox" checked />
+        </label>
+        <label class="control-row">
+          <span>Terrain 3D</span>
+          <input id="terrainToggle" type="checkbox" checked />
+        </label>
+        <label class="control-row">
+          <span>Mod malam</span>
+          <input id="nightToggle" type="checkbox" />
+        </label>
+      </section>
+
+      <section>
+        <h2>Lokasi pilihan</h2>
+        <div class="location-buttons">
+          <button data-location="shah-alam">Shah Alam</button>
+          <button data-location="klang">Klang</button>
+          <button data-location="petaling-jaya">Petaling Jaya</button>
+          <button data-location="kajang">Kajang</button>
+        </div>
+      </section>
+
+      <section class="info-card">
+        <h2>Maklumat</h2>
+        <p>Klik mana-mana lokasi pada peta untuk melihat koordinat. Gunakan butang kanan peta untuk zum, putar dan kembali ke lokasi semasa.</p>
+      </section>
+    </aside>
+
+    <div id="map" aria-label="Peta 3D interaktif"></div>
+
+    <div class="map-status">
+      <span id="coordinates">Lat: 3.0738, Lng: 101.5183</span>
+      <button id="resetView">Paparan asal</button>
+    </div>
+  </main>
+
+  <div id="tokenModal" class="modal visible" role="dialog" aria-modal="true" aria-labelledby="tokenTitle">
+    <div class="modal-card">
+      <p class="eyebrow">TETAPAN PERTAMA</p>
+      <h2 id="tokenTitle">Masukkan Mapbox Access Token</h2>
+      <p>Dapatkan public token daripada akaun Mapbox, kemudian tampal di bawah. Token disimpan dalam pelayar ini sahaja.</p>
+      <input id="tokenInput" type="password" placeholder="pk.eyJ1Ijo..." />
+      <div class="modal-actions">
+        <button id="saveToken">Simpan & buka peta</button>
+      </div>
+      <small>Untuk penerbitan GitHub Pages, anda juga boleh meletakkan token terus dalam <code>app.js</code>.</small>
+    </div>
+  </div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
