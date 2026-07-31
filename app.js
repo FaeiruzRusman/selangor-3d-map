@@ -1,3 +1,5 @@
+
+// Demo layers removed in v1.6
 const MAPBOX_PUBLIC_TOKEN = "pk.eyJ1IjoiYXBhaTE5ODkiLCJhIjoiY21zODZ2Nzc4MDAzODJ5czk5eDFhOXFpZSJ9.bZ4OwmZqVZKRs_CX3f0tVA";
 
 const START_VIEW = {
@@ -30,7 +32,7 @@ let currentViewMode = "3d";
 const layerState = {
   urban: true,
   facility: true,
-  mobility: true,
+  
   cityHierarchy: true,
   terrain: true,
   buildings: true
@@ -776,9 +778,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   });
 
   document.getElementById("urbanLayerToggle").checked = toggleAllState;
-  document.getElementById("facilityLayerToggle").checked = toggleAllState;
-  document.getElementById("mobilityLayerToggle").checked = toggleAllState;
-  document.getElementById("cityHierarchyToggle").checked = toggleAllState;
+      document.getElementById("cityHierarchyToggle").checked = toggleAllState;
   document.getElementById("terrainToggle").checked = toggleAllState;
   document.getElementById("buildingToggle").checked = toggleAllState;
 
