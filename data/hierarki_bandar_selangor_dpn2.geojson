@@ -1,0 +1,488 @@
+{
+  "type": "FeatureCollection",
+  "name": "Hierarki_Bandar_Selangor_DPN2",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "metadata": {
+    "tajuk": "Hierarki Bandar Negeri Selangor - DPN2",
+    "format": "GeoJSON",
+    "sistem_koordinat": "WGS84 / CRS84 (longitude, latitude)",
+    "jenis_geometri": "Point",
+    "tujuan": "Paparan bandar dalam SUO 3D GeoPortal",
+    "nota": "Koordinat ialah titik pusat bandar secara representatif dan bukan sempadan bandar."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "id": 1,
+        "nama_bandar": "Shah Alam",
+        "hierarki": "Bandar Negeri",
+        "kod_hierarki": "BN",
+        "daerah": "Petaling",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Shah Alam",
+        "warna": "#E31A1C",
+        "saiz_simbol": 18,
+        "ketinggian_3d": 700,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.532,
+          3.0738
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "id": 2,
+        "nama_bandar": "Petaling Jaya",
+        "hierarki": "Bandar Utama",
+        "kod_hierarki": "BU",
+        "daerah": "Petaling",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Petaling Jaya",
+        "warna": "#FF8C00",
+        "saiz_simbol": 14,
+        "ketinggian_3d": 500,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.6444,
+          3.1073
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "properties": {
+        "id": 3,
+        "nama_bandar": "Subang Jaya",
+        "hierarki": "Bandar Utama",
+        "kod_hierarki": "BU",
+        "daerah": "Petaling",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Subang Jaya",
+        "warna": "#FF8C00",
+        "saiz_simbol": 14,
+        "ketinggian_3d": 500,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5851,
+          3.0567
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "properties": {
+        "id": 4,
+        "nama_bandar": "Klang",
+        "hierarki": "Bandar Utama",
+        "kod_hierarki": "BU",
+        "daerah": "Klang",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Klang",
+        "warna": "#FF8C00",
+        "saiz_simbol": 14,
+        "ketinggian_3d": 500,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.4496,
+          3.0449
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "properties": {
+        "id": 5,
+        "nama_bandar": "Kajang",
+        "hierarki": "Bandar Utama",
+        "kod_hierarki": "BU",
+        "daerah": "Hulu Langat",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Kajang",
+        "warna": "#FF8C00",
+        "saiz_simbol": 14,
+        "ketinggian_3d": 500,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.7909,
+          2.9935
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "properties": {
+        "id": 6,
+        "nama_bandar": "Ampang Jaya",
+        "hierarki": "Bandar Utama",
+        "kod_hierarki": "BU",
+        "daerah": "Gombak / Hulu Langat",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Ampang Jaya",
+        "warna": "#FF8C00",
+        "saiz_simbol": 14,
+        "ketinggian_3d": 500,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.7632,
+          3.1491
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "properties": {
+        "id": 7,
+        "nama_bandar": "Selayang",
+        "hierarki": "Bandar Utama",
+        "kod_hierarki": "BU",
+        "daerah": "Gombak",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Selayang",
+        "warna": "#FF8C00",
+        "saiz_simbol": 14,
+        "ketinggian_3d": 500,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.6538,
+          3.2543
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "properties": {
+        "id": 8,
+        "nama_bandar": "Puchong",
+        "hierarki": "Bandar Utama",
+        "kod_hierarki": "BU",
+        "daerah": "Petaling",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Puchong",
+        "warna": "#FF8C00",
+        "saiz_simbol": 14,
+        "ketinggian_3d": 500,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.6168,
+          3.0327
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "properties": {
+        "id": 9,
+        "nama_bandar": "Cyberjaya",
+        "hierarki": "Bandar Utama",
+        "kod_hierarki": "BU",
+        "daerah": "Sepang",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Cyberjaya",
+        "warna": "#FF8C00",
+        "saiz_simbol": 14,
+        "ketinggian_3d": 500,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.6482,
+          2.9213
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "properties": {
+        "id": 10,
+        "nama_bandar": "Rawang",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Gombak",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Rawang",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5767,
+          3.3213
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "properties": {
+        "id": 11,
+        "nama_bandar": "Semenyih",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Hulu Langat",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Semenyih",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.8432,
+          2.9511
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "properties": {
+        "id": 12,
+        "nama_bandar": "Banting",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Kuala Langat",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Banting",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5037,
+          2.8136
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "properties": {
+        "id": 13,
+        "nama_bandar": "Sepang",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Sepang",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Sepang",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.7495,
+          2.6931
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "properties": {
+        "id": 14,
+        "nama_bandar": "Kuala Selangor",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Kuala Selangor",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Kuala Selangor",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.2524,
+          3.3377
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "properties": {
+        "id": 15,
+        "nama_bandar": "Tanjong Karang",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Kuala Selangor",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Tanjong Karang",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.1701,
+          3.4244
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "properties": {
+        "id": 16,
+        "nama_bandar": "Kuala Kubu Bharu",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Hulu Selangor",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Kuala Kubu Bharu",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.656,
+          3.5652
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 17,
+      "properties": {
+        "id": 17,
+        "nama_bandar": "Sabak Bernam",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Sabak Bernam",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Sabak Bernam",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9879,
+          3.7697
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 18,
+      "properties": {
+        "id": 18,
+        "nama_bandar": "Sungai Besar",
+        "hierarki": "Bandar Tempatan",
+        "kod_hierarki": "BT",
+        "daerah": "Sabak Bernam",
+        "negeri": "Selangor",
+        "dasar": "Dasar Perbandaran Negara Kedua (DPN2)",
+        "tahun_dasar": 2016,
+        "label": "Sungai Besar",
+        "warna": "#2CA25F",
+        "saiz_simbol": 10,
+        "ketinggian_3d": 300,
+        "status_data": "Titik pusat bandar untuk visualisasi geoportal; semak silang dengan lampiran/peta rasmi DPN2 sebelum penggunaan statutori."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9867,
+          3.6746
+        ]
+      }
+    }
+  ]
+}
