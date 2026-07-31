@@ -12,12 +12,14 @@ Prototaip **Selangor Urban Observatory 3D GeoPortal** menggunakan Mapbox GL JS d
 - Layer GIS GeoJSON
 - Feature popup dan panel maklumat
 - KPI dashboard
-- Fly-through Selangor
+- Fly-through Selangor dengan orientasi utara
 - Ukuran jarak
 - Geolokasi
 - Mod malam
 - AI ChatGIS asas berasaskan arahan
 - Paparan responsif desktop dan telefon
+- Orientasi peta dikunci ke utara
+- 17 lokasi bandar dan pekan utama Selangor
 
 ## Struktur
 

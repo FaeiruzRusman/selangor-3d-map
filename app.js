@@ -4,16 +4,27 @@ const START_VIEW = {
   center: [101.5183, 3.0738],
   zoom: 12.6,
   pitch: 58,
-  bearing: -18
+  bearing: 0
 };
 
 const locations = {
-  "shah-alam": { center: [101.5183, 3.0738], zoom: 14.8, pitch: 66, bearing: -18 },
-  "klang": { center: [101.4496, 3.0449], zoom: 14.4, pitch: 62, bearing: -12 },
-  "petaling-jaya": { center: [101.6444, 3.1073], zoom: 14.6, pitch: 64, bearing: -20 },
-  "kajang": { center: [101.7882, 2.9935], zoom: 14.2, pitch: 62, bearing: -16 },
-  "kwasa": { center: [101.5721, 3.1658], zoom: 15.4, pitch: 68, bearing: -24 },
-  "sepang": { center: [101.7100, 2.6914], zoom: 13.5, pitch: 58, bearing: -12 }
+  "shah-alam": { center: [101.5183, 3.0738], zoom: 14.8, pitch: 66, bearing: 0 },
+  "klang": { center: [101.4496, 3.0449], zoom: 14.4, pitch: 62, bearing: 0 },
+  "petaling-jaya": { center: [101.6444, 3.1073], zoom: 14.6, pitch: 64, bearing: 0 },
+  "subang-jaya": { center: [101.5851, 3.0567], zoom: 14.5, pitch: 64, bearing: 0 },
+  "puchong": { center: [101.6168, 3.0327], zoom: 14.3, pitch: 62, bearing: 0 },
+  "kajang": { center: [101.7882, 2.9935], zoom: 14.2, pitch: 62, bearing: 0 },
+  "bangi": { center: [101.7735, 2.9213], zoom: 14.2, pitch: 62, bearing: 0 },
+  "ampang": { center: [101.7600, 3.1502], zoom: 14.3, pitch: 62, bearing: 0 },
+  "selayang": { center: [101.6543, 3.2530], zoom: 14.2, pitch: 62, bearing: 0 },
+  "rawang": { center: [101.5767, 3.3213], zoom: 14.1, pitch: 60, bearing: 0 },
+  "kwasa": { center: [101.5721, 3.1658], zoom: 15.4, pitch: 68, bearing: 0 },
+  "cyberjaya": { center: [101.6440, 2.9213], zoom: 14.3, pitch: 62, bearing: 0 },
+  "sepang": { center: [101.7100, 2.6914], zoom: 13.5, pitch: 58, bearing: 0 },
+  "kuala-selangor": { center: [101.2549, 3.3377], zoom: 13.9, pitch: 58, bearing: 0 },
+  "tanjong-karang": { center: [101.1711, 3.4245], zoom: 13.8, pitch: 56, bearing: 0 },
+  "sabak-bernam": { center: [100.9879, 3.7698], zoom: 13.7, pitch: 56, bearing: 0 },
+  "kuala-kubu-bharu": { center: [101.6554, 3.5647], zoom: 13.9, pitch: 60, bearing: 0 }
 };
 
 const basemapStyles = {
@@ -51,12 +62,18 @@ function initialiseMap() {
     center: START_VIEW.center,
     zoom: START_VIEW.zoom,
     pitch: START_VIEW.pitch,
-    bearing: START_VIEW.bearing,
-    antialias: true
+    bearing: 0,
+    antialias: true,
+    dragRotate: false,
+    touchPitch: true,
+    bearingSnap: 360
   });
 
   map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "top-right");
   map.addControl(new mapboxgl.ScaleControl({ unit: "metric" }), "bottom-right");
+
+  // Kunci orientasi peta supaya utara sentiasa di bahagian atas.
+  map.touchZoomRotate.disableRotation();
 
   map.on("load", () => {
     addOperationalLayers();
@@ -86,6 +103,10 @@ function initialiseMap() {
 
   map.on("mouseleave", "facility-points", () => {
     map.getCanvas().style.cursor = "";
+  });
+
+  map.on("rotate", () => {
+    if (Math.abs(map.getBearing()) > 0.01) map.setBearing(0);
   });
 
   map.on("error", (event) => {
@@ -387,8 +408,8 @@ function flyToLocation(key) {
 async function runFlythrough() {
   const sequence = [
     { center: [101.5183, 3.0738], zoom: 10.5, pitch: 35, bearing: 0, duration: 2200 },
-    { center: [101.5183, 3.0738], zoom: 13.8, pitch: 58, bearing: -20, duration: 2400 },
-    { center: [101.5721, 3.1658], zoom: 15.5, pitch: 68, bearing: 25, duration: 2600 }
+    { center: [101.5183, 3.0738], zoom: 13.8, pitch: 58, bearing: 0, duration: 2400 },
+    { center: [101.5721, 3.1658], zoom: 15.5, pitch: 68, bearing: 0, duration: 2600 }
   ];
 
   for (const step of sequence) {
@@ -443,7 +464,7 @@ document.getElementById("searchForm").addEventListener("submit", async (event) =
           center: coordinates,
           zoom: 16,
           pitch: 65,
-          bearing: -18,
+          bearing: 0,
           duration: 1800
         });
 
@@ -602,15 +623,31 @@ document.getElementById("chatForm").addEventListener("submit", (event) => {
   const normalized = command.toLowerCase();
   let response = "Arahan belum dikenali. Cuba “zoom Shah Alam”, “papar sekolah”, “terrain tutup” atau “mod malam”.";
 
-  if (normalized.includes("shah alam")) {
-    flyToLocation("shah-alam");
-    response = "Peta dizum ke Shah Alam.";
-  } else if (normalized.includes("klang")) {
-    flyToLocation("klang");
-    response = "Peta dizum ke Klang.";
-  } else if (normalized.includes("kwasa")) {
-    flyToLocation("kwasa");
-    response = "Peta dizum ke Kwasa Damansara.";
+  const cityCommands = {
+    "shah alam": ["shah-alam", "Shah Alam"],
+    "petaling jaya": ["petaling-jaya", "Petaling Jaya"],
+    "subang jaya": ["subang-jaya", "Subang Jaya"],
+    "puchong": ["puchong", "Puchong"],
+    "kajang": ["kajang", "Kajang"],
+    "bangi": ["bangi", "Bangi"],
+    "ampang": ["ampang", "Ampang"],
+    "selayang": ["selayang", "Selayang"],
+    "rawang": ["rawang", "Rawang"],
+    "kwasa": ["kwasa", "Kwasa Damansara"],
+    "cyberjaya": ["cyberjaya", "Cyberjaya"],
+    "sepang": ["sepang", "Sepang"],
+    "kuala selangor": ["kuala-selangor", "Kuala Selangor"],
+    "tanjong karang": ["tanjong-karang", "Tanjong Karang"],
+    "sabak bernam": ["sabak-bernam", "Sabak Bernam"],
+    "kuala kubu bharu": ["kuala-kubu-bharu", "Kuala Kubu Bharu"],
+    "klang": ["klang", "Klang"]
+  };
+  const matchedCity = Object.keys(cityCommands).find((name) => normalized.includes(name));
+
+  if (matchedCity) {
+    const [key, label] = cityCommands[matchedCity];
+    flyToLocation(key);
+    response = `Peta dizum ke ${label} dengan orientasi utara.`;
   } else if (normalized.includes("sekolah") || normalized.includes("kemudahan")) {
     layerState.facility = true;
     document.getElementById("facilityLayerToggle").checked = true;
