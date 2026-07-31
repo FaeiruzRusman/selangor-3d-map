@@ -801,3 +801,73 @@ select:focus-visible {
 .empty-state code {
   color: var(--accent-2);
 }
+
+
+.view-mode-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 11px;
+  background: rgba(7,17,31,0.8);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+}
+
+.view-mode-control > span {
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.view-mode-buttons {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #0e1d31;
+}
+
+.view-mode-buttons button {
+  min-width: 48px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.72rem;
+  font-weight: 900;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.view-mode-buttons button:hover {
+  color: var(--text);
+}
+
+.view-mode-buttons button.active {
+  color: #171100;
+  background: var(--accent);
+  box-shadow: 0 5px 14px rgba(247,181,0,0.22);
+}
+
+.map-top-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .map-top-tools {
+    right: 12px;
+  }
+
+  .basemap-control,
+  .view-mode-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

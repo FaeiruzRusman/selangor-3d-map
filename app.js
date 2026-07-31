@@ -25,6 +25,7 @@ let measurePoints = [];
 let measureMarkers = [];
 let nightMode = false;
 let toggleAllState = true;
+let currentViewMode = "3d";
 
 const layerState = {
   urban: true,
@@ -121,6 +122,66 @@ async function loadUrbanHierarchy() {
   }
 }
 
+
+function setViewMode(mode, options = {}) {
+  if (!map) return;
+
+  const animate = options.animate !== false;
+  const duration = animate ? 1100 : 0;
+  const view2DBtn = document.getElementById("view2DBtn");
+  const view3DBtn = document.getElementById("view3DBtn");
+
+  currentViewMode = mode === "2d" ? "2d" : "3d";
+
+  if (currentViewMode === "2d") {
+    map.easeTo({
+      pitch: 0,
+      bearing: 0,
+      duration,
+      essential: true
+    });
+
+    map.setTerrain(null);
+
+    try {
+      map.setConfigProperty("basemap", "show3dObjects", false);
+    } catch (error) {
+      console.warn("Tetapan objek 3D tidak tersedia pada basemap semasa.");
+    }
+
+    view2DBtn?.classList.add("active");
+    view3DBtn?.classList.remove("active");
+    view2DBtn?.setAttribute("aria-pressed", "true");
+    view3DBtn?.setAttribute("aria-pressed", "false");
+  } else {
+    map.easeTo({
+      pitch: 60,
+      bearing: 0,
+      duration,
+      essential: true
+    });
+
+    if (layerState.terrain) {
+      enableTerrain();
+    }
+
+    try {
+      map.setConfigProperty(
+        "basemap",
+        "show3dObjects",
+        layerState.buildings
+      );
+    } catch (error) {
+      console.warn("Tetapan objek 3D tidak tersedia pada basemap semasa.");
+    }
+
+    view3DBtn?.classList.add("active");
+    view2DBtn?.classList.remove("active");
+    view3DBtn?.setAttribute("aria-pressed", "true");
+    view2DBtn?.setAttribute("aria-pressed", "false");
+  }
+}
+
 function initialiseMap() {
   mapboxgl.accessToken = MAPBOX_PUBLIC_TOKEN;
 
@@ -146,12 +207,16 @@ function initialiseMap() {
   map.on("load", () => {
     addOperationalLayers();
     updateLayerCount();
+    setViewMode("3d", { animate: false });
     document.getElementById("loadingScreen").classList.add("hidden");
   });
 
   map.on("style.load", () => {
     configureCurrentStyle();
     addOperationalLayers();
+    setTimeout(() => {
+      setViewMode(currentViewMode, { animate: false });
+    }, 0);
   });
 
   map.on("mousemove", (event) => {
@@ -574,13 +639,29 @@ document.getElementById("mobilityLayerToggle").addEventListener("change", (event
 
 document.getElementById("terrainToggle").addEventListener("change", (event) => {
   layerState.terrain = event.target.checked;
-  applyLayerVisibility();
+
+  if (currentViewMode === "3d") {
+    applyLayerVisibility();
+  } else {
+    map.setTerrain(null);
+  }
+
   updateLayerCount();
 });
 
 document.getElementById("buildingToggle").addEventListener("change", (event) => {
   layerState.buildings = event.target.checked;
-  applyLayerVisibility();
+
+  if (currentViewMode === "3d") {
+    applyLayerVisibility();
+  } else {
+    try {
+      map.setConfigProperty("basemap", "show3dObjects", false);
+    } catch (error) {
+      console.warn("Tetapan objek 3D tidak tersedia pada basemap semasa.");
+    }
+  }
+
   updateLayerCount();
 });
 
@@ -599,6 +680,14 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
 
   applyLayerVisibility();
   updateLayerCount();
+});
+
+document.getElementById("view2DBtn").addEventListener("click", () => {
+  setViewMode("2d");
+});
+
+document.getElementById("view3DBtn").addEventListener("click", () => {
+  setViewMode("3d");
 });
 
 document.getElementById("basemapSelect").addEventListener("change", (event) => {
@@ -655,7 +744,12 @@ document.getElementById("nightBtn").addEventListener("click", () => {
 });
 
 document.getElementById("resetBtn").addEventListener("click", () => {
-  map.flyTo({ ...START_VIEW, duration: 1800 });
+  map.flyTo({
+    ...START_VIEW,
+    pitch: currentViewMode === "2d" ? 0 : START_VIEW.pitch,
+    bearing: 0,
+    duration: 1800
+  });
 });
 
 document.getElementById("flyBtn").addEventListener("click", runFlythrough);
@@ -701,6 +795,12 @@ document.getElementById("chatForm").addEventListener("submit", (event) => {
     applyLayerVisibility();
     updateLayerCount();
     response = "Layer kemudahan awam telah dipaparkan.";
+  } else if (normalized.includes("paparan 2d") || normalized === "2d" || normalized.includes("mod 2d")) {
+    setViewMode("2d");
+    response = "Paparan 2D telah diaktifkan.";
+  } else if (normalized.includes("paparan 3d") || normalized === "3d" || normalized.includes("mod 3d")) {
+    setViewMode("3d");
+    response = "Paparan 3D telah diaktifkan.";
   } else if (normalized.includes("terrain") && (normalized.includes("tutup") || normalized.includes("off"))) {
     layerState.terrain = false;
     document.getElementById("terrainToggle").checked = false;

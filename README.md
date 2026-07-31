@@ -1,4 +1,4 @@
-# SUO 3D GeoPortal v1.2 — DPN3 Ready
+# SUO 3D GeoPortal v1.3 — DPN3 Ready + 2D/3D
 
 Versi ini menukar modul lokasi bandar kepada **Urban Explorer berasaskan konfigurasi**.
 
@@ -66,3 +66,22 @@ Settings → Pages → Deploy from a branch → main → /root
 ## Nota
 
 Apabila dokumen rasmi DPN3 dan senarai bandar Selangor diperoleh, hanya `config/urban-hierarchy.json` perlu dikemas kini. `app.js`, Urban Explorer, KPI bandar dan arahan ChatGIS akan berubah secara automatik.
+
+
+## Pilihan paparan 2D dan 3D
+
+Portal menyediakan dua mod paparan:
+
+- **3D** — mod default, pitch 60°, terrain dan objek bangunan 3D mengikut tetapan layer.
+- **2D** — pitch 0°, bearing utara, terrain dimatikan dan objek bangunan 3D disembunyikan.
+
+Butang pilihan berada di bahagian atas peta bersebelahan pemilih basemap.
+
+Arahan ChatGIS yang turut disokong:
+
+```text
+paparan 2D
+paparan 3D
+mod 2D
+mod 3D
+```
