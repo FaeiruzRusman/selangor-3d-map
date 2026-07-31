@@ -1,0 +1,101 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kompleks Kerajaan Negeri Selangor",
+        "category": "Kemudahan Kerajaan",
+        "pbt": "MBSA",
+        "status": "Aktif"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5157,
+          3.0733
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hospital Shah Alam",
+        "category": "Hospital",
+        "pbt": "MBSA",
+        "status": "Aktif"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5481,
+          3.0874
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stesen KTM Shah Alam",
+        "category": "Transit",
+        "pbt": "MBSA",
+        "status": "Aktif"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5266,
+          3.0562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sekolah Menengah Seksyen 7",
+        "category": "Sekolah",
+        "pbt": "MBSA",
+        "status": "Aktif"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.4898,
+          3.0744
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Stesen MRT Kwasa Sentral",
+        "category": "Transit",
+        "pbt": "MBPJ",
+        "status": "Aktif"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5689,
+          3.1687
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hospital Tengku Ampuan Rahimah",
+        "category": "Hospital",
+        "pbt": "MPK",
+        "status": "Aktif"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.4456,
+          3.0429
+        ]
+      }
+    }
+  ]
+}

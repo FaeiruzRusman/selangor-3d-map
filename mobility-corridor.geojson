@@ -1,0 +1,37 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Koridor Shah Alam - Petaling Jaya",
+        "status": "Demo"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            101.5157,
+            3.0733
+          ],
+          [
+            101.548,
+            3.082
+          ],
+          [
+            101.585,
+            3.095
+          ],
+          [
+            101.62,
+            3.105
+          ],
+          [
+            101.6444,
+            3.1073
+          ]
+        ]
+      }
+    }
+  ]
+}

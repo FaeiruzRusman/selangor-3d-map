@@ -1,0 +1,48 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kawasan Tumpuan Bandar Shah Alam",
+        "type": "Urban Focus Area",
+        "note": "Poligon demonstrasi untuk SUO 3D GeoPortal v1.0"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.491,
+              3.094
+            ],
+            [
+              101.548,
+              3.094
+            ],
+            [
+              101.558,
+              3.063
+            ],
+            [
+              101.542,
+              3.041
+            ],
+            [
+              101.498,
+              3.044
+            ],
+            [
+              101.484,
+              3.067
+            ],
+            [
+              101.491,
+              3.094
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
