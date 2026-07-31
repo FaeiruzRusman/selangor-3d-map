@@ -1,102 +1,41 @@
-# SUO 3D GeoPortal v1.4 — DPN2 Reference Layer
+# SUO 3D GeoPortal v1.5 — DPN2 Urban Explorer
 
-Versi ini menukar modul lokasi bandar kepada **Urban Explorer berasaskan konfigurasi**.
-
-## Prinsip utama
-
-- Hanya bandar yang disahkan dalam **Dasar Perbandaran Negara Ketiga (DPN3)** boleh dimasukkan.
-- Tiada bandar andaian atau senarai DPN2 dimasukkan sebagai ganti.
-- Orientasi peta sentiasa menghadap utara (`bearing: 0`).
-- Bandar, hierarki, koordinat dan tahap zoom dibaca daripada:
-
-```text
-config/urban-hierarchy.json
-```
-
-## Status semasa
-
-Fail konfigurasi bandar sengaja dikosongkan kerana senarai bandar rasmi DPN3 belum dimasukkan ke dalam projek ini. Portal akan memaparkan notis dan tidak menghasilkan butang bandar palsu.
-
-## Format konfigurasi selepas senarai rasmi diperoleh
-
-```json
-{
-  "metadata": {
-    "title": "Hierarki Bandar Selangor - DPN3",
-    "policy": "Dasar Perbandaran Negara Ketiga (DPN3)",
-    "status": "official",
-    "official_only": true
-  },
-  "groups": [
-    {
-      "name": "Nama hierarki rasmi DPN3",
-      "cities": [
-        {
-          "key": "nama-bandar",
-          "name": "Nama Bandar",
-          "center": [101.0000, 3.0000],
-          "zoom": 14,
-          "pitch": 62,
-          "aliases": ["nama alternatif"]
-        }
-      ]
-    }
-  ]
-}
-```
-
-## Fail utama
-
-```text
-index.html
-styles.css
-app.js
-config/urban-hierarchy.json
-data/
-```
-
-## GitHub Pages
-
-Upload semua fail dan folder, kemudian aktifkan:
-
-```text
-Settings → Pages → Deploy from a branch → main → /root
-```
-
-## Nota
-
-Apabila dokumen rasmi DPN3 dan senarai bandar Selangor diperoleh, hanya `config/urban-hierarchy.json` perlu dikemas kini. `app.js`, Urban Explorer, KPI bandar dan arahan ChatGIS akan berubah secara automatik.
-
-
-## Pilihan paparan 2D dan 3D
-
-Portal menyediakan dua mod paparan:
-
-- **3D** — mod default, pitch 60°, terrain dan objek bangunan 3D mengikut tetapan layer.
-- **2D** — pitch 0°, bearing utara, terrain dimatikan dan objek bangunan 3D disembunyikan.
-
-Butang pilihan berada di bahagian atas peta bersebelahan pemilih basemap.
-
-Arahan ChatGIS yang turut disokong:
-
-```text
-paparan 2D
-paparan 3D
-mod 2D
-mod 3D
-```
-
-
-## Layer Hierarki Bandar DPN2
-
-Fail dimasukkan:
+Versi ini menggunakan senarai bandar dan hierarki terus daripada fail:
 
 ```text
 data/hierarki_bandar_selangor_dpn2.geojson
 ```
 
-- Jumlah bandar: 18
-- Simbol dan label mengikut hierarki
-- Popup maklumat bandar
-- Boleh dihidupkan/dimatikan melalui panel layer
-- Dikekalkan sebagai layer rujukan DPN2, bukan Urban Explorer DPN3
+## Urban Explorer
+
+Urban Explorer kini memaparkan bandar mengikut hierarki DPN2 yang terdapat dalam fail GeoJSON:
+
+- Bandar Negeri: 1 bandar
+- Bandar Utama: 8 bandar
+- Bandar Tempatan: 9 bandar
+
+Jumlah keseluruhan: **18 bandar**
+
+Setiap butang bandar akan:
+
+- Fly ke lokasi bandar
+- Kekal menghadap utara (`bearing: 0`)
+- Menggunakan pitch 3D apabila mod 3D aktif
+- Boleh dipanggil melalui ChatGIS menggunakan nama bandar
+
+## Fail konfigurasi
+
+```text
+config/urban-hierarchy.json
+```
+
+Fail ini telah dijana daripada data DPN2 dan kini menjadi sumber kepada:
+
+- Urban Explorer
+- Butang pilihan bandar
+- Jumlah bandar dalam KPI
+- Arahan bandar dalam ChatGIS
+
+## Nota
+
+Wording DPN3 telah ditukar kepada DPN2 dalam Urban Explorer kerana data sumber yang digunakan ialah layer DPN2 yang dibekalkan.

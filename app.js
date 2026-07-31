@@ -107,12 +107,12 @@ async function loadUrbanHierarchy() {
     if (total === 0) {
       statusEl.className = "policy-status warning";
       statusEl.textContent =
-        "Senarai bandar rasmi DPN3 belum dimasukkan. Tiada bandar andaian dipaparkan.";
+        "Senarai bandar DPN2 belum tersedia dalam konfigurasi.";
       explorerEl.innerHTML =
-        '<p class="empty-state">Kemaskini <code>config/urban-hierarchy.json</code> selepas senarai rasmi DPN3 diterbitkan.</p>';
+        '<p class="empty-state">Semak <code>config/urban-hierarchy.json</code> dan fail layer DPN2.</p>';
     } else {
       statusEl.className = "policy-status ready";
-      statusEl.textContent = `${total} bandar rasmi DPN3 dimuatkan.`;
+      statusEl.textContent = `${total} bandar DPN2 dimuatkan mengikut hierarki.`;
     }
   } catch (error) {
     console.error("Urban hierarchy config error:", error);
@@ -885,7 +885,7 @@ document.getElementById("chatForm").addEventListener("submit", (event) => {
   input.value = "";
 
   const normalized = command.toLowerCase();
-  let response = "Arahan belum dikenali. Cuba “papar sekolah”, “terrain tutup” atau “mod malam”.";
+  let response = "Arahan belum dikenali. Cuba nama bandar DPN2, “papar sekolah”, “terrain tutup” atau “mod malam”.";
 
   const matchedCity = Object.keys(cityCommands).find((name) => normalized.includes(name));
 
