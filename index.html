@@ -3,86 +3,252 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portal pemetaan 3D interaktif menggunakan Mapbox GL JS dan GitHub Pages." />
-  <title>Selangor 3D GeoPortal</title>
+  <meta name="description" content="SUO 3D GeoPortal v1.0 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO 3D GeoPortal v1.0</title>
 
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="topbar">
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loader-ring"></div>
     <div>
-      <p class="eyebrow">MAPBOX 3D WEB GIS</p>
-      <h1>Selangor 3D GeoPortal</h1>
-    </div>
-    <button id="menuBtn" class="icon-btn" aria-label="Buka atau tutup panel">☰</button>
-  </header>
-
-  <main>
-    <aside id="sidebar" class="sidebar">
-      <section>
-        <h2>Carian lokasi</h2>
-        <form id="searchForm" class="search-box">
-          <input id="searchInput" type="search" placeholder="Contoh: Shah Alam" autocomplete="off" />
-          <button type="submit">Cari</button>
-        </form>
-        <div id="searchResults" class="results" aria-live="polite"></div>
-      </section>
-
-      <section>
-        <h2>Paparan peta</h2>
-        <label class="control-row">
-          <span>Bangunan 3D</span>
-          <input id="buildingsToggle" type="checkbox" checked />
-        </label>
-        <label class="control-row">
-          <span>Terrain 3D</span>
-          <input id="terrainToggle" type="checkbox" checked />
-        </label>
-        <label class="control-row">
-          <span>Mod malam</span>
-          <input id="nightToggle" type="checkbox" />
-        </label>
-      </section>
-
-      <section>
-        <h2>Lokasi pilihan</h2>
-        <div class="location-buttons">
-          <button data-location="shah-alam">Shah Alam</button>
-          <button data-location="klang">Klang</button>
-          <button data-location="petaling-jaya">Petaling Jaya</button>
-          <button data-location="kajang">Kajang</button>
-        </div>
-      </section>
-
-      <section class="info-card">
-        <h2>Maklumat</h2>
-        <p>Klik mana-mana lokasi pada peta untuk melihat koordinat. Gunakan butang kanan peta untuk zum, putar dan kembali ke lokasi semasa.</p>
-      </section>
-    </aside>
-
-    <div id="map" aria-label="Peta 3D interaktif"></div>
-
-    <div class="map-status">
-      <span id="coordinates">Lat: 3.0738, Lng: 101.5183</span>
-      <button id="resetView">Paparan asal</button>
-    </div>
-  </main>
-
-  <div id="tokenModal" class="modal visible" role="dialog" aria-modal="true" aria-labelledby="tokenTitle">
-    <div class="modal-card">
-      <p class="eyebrow">TETAPAN PERTAMA</p>
-      <h2 id="tokenTitle">Masukkan Mapbox Access Token</h2>
-      <p>Dapatkan public token daripada akaun Mapbox, kemudian tampal di bawah. Token disimpan dalam pelayar ini sahaja.</p>
-      <input id="tokenInput" type="password" placeholder="pk.eyJ1Ijo..." />
-      <div class="modal-actions">
-        <button id="saveToken">Simpan & buka peta</button>
-      </div>
-      <small>Untuk penerbitan GitHub Pages, anda juga boleh meletakkan token terus dalam <code>app.js</code>.</small>
+      <p class="loading-kicker">SELANGOR URBAN OBSERVATORY</p>
+      <h1>SUO 3D GeoPortal</h1>
+      <p>Memuatkan data spatial dan persekitaran 3D...</p>
     </div>
   </div>
 
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.js"></script>
+  <header class="app-header">
+    <div class="brand-wrap">
+      <button id="mobileMenuBtn" class="icon-btn mobile-only" type="button" aria-label="Buka menu">☰</button>
+      <div class="brand-mark">SUO</div>
+      <div>
+        <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
+        <h1>3D GeoPortal <span>v1.0</span></h1>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button id="flyBtn" class="header-btn" type="button">▶ Fly Selangor</button>
+      <button id="resetBtn" class="header-btn secondary" type="button">⟳ Reset</button>
+      <button id="fullscreenBtn" class="header-btn secondary" type="button">⛶ Fullscreen</button>
+    </div>
+  </header>
+
+  <div class="workspace">
+    <aside id="leftSidebar" class="sidebar left-sidebar">
+      <section class="panel search-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-label">NAVIGASI</p>
+            <h2>Carian lokasi</h2>
+          </div>
+        </div>
+
+        <form id="searchForm" class="search-form">
+          <input id="searchInput" type="search" placeholder="Cari lokasi di Malaysia..." autocomplete="off" />
+          <button type="submit">Cari</button>
+        </form>
+        <div id="searchResults" class="search-results"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-label">LAYER GIS</p>
+            <h2>Kandungan peta</h2>
+          </div>
+          <button id="toggleAllLayers" class="mini-btn" type="button">Semua</button>
+        </div>
+
+        <div class="layer-list">
+          <label class="layer-item">
+            <span class="legend-symbol polygon-orange"></span>
+            <span class="layer-copy">
+              <strong>Kawasan Tumpuan Bandar</strong>
+              <small>Poligon demo Shah Alam</small>
+            </span>
+            <input id="urbanLayerToggle" type="checkbox" checked />
+          </label>
+
+          <label class="layer-item">
+            <span class="legend-symbol point-blue"></span>
+            <span class="layer-copy">
+              <strong>Kemudahan Awam</strong>
+              <small>Sekolah, hospital dan transit</small>
+            </span>
+            <input id="facilityLayerToggle" type="checkbox" checked />
+          </label>
+
+          <label class="layer-item">
+            <span class="legend-symbol line-cyan"></span>
+            <span class="layer-copy">
+              <strong>Koridor Mobiliti</strong>
+              <small>Laluan demonstrasi</small>
+            </span>
+            <input id="mobilityLayerToggle" type="checkbox" checked />
+          </label>
+
+          <label class="layer-item">
+            <span class="legend-symbol terrain-symbol"></span>
+            <span class="layer-copy">
+              <strong>Terrain 3D</strong>
+              <small>Bentuk muka bumi</small>
+            </span>
+            <input id="terrainToggle" type="checkbox" checked />
+          </label>
+
+          <label class="layer-item">
+            <span class="legend-symbol building-symbol"></span>
+            <span class="layer-copy">
+              <strong>Bangunan 3D</strong>
+              <small>Objek 3D Mapbox Standard</small>
+            </span>
+            <input id="buildingToggle" type="checkbox" checked />
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <p class="section-label">LOKASI PANTAS</p>
+        <h2>Fokus bandar</h2>
+        <div class="quick-grid">
+          <button type="button" data-location="shah-alam">Shah Alam</button>
+          <button type="button" data-location="klang">Klang</button>
+          <button type="button" data-location="petaling-jaya">Petaling Jaya</button>
+          <button type="button" data-location="kajang">Kajang</button>
+          <button type="button" data-location="kwasa">Kwasa Damansara</button>
+          <button type="button" data-location="sepang">Sepang</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <p class="section-label">TOOLS</p>
+        <h2>Analisis pantas</h2>
+        <div class="tool-grid">
+          <button id="measureBtn" type="button">↔ Ukur Jarak</button>
+          <button id="clearMeasureBtn" type="button">✕ Padam Ukuran</button>
+          <button id="locateBtn" type="button">◎ Lokasi Saya</button>
+          <button id="nightBtn" type="button">◐ Mod Malam</button>
+        </div>
+      </section>
+    </aside>
+
+    <main class="map-shell">
+      <div id="map"></div>
+
+      <div class="map-top-tools">
+        <div class="basemap-control">
+          <span>Basemap</span>
+          <select id="basemapSelect">
+            <option value="standard">Standard</option>
+            <option value="satellite">Satellite</option>
+            <option value="streets">Streets</option>
+            <option value="outdoors">Outdoors</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="map-status">
+        <div>
+          <span class="status-dot"></span>
+          <strong>Sistem Aktif</strong>
+        </div>
+        <span id="zoomStatus">Zoom: --</span>
+        <span id="coordinateStatus">Lat: --, Lng: --</span>
+      </div>
+
+      <button id="rightPanelToggle" class="right-panel-toggle mobile-only" type="button">KPI</button>
+    </main>
+
+    <aside id="rightSidebar" class="sidebar right-sidebar">
+      <section class="panel hero-panel">
+        <div>
+          <p class="section-label">URBAN INTELLIGENCE</p>
+          <h2>Ringkasan Negeri</h2>
+          <p class="muted">Paparan indikator demonstrasi untuk prototaip SUO.</p>
+        </div>
+        <div class="live-pill">LIVE DEMO</div>
+      </section>
+
+      <section class="kpi-grid">
+        <article class="kpi-card">
+          <span>PBT</span>
+          <strong>12</strong>
+          <small>Seluruh Selangor</small>
+        </article>
+        <article class="kpi-card">
+          <span>Layer Aktif</span>
+          <strong id="activeLayerCount">5</strong>
+          <small>Spatial layers</small>
+        </article>
+        <article class="kpi-card">
+          <span>Lokasi Fokus</span>
+          <strong>6</strong>
+          <small>Bandar utama</small>
+        </article>
+        <article class="kpi-card">
+          <span>Status Sistem</span>
+          <strong class="online-text">ONLINE</strong>
+          <small>GitHub Pages</small>
+        </article>
+      </section>
+
+      <section class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-label">LAND USE</p>
+            <h2>Komposisi demonstrasi</h2>
+          </div>
+        </div>
+
+        <div class="donut-wrap">
+          <div class="donut-chart">
+            <div class="donut-hole">
+              <strong>100%</strong>
+              <span>Jumlah</span>
+            </div>
+          </div>
+          <div class="chart-legend">
+            <div><span class="legend-dot residential"></span>Perumahan <strong>42%</strong></div>
+            <div><span class="legend-dot commercial"></span>Komersial <strong>16%</strong></div>
+            <div><span class="legend-dot industrial"></span>Industri <strong>18%</strong></div>
+            <div><span class="legend-dot green"></span>Hijau <strong>24%</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-label">AI CHATGIS</p>
+            <h2>Tanya peta</h2>
+          </div>
+        </div>
+
+        <div id="chatMessages" class="chat-messages">
+          <div class="chat-bubble bot">Taip arahan seperti “zoom Shah Alam”, “papar sekolah” atau “mod malam”.</div>
+        </div>
+
+        <form id="chatForm" class="chat-form">
+          <input id="chatInput" type="text" placeholder="Tanya peta..." autocomplete="off" />
+          <button type="submit">Hantar</button>
+        </form>
+      </section>
+
+      <section class="panel info-panel">
+        <p class="section-label">FEATURE INFO</p>
+        <h2>Maklumat pilihan</h2>
+        <div id="featureInfo" class="feature-info">
+          Klik mana-mana kemudahan atau kawasan pada peta untuk melihat maklumat.
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
