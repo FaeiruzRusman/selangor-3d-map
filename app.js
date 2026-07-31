@@ -31,6 +31,7 @@ const layerState = {
   urban: true,
   facility: true,
   mobility: true,
+  cityHierarchy: true,
   terrain: true,
   buildings: true
 };
@@ -238,6 +239,14 @@ function initialiseMap() {
     map.getCanvas().style.cursor = "";
   });
 
+  map.on("mouseenter", "city-hierarchy-dpn2-circle", () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+
+  map.on("mouseleave", "city-hierarchy-dpn2-circle", () => {
+    map.getCanvas().style.cursor = "";
+  });
+
   map.on("rotate", () => {
     if (Math.abs(map.getBearing()) > 0.01) map.setBearing(0);
   });
@@ -354,6 +363,73 @@ async function addOperationalLayers() {
     });
   }
 
+
+  if (!map.getSource("city-hierarchy-dpn2")) {
+    map.addSource("city-hierarchy-dpn2", {
+      type: "geojson",
+      data: "data/hierarki_bandar_selangor_dpn2.geojson"
+    });
+  }
+
+  if (!map.getLayer("city-hierarchy-dpn2-circle")) {
+    map.addLayer({
+      id: "city-hierarchy-dpn2-circle",
+      type: "circle",
+      source: "city-hierarchy-dpn2",
+      paint: {
+        "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          7, ["match", ["get", "hierarki"],
+            "Bandar Negeri", 7,
+            "Bandar Utama", 6,
+            "Bandar Tempatan", 5,
+            5
+          ],
+          14, ["match", ["get", "hierarki"],
+            "Bandar Negeri", 13,
+            "Bandar Utama", 11,
+            "Bandar Tempatan", 9,
+            9
+          ]
+        ],
+        "circle-color": [
+          "match",
+          ["get", "hierarki"],
+          "Bandar Negeri", "#E31A1C",
+          "Bandar Utama", "#FD8D3C",
+          "Bandar Tempatan", "#3182BD",
+          "#7F8C8D"
+        ],
+        "circle-stroke-color": "#FFFFFF",
+        "circle-stroke-width": 1.8,
+        "circle-opacity": 0.92
+      }
+    });
+  }
+
+  if (!map.getLayer("city-hierarchy-dpn2-label")) {
+    map.addLayer({
+      id: "city-hierarchy-dpn2-label",
+      type: "symbol",
+      source: "city-hierarchy-dpn2",
+      minzoom: 9,
+      layout: {
+        "text-field": ["coalesce", ["get", "label"], ["get", "nama_bandar"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 9, 10, 14, 14],
+        "text-offset": [0, 1.3],
+        "text-anchor": "top",
+        "text-allow-overlap": false
+      },
+      paint: {
+        "text-color": "#FFFFFF",
+        "text-halo-color": "rgba(7,17,31,0.92)",
+        "text-halo-width": 1.5
+      }
+    });
+  }
+
   if (!map.getSource("mobility")) {
     map.addSource("mobility", {
       type: "geojson",
@@ -389,6 +465,10 @@ function applyLayerVisibility() {
   setLayerVisibility(["urban-focus-fill", "urban-focus-line"], layerState.urban);
   setLayerVisibility(["facility-points"], layerState.facility);
   setLayerVisibility(["mobility-line"], layerState.mobility);
+  setLayerVisibility(
+    ["city-hierarchy-dpn2-circle", "city-hierarchy-dpn2-label"],
+    layerState.cityHierarchy
+  );
 
   if (layerState.terrain) enableTerrain();
   else disableTerrain();
@@ -412,7 +492,11 @@ function handleMapClick(event) {
   }
 
   const features = map.queryRenderedFeatures(event.point, {
-    layers: ["facility-points", "urban-focus-fill"].filter((id) => map.getLayer(id))
+    layers: [
+      "city-hierarchy-dpn2-circle",
+      "facility-points",
+      "urban-focus-fill"
+    ].filter((id) => map.getLayer(id))
   });
 
   if (!features.length) {
@@ -424,7 +508,20 @@ function handleMapClick(event) {
   const feature = features[0];
   const props = feature.properties || {};
 
-  if (feature.layer.id === "facility-points") {
+  if (feature.layer.id === "city-hierarchy-dpn2-circle") {
+    const coordinates = feature.geometry.coordinates.slice();
+    const html = `
+      <strong>${props.nama_bandar || "Bandar"}</strong><br>
+      Hierarki: ${props.hierarki || "-"}<br>
+      Daerah: ${props.daerah || "-"}<br>
+      Dasar: ${props.dasar || "DPN2"}<br>
+      Tahun dasar: ${props.tahun_dasar || "-"}<br>
+      <em>Layer rujukan; bukan senarai rasmi DPN3.</em>
+    `;
+
+    new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(map);
+    document.getElementById("featureInfo").innerHTML = html;
+  } else if (feature.layer.id === "facility-points") {
     const coordinates = feature.geometry.coordinates.slice();
     const html = `
       <strong>${props.name || "Kemudahan"}</strong><br>
@@ -637,6 +734,12 @@ document.getElementById("mobilityLayerToggle").addEventListener("change", (event
   updateLayerCount();
 });
 
+document.getElementById("cityHierarchyToggle").addEventListener("change", (event) => {
+  layerState.cityHierarchy = event.target.checked;
+  applyLayerVisibility();
+  updateLayerCount();
+});
+
 document.getElementById("terrainToggle").addEventListener("change", (event) => {
   layerState.terrain = event.target.checked;
 
@@ -675,6 +778,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   document.getElementById("urbanLayerToggle").checked = toggleAllState;
   document.getElementById("facilityLayerToggle").checked = toggleAllState;
   document.getElementById("mobilityLayerToggle").checked = toggleAllState;
+  document.getElementById("cityHierarchyToggle").checked = toggleAllState;
   document.getElementById("terrainToggle").checked = toggleAllState;
   document.getElementById("buildingToggle").checked = toggleAllState;
 

@@ -871,3 +871,12 @@ select:focus-visible {
     justify-content: space-between;
   }
 }
+
+.city-hierarchy-symbol {
+  width: 13px;
+  height: 13px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #e31a1c;
+  box-shadow: 0 0 0 4px rgba(227, 26, 28, 0.14);
+}

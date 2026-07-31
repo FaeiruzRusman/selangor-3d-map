@@ -1,4 +1,4 @@
-# SUO 3D GeoPortal v1.3 — DPN3 Ready + 2D/3D
+# SUO 3D GeoPortal v1.4 — DPN2 Reference Layer
 
 Versi ini menukar modul lokasi bandar kepada **Urban Explorer berasaskan konfigurasi**.
 
@@ -85,3 +85,18 @@ paparan 3D
 mod 2D
 mod 3D
 ```
+
+
+## Layer Hierarki Bandar DPN2
+
+Fail dimasukkan:
+
+```text
+data/hierarki_bandar_selangor_dpn2.geojson
+```
+
+- Jumlah bandar: 18
+- Simbol dan label mengikut hierarki
+- Popup maklumat bandar
+- Boleh dihidupkan/dimatikan melalui panel layer
+- Dikekalkan sebagai layer rujukan DPN2, bukan Urban Explorer DPN3
