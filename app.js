@@ -236,6 +236,13 @@ function initialiseMap() {
   map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "top-right");
   map.addControl(new mapboxgl.ScaleControl({ unit: "metric" }), "bottom-right");
 
+  map.dragPan.enable();
+  map.scrollZoom.enable();
+  map.boxZoom.enable();
+  map.doubleClickZoom.enable();
+  map.keyboard.enable();
+  map.touchZoomRotate.enable();
+
   // Kunci orientasi peta supaya utara sentiasa di bahagian atas.
   map.touchZoomRotate.disableRotation();
 

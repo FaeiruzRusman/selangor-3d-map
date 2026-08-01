@@ -1255,3 +1255,36 @@ select:focus-visible {
   background: #E63946;
   box-shadow: none;
 }
+
+
+.compare-status {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.04);
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+/* Compare Engine v2: layout handled by fixed equal-width canvases */
+.map-shell.split-active .split-map-left {
+  left: 0;
+  right: auto;
+  width: 50%;
+}
+
+.map-shell.split-active .split-map-right {
+  left: 50%;
+  right: auto;
+  width: 50%;
+}
+
+.split-map {
+  touch-action: none;
+}
+
+.mapboxgl-canvas {
+  outline: none;
+}
