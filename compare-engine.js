@@ -6,6 +6,8 @@
   let syncing = false;
   let syncEnabled = true;
   let rightMode = "3d";
+  let pendingCamera = null;
+  let resizeTimer = null;
 
   const panel = document.getElementById("comparePanel");
   const shell = document.querySelector(".map-shell");
@@ -118,35 +120,65 @@
     document.getElementById("right3DBtn").classList.toggle("active", is3D);
   }
 
-  function createCompareMap() {
+  function getCameraState(sourceMap) {
+    const center = sourceMap.getCenter();
+
+    return {
+      center: [center.lng, center.lat],
+      zoom: sourceMap.getZoom(),
+      pitch: sourceMap.getPitch(),
+      bearing: 0
+    };
+  }
+
+  function createCompareMap(initialCamera) {
     if (compareMap) return;
 
     const config = window.SUO_COMPARE_CONFIG;
+    const camera = initialCamera || getCameraState(map);
+
     mapboxgl.accessToken = config.token;
 
     compareMap = new mapboxgl.Map({
       container: "compareMap",
       style: config.basemapStyles.satellite,
-      center: map.getCenter(),
-      zoom: map.getZoom(),
-      pitch: 60,
+      center: camera.center,
+      zoom: camera.zoom,
+      pitch: camera.pitch,
       bearing: 0,
       antialias: true
     });
 
-    compareMap.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "top-right");
+    compareMap.addControl(
+      new mapboxgl.NavigationControl({ visualizePitch: true }),
+      "top-right"
+    );
+
+    compareMap.on("load", () => {
+      addCityLayer(compareMap);
+      setRightMode(rightMode, false);
+      alignBothMaps(camera);
+    });
 
     compareMap.on("style.load", () => {
       addCityLayer(compareMap);
       setRightMode(rightMode, false);
+
+      const currentCamera = pendingCamera || getCameraState(map);
+      requestAnimationFrame(() => alignBothMaps(currentCamera));
     });
 
     compareMap.on("click", (event) => {
       const features = compareMap.queryRenderedFeatures(event.point, {
-        layers: ["compare-city-circle"].filter((id) => compareMap.getLayer(id))
+        layers: ["compare-city-circle"].filter((id) =>
+          compareMap.getLayer(id)
+        )
       });
+
       if (!features.length) return;
+
       const props = features[0].properties || {};
+
       new mapboxgl.Popup()
         .setLngLat(features[0].geometry.coordinates)
         .setHTML(
@@ -161,12 +193,60 @@
     compareMap.on("move", syncFromRight);
   }
 
+  function alignBothMaps(cameraState) {
+    if (!compareMap) return;
+
+    const camera = cameraState || getCameraState(map);
+    pendingCamera = camera;
+
+    map.resize();
+    compareMap.resize();
+
+    map.jumpTo({
+      center: camera.center,
+      zoom: camera.zoom,
+      pitch: camera.pitch,
+      bearing: 0
+    });
+
+    compareMap.jumpTo({
+      center: camera.center,
+      zoom: camera.zoom,
+      pitch: camera.pitch,
+      bearing: 0
+    });
+
+    pendingCamera = null;
+  }
+
+  function scheduleAlignment(cameraState) {
+    if (resizeTimer) window.clearTimeout(resizeTimer);
+
+    const camera = cameraState || getCameraState(map);
+
+    requestAnimationFrame(() => {
+      map.resize();
+      compareMap?.resize();
+
+      requestAnimationFrame(() => {
+        alignBothMaps(camera);
+      });
+    });
+
+    resizeTimer = window.setTimeout(() => {
+      alignBothMaps(camera);
+    }, 320);
+  }
+
   function copyCamera(source, target) {
-    const center = source.getCenter();
+    if (!source || !target) return;
+
+    const camera = getCameraState(source);
+
     target.jumpTo({
-      center,
-      zoom: source.getZoom(),
-      pitch: source.getPitch(),
+      center: camera.center,
+      zoom: camera.zoom,
+      pitch: camera.pitch,
       bearing: 0
     });
   }
@@ -186,39 +266,84 @@
   }
 
   function openSplit() {
-    createCompareMap();
+    if (splitActive) return;
+
+    const initialCamera = getCameraState(map);
+    pendingCamera = initialCamera;
     splitActive = true;
+
     shell.classList.add("split-active");
     panel.classList.add("visible");
     splitBtn.classList.add("active");
     compareContainer.setAttribute("aria-hidden", "false");
-    setTimeout(() => {
+
+    requestAnimationFrame(() => {
       map.resize();
-      compareMap.resize();
-      copyCamera(map, compareMap);
-    }, 250);
+
+      if (!compareMap) {
+        createCompareMap(initialCamera);
+      } else {
+        compareMap.resize();
+        scheduleAlignment(initialCamera);
+      }
+    });
   }
 
   function closeSplit() {
+    if (!splitActive) return;
+
+    const camera = getCameraState(map);
     splitActive = false;
+
     shell.classList.remove("split-active");
     panel.classList.remove("visible");
     splitBtn.classList.remove("active");
     compareContainer.setAttribute("aria-hidden", "true");
-    setTimeout(() => map.resize(), 250);
+
+    requestAnimationFrame(() => {
+      map.resize();
+      map.jumpTo({
+        center: camera.center,
+        zoom: camera.zoom,
+        pitch: camera.pitch,
+        bearing: 0
+      });
+    });
   }
 
   splitBtn.addEventListener("click", () => splitActive ? closeSplit() : openSplit());
   closeBtn.addEventListener("click", closeSplit);
 
   document.getElementById("leftBasemapSelect").addEventListener("change", (event) => {
+    const camera = getCameraState(map);
+    pendingCamera = camera;
+
     document.getElementById("basemapSelect").value = event.target.value;
-    map.setStyle(window.SUO_COMPARE_CONFIG.basemapStyles[event.target.value]);
+    map.setStyle(
+      window.SUO_COMPARE_CONFIG.basemapStyles[event.target.value]
+    );
+
+    map.once("style.load", () => {
+      scheduleAlignment(camera);
+    });
   });
 
   document.getElementById("rightBasemapSelect").addEventListener("change", (event) => {
-    if (!compareMap) createCompareMap();
-    compareMap.setStyle(window.SUO_COMPARE_CONFIG.basemapStyles[event.target.value]);
+    const camera = getCameraState(map);
+    pendingCamera = camera;
+
+    if (!compareMap) {
+      createCompareMap(camera);
+      return;
+    }
+
+    compareMap.setStyle(
+      window.SUO_COMPARE_CONFIG.basemapStyles[event.target.value]
+    );
+
+    compareMap.once("style.load", () => {
+      scheduleAlignment(camera);
+    });
   });
 
   document.getElementById("left2DBtn").addEventListener("click", () => {
@@ -242,17 +367,31 @@
   });
 
   document.getElementById("swapMapsBtn").addEventListener("click", () => {
+    const camera = getCameraState(map);
+    pendingCamera = camera;
+
     const left = document.getElementById("leftBasemapSelect");
     const right = document.getElementById("rightBasemapSelect");
     const temp = left.value;
+
     left.value = right.value;
     right.value = temp;
+
     map.setStyle(window.SUO_COMPARE_CONFIG.basemapStyles[left.value]);
-    compareMap?.setStyle(window.SUO_COMPARE_CONFIG.basemapStyles[right.value]);
+    compareMap?.setStyle(
+      window.SUO_COMPARE_CONFIG.basemapStyles[right.value]
+    );
+
+    window.setTimeout(() => scheduleAlignment(camera), 300);
   });
 
   divider.addEventListener("dblclick", () => {
     syncEnabled = !syncEnabled;
     document.getElementById("syncMapsToggle").checked = syncEnabled;
+  });
+
+  window.addEventListener("resize", () => {
+    if (!splitActive || !compareMap) return;
+    scheduleAlignment(getCameraState(map));
   });
 })();
