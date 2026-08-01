@@ -105,7 +105,7 @@
             ["zoom"],
             7, [
               "match",
-              ["get", "KATEGORI"],
+              ["get", "web_category"],
               "Hospital", 5.5,
               "Klinik Kesihatan", 4.5,
               "Klinik Ibu dan Anak", 4,
@@ -114,7 +114,7 @@
             ],
             15, [
               "match",
-              ["get", "KATEGORI"],
+              ["get", "web_category"],
               "Hospital", 11,
               "Klinik Kesihatan", 9,
               "Klinik Ibu dan Anak", 8,
@@ -124,7 +124,7 @@
           ],
           "circle-color": [
             "match",
-            ["get", "KATEGORI"],
+            ["get", "web_category"],
             "Hospital", "#E63946",
             "Klinik Kesihatan", "#1D4ED8",
             "Klinik Ibu dan Anak", "#EC4899",
@@ -147,7 +147,7 @@
         minzoom: 11,
         layout: {
           visibility: healthLayerVisible ? "visible" : "none",
-          "text-field": ["get", "NAMA"],
+          "text-field": ["get", "web_name"],
           "text-size": ["interpolate", ["linear"], ["zoom"], 12, 9, 16, 12],
           "text-offset": [0, 1.25],
           "text-anchor": "top",
@@ -269,12 +269,12 @@
 
       if (feature.layer.id === "compare-health-circle") {
         popupHtml =
-          `<strong>${props.NAMA || "Kemudahan Kesihatan"}</strong><br>` +
-          `Kategori: ${props.KATEGORI || "-"}<br>` +
-          `Sektor: ${props.SEKTOR || "-"}<br>` +
-          `Operator: ${props.OPERATOR || "-"}<br>` +
-          `Daerah: ${props.DAERAH || "-"}<br>` +
-          `Lokaliti: ${props.LOKALITI || "-"}`;
+          `<strong>${props.web_name || "Kemudahan Kesihatan"}</strong><br>` +
+          `Kategori: ${props.web_category || "-"}<br>` +
+          `Sektor: ${props.web_sector || "-"}<br>` +
+          `Operator: ${props.web_operator || "-"}<br>` +
+          `Daerah: ${props.web_district || "-"}<br>` +
+          `Lokaliti: ${props.web_locality || "-"}`;
       } else {
         popupHtml =
           `<strong>${props.nama_bandar || "Bandar"}</strong><br>` +

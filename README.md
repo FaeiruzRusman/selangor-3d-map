@@ -1,15 +1,44 @@
-# SUO 3D GeoPortal v1.10 — Kemudahan Kesihatan Fix
+# SUO 3D GeoPortal v1.11 — Data Kesihatan Rasmi
 
-Pembetulan:
+Layer kesihatan telah diganti menggunakan shapefile rasmi yang dimuat naik.
 
-- Layer titik kemudahan kesihatan diletakkan pada Mapbox Standard slot `top`.
-- Label juga diletakkan pada slot `top`.
-- Label mula dipaparkan pada zoom 11.
-- Pembetulan digunakan pada peta utama dan peta kanan split screen.
-- Console browser akan memaklumkan apabila source GeoJSON berjaya dimuatkan.
-
-Pastikan fail berikut turut dimuat naik ke GitHub:
+## Sumber data
 
 ```text
-data/kemudahan_kesihatan_selangor.geojson
+Fasiliti_Kesihatan_Selangor_SHP(1).zip
 ```
+
+## Proses
+
+- CRS asal: `EPSG:3380`
+- Ditukar ke: `EPSG:4326 (WGS84)`
+- Jumlah feature: **87**
+- Output GeoJSON:
+
+```text
+data/kesihatan/kemudahan_kesihatan_selangor.geojson
+```
+
+## Field asal yang dikesan
+
+- Nama: `NAMA`
+- Kategori: `KATEGORI`
+- Daerah: `DAERAH`
+- Operator: `OPERATOR`
+- Sektor: `SEKTOR`
+- Lokaliti: `LOKALITI`
+- Status/Semakan: `SEMAKAN`
+
+Portal menggunakan field normalisasi berikut supaya popup dan simbologi stabil:
+
+```text
+web_name
+web_category
+web_district
+web_operator
+web_sector
+web_locality
+web_status
+```
+
+Semua field asal shapefile masih dikekalkan dalam GeoJSON.
