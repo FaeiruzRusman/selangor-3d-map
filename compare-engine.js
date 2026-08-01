@@ -94,6 +94,7 @@
         id: "compare-health-circle",
         type: "circle",
         source: "compare-health-facilities",
+        slot: "top",
         layout: {
           visibility: healthLayerVisible ? "visible" : "none"
         },
@@ -142,7 +143,8 @@
         id: "compare-health-label",
         type: "symbol",
         source: "compare-health-facilities",
-        minzoom: 12,
+        slot: "top",
+        minzoom: 11,
         layout: {
           visibility: healthLayerVisible ? "visible" : "none",
           "text-field": ["get", "NAMA"],

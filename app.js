@@ -370,11 +370,18 @@ async function addOperationalLayers() {
     });
   }
 
+  map.once("sourcedata", (event) => {
+    if (event.sourceId === "health-facilities" && event.isSourceLoaded) {
+      console.info("Kemudahan Kesihatan Negeri Selangor berjaya dimuatkan.");
+    }
+  });
+
   if (!map.getLayer("health-facilities-circle")) {
     map.addLayer({
       id: "health-facilities-circle",
       type: "circle",
       source: "health-facilities",
+      slot: "top",
       paint: {
         "circle-radius": [
           "interpolate",
@@ -420,7 +427,8 @@ async function addOperationalLayers() {
       id: "health-facilities-label",
       type: "symbol",
       source: "health-facilities",
-      minzoom: 12,
+      slot: "top",
+      minzoom: 11,
       layout: {
         "text-field": ["get", "NAMA"],
         "text-size": ["interpolate", ["linear"], ["zoom"], 12, 9, 16, 12],
