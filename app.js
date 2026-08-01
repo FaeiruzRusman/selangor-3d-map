@@ -181,6 +181,42 @@ function setViewMode(mode, options = {}) {
   }
 }
 
+
+async function loadHospitalIcon(targetMap, iconName = "hospital-building") {
+  if (targetMap.hasImage(iconName)) return;
+
+  const response = await fetch("assets/icons/hospital-building.svg");
+  if (!response.ok) {
+    throw new Error(`Gagal memuatkan ikon hospital: ${response.status}`);
+  }
+
+  const svgText = await response.text();
+  const svgBlob = new Blob([svgText], { type: "image/svg+xml" });
+  const imageUrl = URL.createObjectURL(svgBlob);
+
+  try {
+    const image = await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = imageUrl;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = 64;
+    canvas.height = 64;
+
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    targetMap.addImage(iconName, imageData, { sdf: true });
+  } finally {
+    URL.revokeObjectURL(imageUrl);
+  }
+}
+
 function initialiseMap() {
   mapboxgl.accessToken = MAPBOX_PUBLIC_TOKEN;
 
@@ -237,11 +273,11 @@ function initialiseMap() {
     map.getCanvas().style.cursor = "";
   });
 
-  map.on("mouseenter", "health-facilities-circle", () => {
+  map.on("mouseenter", "health-facilities-symbol", () => {
     map.getCanvas().style.cursor = "pointer";
   });
 
-  map.on("mouseleave", "health-facilities-circle", () => {
+  map.on("mouseleave", "health-facilities-symbol", () => {
     map.getCanvas().style.cursor = "";
   });
 
@@ -376,37 +412,44 @@ async function addOperationalLayers() {
     }
   });
 
-  if (!map.getLayer("health-facilities-circle")) {
+  await loadHospitalIcon(map);
+
+  if (!map.getLayer("health-facilities-symbol")) {
     map.addLayer({
-      id: "health-facilities-circle",
-      type: "circle",
+      id: "health-facilities-symbol",
+      type: "symbol",
       source: "health-facilities",
       slot: "top",
-      paint: {
-        "circle-radius": [
+      layout: {
+        "icon-image": "hospital-building",
+        "icon-size": [
           "interpolate",
           ["linear"],
           ["zoom"],
           7, [
             "match",
             ["get", "web_category"],
-            "Hospital", 5.5,
-            "Klinik Kesihatan", 4.5,
-            "Klinik Ibu dan Anak", 4,
-            "Klinik Desa", 3.5,
-            4
+            "Hospital", 0.32,
+            "Klinik Kesihatan", 0.28,
+            "Klinik Ibu dan Anak", 0.27,
+            "Klinik Desa", 0.25,
+            0.26
           ],
           15, [
             "match",
             ["get", "web_category"],
-            "Hospital", 11,
-            "Klinik Kesihatan", 9,
-            "Klinik Ibu dan Anak", 8,
-            "Klinik Desa", 7,
-            8
+            "Hospital", 0.52,
+            "Klinik Kesihatan", 0.46,
+            "Klinik Ibu dan Anak", 0.44,
+            "Klinik Desa", 0.41,
+            0.42
           ]
         ],
-        "circle-color": [
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
+      },
+      paint: {
+        "icon-color": [
           "match",
           ["get", "web_category"],
           "Hospital", "#E63946",
@@ -415,9 +458,9 @@ async function addOperationalLayers() {
           "Klinik Desa", "#16A34A",
           "#6B7280"
         ],
-        "circle-stroke-color": "#FFFFFF",
-        "circle-stroke-width": 1.6,
-        "circle-opacity": 0.94
+        "icon-halo-color": "#FFFFFF",
+        "icon-halo-width": 1.4,
+        "icon-opacity": 0.96
       }
     });
   }
@@ -462,7 +505,7 @@ function applyLayerVisibility() {
     layerState.cityHierarchy
   );
   setLayerVisibility(
-    ["health-facilities-circle", "health-facilities-label"],
+    ["health-facilities-symbol", "health-facilities-label"],
     layerState.healthFacilities
   );
 
@@ -489,7 +532,7 @@ function handleMapClick(event) {
 
   const features = map.queryRenderedFeatures(event.point, {
     layers: [
-      "health-facilities-circle",
+      "health-facilities-symbol",
       "city-hierarchy-dpn2-circle"
     ].filter((id) => map.getLayer(id))
   });
@@ -503,7 +546,7 @@ function handleMapClick(event) {
   const feature = features[0];
   const props = feature.properties || {};
 
-  if (feature.layer.id === "health-facilities-circle") {
+  if (feature.layer.id === "health-facilities-symbol") {
     const coordinates = feature.geometry.coordinates.slice();
     const html = `
       <strong>${props.web_name || "Kemudahan Kesihatan"}</strong><br>
@@ -712,6 +755,17 @@ document.getElementById("cityHierarchyToggle").addEventListener("change", (event
   layerState.cityHierarchy = event.target.checked;
   applyLayerVisibility();
   updateLayerCount();
+});
+
+
+document.getElementById("healthLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("healthLegendBtn");
+  const panel = document.getElementById("healthLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
 });
 
 document.getElementById("healthFacilityToggle").addEventListener("change", (event) => {

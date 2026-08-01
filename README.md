@@ -1,44 +1,21 @@
-# SUO 3D GeoPortal v1.11 — Data Kesihatan Rasmi
+# SUO 3D GeoPortal v1.12 — Hospital Building Symbol + Dropdown Legend
 
-Layer kesihatan telah diganti menggunakan shapefile rasmi yang dimuat naik.
+## Perubahan
 
-## Sumber data
-
-```text
-Fasiliti_Kesihatan_Selangor_SHP(1).zip
-```
-
-## Proses
-
-- CRS asal: `EPSG:3380`
-- Ditukar ke: `EPSG:4326 (WGS84)`
-- Jumlah feature: **87**
-- Output GeoJSON:
+- Simbol bulat kesihatan diganti dengan ikon bangunan hospital.
+- Ikon SVG disimpan di:
 
 ```text
-data/kesihatan/kemudahan_kesihatan_selangor.geojson
+assets/icons/hospital-building.svg
 ```
 
-## Field asal yang dikesan
+- Warna ikon berbeza mengikut kategori:
+  - Hospital — merah
+  - Klinik Kesihatan — biru
+  - Klinik Ibu dan Anak — merah jambu
+  - Klinik Desa — hijau
+  - Lain-lain — kelabu
 
-- Nama: `NAMA`
-- Kategori: `KATEGORI`
-- Daerah: `DAERAH`
-- Operator: `OPERATOR`
-- Sektor: `SEKTOR`
-- Lokaliti: `LOKALITI`
-- Status/Semakan: `SEMAKAN`
-
-Portal menggunakan field normalisasi berikut supaya popup dan simbologi stabil:
-
-```text
-web_name
-web_category
-web_district
-web_operator
-web_sector
-web_locality
-web_status
-```
-
-Semua field asal shapefile masih dikekalkan dalam GeoJSON.
+- Layer Management kini mempunyai dropdown legend.
+- Klik anak panah di sebelah layer kesihatan untuk membuka atau menutup legend.
+- Ikon yang sama digunakan pada peta utama dan split screen.

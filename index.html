@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO 3D GeoPortal v1.11 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO 3D GeoPortal v1.11</title>
+  <meta name="description" content="SUO 3D GeoPortal v1.12 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO 3D GeoPortal v1.12</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>3D GeoPortal <span>v1.11</span></h1>
+        <h1>3D GeoPortal <span>v1.12</span></h1>
       </div>
     </div>
 
@@ -74,14 +74,63 @@
             <input id="cityHierarchyToggle" type="checkbox" checked />
           </label>
 
-          <label class="layer-item">
-            <span class="legend-symbol health-facility-symbol"></span>
-            <span class="layer-copy">
-              <strong>Kemudahan Kesihatan Negeri Selangor</strong>
-              <small>87 kemudahan kesihatan rasmi</small>
-            </span>
-            <input id="healthFacilityToggle" type="checkbox" checked />
-          </label>
+          <div class="layer-group">
+            <div class="layer-item layer-item-expandable">
+              <button id="healthLegendBtn"
+                      class="layer-expand-btn"
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="healthLegendPanel"
+                      title="Buka legend">
+                ▸
+              </button>
+
+              <span class="legend-symbol health-facility-symbol"></span>
+
+              <span class="layer-copy">
+                <strong>Kemudahan Kesihatan Negeri Selangor</strong>
+                <small>87 kemudahan kesihatan rasmi</small>
+              </span>
+
+              <input id="healthFacilityToggle" type="checkbox" checked />
+            </div>
+
+            <div id="healthLegendPanel"
+                 class="layer-legend-panel"
+                 hidden>
+              <div class="legend-heading">
+                <span>Legend Kemudahan Kesihatan</span>
+                <small>Simbol bangunan mengikut kategori</small>
+              </div>
+
+              <div class="legend-list">
+                <div class="legend-row">
+                  <span class="legend-hospital-icon hospital-color"></span>
+                  <span>Hospital</span>
+                </div>
+
+                <div class="legend-row">
+                  <span class="legend-hospital-icon clinic-color"></span>
+                  <span>Klinik Kesihatan</span>
+                </div>
+
+                <div class="legend-row">
+                  <span class="legend-hospital-icon mother-child-color"></span>
+                  <span>Klinik Ibu dan Anak</span>
+                </div>
+
+                <div class="legend-row">
+                  <span class="legend-hospital-icon village-clinic-color"></span>
+                  <span>Klinik Desa</span>
+                </div>
+
+                <div class="legend-row">
+                  <span class="legend-hospital-icon other-health-color"></span>
+                  <span>Lain-lain Kemudahan Kesihatan</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <label class="layer-item">
             <span class="legend-symbol terrain-symbol"></span>

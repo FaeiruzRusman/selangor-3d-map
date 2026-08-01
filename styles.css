@@ -1138,3 +1138,120 @@ select:focus-visible {
   background: #e63946;
   box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.14);
 }
+
+
+.layer-group {
+  border-bottom: 1px solid rgba(255,255,255,0.065);
+}
+
+.layer-group .layer-item {
+  border-bottom: 0;
+}
+
+.layer-item-expandable {
+  grid-template-columns: 24px 18px minmax(0,1fr) auto;
+}
+
+.layer-expand-btn {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.04);
+  font-size: 0.82rem;
+  font-weight: 900;
+  transition: transform 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.layer-expand-btn:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.08);
+}
+
+.layer-expand-btn.open {
+  color: #171100;
+  background: var(--accent);
+  transform: rotate(90deg);
+}
+
+.layer-legend-panel {
+  margin: 0 0 10px 30px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.035);
+}
+
+.legend-heading {
+  display: grid;
+  gap: 2px;
+  margin-bottom: 9px;
+}
+
+.legend-heading span {
+  font-size: 0.73rem;
+  font-weight: 800;
+}
+
+.legend-heading small {
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+.legend-list {
+  display: grid;
+  gap: 7px;
+}
+
+.legend-row {
+  display: grid;
+  grid-template-columns: 22px minmax(0,1fr);
+  align-items: center;
+  gap: 8px;
+  color: #dce7f1;
+  font-size: 0.71rem;
+}
+
+.legend-hospital-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  -webkit-mask: url("assets/icons/hospital-building.svg") center / contain no-repeat;
+  mask: url("assets/icons/hospital-building.svg") center / contain no-repeat;
+  background: currentColor;
+}
+
+.hospital-color {
+  color: #E63946;
+}
+
+.clinic-color {
+  color: #1D4ED8;
+}
+
+.mother-child-color {
+  color: #EC4899;
+}
+
+.village-clinic-color {
+  color: #16A34A;
+}
+
+.other-health-color {
+  color: #6B7280;
+}
+
+.health-facility-symbol {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 0;
+  -webkit-mask: url("assets/icons/hospital-building.svg") center / contain no-repeat;
+  mask: url("assets/icons/hospital-building.svg") center / contain no-repeat;
+  background: #E63946;
+  box-shadow: none;
+}

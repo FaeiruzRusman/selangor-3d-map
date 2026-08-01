@@ -81,7 +81,45 @@
   }
 
 
-  function addHealthLayer(targetMap) {
+
+  async function loadCompareHospitalIcon(targetMap) {
+    if (targetMap.hasImage("hospital-building")) return;
+
+    const response = await fetch("assets/icons/hospital-building.svg");
+    if (!response.ok) {
+      throw new Error(`Gagal memuatkan ikon hospital: ${response.status}`);
+    }
+
+    const svgText = await response.text();
+    const svgBlob = new Blob([svgText], { type: "image/svg+xml" });
+    const imageUrl = URL.createObjectURL(svgBlob);
+
+    try {
+      const image = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = imageUrl;
+      });
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 64;
+      canvas.height = 64;
+
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0, 64, 64);
+
+      targetMap.addImage(
+        "hospital-building",
+        context.getImageData(0, 0, 64, 64),
+        { sdf: true }
+      );
+    } finally {
+      URL.revokeObjectURL(imageUrl);
+    }
+  }
+
+  async function addHealthLayer(targetMap) {
     if (!targetMap.getSource("compare-health-facilities")) {
       targetMap.addSource("compare-health-facilities", {
         type: "geojson",
@@ -89,40 +127,45 @@
       });
     }
 
-    if (!targetMap.getLayer("compare-health-circle")) {
+    await loadCompareHospitalIcon(targetMap);
+
+    if (!targetMap.getLayer("compare-health-symbol")) {
       targetMap.addLayer({
-        id: "compare-health-circle",
-        type: "circle",
+        id: "compare-health-symbol",
+        type: "symbol",
         source: "compare-health-facilities",
         slot: "top",
         layout: {
-          visibility: healthLayerVisible ? "visible" : "none"
-        },
-        paint: {
-          "circle-radius": [
+          visibility: healthLayerVisible ? "visible" : "none",
+          "icon-image": "hospital-building",
+          "icon-size": [
             "interpolate",
             ["linear"],
             ["zoom"],
             7, [
               "match",
               ["get", "web_category"],
-              "Hospital", 5.5,
-              "Klinik Kesihatan", 4.5,
-              "Klinik Ibu dan Anak", 4,
-              "Klinik Desa", 3.5,
-              4
+              "Hospital", 0.32,
+              "Klinik Kesihatan", 0.28,
+              "Klinik Ibu dan Anak", 0.27,
+              "Klinik Desa", 0.25,
+              0.26
             ],
             15, [
               "match",
               ["get", "web_category"],
-              "Hospital", 11,
-              "Klinik Kesihatan", 9,
-              "Klinik Ibu dan Anak", 8,
-              "Klinik Desa", 7,
-              8
+              "Hospital", 0.52,
+              "Klinik Kesihatan", 0.46,
+              "Klinik Ibu dan Anak", 0.44,
+              "Klinik Desa", 0.41,
+              0.42
             ]
           ],
-          "circle-color": [
+          "icon-allow-overlap": true,
+          "icon-ignore-placement": true
+        },
+        paint: {
+          "icon-color": [
             "match",
             ["get", "web_category"],
             "Hospital", "#E63946",
@@ -131,9 +174,9 @@
             "Klinik Desa", "#16A34A",
             "#6B7280"
           ],
-          "circle-stroke-color": "#FFFFFF",
-          "circle-stroke-width": 1.6,
-          "circle-opacity": 0.94
+          "icon-halo-color": "#FFFFFF",
+          "icon-halo-width": 1.4,
+          "icon-opacity": 0.96
         }
       });
     }
@@ -237,16 +280,16 @@
       "top-right"
     );
 
-    compareMap.on("load", () => {
+    compareMap.on("load", async () => {
       addCityLayer(compareMap);
-      addHealthLayer(compareMap);
+      await addHealthLayer(compareMap);
       setRightMode(rightMode, false);
       alignBothMaps(camera);
     });
 
-    compareMap.on("style.load", () => {
+    compareMap.on("style.load", async () => {
       addCityLayer(compareMap);
-      addHealthLayer(compareMap);
+      await addHealthLayer(compareMap);
       setRightMode(rightMode, false);
 
       const currentCamera = pendingCamera || getCameraState(map);
@@ -256,7 +299,7 @@
     compareMap.on("click", (event) => {
       const features = compareMap.queryRenderedFeatures(event.point, {
         layers: [
-          "compare-health-circle",
+          "compare-health-symbol",
           "compare-city-circle"
         ].filter((id) => compareMap.getLayer(id))
       });
@@ -267,7 +310,7 @@
       const props = feature.properties || {};
       let popupHtml = "";
 
-      if (feature.layer.id === "compare-health-circle") {
+      if (feature.layer.id === "compare-health-symbol") {
         popupHtml =
           `<strong>${props.web_name || "Kemudahan Kesihatan"}</strong><br>` +
           `Kategori: ${props.web_category || "-"}<br>` +
@@ -494,7 +537,7 @@
 
     if (!compareMap) return;
 
-    ["compare-health-circle", "compare-health-label"].forEach((layerId) => {
+    ["compare-health-symbol", "compare-health-label"].forEach((layerId) => {
       if (compareMap.getLayer(layerId)) {
         compareMap.setLayoutProperty(
           layerId,
