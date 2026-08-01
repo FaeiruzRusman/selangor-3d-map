@@ -352,6 +352,14 @@
       "top-right"
     );
 
+    compareMap.dragPan.enable();
+    compareMap.scrollZoom.enable();
+    compareMap.boxZoom.enable();
+    compareMap.doubleClickZoom.enable();
+    compareMap.keyboard.enable();
+    compareMap.touchZoomRotate.enable();
+    enableMiddleMousePan(compareMap);
+
     compareMap.on("load", async () => {
       await restoreCompareLayers();
       applyCamera(compareMap, camera);

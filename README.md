@@ -1,23 +1,21 @@
-# SUO 3D GeoPortal v2.0 — Compare Engine v2
+# SUO 3D GeoPortal v2.1 — Middle Mouse Pan
 
-## Penambahbaikan utama
+## Pembetulan sebenar
 
-- Compare Engine dibina semula dari awal.
-- Sync kamera hanya berlaku selepas `moveend`, bukan semasa setiap frame.
-- Middle mouse pan tidak lagi diganggu oleh `jumpTo()` berulang.
-- Scroll zoom, drag pan, box zoom, keyboard dan touch zoom/rotate diaktifkan.
-- Split screen kekal 50% kiri dan 50% kanan.
-- Sinkronisasi kamera boleh dihidupkan atau dimatikan.
-- Basemap kiri dan kanan boleh ditukar secara berasingan.
-- Mod 2D/3D kekal berasingan.
-- Layer Hierarki Bandar DPN2 dan Kemudahan Kesihatan kekal pada kedua-dua peta.
-- Popup kesihatan dan bandar berfungsi pada peta perbandingan.
+Mapbox GL JS tidak menyediakan middle mouse drag sebagai pan secara lalai.
+Versi ini menambah handler khas untuk butang tengah tetikus.
 
-## Interaction
+## Cara guna
 
-- Left drag: pan
-- Scroll wheel: zoom
-- Middle mouse drag: pan
-- Right drag / control drag: rotate dan pitch, bergantung pada browser/OS
-- Double click: zoom
-- Sync berlaku selepas pergerakan tamat
+1. Tekan dan tahan roda tetikus.
+2. Gerakkan tetikus.
+3. Lepaskan roda untuk tamatkan pan.
+
+## Pelaksanaan
+
+- Mengesan `mousedown` dengan `button === 1`.
+- Menghalang auto-scroll browser.
+- Menggunakan `map.panBy()` secara terus.
+- Berfungsi pada peta utama dan peta kanan split screen.
+- Tidak mengganggu left-click drag, scroll zoom atau sync selepas `moveend`.
+- Cursor bertukar kepada `grabbing` semasa middle-mouse pan.

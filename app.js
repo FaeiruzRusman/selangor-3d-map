@@ -217,6 +217,96 @@ async function loadHospitalIcon(targetMap, iconName = "hospital-building") {
   }
 }
 
+
+function enableMiddleMousePan(targetMap) {
+  const canvas = targetMap.getCanvas();
+  const container = targetMap.getCanvasContainer();
+
+  let active = false;
+  let lastX = 0;
+  let lastY = 0;
+
+  const stopBrowserAutoScroll = (event) => {
+    if (event.button === 1) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+  };
+
+  const onMouseDown = (event) => {
+    if (event.button !== 1) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    active = true;
+    lastX = event.clientX;
+    lastY = event.clientY;
+
+    container.classList.add("middle-pan-active");
+    document.body.classList.add("map-middle-pan-active");
+  };
+
+  const onMouseMove = (event) => {
+    if (!active) return;
+
+    event.preventDefault();
+
+    const deltaX = event.clientX - lastX;
+    const deltaY = event.clientY - lastY;
+
+    lastX = event.clientX;
+    lastY = event.clientY;
+
+    targetMap.panBy(
+      [-deltaX, -deltaY],
+      {
+        duration: 0,
+        animate: false
+      }
+    );
+  };
+
+  const endPan = (event) => {
+    if (!active) return;
+
+    if (event) event.preventDefault();
+
+    active = false;
+    container.classList.remove("middle-pan-active");
+    document.body.classList.remove("map-middle-pan-active");
+  };
+
+  canvas.addEventListener("mousedown", onMouseDown, {
+    capture: true
+  });
+
+  canvas.addEventListener("auxclick", stopBrowserAutoScroll, {
+    capture: true
+  });
+
+  container.addEventListener("mousedown", stopBrowserAutoScroll, {
+    capture: true
+  });
+
+  window.addEventListener("mousemove", onMouseMove, {
+    capture: true,
+    passive: false
+  });
+
+  window.addEventListener("mouseup", (event) => {
+    if (event.button === 1) endPan(event);
+  }, {
+    capture: true
+  });
+
+  window.addEventListener("blur", endPan);
+  container.addEventListener("mouseleave", (event) => {
+    if (active && event.buttons === 0) endPan(event);
+  });
+}
+
 function initialiseMap() {
   mapboxgl.accessToken = MAPBOX_PUBLIC_TOKEN;
 
@@ -242,6 +332,7 @@ function initialiseMap() {
   map.doubleClickZoom.enable();
   map.keyboard.enable();
   map.touchZoomRotate.enable();
+  enableMiddleMousePan(map);
 
   // Kunci orientasi peta supaya utara sentiasa di bahagian atas.
   map.touchZoomRotate.disableRotation();
