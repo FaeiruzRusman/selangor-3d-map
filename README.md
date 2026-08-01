@@ -1,21 +1,48 @@
-# SUO 3D GeoPortal v2.1 — Middle Mouse Pan
+# SUO GeoPortal v3.0 — Modular Architecture
 
-## Pembetulan sebenar
+## Struktur JavaScript
 
-Mapbox GL JS tidak menyediakan middle mouse drag sebagai pan secara lalai.
-Versi ini menambah handler khas untuk butang tengah tetikus.
+```text
+js/
+├── app.js
+├── config.js
+├── utils.js
+├── layers.js
+├── urban-explorer.js
+├── urban-tour.js
+└── compare.js
+```
 
-## Cara guna
+## Urban Tour Engine
 
-1. Tekan dan tahan roda tetikus.
-2. Gerakkan tetikus.
-3. Lepaskan roda untuk tamatkan pan.
+Urban Tour membaca terus `config/urban-hierarchy.json` dan bergerak mengikut susunan:
 
-## Pelaksanaan
+1. Bandar Negeri
+2. Bandar Utama
+3. Bandar Tempatan
 
-- Mengesan `mousedown` dengan `button === 1`.
-- Menghalang auto-scroll browser.
-- Menggunakan `map.panBy()` secara terus.
-- Berfungsi pada peta utama dan peta kanan split screen.
-- Tidak mengganggu left-click drag, scroll zoom atau sync selepas `moveend`.
-- Cursor bertukar kepada `grabbing` semasa middle-mouse pan.
+Fungsi:
+
+- Play automatik
+- Pause dan sambung
+- Next dan previous
+- Stop
+- Kad nama bandar, hierarki dan daerah
+- Progress bar
+- Kamera sentiasa menghadap utara
+- Tamat dengan zoom keluar Selangor
+
+## Fungsi teras
+
+- Urban Explorer DPN2
+- 2D dan 3D
+- Split screen
+- Middle mouse pan
+- Layer Hierarki Bandar DPN2
+- Kemudahan Kesihatan Negeri Selangor
+- Dropdown legend
+- Search
+- Geolocation
+- ChatGIS asas
+
+Upload semua fail dan folder ke GitHub Pages. Oleh sebab v3.0 menggunakan ES modules, portal perlu dibuka melalui GitHub Pages atau web server, bukan terus melalui `file://`.

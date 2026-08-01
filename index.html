@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO 3D GeoPortal v2.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO 3D GeoPortal v2.1</title>
+  <meta name="description" content="SUO GeoPortal v3.0 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v3.0</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -14,7 +14,7 @@
     <div class="loader-ring"></div>
     <div>
       <p class="loading-kicker">SELANGOR URBAN OBSERVATORY</p>
-      <h1>SUO 3D GeoPortal</h1>
+      <h1>SUO GeoPortal</h1>
       <p>Memuatkan data spatial dan persekitaran 3D...</p>
     </div>
   </div>
@@ -25,13 +25,13 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>3D GeoPortal <span>v2.1</span></h1>
+        <h1>GeoPortal <span>v3.0</span></h1>
       </div>
     </div>
 
     <div class="header-actions">
       <button id="splitBtn" class="header-btn" type="button">◫ Split Screen</button>
-      <button id="flyBtn" class="header-btn secondary" type="button">▶ Fly Selangor</button>
+      <button id="tourBtn" class="header-btn secondary" type="button">▶ Urban Tour</button>
       <button id="resetBtn" class="header-btn secondary" type="button">⟳ Reset</button>
       <button id="fullscreenBtn" class="header-btn secondary" type="button">⛶ Fullscreen</button>
     </div>
@@ -57,7 +57,7 @@
       <section class="panel">
         <div class="panel-heading">
           <div>
-            <p class="section-label">LAYER GIS</p>
+            <p class="section-label">LAYER MANAGEMENT</p>
             <h2>Kandungan peta</h2>
           </div>
           <button id="toggleAllLayers" class="mini-btn" type="button">Semua</button>
@@ -69,7 +69,7 @@
             <span class="legend-symbol city-hierarchy-symbol"></span>
             <span class="layer-copy">
               <strong>Hierarki Bandar DPN2</strong>
-              <small>18 titik bandar — layer rujukan</small>
+              <small>Bandar Negeri, Utama dan Tempatan</small>
             </span>
             <input id="cityHierarchyToggle" type="checkbox" checked />
           </label>
@@ -267,6 +267,38 @@
         </div>
       </section>
 
+
+      <section id="tourPanel" class="tour-panel" hidden>
+        <div class="tour-heading">
+          <div>
+            <span class="compare-kicker">URBAN TOUR ENGINE</span>
+            <strong id="tourCityName">Bandar</strong>
+          </div>
+          <button id="tourCloseBtn" type="button">✕</button>
+        </div>
+
+        <div class="tour-meta">
+          <span id="tourHierarchy">Hierarki</span>
+          <span id="tourDistrict">Daerah</span>
+        </div>
+
+        <div class="tour-progress-track">
+          <div id="tourProgressBar"></div>
+        </div>
+
+        <div class="tour-counter">
+          <span id="tourCounter">0 / 0</span>
+          <span id="tourStatus">Sedia</span>
+        </div>
+
+        <div class="tour-actions">
+          <button id="tourPrevBtn" type="button">⏮</button>
+          <button id="tourPauseBtn" type="button">⏸ Pause</button>
+          <button id="tourNextBtn" type="button">⏭</button>
+          <button id="tourStopBtn" type="button">■ Stop</button>
+        </div>
+      </section>
+
       <div class="map-status">
         <div>
           <span class="status-dot"></span>
@@ -365,7 +397,6 @@
   </div>
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-  <script src="app.js"></script>
-  <script src="compare-engine.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

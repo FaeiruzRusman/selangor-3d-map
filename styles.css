@@ -1305,3 +1305,96 @@ body.map-middle-pan-active {
 .mapboxgl-canvas {
   -webkit-user-drag: none;
 }
+
+
+.tour-panel {
+  position: absolute;
+  top: 66px;
+  right: 12px;
+  z-index: 14;
+  width: min(360px, calc(100% - 24px));
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 14px;
+  background: rgba(7,17,31,0.94);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+}
+
+.tour-heading,
+.tour-actions,
+.tour-counter,
+.tour-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tour-heading {
+  margin-bottom: 10px;
+}
+
+.tour-heading > div {
+  display: grid;
+  gap: 3px;
+}
+
+.tour-heading button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--text);
+  background: rgba(255,255,255,0.06);
+}
+
+.tour-meta {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.tour-progress-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+}
+
+#tourProgressBar {
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+  transition: width 300ms ease;
+}
+
+.tour-counter {
+  margin: 8px 0 10px;
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.tour-actions {
+  justify-content: flex-start;
+}
+
+.tour-actions button {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--text);
+  background: rgba(255,255,255,0.06);
+  font-weight: 800;
+}
+
+.tour-actions button:hover {
+  color: #171100;
+  background: var(--accent);
+}
+
+body.map-middle-pan-active {
+  cursor: grabbing !important;
+  user-select: none !important;
+  overflow: hidden;
+}
