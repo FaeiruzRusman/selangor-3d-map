@@ -1,5 +1,3 @@
-
-// Demo layers removed in v1.6
 const MAPBOX_PUBLIC_TOKEN = "pk.eyJ1IjoiYXBhaTE5ODkiLCJhIjoiY21zODZ2Nzc4MDAzODJ5czk5eDFhOXFpZSJ9.bZ4OwmZqVZKRs_CX3f0tVA";
 
 const START_VIEW = {
@@ -30,9 +28,6 @@ let toggleAllState = true;
 let currentViewMode = "3d";
 
 const layerState = {
-  urban: true,
-  facility: true,
-  
   cityHierarchy: true,
   terrain: true,
   buildings: true
@@ -233,14 +228,6 @@ function initialiseMap() {
 
   map.on("click", handleMapClick);
 
-  map.on("mouseenter", "facility-points", () => {
-    map.getCanvas().style.cursor = "pointer";
-  });
-
-  map.on("mouseleave", "facility-points", () => {
-    map.getCanvas().style.cursor = "";
-  });
-
   map.on("mouseenter", "city-hierarchy-dpn2-circle", () => {
     map.getCanvas().style.cursor = "pointer";
   });
@@ -298,72 +285,6 @@ function disableTerrain() {
 
 async function addOperationalLayers() {
   if (!map || !map.isStyleLoaded()) return;
-
-  if (!map.getSource("urban-focus")) {
-    map.addSource("urban-focus", {
-      type: "geojson",
-      data: "data/urban-focus.geojson"
-    });
-  }
-
-  if (!map.getLayer("urban-focus-fill")) {
-    map.addLayer({
-      id: "urban-focus-fill",
-      type: "fill",
-      source: "urban-focus",
-      paint: {
-        "fill-color": "#f7b500",
-        "fill-opacity": 0.16
-      }
-    });
-  }
-
-  if (!map.getLayer("urban-focus-line")) {
-    map.addLayer({
-      id: "urban-focus-line",
-      type: "line",
-      source: "urban-focus",
-      paint: {
-        "line-color": "#f7b500",
-        "line-width": 3
-      }
-    });
-  }
-
-  if (!map.getSource("facilities")) {
-    map.addSource("facilities", {
-      type: "geojson",
-      data: "data/facilities.geojson"
-    });
-  }
-
-  if (!map.getLayer("facility-points")) {
-    map.addLayer({
-      id: "facility-points",
-      type: "circle",
-      source: "facilities",
-      paint: {
-        "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          10, 4,
-          15, 8
-        ],
-        "circle-color": [
-          "match",
-          ["get", "category"],
-          "Sekolah", "#38bdf8",
-          "Hospital", "#fb7185",
-          "Transit", "#2dd4bf",
-          "#f7b500"
-        ],
-        "circle-stroke-color": "#ffffff",
-        "circle-stroke-width": 1.5,
-        "circle-opacity": 0.94
-      }
-    });
-  }
 
 
   if (!map.getSource("city-hierarchy-dpn2")) {
@@ -432,25 +353,6 @@ async function addOperationalLayers() {
     });
   }
 
-  if (!map.getSource("mobility")) {
-    map.addSource("mobility", {
-      type: "geojson",
-      data: "data/mobility-corridor.geojson"
-    });
-  }
-
-  if (!map.getLayer("mobility-line")) {
-    map.addLayer({
-      id: "mobility-line",
-      type: "line",
-      source: "mobility",
-      paint: {
-        "line-color": "#22d3ee",
-        "line-width": 5,
-        "line-opacity": 0.8
-      }
-    });
-  }
 
   applyLayerVisibility();
 }
@@ -464,9 +366,6 @@ function setLayerVisibility(ids, visible) {
 }
 
 function applyLayerVisibility() {
-  setLayerVisibility(["urban-focus-fill", "urban-focus-line"], layerState.urban);
-  setLayerVisibility(["facility-points"], layerState.facility);
-  setLayerVisibility(["mobility-line"], layerState.mobility);
   setLayerVisibility(
     ["city-hierarchy-dpn2-circle", "city-hierarchy-dpn2-label"],
     layerState.cityHierarchy
@@ -494,11 +393,7 @@ function handleMapClick(event) {
   }
 
   const features = map.queryRenderedFeatures(event.point, {
-    layers: [
-      "city-hierarchy-dpn2-circle",
-      "facility-points",
-      "urban-focus-fill"
-    ].filter((id) => map.getLayer(id))
+    layers: ["city-hierarchy-dpn2-circle"].filter((id) => map.getLayer(id))
   });
 
   if (!features.length) {
@@ -522,26 +417,6 @@ function handleMapClick(event) {
     `;
 
     new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(map);
-    document.getElementById("featureInfo").innerHTML = html;
-  } else if (feature.layer.id === "facility-points") {
-    const coordinates = feature.geometry.coordinates.slice();
-    const html = `
-      <strong>${props.name || "Kemudahan"}</strong><br>
-      Kategori: ${props.category || "-"}<br>
-      PBT: ${props.pbt || "-"}<br>
-      Status: ${props.status || "-"}
-    `;
-
-    new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(map);
-    document.getElementById("featureInfo").innerHTML = html;
-  } else {
-    const html = `
-      <strong>${props.name || "Kawasan Tumpuan"}</strong><br>
-      Jenis: ${props.type || "Urban Focus Area"}<br>
-      Catatan: ${props.note || "Data demonstrasi"}
-    `;
-
-    new mapboxgl.Popup().setLngLat(event.lngLat).setHTML(html).addTo(map);
     document.getElementById("featureInfo").innerHTML = html;
   }
 }
@@ -718,23 +593,8 @@ document.getElementById("searchForm").addEventListener("submit", async (event) =
 });
 
 
-document.getElementById("urbanLayerToggle").addEventListener("change", (event) => {
-  layerState.urban = event.target.checked;
-  applyLayerVisibility();
-  updateLayerCount();
-});
 
-document.getElementById("facilityLayerToggle").addEventListener("change", (event) => {
-  layerState.facility = event.target.checked;
-  applyLayerVisibility();
-  updateLayerCount();
-});
 
-document.getElementById("mobilityLayerToggle").addEventListener("change", (event) => {
-  layerState.mobility = event.target.checked;
-  applyLayerVisibility();
-  updateLayerCount();
-});
 
 document.getElementById("cityHierarchyToggle").addEventListener("change", (event) => {
   layerState.cityHierarchy = event.target.checked;
@@ -775,10 +635,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
 
   Object.keys(layerState).forEach((key) => {
     layerState[key] = toggleAllState;
-  });
-
-  document.getElementById("urbanLayerToggle").checked = toggleAllState;
-      document.getElementById("cityHierarchyToggle").checked = toggleAllState;
+  });  document.getElementById("cityHierarchyToggle").checked = toggleAllState;
   document.getElementById("terrainToggle").checked = toggleAllState;
   document.getElementById("buildingToggle").checked = toggleAllState;
 
@@ -893,12 +750,6 @@ document.getElementById("chatForm").addEventListener("submit", (event) => {
     const [key, label] = cityCommands[matchedCity];
     flyToLocation(key);
     response = `Peta dizum ke ${label} dengan orientasi utara.`;
-  } else if (normalized.includes("sekolah") || normalized.includes("kemudahan")) {
-    layerState.facility = true;
-    document.getElementById("facilityLayerToggle").checked = true;
-    applyLayerVisibility();
-    updateLayerCount();
-    response = "Layer kemudahan awam telah dipaparkan.";
   } else if (normalized.includes("paparan 2d") || normalized === "2d" || normalized.includes("mod 2d")) {
     setViewMode("2d");
     response = "Paparan 2D telah diaktifkan.";
@@ -942,3 +793,10 @@ function addChatBubble(text, type) {
   container.appendChild(bubble);
   container.scrollTop = container.scrollHeight;
 }
+
+window.SUO_COMPARE_CONFIG = {
+  token: MAPBOX_PUBLIC_TOKEN,
+  startView: START_VIEW,
+  basemapStyles,
+  cityDataUrl: "data/hierarki_bandar_selangor_dpn2.geojson"
+};

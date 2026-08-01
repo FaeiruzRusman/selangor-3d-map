@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO 3D GeoPortal v1.5 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO 3D GeoPortal v1.5</title>
+  <meta name="description" content="SUO 3D GeoPortal v1.7 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO 3D GeoPortal v1.7</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,12 +25,13 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>3D GeoPortal <span>v1.5</span></h1>
+        <h1>3D GeoPortal <span>v1.7</span></h1>
       </div>
     </div>
 
     <div class="header-actions">
-      <button id="flyBtn" class="header-btn" type="button">▶ Fly Selangor</button>
+      <button id="splitBtn" class="header-btn" type="button">◫ Split Screen</button>
+      <button id="flyBtn" class="header-btn secondary" type="button">▶ Fly Selangor</button>
       <button id="resetBtn" class="header-btn secondary" type="button">⟳ Reset</button>
       <button id="fullscreenBtn" class="header-btn secondary" type="button">⛶ Fullscreen</button>
     </div>
@@ -63,7 +64,8 @@
         </div>
 
         <div class="layer-list">
-<label class="layer-item">
+
+          <label class="layer-item">
             <span class="legend-symbol city-hierarchy-symbol"></span>
             <span class="layer-copy">
               <strong>Hierarki Bandar DPN2</strong>
@@ -117,7 +119,9 @@
     </aside>
 
     <main class="map-shell">
-      <div id="map"></div>
+      <div id="map" class="split-map split-map-left"></div>
+      <div id="compareMap" class="split-map split-map-right" aria-label="Peta perbandingan"></div>
+      <div id="splitDivider" class="split-divider" aria-hidden="true"></div>
 
       <div class="map-top-tools">
         <div class="basemap-control">
@@ -139,6 +143,67 @@
           </div>
         </div>
       </div>
+
+
+      <section id="comparePanel" class="compare-panel" aria-label="Tetapan split screen">
+        <div class="compare-panel-heading">
+          <div>
+            <span class="compare-kicker">COMPARE ENGINE</span>
+            <strong>Split Screen</strong>
+          </div>
+          <button id="closeSplitBtn" type="button" aria-label="Tutup split screen">✕</button>
+        </div>
+
+        <div class="compare-grid">
+          <label>
+            <span>Peta Kiri</span>
+            <select id="leftBasemapSelect">
+              <option value="standard">Standard</option>
+              <option value="satellite">Satellite</option>
+              <option value="streets">Streets</option>
+              <option value="outdoors">Outdoors</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Peta Kanan</span>
+            <select id="rightBasemapSelect">
+              <option value="satellite">Satellite</option>
+              <option value="standard">Standard</option>
+              <option value="streets">Streets</option>
+              <option value="outdoors">Outdoors</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="compare-grid">
+          <div>
+            <span class="compare-field-label">Paparan Kiri</span>
+            <div class="compare-segment">
+              <button id="left2DBtn" type="button">2D</button>
+              <button id="left3DBtn" class="active" type="button">3D</button>
+            </div>
+          </div>
+
+          <div>
+            <span class="compare-field-label">Paparan Kanan</span>
+            <div class="compare-segment">
+              <button id="right2DBtn" type="button">2D</button>
+              <button id="right3DBtn" class="active" type="button">3D</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-actions">
+          <label class="sync-control">
+            <input id="syncMapsToggle" type="checkbox" checked />
+            <span>Selaraskan pan, zoom dan pitch</span>
+          </label>
+          <button id="swapMapsBtn" type="button">⇄ Tukar Basemap</button>
+        </div>
+      </section>
 
       <div class="map-status">
         <div>
@@ -170,7 +235,7 @@
         </article>
         <article class="kpi-card">
           <span>Layer Aktif</span>
-          <strong id="activeLayerCount">1</strong>
+          <strong id="activeLayerCount">3</strong>
           <small>Spatial layers</small>
         </article>
         <article class="kpi-card">
@@ -231,7 +296,7 @@
         <p class="section-label">FEATURE INFO</p>
         <h2>Maklumat pilihan</h2>
         <div id="featureInfo" class="feature-info">
-          Klik mana-mana kemudahan atau kawasan pada peta untuk melihat maklumat.
+          Klik mana-mana bandar DPN2 pada peta untuk melihat maklumat.
         </div>
       </section>
     </aside>
@@ -239,5 +304,6 @@
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
   <script src="app.js"></script>
+  <script src="compare-engine.js"></script>
 </body>
 </html>
