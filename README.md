@@ -1,11 +1,31 @@
-# SUO 3D GeoPortal v1.8 — Split Center Fix
+# SUO 3D GeoPortal v1.9 — Kemudahan Kesihatan Negeri Selangor
 
-Pembetulan utama:
+Layer baharu:
 
-- Peta kanan hanya dicipta selepas panel split dipaparkan.
-- Kedua-dua Mapbox canvas di-resize sebelum kamera diselaraskan.
-- Pusat, zoom, pitch dan bearing disalin sebagai nilai kamera yang sama.
-- Kedua-dua panel menggunakan lebar tepat 50%.
-- Pertukaran basemap tidak lagi mengubah pusat visual.
-- Window resize akan menyelaraskan semula kedua-dua peta.
-- Bearing sentiasa 0° (utara).
+```text
+data/kemudahan_kesihatan_selangor.geojson
+```
+
+Label portal:
+
+```text
+Kemudahan Kesihatan Negeri Selangor
+```
+
+Jumlah feature: **89**
+
+Kategori yang disokong:
+
+- Hospital
+- Klinik Kesihatan
+- Klinik Ibu dan Anak
+- Klinik Desa
+
+Fungsi:
+
+- Toggle layer pada panel Kandungan Peta
+- Simbol berbeza mengikut kategori
+- Label nama kemudahan pada zoom 12 dan ke atas
+- Popup nama, kategori, sektor, operator, daerah, lokaliti dan status semakan
+- Dipaparkan pada peta utama dan peta kanan split screen
+- Toggle layer utama turut menyelaraskan paparan split screen

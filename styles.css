@@ -1128,3 +1128,13 @@ select:focus-visible {
     height: 50%;
   }
 }
+
+
+.health-facility-symbol {
+  width: 13px;
+  height: 13px;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  background: #e63946;
+  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.14);
+}

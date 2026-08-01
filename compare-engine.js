@@ -6,6 +6,7 @@
   let syncing = false;
   let syncEnabled = true;
   let rightMode = "3d";
+  let healthLayerVisible = true;
   let pendingCamera = null;
   let resizeTimer = null;
 
@@ -74,6 +75,86 @@
           "text-color": "#FFFFFF",
           "text-halo-color": "rgba(7,17,31,0.92)",
           "text-halo-width": 1.5
+        }
+      });
+    }
+  }
+
+
+  function addHealthLayer(targetMap) {
+    if (!targetMap.getSource("compare-health-facilities")) {
+      targetMap.addSource("compare-health-facilities", {
+        type: "geojson",
+        data: window.SUO_COMPARE_CONFIG.healthDataUrl
+      });
+    }
+
+    if (!targetMap.getLayer("compare-health-circle")) {
+      targetMap.addLayer({
+        id: "compare-health-circle",
+        type: "circle",
+        source: "compare-health-facilities",
+        layout: {
+          visibility: healthLayerVisible ? "visible" : "none"
+        },
+        paint: {
+          "circle-radius": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            7, [
+              "match",
+              ["get", "KATEGORI"],
+              "Hospital", 5.5,
+              "Klinik Kesihatan", 4.5,
+              "Klinik Ibu dan Anak", 4,
+              "Klinik Desa", 3.5,
+              4
+            ],
+            15, [
+              "match",
+              ["get", "KATEGORI"],
+              "Hospital", 11,
+              "Klinik Kesihatan", 9,
+              "Klinik Ibu dan Anak", 8,
+              "Klinik Desa", 7,
+              8
+            ]
+          ],
+          "circle-color": [
+            "match",
+            ["get", "KATEGORI"],
+            "Hospital", "#E63946",
+            "Klinik Kesihatan", "#1D4ED8",
+            "Klinik Ibu dan Anak", "#EC4899",
+            "Klinik Desa", "#16A34A",
+            "#6B7280"
+          ],
+          "circle-stroke-color": "#FFFFFF",
+          "circle-stroke-width": 1.6,
+          "circle-opacity": 0.94
+        }
+      });
+    }
+
+    if (!targetMap.getLayer("compare-health-label")) {
+      targetMap.addLayer({
+        id: "compare-health-label",
+        type: "symbol",
+        source: "compare-health-facilities",
+        minzoom: 12,
+        layout: {
+          visibility: healthLayerVisible ? "visible" : "none",
+          "text-field": ["get", "NAMA"],
+          "text-size": ["interpolate", ["linear"], ["zoom"], 12, 9, 16, 12],
+          "text-offset": [0, 1.25],
+          "text-anchor": "top",
+          "text-allow-overlap": false
+        },
+        paint: {
+          "text-color": "#FFFFFF",
+          "text-halo-color": "rgba(7,17,31,0.94)",
+          "text-halo-width": 1.4
         }
       });
     }
@@ -156,12 +237,14 @@
 
     compareMap.on("load", () => {
       addCityLayer(compareMap);
+      addHealthLayer(compareMap);
       setRightMode(rightMode, false);
       alignBothMaps(camera);
     });
 
     compareMap.on("style.load", () => {
       addCityLayer(compareMap);
+      addHealthLayer(compareMap);
       setRightMode(rightMode, false);
 
       const currentCamera = pendingCamera || getCameraState(map);
@@ -170,22 +253,36 @@
 
     compareMap.on("click", (event) => {
       const features = compareMap.queryRenderedFeatures(event.point, {
-        layers: ["compare-city-circle"].filter((id) =>
-          compareMap.getLayer(id)
-        )
+        layers: [
+          "compare-health-circle",
+          "compare-city-circle"
+        ].filter((id) => compareMap.getLayer(id))
       });
 
       if (!features.length) return;
 
-      const props = features[0].properties || {};
+      const feature = features[0];
+      const props = feature.properties || {};
+      let popupHtml = "";
 
-      new mapboxgl.Popup()
-        .setLngLat(features[0].geometry.coordinates)
-        .setHTML(
+      if (feature.layer.id === "compare-health-circle") {
+        popupHtml =
+          `<strong>${props.NAMA || "Kemudahan Kesihatan"}</strong><br>` +
+          `Kategori: ${props.KATEGORI || "-"}<br>` +
+          `Sektor: ${props.SEKTOR || "-"}<br>` +
+          `Operator: ${props.OPERATOR || "-"}<br>` +
+          `Daerah: ${props.DAERAH || "-"}<br>` +
+          `Lokaliti: ${props.LOKALITI || "-"}`;
+      } else {
+        popupHtml =
           `<strong>${props.nama_bandar || "Bandar"}</strong><br>` +
           `Hierarki: ${props.hierarki || "-"}<br>` +
-          `Daerah: ${props.daerah || "-"}`
-        )
+          `Daerah: ${props.daerah || "-"}`;
+      }
+
+      new mapboxgl.Popup()
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML(popupHtml)
         .addTo(compareMap);
     });
 
@@ -388,6 +485,22 @@
   divider.addEventListener("dblclick", () => {
     syncEnabled = !syncEnabled;
     document.getElementById("syncMapsToggle").checked = syncEnabled;
+  });
+
+  window.addEventListener("suo:health-layer-toggle", (event) => {
+    healthLayerVisible = Boolean(event.detail?.visible);
+
+    if (!compareMap) return;
+
+    ["compare-health-circle", "compare-health-label"].forEach((layerId) => {
+      if (compareMap.getLayer(layerId)) {
+        compareMap.setLayoutProperty(
+          layerId,
+          "visibility",
+          healthLayerVisible ? "visible" : "none"
+        );
+      }
+    });
   });
 
   window.addEventListener("resize", () => {

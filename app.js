@@ -29,6 +29,7 @@ let currentViewMode = "3d";
 
 const layerState = {
   cityHierarchy: true,
+  healthFacilities: true,
   terrain: true,
   buildings: true
 };
@@ -236,6 +237,14 @@ function initialiseMap() {
     map.getCanvas().style.cursor = "";
   });
 
+  map.on("mouseenter", "health-facilities-circle", () => {
+    map.getCanvas().style.cursor = "pointer";
+  });
+
+  map.on("mouseleave", "health-facilities-circle", () => {
+    map.getCanvas().style.cursor = "";
+  });
+
   map.on("rotate", () => {
     if (Math.abs(map.getBearing()) > 0.01) map.setBearing(0);
   });
@@ -354,6 +363,80 @@ async function addOperationalLayers() {
   }
 
 
+  if (!map.getSource("health-facilities")) {
+    map.addSource("health-facilities", {
+      type: "geojson",
+      data: "data/kemudahan_kesihatan_selangor.geojson"
+    });
+  }
+
+  if (!map.getLayer("health-facilities-circle")) {
+    map.addLayer({
+      id: "health-facilities-circle",
+      type: "circle",
+      source: "health-facilities",
+      paint: {
+        "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          7, [
+            "match",
+            ["get", "KATEGORI"],
+            "Hospital", 5.5,
+            "Klinik Kesihatan", 4.5,
+            "Klinik Ibu dan Anak", 4,
+            "Klinik Desa", 3.5,
+            4
+          ],
+          15, [
+            "match",
+            ["get", "KATEGORI"],
+            "Hospital", 11,
+            "Klinik Kesihatan", 9,
+            "Klinik Ibu dan Anak", 8,
+            "Klinik Desa", 7,
+            8
+          ]
+        ],
+        "circle-color": [
+          "match",
+          ["get", "KATEGORI"],
+          "Hospital", "#E63946",
+          "Klinik Kesihatan", "#1D4ED8",
+          "Klinik Ibu dan Anak", "#EC4899",
+          "Klinik Desa", "#16A34A",
+          "#6B7280"
+        ],
+        "circle-stroke-color": "#FFFFFF",
+        "circle-stroke-width": 1.6,
+        "circle-opacity": 0.94
+      }
+    });
+  }
+
+  if (!map.getLayer("health-facilities-label")) {
+    map.addLayer({
+      id: "health-facilities-label",
+      type: "symbol",
+      source: "health-facilities",
+      minzoom: 12,
+      layout: {
+        "text-field": ["get", "NAMA"],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 12, 9, 16, 12],
+        "text-offset": [0, 1.25],
+        "text-anchor": "top",
+        "text-allow-overlap": false
+      },
+      paint: {
+        "text-color": "#FFFFFF",
+        "text-halo-color": "rgba(7,17,31,0.94)",
+        "text-halo-width": 1.4
+      }
+    });
+  }
+
+
   applyLayerVisibility();
 }
 
@@ -369,6 +452,10 @@ function applyLayerVisibility() {
   setLayerVisibility(
     ["city-hierarchy-dpn2-circle", "city-hierarchy-dpn2-label"],
     layerState.cityHierarchy
+  );
+  setLayerVisibility(
+    ["health-facilities-circle", "health-facilities-label"],
+    layerState.healthFacilities
   );
 
   if (layerState.terrain) enableTerrain();
@@ -393,7 +480,10 @@ function handleMapClick(event) {
   }
 
   const features = map.queryRenderedFeatures(event.point, {
-    layers: ["city-hierarchy-dpn2-circle"].filter((id) => map.getLayer(id))
+    layers: [
+      "health-facilities-circle",
+      "city-hierarchy-dpn2-circle"
+    ].filter((id) => map.getLayer(id))
   });
 
   if (!features.length) {
@@ -405,7 +495,21 @@ function handleMapClick(event) {
   const feature = features[0];
   const props = feature.properties || {};
 
-  if (feature.layer.id === "city-hierarchy-dpn2-circle") {
+  if (feature.layer.id === "health-facilities-circle") {
+    const coordinates = feature.geometry.coordinates.slice();
+    const html = `
+      <strong>${props.NAMA || "Kemudahan Kesihatan"}</strong><br>
+      Kategori: ${props.KATEGORI || "-"}<br>
+      Sektor: ${props.SEKTOR || "-"}<br>
+      Operator: ${props.OPERATOR || "-"}<br>
+      Daerah: ${props.DAERAH || "-"}<br>
+      Lokaliti: ${props.LOKALITI || "-"}<br>
+      Semakan: ${props.SEMAKAN || "-"}
+    `;
+
+    new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(map);
+    document.getElementById("featureInfo").innerHTML = html;
+  } else if (feature.layer.id === "city-hierarchy-dpn2-circle") {
     const coordinates = feature.geometry.coordinates.slice();
     const html = `
       <strong>${props.nama_bandar || "Bandar"}</strong><br>
@@ -602,6 +706,16 @@ document.getElementById("cityHierarchyToggle").addEventListener("change", (event
   updateLayerCount();
 });
 
+document.getElementById("healthFacilityToggle").addEventListener("change", (event) => {
+  layerState.healthFacilities = event.target.checked;
+  applyLayerVisibility();
+  updateLayerCount();
+
+  window.dispatchEvent(new CustomEvent("suo:health-layer-toggle", {
+    detail: { visible: layerState.healthFacilities }
+  }));
+});
+
 document.getElementById("terrainToggle").addEventListener("change", (event) => {
   layerState.terrain = event.target.checked;
 
@@ -635,7 +749,9 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
 
   Object.keys(layerState).forEach((key) => {
     layerState[key] = toggleAllState;
-  });  document.getElementById("cityHierarchyToggle").checked = toggleAllState;
+  });
+  document.getElementById("cityHierarchyToggle").checked = toggleAllState;
+  document.getElementById("healthFacilityToggle").checked = toggleAllState;
   document.getElementById("terrainToggle").checked = toggleAllState;
   document.getElementById("buildingToggle").checked = toggleAllState;
 
@@ -798,5 +914,6 @@ window.SUO_COMPARE_CONFIG = {
   token: MAPBOX_PUBLIC_TOKEN,
   startView: START_VIEW,
   basemapStyles,
-  cityDataUrl: "data/hierarki_bandar_selangor_dpn2.geojson"
+  cityDataUrl: "data/hierarki_bandar_selangor_dpn2.geojson",
+  healthDataUrl: "data/kemudahan_kesihatan_selangor.geojson"
 };
