@@ -12,6 +12,7 @@ import { UrbanTour } from "./urban-tour.js";
 import { CompareEngine } from "./compare.js";
 import { WeatherIntelligence } from "./weather.js";
 import { FloodIntelligence } from "./flood.js";
+import { SpatialAssistant } from "./ai-assistant.js";
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -446,49 +447,20 @@ document.getElementById("searchForm").addEventListener("submit", async (event) =
   }
 });
 
-document.getElementById("chatForm").addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const input = document.getElementById("chatInput");
-  const text = input.value.trim();
-
-  if (!text) return;
-
-  addChatBubble(text, "user");
-  input.value = "";
-
-  const normalized = text.toLowerCase();
-  const match = [...cityLookup.entries()]
-    .find(([name]) => normalized.includes(name));
-
-  let reply = "Arahan belum dikenali.";
-
-  if (match) {
-    flyToCity(match[1]);
-    reply = `Peta dizum ke ${match[1].name}.`;
-  } else if (normalized.includes("2d")) {
-    setViewMode("2d");
-    reply = "Paparan 2D diaktifkan.";
-  } else if (normalized.includes("3d")) {
-    setViewMode("3d");
-    reply = "Paparan 3D diaktifkan.";
-  } else if (normalized.includes("malam")) {
-    document.getElementById("nightBtn").click();
-    reply = "Mod malam ditukar.";
-  }
-
-  setTimeout(() => addChatBubble(reply, "bot"), 250);
-});
-
-function addChatBubble(text, type) {
+function addChatBubble(text, type, options = {}) {
   const container = document.getElementById("chatMessages");
   const bubble = document.createElement("div");
 
   bubble.className = `chat-bubble ${type}`;
+  if (options.loading) {
+    bubble.classList.add("chat-loading");
+  }
+
   bubble.textContent = text;
 
   container.appendChild(bubble);
   container.scrollTop = container.scrollHeight;
+  return bubble;
 }
 
 
@@ -674,3 +646,69 @@ document.getElementById("mobileMenuBtn").addEventListener("click", () => {
 document.getElementById("rightPanelToggle").addEventListener("click", () => {
   document.getElementById("rightSidebar").classList.toggle("open");
 });
+
+
+const ASSISTANT_LAYER_LABELS = {
+  traffic: "Live Traffic",
+  floodRain: "Flood Intelligence Fasa 1",
+  pbt: "Sempadan PBT",
+  healthFacilities: "Kemudahan Kesihatan",
+  police: "Keselamatan",
+  cityHierarchy: "Hierarki Bandar DPN2",
+  terrain: "Terrain 3D",
+  buildings: "Bangunan 3D"
+};
+
+function setAssistantLayerVisibility(layer, visible) {
+  const toggleMap = {
+    traffic: "trafficToggle",
+    floodRain: "floodRainToggle",
+    pbt: "pbtToggle",
+    healthFacilities: "healthFacilityToggle",
+    police: "policeToggle",
+    cityHierarchy: "cityHierarchyToggle",
+    terrain: "terrainToggle",
+    buildings: "buildingToggle"
+  };
+
+  const toggleId = toggleMap[layer];
+  if (!toggleId) return false;
+
+  const toggle = document.getElementById(toggleId);
+  if (!toggle) return false;
+
+  toggle.checked = visible;
+  toggle.dispatchEvent(new Event("change", { bubbles: true }));
+  return true;
+}
+
+const spatialAssistant = new SpatialAssistant({
+  map,
+  addBubble: addChatBubble,
+  cityLookup,
+  actions: {
+    setViewMode,
+    flyToCity,
+    openSplit: () => compare.open(),
+    focusMap: () => focusMapBtn.click(),
+    setLeftPanel,
+    setRightPanel,
+    setLayerVisibility: setAssistantLayerVisibility,
+    getLayerLabel: (layer) => ASSISTANT_LAYER_LABELS[layer] || layer
+  }
+});
+
+spatialAssistant.bindForm(
+  document.getElementById("chatForm"),
+  document.getElementById("chatInput")
+);
+
+document.querySelectorAll("[data-assistant-example]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const input = document.getElementById("chatInput");
+    input.value = button.dataset.assistantExample || "";
+    input.focus();
+    document.getElementById("chatForm").requestSubmit();
+  });
+});
+
