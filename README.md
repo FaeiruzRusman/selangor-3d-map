@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.5 — Modular Architecture
+# SUO GeoPortal v3.6 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -220,3 +220,41 @@ Fungsi:
 - Dropdown legend
 - Popup nama, kategori, keluasan dan tahun data
 - Berfungsi pada peta utama serta split screen
+
+
+## Layer Management Baharu
+
+Susunan utama:
+
+1. Hierarki Bandar DPN2
+2. Kemudahan
+   - Kesihatan
+   - Keselamatan
+3. Flood Intelligence Fasa 1
+4. Live Traffic
+
+Kategori tambahan dikekalkan selepas susunan utama:
+
+- Pentadbiran
+  - Sempadan PBT Selangor 2024
+- Peta Asas
+  - Terrain 3D
+  - Bangunan 3D
+
+Setiap kategori boleh dibuka atau ditutup secara berasingan.
+
+## Ask Mr. TPr. SUO
+
+Nama `AI CHATGIS` telah ditukar kepada:
+
+```text
+Ask Mr. TPr. SUO
+```
+
+Subtajuk:
+
+```text
+Pembantu AI Perancangan Bandar
+```
+
+Input turut ditukar kepada `Tanya Mr. TPr. SUO...`.
