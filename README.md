@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.0 — Modular Architecture
+# SUO GeoPortal v3.1 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -46,3 +46,28 @@ Fungsi:
 - ChatGIS asas
 
 Upload semua fail dan folder ke GitHub Pages. Oleh sebab v3.0 menggunakan ES modules, portal perlu dibuka melalui GitHub Pages atau web server, bukan terus melalui `file://`.
+
+
+## Live Traffic
+
+Sumber:
+
+```text
+mapbox://mapbox.mapbox-traffic-v1
+```
+
+Source layer:
+
+```text
+traffic
+```
+
+Kategori kesesakan:
+
+- low — Lancar
+- moderate — Sederhana
+- heavy — Sesak
+- severe — Sangat Sesak
+- lain-lain — Tiada Maklumat
+
+Layer ini dimuatkan pada peta utama dan split screen melalui modul `layers.js`.

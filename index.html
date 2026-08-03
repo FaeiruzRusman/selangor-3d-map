@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v3.0 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v3.0</title>
+  <meta name="description" content="SUO GeoPortal v3.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v3.1</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v3.0</span></h1>
+        <h1>GeoPortal <span>v3.1</span></h1>
       </div>
     </div>
 
@@ -128,6 +128,39 @@
                   <span class="legend-hospital-icon other-health-color"></span>
                   <span>Lain-lain Kemudahan Kesihatan</span>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layer-group">
+            <div class="layer-item layer-item-expandable">
+              <button id="trafficLegendBtn"
+                      class="layer-expand-btn"
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="trafficLegendPanel"
+                      title="Buka legend trafik">
+                ▸
+              </button>
+              <span class="legend-symbol traffic-layer-symbol"></span>
+              <span class="layer-copy">
+                <strong>Live Traffic</strong>
+                <small>Keadaan kesesakan jalan masa nyata</small>
+              </span>
+              <input id="trafficToggle" type="checkbox" checked />
+            </div>
+
+            <div id="trafficLegendPanel" class="layer-legend-panel" hidden>
+              <div class="legend-heading">
+                <span>Legend Live Traffic</span>
+                <small>Tahap kesesakan semasa</small>
+              </div>
+              <div class="legend-list">
+                <div class="legend-row"><span class="traffic-legend-line traffic-low"></span><span>Lancar</span></div>
+                <div class="legend-row"><span class="traffic-legend-line traffic-moderate"></span><span>Sederhana</span></div>
+                <div class="legend-row"><span class="traffic-legend-line traffic-heavy"></span><span>Sesak</span></div>
+                <div class="legend-row"><span class="traffic-legend-line traffic-severe"></span><span>Sangat Sesak</span></div>
+                <div class="legend-row"><span class="traffic-legend-line traffic-unknown"></span><span>Tiada Maklumat</span></div>
               </div>
             </div>
           </div>
@@ -329,7 +362,7 @@
         </article>
         <article class="kpi-card">
           <span>Layer Aktif</span>
-          <strong id="activeLayerCount">4</strong>
+          <strong id="activeLayerCount">5</strong>
           <small>Spatial layers</small>
         </article>
         <article class="kpi-card">

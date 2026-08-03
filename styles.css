@@ -1398,3 +1398,25 @@ body.map-middle-pan-active {
   user-select: none !important;
   overflow: hidden;
 }
+
+
+.traffic-layer-symbol {
+  width: 16px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #22c55e 0 25%, #facc15 25% 50%, #f97316 50% 75%, #dc2626 75% 100%);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.07);
+}
+
+.traffic-legend-line {
+  width: 22px;
+  height: 5px;
+  display: inline-block;
+  border-radius: 999px;
+}
+
+.traffic-low { background: #22c55e; }
+.traffic-moderate { background: #facc15; }
+.traffic-heavy { background: #f97316; }
+.traffic-severe { background: #dc2626; }
+.traffic-unknown { background: #94a3b8; }
