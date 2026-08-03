@@ -22,5 +22,6 @@ export const DATA_URLS = {
   hospitalIcon: "assets/icons/hospital-building.svg",
   police: "data/keselamatan/ipk_ipd_selangor.geojson",
   policeIcon: "assets/icons/police-building.svg",
-  pbt: "data/pentadbiran/sempadan_pbt_selangor_2024.geojson"
+  pbt: "data/pentadbiran/sempadan_pbt_selangor_2024.geojson",
+  pbtLabels: "data/pentadbiran/label_pbt_selangor_2024.geojson"
 };

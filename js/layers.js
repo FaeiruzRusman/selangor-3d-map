@@ -120,6 +120,7 @@ export async function addPortalLayers(map, prefix = "") {
 
 
   const pbtSource = `${prefix}pbt`;
+  const pbtLabelSource = `${prefix}pbt-label-source`;
   const pbtFill = `${prefix}pbt-fill`;
   const pbtLine = `${prefix}pbt-line`;
   const pbtLabel = `${prefix}pbt-label`;
@@ -128,6 +129,14 @@ export async function addPortalLayers(map, prefix = "") {
     map.addSource(pbtSource, {
       type: "geojson",
       data: DATA_URLS.pbt,
+      promoteId: "OBJECTID"
+    });
+  }
+
+  if (!map.getSource(pbtLabelSource)) {
+    map.addSource(pbtLabelSource, {
+      type: "geojson",
+      data: DATA_URLS.pbtLabels,
       promoteId: "OBJECTID"
     });
   }
@@ -177,7 +186,7 @@ export async function addPortalLayers(map, prefix = "") {
     map.addLayer({
       id: pbtLabel,
       type: "symbol",
-      source: pbtSource,
+      source: pbtLabelSource,
       slot: "top",
       minzoom: 8,
       layout: {
@@ -191,7 +200,9 @@ export async function addPortalLayers(map, prefix = "") {
         ],
         "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
         "text-allow-overlap": false,
-        "text-ignore-placement": false
+        "text-ignore-placement": false,
+        "text-optional": true,
+        "symbol-placement": "point"
       },
       paint: {
         "text-color": "#DBEAFE",
