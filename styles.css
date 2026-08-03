@@ -3338,3 +3338,219 @@ body.map-middle-pan-active {
     font-size: 12px;
   }
 }
+
+
+/* =========================================================
+   v6.0 — Enterprise Compare Engine
+   ========================================================= */
+
+.enterprise-compare-panel {
+  width: min(690px, calc(100% - 24px));
+  max-height: calc(100% - 84px);
+  overflow-y: auto;
+}
+
+.compare-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+}
+
+.compare-tab {
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.compare-tab.active {
+  color: #171100;
+  background: var(--accent);
+}
+
+.compare-tab-panel[hidden] {
+  display: none;
+}
+
+.compare-tab-panel.active {
+  display: block;
+}
+
+.compare-side-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.compare-side-card {
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 11px;
+  background: rgba(255,255,255,0.025);
+}
+
+.compare-side-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #f8fafc;
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+
+.compare-side-title button {
+  padding: 4px 7px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.04);
+  font-size: 0.56rem;
+  font-weight: 800;
+}
+
+.compare-side-title button:hover {
+  color: #171100;
+  background: var(--accent);
+}
+
+.compare-layer-list {
+  display: grid;
+  gap: 5px;
+}
+
+.compare-layer-row,
+.compare-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 8px;
+  border: 1px solid rgba(255,255,255,0.055);
+  border-radius: 8px;
+  color: #dbe7f1;
+  background: rgba(255,255,255,0.018);
+  font-size: 0.62rem;
+}
+
+.compare-layer-row input,
+.compare-switch-row input,
+.compare-sync-grid input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+.compare-basemap-card select {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--text);
+  background: #0e1d31;
+  font-size: 0.66rem;
+}
+
+.compare-basemap-note {
+  margin: 10px 0;
+  padding: 9px;
+  border: 1px dashed rgba(247,181,0,0.22);
+  border-radius: 9px;
+  color: var(--muted);
+  font-size: 0.61rem;
+  line-height: 1.45;
+}
+
+.compare-wide-btn {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid rgba(247,181,0,0.25);
+  border-radius: 9px;
+  color: #171100;
+  background: var(--accent);
+  font-size: 0.66rem;
+  font-weight: 900;
+}
+
+.compare-sync-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.compare-sync-grid label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px;
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 8px;
+  color: #dbe7f1;
+  background: rgba(255,255,255,0.025);
+  font-size: 0.62rem;
+}
+
+.map-shell.split-active .map-top-tools {
+  display: none;
+}
+
+.map-shell.split-active::before,
+.map-shell.split-active::after {
+  position: absolute;
+  top: 10px;
+  z-index: 11;
+  padding: 6px 9px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  color: #f8fafc;
+  background: rgba(7,17,31,0.82);
+  backdrop-filter: blur(10px);
+  font-size: 0.58rem;
+  font-weight: 900;
+  pointer-events: none;
+}
+
+.map-shell.split-active::before {
+  left: 10px;
+  content: "LEFT MAP";
+}
+
+.map-shell.split-active::after {
+  right: 10px;
+  content: "RIGHT MAP";
+}
+
+@media (max-width: 760px) {
+  .enterprise-compare-panel {
+    top: 54px;
+    left: 8px;
+    width: calc(100% - 16px);
+    max-height: calc(100% - 68px);
+  }
+
+  .compare-side-grid,
+  .compare-sync-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: rgba(7,17,31,0.97);
+  }
+}

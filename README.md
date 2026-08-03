@@ -1,4 +1,4 @@
-# SUO GeoPortal v5.0 — Modular Architecture
+# SUO GeoPortal v6.0 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -716,3 +716,87 @@ menggunakan atribut kod PBT yang tersedia dalam data sekolah.
 
 Enjin tidak menjalankan JavaScript bebas dan hanya menggunakan field serta
 nilai yang didaftarkan dalam metadata.
+
+
+## Enterprise Compare Engine v6.0
+
+Compare Mode kini menggunakan state yang berasingan untuk:
+
+```text
+Main Map
+Left Compare Map
+Right Compare Map
+```
+
+Konfigurasi Main Map disimpan sebelum Compare Mode dibuka dan dipulihkan
+apabila Compare Mode ditutup.
+
+### Tab Layers
+
+Setiap paparan boleh mengaktifkan layer secara bebas:
+
+- Hierarki Bandar DPN2
+- Kesihatan
+- Pendidikan
+- Keselamatan
+- Flood Intelligence
+- Live Traffic
+- Sempadan Daerah
+- Sempadan PBT
+
+### Tab Basemap
+
+Semua pilihan berikut tersedia pada Left Map dan Right Map:
+
+- Standard
+- Satellite
+- Hybrid
+- Terrain
+- Light
+- Dark
+- Outdoors
+- Streets
+- Navigation Day
+- Navigation Night
+- OpenStreetMap
+
+Kedua-dua paparan boleh menggunakan basemap yang sama atau berlainan.
+
+### Tab Display
+
+- Left Map 2D / 3D
+- Right Map 2D / 3D
+- Basemap Labels ON / OFF bagi setiap paparan
+- Sync Pan
+- Sync Zoom
+- Sync Bearing
+- Sync Pitch
+
+Setiap tetapan sync boleh dihidupkan atau dimatikan secara berasingan.
+
+### Penyimpanan
+
+Konfigurasi Compare Mode disimpan melalui:
+
+```text
+localStorage key:
+suoCompareStateV60
+```
+
+Pilihan layer, basemap, paparan dan sync terakhir akan digunakan semula
+pada sesi seterusnya.
+
+### Fail utama
+
+```text
+js/compare.js
+js/config.js
+js/flood.js
+index.html
+styles.css
+```
+
+### Nota teknikal
+
+OpenStreetMap menggunakan raster tiles rasmi OSM. Attribution kekal
+dipaparkan melalui konfigurasi sumber raster.

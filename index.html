@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v5.0 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v5.0</title>
+  <meta name="description" content="SUO GeoPortal v6.0 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v6.0</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v5.0</span></h1>
+        <h1>GeoPortal <span>v6.0</span></h1>
       </div>
     </div>
 
@@ -514,68 +514,168 @@
       </div>
 
 
-      <section id="comparePanel" class="compare-panel" aria-label="Tetapan split screen">
+      <section id="comparePanel" class="compare-panel enterprise-compare-panel" aria-label="Enterprise Compare Engine">
         <div class="compare-panel-heading">
           <div>
-            <span class="compare-kicker">COMPARE ENGINE</span>
-            <strong>Split Screen</strong>
+            <span class="compare-kicker">ENTERPRISE COMPARE ENGINE</span>
+            <strong>Compare Mode v6.0</strong>
           </div>
-          <button id="closeSplitBtn" type="button" aria-label="Tutup split screen">✕</button>
+          <button id="closeSplitBtn" type="button" aria-label="Tutup compare mode">✕</button>
         </div>
 
-        <div class="compare-grid">
-          <label>
-            <span>Peta Kiri</span>
-            <select id="leftBasemapSelect">
-              <option value="standard">Standard</option>
-              <option value="satellite">Satellite</option>
-              <option value="streets">Streets</option>
-              <option value="outdoors">Outdoors</option>
-              <option value="dark">Dark</option>
-            </select>
-          </label>
-
-          <label>
-            <span>Peta Kanan</span>
-            <select id="rightBasemapSelect">
-              <option value="satellite">Satellite</option>
-              <option value="standard">Standard</option>
-              <option value="streets">Streets</option>
-              <option value="outdoors">Outdoors</option>
-              <option value="dark">Dark</option>
-            </select>
-          </label>
+        <div class="compare-tabs" role="tablist">
+          <button class="compare-tab active" type="button" data-compare-tab="layers">Layers</button>
+          <button class="compare-tab" type="button" data-compare-tab="basemap">Basemap</button>
+          <button class="compare-tab" type="button" data-compare-tab="display">Display</button>
         </div>
 
-        <div class="compare-grid">
-          <div>
-            <span class="compare-field-label">Paparan Kiri</span>
-            <div class="compare-segment">
-              <button id="left2DBtn" type="button">2D</button>
-              <button id="left3DBtn" class="active" type="button">3D</button>
-            </div>
+        <div class="compare-tab-panel active" data-compare-panel="layers">
+          <div class="compare-side-grid">
+            <section class="compare-side-card">
+              <div class="compare-side-title"><span>LEFT MAP</span><button type="button" data-select-all="left">Semua</button></div>
+              <div class="compare-layer-list">
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="left" data-compare-layer="cityHierarchy" checked />
+                  <span>Hierarki Bandar DPN2</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="left" data-compare-layer="healthFacilities" checked />
+                  <span>Kesihatan</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="left" data-compare-layer="schools" checked />
+                  <span>Pendidikan</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="left" data-compare-layer="police" checked />
+                  <span>Keselamatan</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="left" data-compare-layer="floodRain" checked />
+                  <span>Flood Intelligence</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="left" data-compare-layer="traffic" checked />
+                  <span>Live Traffic</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="left" data-compare-layer="districts" checked />
+                  <span>Sempadan Daerah</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="left" data-compare-layer="pbt" checked />
+                  <span>Sempadan PBT</span>
+                </label>
+              </div>
+            </section>
+            <section class="compare-side-card">
+              <div class="compare-side-title"><span>RIGHT MAP</span><button type="button" data-select-all="right">Semua</button></div>
+              <div class="compare-layer-list">
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="right" data-compare-layer="cityHierarchy" checked />
+                  <span>Hierarki Bandar DPN2</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="right" data-compare-layer="healthFacilities" checked />
+                  <span>Kesihatan</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="right" data-compare-layer="schools" checked />
+                  <span>Pendidikan</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="right" data-compare-layer="police" checked />
+                  <span>Keselamatan</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="right" data-compare-layer="floodRain" checked />
+                  <span>Flood Intelligence</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="right" data-compare-layer="traffic" checked />
+                  <span>Live Traffic</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="right" data-compare-layer="districts" checked />
+                  <span>Sempadan Daerah</span>
+                </label>
+                <label class="compare-layer-row">
+                  <input type="checkbox" data-compare-side="right" data-compare-layer="pbt" checked />
+                  <span>Sempadan PBT</span>
+                </label>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="compare-tab-panel" data-compare-panel="basemap" hidden>
+          <div class="compare-side-grid">
+            <label class="compare-side-card compare-basemap-card">
+              <span class="compare-side-title">LEFT MAP</span>
+              <select id="leftBasemapSelect">
+<option value="standard">Standard</option>
+<option value="satellite">Satellite</option>
+<option value="hybrid">Hybrid</option>
+<option value="terrain">Terrain</option>
+<option value="light">Light</option>
+<option value="dark">Dark</option>
+<option value="outdoors">Outdoors</option>
+<option value="streets">Streets</option>
+<option value="navigationDay">Navigation Day</option>
+<option value="navigationNight">Navigation Night</option>
+<option value="osm">OpenStreetMap</option>
+              </select>
+            </label>
+            <label class="compare-side-card compare-basemap-card">
+              <span class="compare-side-title">RIGHT MAP</span>
+              <select id="rightBasemapSelect">
+<option value="standard">Standard</option>
+<option value="satellite" selected>Satellite</option>
+<option value="hybrid">Hybrid</option>
+<option value="terrain">Terrain</option>
+<option value="light">Light</option>
+<option value="dark">Dark</option>
+<option value="outdoors">Outdoors</option>
+<option value="streets">Streets</option>
+<option value="navigationDay">Navigation Day</option>
+<option value="navigationNight">Navigation Night</option>
+<option value="osm">OpenStreetMap</option>
+              </select>
+            </label>
+          </div>
+          <div class="compare-basemap-note">Semua pilihan basemap tersedia secara bebas untuk kedua-dua paparan.</div>
+          <button id="swapMapsBtn" class="compare-wide-btn" type="button">⇄ Tukar Basemap Kiri/Kanan</button>
+        </div>
+
+        <div class="compare-tab-panel" data-compare-panel="display" hidden>
+          <div class="compare-side-grid">
+            <section class="compare-side-card">
+              <span class="compare-side-title">LEFT MAP</span>
+              <div class="compare-segment">
+                <button id="left2DBtn" type="button">2D</button>
+                <button id="left3DBtn" class="active" type="button">3D</button>
+              </div>
+              <label class="compare-switch-row"><span>Basemap Labels</span><input id="leftLabelsToggle" type="checkbox" checked /></label>
+            </section>
+            <section class="compare-side-card">
+              <span class="compare-side-title">RIGHT MAP</span>
+              <div class="compare-segment">
+                <button id="right2DBtn" type="button">2D</button>
+                <button id="right3DBtn" class="active" type="button">3D</button>
+              </div>
+              <label class="compare-switch-row"><span>Basemap Labels</span><input id="rightLabelsToggle" type="checkbox" checked /></label>
+            </section>
           </div>
 
-          <div>
-            <span class="compare-field-label">Paparan Kanan</span>
-            <div class="compare-segment">
-              <button id="right2DBtn" type="button">2D</button>
-              <button id="right3DBtn" class="active" type="button">3D</button>
-            </div>
+          <div class="compare-sync-grid">
+            <label><input id="syncPanToggle" type="checkbox" checked /> Sync Pan</label>
+            <label><input id="syncZoomToggle" type="checkbox" checked /> Sync Zoom</label>
+            <label><input id="syncBearingToggle" type="checkbox" checked /> Sync Bearing</label>
+            <label><input id="syncPitchToggle" type="checkbox" checked /> Sync Pitch</label>
           </div>
         </div>
 
-        <div id="compareStatus" class="compare-status">
-          Sync aktif selepas pergerakan selesai
-        </div>
-
-        <div class="compare-actions">
-          <label class="sync-control">
-            <input id="syncMapsToggle" type="checkbox" checked />
-            <span>Selaraskan pan, zoom dan pitch</span>
-          </label>
-          <button id="swapMapsBtn" type="button">⇄ Tukar Basemap</button>
-        </div>
+        <div id="compareStatus" class="compare-status">Left dan Right Map mempunyai state berasingan.</div>
       </section>
 
 
