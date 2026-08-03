@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.2 — Modular Architecture
+# SUO GeoPortal v3.3 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -97,3 +97,45 @@ Simbol:
 
 - IPK — bangunan polis biru gelap dan lebih besar
 - IPD — bangunan polis biru
+
+
+## Weather Intelligence
+
+Modul baharu:
+
+```text
+js/weather.js
+```
+
+Sumber ramalan:
+
+```text
+https://api.open-meteo.com/v1/forecast
+```
+
+Sumber amaran rasmi:
+
+```text
+https://api.data.gov.my/weather/warning
+```
+
+Maklumat yang dipaparkan:
+
+- Keadaan cuaca semasa
+- Suhu
+- Suhu terasa
+- Kelembapan
+- Hujan
+- Kelajuan angin
+- UV
+- Jarak penglihatan
+- Tekanan udara
+- Matahari terbit dan terbenam
+- Ramalan 24 jam
+- Ramalan 7 hari
+- Pautan radar hujan METMalaysia
+- Amaran cuaca rasmi METMalaysia
+- Parameter suhu, hujan, angin dan kelembapan
+
+Weather Intelligence akan berubah mengikut bandar yang dipilih dalam Urban Explorer
+atau Urban Tour. Pengguna juga boleh memilih `Pusat Peta`.

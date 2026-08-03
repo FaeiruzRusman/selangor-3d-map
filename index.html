@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v3.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v3.2</title>
+  <meta name="description" content="SUO GeoPortal v3.3 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v3.3</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v3.2</span></h1>
+        <h1>GeoPortal <span>v3.3</span></h1>
       </div>
     </div>
 
@@ -355,6 +355,130 @@
         </div>
       </section>
 
+
+      <section id="weatherPanel" class="weather-panel" hidden>
+        <div class="weather-panel-header">
+          <div>
+            <span class="compare-kicker">WEATHER INTELLIGENCE</span>
+            <h2 id="weatherLocationName">Shah Alam</h2>
+            <p id="weatherCoordinates">3.0738, 101.5183</p>
+          </div>
+          <div class="weather-panel-actions">
+            <button id="weatherUseMapCenterBtn" type="button" title="Gunakan pusat peta">◎ Pusat Peta</button>
+            <button id="weatherRefreshBtn" type="button" title="Muat semula">↻</button>
+            <button id="weatherCloseBtn" type="button" title="Tutup">✕</button>
+          </div>
+        </div>
+
+        <div id="weatherLoading" class="weather-loading">
+          Memuatkan Weather Intelligence...
+        </div>
+
+        <div id="weatherContent" hidden>
+          <section class="weather-current-card">
+            <div class="weather-current-main">
+              <div id="weatherMainIcon" class="weather-main-icon">☁</div>
+              <div>
+                <strong id="weatherCurrentTemp">--°C</strong>
+                <span id="weatherCurrentCondition">--</span>
+                <small id="weatherFeelsLike">Terasa seperti --°C</small>
+              </div>
+            </div>
+
+            <div class="weather-current-grid">
+              <div><span>Kelembapan</span><strong id="weatherHumidity">--%</strong></div>
+              <div><span>Hujan</span><strong id="weatherRain">-- mm</strong></div>
+              <div><span>Angin</span><strong id="weatherWind">-- km/j</strong></div>
+              <div><span>UV</span><strong id="weatherUv">--</strong></div>
+              <div><span>Jarak Penglihatan</span><strong id="weatherVisibility">-- km</strong></div>
+              <div><span>Tekanan</span><strong id="weatherPressure">-- hPa</strong></div>
+              <div><span>Matahari Terbit</span><strong id="weatherSunrise">--</strong></div>
+              <div><span>Matahari Terbenam</span><strong id="weatherSunset">--</strong></div>
+            </div>
+          </section>
+
+          <section class="weather-section">
+            <div class="weather-section-heading">
+              <div>
+                <p class="section-label">RAMALAN 24 JAM</p>
+                <h3>Ramalan mengikut jam</h3>
+              </div>
+              <span id="weatherUpdatedAt">--</span>
+            </div>
+            <div id="weatherHourlyList" class="weather-hourly-list"></div>
+          </section>
+
+          <section class="weather-section">
+            <div class="weather-section-heading">
+              <div>
+                <p class="section-label">RAMALAN 7 HARI</p>
+                <h3>Tinjauan mingguan</h3>
+              </div>
+            </div>
+            <div id="weatherDailyList" class="weather-daily-list"></div>
+          </section>
+
+          <section class="weather-section">
+            <div class="weather-section-heading">
+              <div>
+                <p class="section-label">RADAR HUJAN</p>
+                <h3>Pemantauan hujan</h3>
+              </div>
+              <span class="weather-live-pill">LIVE</span>
+            </div>
+            <div class="weather-radar-card">
+              <div class="weather-radar-visual">
+                <div class="radar-ring ring-1"></div>
+                <div class="radar-ring ring-2"></div>
+                <div class="radar-ring ring-3"></div>
+                <div class="radar-sweep"></div>
+                <span class="radar-center"></span>
+              </div>
+              <div>
+                <strong>Radar hujan rasmi</strong>
+                <p>Buka paparan radar METMalaysia untuk semakan taburan hujan terkini.</p>
+                <a href="https://www.met.gov.my/forecast/weather/radar/" target="_blank" rel="noopener noreferrer">
+                  Buka Radar METMalaysia
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section class="weather-section">
+            <div class="weather-section-heading">
+              <div>
+                <p class="section-label">AMARAN METMALAYSIA</p>
+                <h3>Amaran cuaca aktif</h3>
+              </div>
+            </div>
+            <div id="weatherWarningList" class="weather-warning-list">
+              <div class="weather-warning-empty">Memuatkan amaran rasmi...</div>
+            </div>
+          </section>
+
+          <section class="weather-section">
+            <div class="weather-section-heading">
+              <div>
+                <p class="section-label">PARAMETER</p>
+                <h3>Ringkasan indikator</h3>
+              </div>
+            </div>
+            <div class="weather-parameter-grid">
+              <button type="button" data-weather-focus="temperature">🌡 Suhu</button>
+              <button type="button" data-weather-focus="rain">💧 Hujan</button>
+              <button type="button" data-weather-focus="wind">🌬 Angin</button>
+              <button type="button" data-weather-focus="humidity">💦 Kelembapan</button>
+            </div>
+          </section>
+
+          <div class="weather-source-note">
+            Ramalan: Open-Meteo. Amaran rasmi: METMalaysia melalui data.gov.my.
+          </div>
+        </div>
+
+        <div id="weatherError" class="weather-error" hidden></div>
+      </section>
+
       <div class="map-status">
         <div>
           <span class="status-dot"></span>
@@ -398,6 +522,27 @@
           <strong class="online-text">ONLINE</strong>
           <small>GitHub Pages</small>
         </article>
+      </section>
+
+
+      <section class="panel weather-launch-card">
+        <div class="weather-launch-icon" aria-hidden="true">
+          <span class="weather-sun">☀</span>
+          <span class="weather-cloud">☁</span>
+          <span class="weather-rain">⋮⋮</span>
+        </div>
+        <div class="weather-launch-copy">
+          <p class="section-label">WEATHER INTELLIGENCE</p>
+          <h2 id="weatherQuickLocation">Shah Alam</h2>
+          <div class="weather-quick-reading">
+            <strong id="weatherQuickTemp">--°C</strong>
+            <span id="weatherQuickCondition">Memuatkan cuaca...</span>
+          </div>
+          <small id="weatherQuickUpdated">Belum dikemas kini</small>
+        </div>
+        <button id="openWeatherBtn" class="weather-open-btn" type="button">
+          Buka
+        </button>
       </section>
 
       <section class="panel chart-panel">
