@@ -2885,3 +2885,43 @@ body.map-middle-pan-active {
 #ai-query-result-point {
   filter: drop-shadow(0 0 6px rgba(250,204,21,0.9));
 }
+
+
+.district-layer-symbol {
+  width: 17px;
+  height: 17px;
+  display: inline-block;
+  border: 2px dashed #A78BFA;
+  border-radius: 4px;
+  background: rgba(139,92,246,0.10);
+}
+
+.district-legend-fill {
+  width: 22px;
+  height: 14px;
+  display: inline-block;
+  border: 1px solid #A78BFA;
+  border-radius: 3px;
+  background: rgba(139,92,246,0.14);
+}
+
+.district-legend-line {
+  width: 22px;
+  height: 0;
+  display: inline-block;
+  border-top: 3px dashed #A78BFA;
+}
+
+.district-legend-label {
+  width: 22px;
+  display: inline-block;
+  color: #EDE9FE;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-align: center;
+  text-shadow:
+    -1px -1px 0 #07111f,
+    1px -1px 0 #07111f,
+    -1px 1px 0 #07111f,
+    1px 1px 0 #07111f;
+}

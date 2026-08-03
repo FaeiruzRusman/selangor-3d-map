@@ -1,4 +1,4 @@
-# SUO GeoPortal v4.0A — Modular Architecture
+# SUO GeoPortal v4.0B — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -381,3 +381,47 @@ data/hierarki_bandar_selangor_dpn2.geojson
 - Analisis daerah kesihatan menggunakan atribut `web_district`.
 - Analisis dalam PBT menggunakan point-in-polygon.
 - Buffer, radius, nearest facility dan query GTN1 akan dibangunkan dalam v4.0B.
+
+
+## Pentadbiran
+
+Kategori Pentadbiran kini mengandungi:
+
+- Sempadan PBT
+- Sempadan Daerah
+
+### Sempadan Daerah
+
+Sumber asal:
+
+```text
+DAERAH_SELANGOR_2024.shp
+```
+
+Pemprosesan:
+
+- CRS asal: EPSG:3375
+- CRS portal: EPSG:4326
+- Jumlah daerah: 9
+- Field nama asal: `NAM`
+- Field kod daerah: `daerah_id`
+- Field keluasan: `Hektar`
+- `ULU SELANGOR` dinormalkan kepada `Hulu Selangor`
+- `ULU LANGAT` dinormalkan kepada `Hulu Langat`
+
+Fail output:
+
+```text
+data/pentadbiran/sempadan_daerah_selangor.geojson
+data/pentadbiran/label_daerah_selangor.geojson
+```
+
+Fungsi:
+
+- Fill poligon ungu lutsinar
+- Garisan sempadan ungu putus-putus
+- Satu label bagi setiap daerah
+- Toggle dan dropdown legend
+- Popup nama, kod dan keluasan
+- Peta utama dan split screen
+- Arahan Ask Mr. TPr. SUO untuk buka/tutup Sempadan Daerah

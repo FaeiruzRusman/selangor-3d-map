@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v4.0A - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v4.0A</title>
+  <meta name="description" content="SUO GeoPortal v4.0B - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v4.0B</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v4.0A</span></h1>
+        <h1>GeoPortal <span>v4.0B</span></h1>
       </div>
     </div>
 
@@ -97,7 +97,7 @@
               <span class="layer-category-icon">◉</span>
               <span>
                 <strong>Hierarki Bandar DPN2</strong>
-                <small>1 layer</small>
+                <small>2 layer</small>
               </span>
               <span class="layer-category-chevron">⌄</span>
             </button>
@@ -335,6 +335,38 @@
                     <div class="legend-row"><span class="pbt-legend-fill"></span><span>Kawasan PBT</span></div>
                     <div class="legend-row"><span class="pbt-legend-line"></span><span>Sempadan PBT</span></div>
                     <div class="legend-row"><span class="pbt-legend-label">Aa</span><span>Label Nama PBT</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="layer-group nested-layer-group">
+                <div class="layer-item layer-item-expandable">
+                  <button id="districtLegendBtn"
+                          class="layer-expand-btn"
+                          type="button"
+                          aria-expanded="false"
+                          aria-controls="districtLegendPanel"
+                          title="Buka legend daerah">▸</button>
+
+                  <span class="legend-symbol district-layer-symbol"></span>
+
+                  <span class="layer-copy">
+                    <strong>Sempadan Daerah</strong>
+                    <small>9 daerah Negeri Selangor</small>
+                  </span>
+
+                  <input id="districtToggle" type="checkbox" checked />
+                </div>
+
+                <div id="districtLegendPanel" class="layer-legend-panel" hidden>
+                  <div class="legend-heading">
+                    <span>Legend Sempadan Daerah</span>
+                    <small>Sempadan pentadbiran daerah Selangor</small>
+                  </div>
+                  <div class="legend-list">
+                    <div class="legend-row"><span class="district-legend-fill"></span><span>Kawasan Daerah</span></div>
+                    <div class="legend-row"><span class="district-legend-line"></span><span>Sempadan Daerah</span></div>
+                    <div class="legend-row"><span class="district-legend-label">Aa</span><span>Label Nama Daerah</span></div>
                   </div>
                 </div>
               </div>
