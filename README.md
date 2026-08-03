@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.3 — Modular Architecture
+# SUO GeoPortal v3.4 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -139,3 +139,51 @@ Maklumat yang dipaparkan:
 
 Weather Intelligence akan berubah mengikut bandar yang dipilih dalam Urban Explorer
 atau Urban Tour. Pengguna juga boleh memilih `Pusat Peta`.
+
+
+## Flood Intelligence — Fasa 1
+
+Modul baharu:
+
+```text
+js/flood.js
+```
+
+Komponen:
+
+- Ramalan hujan 24 jam bagi semua bandar DPN2
+- Layer titik ramalan hujan pada peta
+- Ranking bandar mengikut jumlah hujan
+- Amaran banjir masa nyata daripada data.gov.my
+- Pautan operasi paras sungai dan hujan Public InfoBanjir JPS
+- Pautan semakan PPS aktif JKM
+- Pautan Portal Bencana NADMA
+- Ruang risiko banjir statik yang menunggu layer hazard rasmi
+
+### Penting
+
+Ramalan hujan 24 jam ialah indikator meteorologi awal dan **bukan**
+ramalan bahawa sesuatu kawasan pasti akan banjir.
+
+### Sumber API
+
+```text
+https://api.open-meteo.com/v1/forecast
+https://api.data.gov.my/flood-warning
+```
+
+### Sumber operasi
+
+```text
+https://publicinfobanjir.water.gov.my/
+https://infobencanajkmv2.jkm.gov.my/
+https://portalbencana.nadma.gov.my/
+```
+
+### Layer risiko statik akan datang
+
+Apabila data rasmi dibekalkan, gunakan lokasi:
+
+```text
+data/banjir/risiko_banjir_selangor.geojson
+```

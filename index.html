@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v3.3 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v3.3</title>
+  <meta name="description" content="SUO GeoPortal v3.4 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v3.4</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v3.3</span></h1>
+        <h1>GeoPortal <span>v3.4</span></h1>
       </div>
     </div>
 
@@ -184,6 +184,41 @@
               <div class="legend-list">
                 <div class="legend-row"><span class="legend-police-icon police-ipk-color"></span><span>IPK (2)</span></div>
                 <div class="legend-row"><span class="legend-police-icon police-ipd-color"></span><span>IPD (15)</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layer-group">
+            <div class="layer-item layer-item-expandable">
+              <button id="floodLegendBtn"
+                      class="layer-expand-btn"
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="floodLegendPanel"
+                      title="Buka legend banjir">
+                ▸
+              </button>
+              <span class="legend-symbol flood-layer-symbol"></span>
+              <span class="layer-copy">
+                <strong>Flood Intelligence Fasa 1</strong>
+                <small>Ramalan hujan dan amaran banjir</small>
+              </span>
+              <input id="floodRainToggle" type="checkbox" checked />
+            </div>
+
+            <div id="floodLegendPanel" class="layer-legend-panel" hidden>
+              <div class="legend-heading">
+                <span>Ramalan Hujan 24 Jam</span>
+                <small>Jumlah hujan diramal, bukan kebarangkalian banjir</small>
+              </div>
+              <div class="legend-list">
+                <div class="legend-row"><span class="flood-rain-dot rain-low"></span><span>Rendah: bawah 10 mm</span></div>
+                <div class="legend-row"><span class="flood-rain-dot rain-moderate"></span><span>Sederhana: 10–29.9 mm</span></div>
+                <div class="legend-row"><span class="flood-rain-dot rain-high"></span><span>Tinggi: 30–59.9 mm</span></div>
+                <div class="legend-row"><span class="flood-rain-dot rain-severe"></span><span>Sangat Tinggi: 60 mm dan ke atas</span></div>
+              </div>
+              <div class="flood-layer-note">
+                Layer risiko banjir statik belum disambungkan kerana data hazard rasmi belum dibekalkan.
               </div>
             </div>
           </div>
@@ -356,6 +391,139 @@
       </section>
 
 
+      <section id="floodPanel" class="flood-panel" hidden>
+        <div class="flood-panel-header">
+          <div>
+            <span class="compare-kicker">FLOOD INTELLIGENCE — FASA 1</span>
+            <h2 id="floodPanelTitle">Selangor</h2>
+            <p>Gabungan ramalan hujan, amaran rasmi dan pautan operasi.</p>
+          </div>
+          <div class="flood-panel-actions">
+            <button id="floodRefreshBtn" type="button" title="Muat semula">↻</button>
+            <button id="floodCloseBtn" type="button" title="Tutup">✕</button>
+          </div>
+        </div>
+
+        <div id="floodLoading" class="flood-loading">Memuatkan Flood Intelligence...</div>
+
+        <div id="floodContent" hidden>
+          <section class="flood-summary-grid">
+            <article class="flood-summary-card">
+              <span>Amaran Banjir Aktif</span>
+              <strong id="floodWarningCount">--</strong>
+              <small id="floodWarningStatus">Menyemak data rasmi</small>
+            </article>
+            <article class="flood-summary-card">
+              <span>Hujan Tertinggi 24 Jam</span>
+              <strong id="floodMaxRain">-- mm</strong>
+              <small id="floodMaxRainLocation">Bandar DPN2</small>
+            </article>
+            <article class="flood-summary-card">
+              <span>Bandar Tahap Tinggi</span>
+              <strong id="floodHighRainCities">--</strong>
+              <small>30 mm dan ke atas</small>
+            </article>
+            <article class="flood-summary-card">
+              <span>Risiko Statik</span>
+              <strong class="flood-pending">PENDING</strong>
+              <small>Menunggu layer hazard rasmi</small>
+            </article>
+          </section>
+
+          <section class="flood-section">
+            <div class="flood-section-heading">
+              <div>
+                <p class="section-label">RAMALAN HUJAN 24 JAM</p>
+                <h3>Bandar DPN2 Selangor</h3>
+              </div>
+              <span id="floodRainUpdated">--</span>
+            </div>
+            <div id="floodRainRanking" class="flood-rain-ranking"></div>
+            <div class="flood-disclaimer">
+              Jumlah hujan ialah indikator awal. Ia tidak sama dengan ramalan kawasan akan banjir.
+            </div>
+          </section>
+
+          <section class="flood-section">
+            <div class="flood-section-heading">
+              <div>
+                <p class="section-label">AMARAN BANJIR</p>
+                <h3>Data masa nyata Malaysia</h3>
+              </div>
+              <span class="flood-live-pill">LIVE</span>
+            </div>
+            <div id="floodWarningList" class="flood-warning-list"></div>
+          </section>
+
+          <section class="flood-section">
+            <div class="flood-section-heading">
+              <div>
+                <p class="section-label">PARAS SUNGAI & HUJAN</p>
+                <h3>Public InfoBanjir JPS</h3>
+              </div>
+            </div>
+            <div class="flood-resource-card">
+              <div class="flood-resource-icon">≋</div>
+              <div>
+                <strong>Stesen Hidrologi Selangor</strong>
+                <p>Semak paras sungai, trend naik/turun dan data hujan stesen secara langsung.</p>
+                <div class="flood-resource-actions">
+                  <a href="https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?lang=ms&state=SEL"
+                     target="_blank" rel="noopener noreferrer">Buka Paras Sungai</a>
+                  <a href="https://publicinfobanjir.water.gov.my/hujan/data-hujan/?lang=ms&state=SEL"
+                     target="_blank" rel="noopener noreferrer">Buka Data Hujan</a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="flood-section">
+            <div class="flood-section-heading">
+              <div>
+                <p class="section-label">PUSAT PEMINDAHAN SEMENTARA</p>
+                <h3>Semakan PPS Aktif</h3>
+              </div>
+            </div>
+            <div class="flood-resource-card">
+              <div class="flood-resource-icon">⌂</div>
+              <div>
+                <strong>InfoBencana JKM</strong>
+                <p>Semak PPS aktif, keluarga dan mangsa bencana terkini.</p>
+                <div class="flood-resource-actions">
+                  <a href="https://infobencanajkmv2.jkm.gov.my/landing/index.php?a=0&b=1"
+                     target="_blank" rel="noopener noreferrer">Buka Semakan PPS</a>
+                  <a href="https://portalbencana.nadma.gov.my/ms/"
+                     target="_blank" rel="noopener noreferrer">Portal NADMA</a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="flood-section">
+            <div class="flood-section-heading">
+              <div>
+                <p class="section-label">RISIKO BANJIR STATIK</p>
+                <h3>Layer hazard rasmi</h3>
+              </div>
+            </div>
+            <div class="flood-static-placeholder">
+              <div class="flood-placeholder-icon">▧</div>
+              <div>
+                <strong>Belum Disambungkan</strong>
+                <p>Masukkan layer kawasan risiko/hazard banjir rasmi JPS atau negeri untuk mengaktifkan paparan ini.</p>
+                <code>data/banjir/risiko_banjir_selangor.geojson</code>
+              </div>
+            </div>
+          </section>
+
+          <div class="flood-source-note">
+            Sumber: data.gov.my, METMalaysia, JPS Public InfoBanjir, JKM InfoBencana dan NADMA.
+          </div>
+        </div>
+
+        <div id="floodError" class="flood-error" hidden></div>
+      </section>
+
       <section id="weatherPanel" class="weather-panel" hidden>
         <div class="weather-panel-header">
           <div>
@@ -509,7 +677,7 @@
         </article>
         <article class="kpi-card">
           <span>Layer Aktif</span>
-          <strong id="activeLayerCount">6</strong>
+          <strong id="activeLayerCount">7</strong>
           <small>Spatial layers</small>
         </article>
         <article class="kpi-card">
@@ -524,6 +692,24 @@
         </article>
       </section>
 
+
+      <section class="panel flood-launch-card">
+        <div class="flood-launch-icon" aria-hidden="true">
+          <span class="flood-wave">≋</span>
+          <span class="flood-cloud">☁</span>
+          <span class="flood-drop">💧</span>
+        </div>
+        <div class="flood-launch-copy">
+          <p class="section-label">FLOOD INTELLIGENCE</p>
+          <h2>Fasa 1</h2>
+          <div class="flood-quick-reading">
+            <strong id="floodQuickRisk">--</strong>
+            <span id="floodQuickSummary">Memuatkan status...</span>
+          </div>
+          <small id="floodQuickUpdated">Belum dikemas kini</small>
+        </div>
+        <button id="openFloodBtn" class="flood-open-btn" type="button">Buka</button>
+      </section>
 
       <section class="panel weather-launch-card">
         <div class="weather-launch-icon" aria-hidden="true">
