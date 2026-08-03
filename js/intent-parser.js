@@ -177,6 +177,19 @@ export function parseIntent(message) {
     subject = { layer: "pbt", category: null };
   }
 
+  if (
+    !subject &&
+    (
+      district ||
+      text.includes("sempadan daerah") ||
+      text.includes("jumlah daerah") ||
+      text.includes("berapa daerah") ||
+      text.includes("keluasan daerah")
+    )
+  ) {
+    subject = { layer: "districts", category: null };
+  }
+
   if (!subject && (text.includes("bandar") || text.includes("dpn2"))) {
     subject = { layer: "cities", category: null };
   }

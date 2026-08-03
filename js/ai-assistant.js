@@ -4,6 +4,8 @@ import {
   queryPolice,
   getPbtFeatures,
   findPbtByName,
+  getDistrictFeatures,
+  findDistrictByName,
   getCities
 } from "./spatial-query.js";
 import {
@@ -127,6 +129,14 @@ export class SpatialAssistant {
       return this.handleArea({ ...query, intent: "area", layer: "pbt" });
     }
 
+    if (query.location?.type === "district") {
+      return this.handleArea({
+        ...query,
+        intent: "area",
+        layer: "districts"
+      });
+    }
+
     // Only use city navigation as a final fallback.
     const cityMatch = [...this.cityLookup.entries()]
       .find(([name]) => query.text.includes(name));
@@ -211,6 +221,13 @@ export class SpatialAssistant {
       return `Terdapat ${features.length} PBT dalam layer Sempadan PBT Negeri Selangor 2024.`;
     }
 
+    if (query.layer === "districts") {
+      const features = await getDistrictFeatures();
+      highlightFeatures(this.map, features);
+      zoomToFeatures(this.map, features, { maxZoom: 9.5 });
+      return `Terdapat ${features.length} daerah dalam layer Sempadan Daerah Selangor.`;
+    }
+
     if (query.layer === "cities") {
       const features = await getCities();
       highlightFeatures(this.map, features);
@@ -222,8 +239,31 @@ export class SpatialAssistant {
   }
 
   async handleArea(query) {
+    if (query.location?.type === "district") {
+      const feature = await findDistrictByName(query.location.name);
+
+      if (!feature) {
+        return `Daerah ${query.location.name} tidak ditemui.`;
+      }
+
+      highlightFeatures(this.map, [feature]);
+      zoomToFeatures(this.map, [feature], { maxZoom: 10.5 });
+
+      const area = formatArea(feature.properties?.web_area);
+
+      showResultPopup(
+        this.map,
+        feature,
+        `<strong>Daerah ${feature.properties?.web_name}</strong><br>
+         Kod Daerah: ${feature.properties?.web_code || "-"}<br>
+         Keluasan: ${area}`
+      );
+
+      return `Keluasan Daerah ${feature.properties?.web_name} ialah ${area} berdasarkan layer Sempadan Daerah Selangor.`;
+    }
+
     if (query.location?.type !== "pbt") {
-      return "Sila nyatakan PBT, contohnya “Keluasan MBSA”.";
+      return "Sila nyatakan PBT atau daerah, contohnya “Keluasan MBSA” atau “Keluasan Daerah Klang”.";
     }
 
     const feature = await findPbtByName(query.location.name);
@@ -269,6 +309,17 @@ export class SpatialAssistant {
       return "Semua sempadan PBT telah di-highlight.";
     }
 
+    if (query.layer === "districts") {
+      if (query.location?.type === "district") {
+        return this.handleArea({ ...query, intent: "area" });
+      }
+
+      const features = await getDistrictFeatures();
+      highlightFeatures(this.map, features);
+      zoomToFeatures(this.map, features, { maxZoom: 9.5 });
+      return "Semua sempadan daerah telah di-highlight.";
+    }
+
     if (query.layer === "cities") {
       const features = await getCities();
       highlightFeatures(this.map, features);
@@ -300,6 +351,18 @@ export class SpatialAssistant {
   async handleNavigation(query) {
     if (query.location?.type === "pbt") {
       return this.handleArea({ ...query, intent: "area", layer: "pbt" });
+    }
+
+    if (query.location?.type === "district") {
+      const feature = await findDistrictByName(query.location.name);
+
+      if (!feature) {
+        return `Daerah ${query.location.name} tidak ditemui.`;
+      }
+
+      highlightFeatures(this.map, [feature]);
+      zoomToFeatures(this.map, [feature], { maxZoom: 10.5 });
+      return `Peta dizum ke Daerah ${query.location.name}.`;
     }
 
     const cityMatch = [...this.cityLookup.entries()]

@@ -84,9 +84,21 @@ export async function queryHealth({
   }
 
   if (district) {
-    features = features.filter((feature) =>
-      equalText(feature.properties?.web_district, district)
-    );
+    const districtFeature = await findDistrictByName(district);
+
+    if (districtFeature) {
+      features = features.filter((feature) => {
+        if (feature.geometry?.type !== "Point") return false;
+        return pointInFeature(
+          feature.geometry.coordinates,
+          districtFeature
+        );
+      });
+    } else {
+      features = features.filter((feature) =>
+        equalText(feature.properties?.web_district, district)
+      );
+    }
   }
 
   if (sector) {
@@ -123,18 +135,32 @@ export async function queryPolice({
   }
 
   if (district) {
-    const text = String(district).toLowerCase();
-    features = features.filter((feature) => {
-      const props = feature.properties || {};
-      return [
-        props.web_district,
-        props.web_name,
-        props.web_address,
-        props.IPD_INDUK
-      ].some((value) =>
-        String(value ?? "").toLowerCase().includes(text)
-      );
-    });
+    const districtFeature = await findDistrictByName(district);
+
+    if (districtFeature) {
+      features = features.filter((feature) => {
+        if (feature.geometry?.type !== "Point") return false;
+        return pointInFeature(
+          feature.geometry.coordinates,
+          districtFeature
+        );
+      });
+    } else {
+      const text = String(district).toLowerCase();
+
+      features = features.filter((feature) => {
+        const props = feature.properties || {};
+
+        return [
+          props.web_district,
+          props.web_name,
+          props.web_address,
+          props.IPD_INDUK
+        ].some((value) =>
+          String(value ?? "").toLowerCase().includes(text)
+        );
+      });
+    }
   }
 
   return features;
