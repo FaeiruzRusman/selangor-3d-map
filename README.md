@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.7 — Modular Architecture
+# SUO GeoPortal v3.6 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -258,52 +258,3 @@ Pembantu AI Perancangan Bandar
 ```
 
 Input turut ditukar kepada `Tanya Mr. TPr. SUO...`.
-
-
-## SUO Labels Only
-
-Semua label bawaan Mapbox dimatikan:
-
-- Point of Interest (POI)
-- Nama tempat
-- Label transit
-- Label jalan dan road shield
-
-Label daripada data SUO dikekalkan:
-
-- Hierarki Bandar DPN2
-- Nama PBT
-- Kemudahan Kesihatan
-- IPK dan IPD
-- Ramalan hujan Flood Intelligence
-
-Pelaksanaan menggunakan konfigurasi Mapbox Standard:
-
-```javascript
-map.setConfigProperty(
-  "basemap",
-  "showPointOfInterestLabels",
-  false
-);
-
-map.setConfigProperty(
-  "basemap",
-  "showPlaceLabels",
-  false
-);
-
-map.setConfigProperty(
-  "basemap",
-  "showTransitLabels",
-  false
-);
-
-map.setConfigProperty(
-  "basemap",
-  "showRoadLabels",
-  false
-);
-```
-
-Untuk basemap klasik seperti Streets, Outdoors dan Dark, semua layer
-berjenis `symbol` daripada basemap disembunyikan, kecuali layer label SUO.
