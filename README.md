@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.9 — Modular Architecture
+# SUO GeoPortal v4.0A — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -315,3 +315,69 @@ Apabila portal dibuka semula, keadaan terakhir kolum akan dipulihkan.
 
 Peta utama dan peta split screen memanggil `resize()` selepas perubahan
 layout untuk memastikan canvas memenuhi ruang baharu.
+
+
+## Ask Mr. TPr. SUO — Local Spatial Query Engine
+
+Modul baharu:
+
+```text
+js/
+├── intent-parser.js
+├── spatial-query.js
+├── map-actions.js
+└── ai-assistant.js
+```
+
+### Fungsi v4.0A
+
+- Kiraan kemudahan kesihatan mengikut kategori dan daerah
+- Kiraan kemudahan kesihatan dalam sempadan PBT menggunakan point-in-polygon
+- Filter hospital kerajaan dan swasta
+- Kiraan IPK dan IPD
+- Kiraan PBT dan bandar DPN2
+- Keluasan PBT
+- Highlight hasil query
+- Zoom kepada hasil
+- Popup keputusan PBT
+- Buka dan tutup layer
+- Arahan 2D dan 3D
+- Buka split screen
+- Kawal kolum kiri dan kanan
+- Focus Map
+- Navigasi bandar hanya digunakan sebagai fallback selepas query data diperiksa
+
+### Contoh arahan
+
+```text
+Berapa hospital di daerah Klang?
+Berapa hospital kerajaan di Petaling?
+Berapa klinik kesihatan dalam MBSA?
+Berapa IPD di Selangor?
+Keluasan MBSA
+Berapa PBT di Selangor?
+Tunjukkan semua hospital
+Buka Live Traffic
+Matikan Flood Intelligence
+Tukar ke 2D
+Buka split screen
+Tutup kolum kiri
+```
+
+### Data tempatan
+
+Engine ini membaca terus GeoJSON portal dan tidak memerlukan API AI berbayar.
+
+```text
+data/kesihatan/kemudahan_kesihatan_selangor.geojson
+data/keselamatan/ipk_ipd_selangor.geojson
+data/pentadbiran/sempadan_pbt_selangor_2024.geojson
+data/hierarki_bandar_selangor_dpn2.geojson
+```
+
+### Had v4.0A
+
+- Pemahaman bahasa masih berasaskan parser arahan terkawal.
+- Analisis daerah kesihatan menggunakan atribut `web_district`.
+- Analisis dalam PBT menggunakan point-in-polygon.
+- Buffer, radius, nearest facility dan query GTN1 akan dibangunkan dalam v4.0B.
