@@ -9,10 +9,49 @@ export const START_VIEW = {
 
 export const BASEMAPS = {
   standard: "mapbox://styles/mapbox/standard",
-  satellite: "mapbox://styles/mapbox/satellite-streets-v12",
-  streets: "mapbox://styles/mapbox/streets-v12",
+  satellite: "mapbox://styles/mapbox/satellite-v9",
+  hybrid: "mapbox://styles/mapbox/satellite-streets-v12",
+  terrain: "mapbox://styles/mapbox/outdoors-v12",
+  light: "mapbox://styles/mapbox/light-v11",
+  dark: "mapbox://styles/mapbox/dark-v11",
   outdoors: "mapbox://styles/mapbox/outdoors-v12",
-  dark: "mapbox://styles/mapbox/dark-v11"
+  streets: "mapbox://styles/mapbox/streets-v12",
+  navigationDay: "mapbox://styles/mapbox/navigation-day-v1",
+  navigationNight: "mapbox://styles/mapbox/navigation-night-v1",
+  osm: {
+    version: 8,
+    sources: {
+      osm: {
+        type: "raster",
+        tiles: [
+          "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        ],
+        tileSize: 256,
+        attribution: "© OpenStreetMap contributors"
+      }
+    },
+    layers: [
+      {
+        id: "osm",
+        type: "raster",
+        source: "osm"
+      }
+    ]
+  }
+};
+
+export const BASEMAP_LABELS = {
+  standard: "Standard",
+  satellite: "Satellite",
+  hybrid: "Hybrid",
+  terrain: "Terrain",
+  light: "Light",
+  dark: "Dark",
+  outdoors: "Outdoors",
+  streets: "Streets",
+  navigationDay: "Navigation Day",
+  navigationNight: "Navigation Night",
+  osm: "OpenStreetMap"
 };
 
 export const DATA_URLS = {

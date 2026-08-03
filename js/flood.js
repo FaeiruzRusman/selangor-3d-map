@@ -64,7 +64,7 @@ export class FloodIntelligence {
       type: "FeatureCollection",
       features: []
     };
-    this.compareMaps = new Set();
+    this.compareMaps = new Map();
 
     document.getElementById("openFloodBtn")
       .addEventListener("click", () => this.open());
@@ -77,9 +77,10 @@ export class FloodIntelligence {
 
     window.addEventListener("suo:compare-map-ready", (event) => {
       const compareMap = event.detail?.map;
+      const prefix = event.detail?.prefix ?? "compare-";
       if (!compareMap) return;
-      this.compareMaps.add(compareMap);
-      this.addRainLayer(compareMap, "compare-");
+      this.compareMaps.set(compareMap, prefix);
+      this.addRainLayer(compareMap, prefix);
     });
 
     this.rainInteractionsBound = false;
@@ -240,8 +241,8 @@ export class FloodIntelligence {
 
     this.addRainLayer(this.map);
 
-    for (const compareMap of this.compareMaps) {
-      this.addRainLayer(compareMap, "compare-");
+    for (const [compareMap, prefix] of this.compareMaps) {
+      this.addRainLayer(compareMap, prefix);
     }
 
     return features;
@@ -399,8 +400,8 @@ export class FloodIntelligence {
     layerState.floodRain = visible;
     this.setRainVisibility(this.map);
 
-    for (const compareMap of this.compareMaps) {
-      this.setRainVisibility(compareMap, "compare-");
+    for (const [compareMap, prefix] of this.compareMaps) {
+      this.setRainVisibility(compareMap, prefix);
     }
   }
 

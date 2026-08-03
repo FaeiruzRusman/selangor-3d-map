@@ -257,6 +257,7 @@ document.getElementById("schoolToggle").addEventListener("change", (event) => {
 
 document.getElementById("floodRainToggle").addEventListener("change", (event) => {
   flood.setVisible(event.target.checked);
+  compare.refreshLayers();
   updateLayerCount();
 });
 
