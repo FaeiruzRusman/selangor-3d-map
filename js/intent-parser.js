@@ -157,6 +157,11 @@ export function parseIntent(message) {
     intent = "view2d";
   } else if (text.includes("3d")) {
     intent = "view3d";
+  } else if (
+    includesAny(text, ["beza", "perbezaan", "bandingkan", "compare"]) &&
+    includesAny(text, ["keluasan", "luas"])
+  ) {
+    intent = "compareArea";
   } else if (includesAny(text, ["berapa", "jumlah", "bilangan", "kira"])) {
     intent = "count";
   } else if (includesAny(text, ["keluasan", "luas"])) {
@@ -201,6 +206,10 @@ export function parseIntent(message) {
     layer: subject?.layer || detectLayerCommand(text),
     category: subject?.category ?? null,
     location: pbt || district,
+    comparisonLocations: {
+      district,
+      pbt
+    },
     layerCommand: detectLayerCommand(text),
     asksGovernment:
       text.includes("kerajaan") || text.includes("kkm"),

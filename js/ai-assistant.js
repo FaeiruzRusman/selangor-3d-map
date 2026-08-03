@@ -63,6 +63,10 @@ export class SpatialAssistant {
       return this.handleArea(query);
     }
 
+    if (query.intent === "compareArea") {
+      return this.handleAreaComparison(query);
+    }
+
     if (query.intent === "show") {
       return this.handleShow(query);
     }
@@ -287,6 +291,87 @@ export class SpatialAssistant {
     );
 
     return `Keluasan ${label} ialah ${area} berdasarkan atribut layer Sempadan PBT Selangor 2024.`;
+  }
+
+  async handleAreaComparison(query) {
+    const districtLocation = query.comparisonLocations?.district;
+    const pbtLocation = query.comparisonLocations?.pbt;
+
+    if (!districtLocation || !pbtLocation) {
+      return [
+        "Sila nyatakan satu daerah dan satu PBT untuk dibandingkan.",
+        "Contoh: “Beza luas Daerah Sabak Bernam dan Majlis Daerah Sabak Bernam”."
+      ].join(" ");
+    }
+
+    const [districtFeature, pbtFeature] = await Promise.all([
+      findDistrictByName(districtLocation.name),
+      findPbtByName(pbtLocation.name)
+    ]);
+
+    if (!districtFeature) {
+      return `Daerah ${districtLocation.name} tidak ditemui.`;
+    }
+
+    if (!pbtFeature) {
+      return `PBT ${pbtLocation.alias || pbtLocation.name} tidak ditemui.`;
+    }
+
+    const districtArea = Number(
+      districtFeature.properties?.web_area
+    );
+
+    const pbtArea = Number(
+      pbtFeature.properties?.web_area
+    );
+
+    if (
+      !Number.isFinite(districtArea) ||
+      !Number.isFinite(pbtArea)
+    ) {
+      return "Atribut keluasan bagi salah satu layer tidak sah.";
+    }
+
+    const difference = Math.abs(districtArea - pbtArea);
+    const largerFeature =
+      districtArea >= pbtArea
+        ? `Daerah ${districtFeature.properties?.web_name}`
+        : pbtFeature.properties?.web_name;
+
+    const largerArea = Math.max(districtArea, pbtArea);
+    const smallerArea = Math.min(districtArea, pbtArea);
+    const percentageDifference =
+      smallerArea > 0
+        ? (difference / smallerArea) * 100
+        : 0;
+
+    highlightFeatures(
+      this.map,
+      [districtFeature, pbtFeature]
+    );
+
+    zoomToFeatures(
+      this.map,
+      [districtFeature, pbtFeature],
+      { maxZoom: 10.5 }
+    );
+
+    const districtLabel =
+      `Daerah ${districtFeature.properties?.web_name}`;
+
+    const pbtLabel =
+      pbtLocation.alias ||
+      pbtFeature.properties?.web_name;
+
+    return [
+      `${districtLabel}: ${formatArea(districtArea)}.`,
+      `${pbtLabel}: ${formatArea(pbtArea)}.`,
+      `Perbezaannya ialah ${formatArea(difference)}.`,
+      `${largerFeature} lebih besar sebanyak`,
+      `${percentageDifference.toLocaleString("ms-MY", {
+        maximumFractionDigits: 2
+      })}% berbanding kawasan yang lebih kecil.`
+    ].join(" ");
   }
 
   async handleShow(query) {
