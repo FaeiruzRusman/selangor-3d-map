@@ -59,7 +59,7 @@ map.on("zoom", () => {
 });
 
 map.on("click", (event) => {
-  const layerIds = ["pbt-fill", "police-symbol", "health-symbol", "city-circle"]
+  const layerIds = ["district-fill", "pbt-fill", "police-symbol", "health-symbol", "city-circle"]
     .filter((id) => map.getLayer(id));
 
   const features = map.queryRenderedFeatures(event.point, {
@@ -73,7 +73,17 @@ map.on("click", (event) => {
 
   let html;
 
-  if (feature.layer.id === "pbt-fill") {
+  if (feature.layer.id === "district-fill") {
+    const area = Number(properties.web_area);
+    const areaText = Number.isFinite(area)
+      ? `${area.toLocaleString("ms-MY", { maximumFractionDigits: 2 })} hektar`
+      : "-";
+
+    html = `<strong>Daerah ${properties.web_name || "-"}</strong><br>
+      Kod Daerah: ${properties.web_code || "-"}<br>
+      Keluasan: ${areaText}<br>
+      Tahun data: 2024`;
+  } else if (feature.layer.id === "pbt-fill") {
     const area = Number(properties.web_area);
     const areaText = Number.isFinite(area)
       ? `${area.toLocaleString("ms-MY", { maximumFractionDigits: 2 })} hektar`
@@ -202,6 +212,13 @@ document.getElementById("pbtToggle").addEventListener("change", (event) => {
   updateLayerCount();
 });
 
+document.getElementById("districtToggle").addEventListener("change", (event) => {
+  layerState.districts = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("healthFacilityToggle").addEventListener("change", (event) => {
   layerState.healthFacilities = event.target.checked;
   applyLayerVisibility(map);
@@ -263,6 +280,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
 
   document.getElementById("cityHierarchyToggle").checked = allOn;
   document.getElementById("pbtToggle").checked = allOn;
+  document.getElementById("districtToggle").checked = allOn;
   document.getElementById("healthFacilityToggle").checked = allOn;
   document.getElementById("trafficToggle").checked = allOn;
   document.getElementById("policeToggle").checked = allOn;
@@ -301,6 +319,16 @@ document.getElementById("healthLegendBtn").addEventListener("click", () => {
 document.getElementById("pbtLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("pbtLegendBtn");
   const panel = document.getElementById("pbtLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("districtLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("districtLegendBtn");
+  const panel = document.getElementById("districtLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));
@@ -652,6 +680,7 @@ const ASSISTANT_LAYER_LABELS = {
   traffic: "Live Traffic",
   floodRain: "Flood Intelligence Fasa 1",
   pbt: "Sempadan PBT",
+  districts: "Sempadan Daerah",
   healthFacilities: "Kemudahan Kesihatan",
   police: "Keselamatan",
   cityHierarchy: "Hierarki Bandar DPN2",
@@ -664,6 +693,7 @@ function setAssistantLayerVisibility(layer, visible) {
     traffic: "trafficToggle",
     floodRain: "floodRainToggle",
     pbt: "pbtToggle",
+    districts: "districtToggle",
     healthFacilities: "healthFacilityToggle",
     police: "policeToggle",
     cityHierarchy: "cityHierarchyToggle",

@@ -4,6 +4,7 @@ import { loadSvgSdf } from "./utils.js";
 export const layerState = {
   cityHierarchy: true,
   pbt: true,
+  districts: true,
   healthFacilities: true,
   liveTraffic: true,
   police: true,
@@ -212,6 +213,92 @@ export async function addPortalLayers(map, prefix = "") {
     });
   }
 
+
+  const districtSource = `${prefix}district`;
+  const districtLabelSource = `${prefix}district-label-source`;
+  const districtFill = `${prefix}district-fill`;
+  const districtLine = `${prefix}district-line`;
+  const districtLabel = `${prefix}district-label`;
+
+  if (!map.getSource(districtSource)) {
+    map.addSource(districtSource, {
+      type: "geojson",
+      data: DATA_URLS.districts
+    });
+  }
+
+  if (!map.getSource(districtLabelSource)) {
+    map.addSource(districtLabelSource, {
+      type: "geojson",
+      data: DATA_URLS.districtLabels
+    });
+  }
+
+  if (!map.getLayer(districtFill)) {
+    map.addLayer({
+      id: districtFill,
+      type: "fill",
+      source: districtSource,
+      slot: "middle",
+      paint: {
+        "fill-color": "#8B5CF6",
+        "fill-opacity": 0.045
+      }
+    });
+  }
+
+  if (!map.getLayer(districtLine)) {
+    map.addLayer({
+      id: districtLine,
+      type: "line",
+      source: districtSource,
+      slot: "top",
+      paint: {
+        "line-color": "#A78BFA",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          7, 1.8,
+          11, 3,
+          15, 4.5
+        ],
+        "line-dasharray": [2, 1.4],
+        "line-opacity": 0.95
+      }
+    });
+  }
+
+  if (!map.getLayer(districtLabel)) {
+    map.addLayer({
+      id: districtLabel,
+      type: "symbol",
+      source: districtLabelSource,
+      slot: "top",
+      minzoom: 7,
+      layout: {
+        "text-field": ["get", "web_name"],
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          7, 11,
+          13, 15
+        ],
+        "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+        "text-allow-overlap": false,
+        "text-ignore-placement": false,
+        "text-optional": true,
+        "symbol-placement": "point"
+      },
+      paint: {
+        "text-color": "#EDE9FE",
+        "text-halo-color": "rgba(7,17,31,0.96)",
+        "text-halo-width": 1.8
+      }
+    });
+  }
+
   const policeSource = `${prefix}police`;
   const policeSymbol = `${prefix}police-symbol`;
   const policeLabel = `${prefix}police-label`;
@@ -348,6 +435,9 @@ export function applyLayerVisibility(map, prefix = "") {
     [`${prefix}pbt-fill`, layerState.pbt],
     [`${prefix}pbt-line`, layerState.pbt],
     [`${prefix}pbt-label`, layerState.pbt],
+    [`${prefix}district-fill`, layerState.districts],
+    [`${prefix}district-line`, layerState.districts],
+    [`${prefix}district-label`, layerState.districts],
     [`${prefix}health-symbol`, layerState.healthFacilities],
     [`${prefix}health-label`, layerState.healthFacilities],
     [`${prefix}traffic-casing`, layerState.liveTraffic],

@@ -114,6 +114,8 @@ function detectLayerCommand(text) {
     ["flood intelligence", "floodRain"],
     ["banjir", "floodRain"],
     ["sempadan pbt", "pbt"],
+    ["sempadan daerah", "districts"],
+    ["daerah", "districts"],
     ["pbt", "pbt"],
     ["kesihatan", "healthFacilities"],
     ["keselamatan", "police"],

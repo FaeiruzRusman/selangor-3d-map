@@ -145,6 +145,25 @@ export async function getPbtFeatures() {
   return pbt.features || [];
 }
 
+export async function getDistrictFeatures() {
+  const districts = await loadGeoJSON(
+    "districts",
+    DATA_URLS.districts
+  );
+  return districts.features || [];
+}
+
+export async function findDistrictByName(name) {
+  const features = await getDistrictFeatures();
+  const target = String(name).trim().toLowerCase();
+
+  return features.find((feature) =>
+    String(feature.properties?.web_name ?? "")
+      .trim()
+      .toLowerCase() === target
+  ) || null;
+}
+
 export async function findPbtByName(name) {
   const features = await getPbtFeatures();
   const target = String(name).trim().toLowerCase();

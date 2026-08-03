@@ -23,5 +23,7 @@ export const DATA_URLS = {
   police: "data/keselamatan/ipk_ipd_selangor.geojson",
   policeIcon: "assets/icons/police-building.svg",
   pbt: "data/pentadbiran/sempadan_pbt_selangor_2024.geojson",
-  pbtLabels: "data/pentadbiran/label_pbt_selangor_2024.geojson"
+  pbtLabels: "data/pentadbiran/label_pbt_selangor_2024.geojson",
+  districts: "data/pentadbiran/sempadan_daerah_selangor.geojson",
+  districtLabels: "data/pentadbiran/label_daerah_selangor.geojson"
 };
