@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.8 — Modular Architecture
+# SUO GeoPortal v3.9 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -285,3 +285,33 @@ label_pbt_selangor_2024.geojson      → satu label bagi setiap PBT
 ```
 
 Label Mapbox tidak dimatikan dalam versi ini.
+
+
+## Collapsible Workspace
+
+Kolum kiri dan kanan kini boleh dibuka atau disimpan secara berasingan.
+
+### Kawalan
+
+- `◀` pada kolum kiri — simpan kolum kiri
+- `▶` pada kolum kanan — simpan kolum kanan
+- Tab `Layer & Navigasi` — buka semula kolum kiri
+- Tab `Intelligence` — buka semula kolum kanan
+- `Focus Map` — simpan kedua-dua kolum
+- `Restore Panels` — pulihkan keadaan sebelum Focus Map
+
+### Penyimpanan keadaan
+
+Keadaan panel disimpan dalam browser menggunakan:
+
+```text
+localStorage key:
+suoWorkspacePanelStateV39
+```
+
+Apabila portal dibuka semula, keadaan terakhir kolum akan dipulihkan.
+
+### Mapbox resize
+
+Peta utama dan peta split screen memanggil `resize()` selepas perubahan
+layout untuk memastikan canvas memenuhi ruang baharu.

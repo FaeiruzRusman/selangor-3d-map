@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v3.8 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v3.8</title>
+  <meta name="description" content="SUO GeoPortal v3.9 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v3.9</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,20 +25,45 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v3.8</span></h1>
+        <h1>GeoPortal <span>v3.9</span></h1>
       </div>
     </div>
 
     <div class="header-actions">
       <button id="splitBtn" class="header-btn" type="button">◫ Split Screen</button>
       <button id="tourBtn" class="header-btn secondary" type="button">▶ Urban Tour</button>
+      <button id="focusMapBtn" class="header-btn secondary" type="button">▣ Focus Map</button>
       <button id="resetBtn" class="header-btn secondary" type="button">⟳ Reset</button>
       <button id="fullscreenBtn" class="header-btn secondary" type="button">⛶ Fullscreen</button>
     </div>
   </header>
 
-  <div class="workspace">
+  <div id="workspace" class="workspace">
+    <button id="openLeftPanelTab"
+            class="sidebar-reopen-tab left-reopen-tab"
+            type="button"
+            title="Buka kolum kiri"
+            aria-label="Buka kolum kiri"
+            hidden>
+      <span>▶</span>
+      <b>Layer & Navigasi</b>
+    </button>
+
+    <button id="openRightPanelTab"
+            class="sidebar-reopen-tab right-reopen-tab"
+            type="button"
+            title="Buka kolum kanan"
+            aria-label="Buka kolum kanan"
+            hidden>
+      <b>Intelligence</b>
+      <span>◀</span>
+    </button>
+
     <aside id="leftSidebar" class="sidebar left-sidebar">
+      <div class="sidebar-collapse-bar">
+        <span>Navigasi & Layer</span>
+        <button id="closeLeftPanelBtn" type="button" title="Simpan kolum kiri" aria-label="Simpan kolum kiri">◀</button>
+      </div>
       <section class="panel search-panel">
         <div class="panel-heading">
           <div>
@@ -769,6 +794,10 @@
     </main>
 
     <aside id="rightSidebar" class="sidebar right-sidebar">
+      <div class="sidebar-collapse-bar right-collapse-bar">
+        <button id="closeRightPanelBtn" type="button" title="Simpan kolum kanan" aria-label="Simpan kolum kanan">▶</button>
+        <span>Urban Intelligence</span>
+      </div>
       <section class="panel hero-panel">
         <div>
           <p class="section-label">URBAN INTELLIGENCE</p>
