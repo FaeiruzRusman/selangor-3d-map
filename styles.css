@@ -3165,3 +3165,176 @@ body.map-middle-pan-active {
     width: 100%;
   }
 }
+
+
+/* =========================================================
+   v4.3 — Standardised SUO Popup Theme
+   Applied globally to every Mapbox popup in the portal.
+   ========================================================= */
+
+.mapboxgl-popup {
+  z-index: 50;
+}
+
+.mapboxgl-popup-content {
+  min-width: 220px;
+  max-width: min(330px, calc(100vw - 42px));
+  padding: 16px 18px 15px;
+  overflow-wrap: anywhere;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 13px;
+  color: #374151 !important;
+  background: #ffffff !important;
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.22),
+    0 3px 9px rgba(0, 0, 0, 0.10);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.mapboxgl-popup-content,
+.mapboxgl-popup-content p,
+.mapboxgl-popup-content span,
+.mapboxgl-popup-content div,
+.mapboxgl-popup-content small,
+.mapboxgl-popup-content em,
+.mapboxgl-popup-content label {
+  color: #374151 !important;
+}
+
+.mapboxgl-popup-content strong,
+.mapboxgl-popup-content b,
+.mapboxgl-popup-content h1,
+.mapboxgl-popup-content h2,
+.mapboxgl-popup-content h3,
+.mapboxgl-popup-content h4,
+.mapboxgl-popup-content h5,
+.mapboxgl-popup-content h6 {
+  color: #111827 !important;
+  font-weight: 800;
+}
+
+.mapboxgl-popup-content strong:first-child {
+  display: block;
+  margin: 0 22px 8px 0;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.mapboxgl-popup-content em {
+  display: inline-block;
+  margin-top: 5px;
+  color: #6b7280 !important;
+  font-size: 11px;
+}
+
+.mapboxgl-popup-content a {
+  color: #1d4ed8 !important;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mapboxgl-popup-content a:hover {
+  color: #1e40af !important;
+  text-decoration: underline;
+}
+
+.mapboxgl-popup-close-button {
+  top: 5px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 7px;
+  color: #374151 !important;
+  background: transparent !important;
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.mapboxgl-popup-close-button:hover {
+  color: #111827 !important;
+  background: #f3f4f6 !important;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+  border-bottom-color: #ffffff !important;
+}
+
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
+  border-bottom-color: #ffffff !important;
+}
+
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+  border-bottom-color: #ffffff !important;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: #ffffff !important;
+}
+
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip {
+  border-top-color: #ffffff !important;
+}
+
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+  border-top-color: #ffffff !important;
+}
+
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+  border-right-color: #ffffff !important;
+}
+
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-left-color: #ffffff !important;
+}
+
+/* Optional semantic rows for present or future popup templates. */
+.suo-popup {
+  color: #374151 !important;
+}
+
+.suo-popup-title {
+  margin: 0 22px 9px 0;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827 !important;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.suo-popup-row {
+  display: grid;
+  grid-template-columns: minmax(76px, auto) minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  margin: 4px 0;
+}
+
+.suo-popup-row > b {
+  color: #111827 !important;
+  font-size: 11.5px;
+}
+
+.suo-popup-row > span {
+  min-width: 0;
+  color: #374151 !important;
+  text-align: right;
+}
+
+@media (max-width: 480px) {
+  .mapboxgl-popup-content {
+    min-width: 190px;
+    padding: 14px 16px;
+    font-size: 12px;
+  }
+}

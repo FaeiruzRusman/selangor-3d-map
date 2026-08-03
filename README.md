@@ -1,4 +1,4 @@
-# SUO GeoPortal v4.2 — Modular Architecture
+# SUO GeoPortal v4.3 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -600,4 +600,37 @@ Klinik Kesihatan Meru
 SMK Seksyen 7
 IPD Klang
 Majlis Perbandaran Kajang
+```
+
+
+## Standardised Popup Theme
+
+Semua popup Mapbox kini menggunakan satu tema SUO yang seragam:
+
+- Latar putih
+- Tajuk hampir hitam (`#111827`)
+- Kandungan dark grey (`#374151`)
+- Butang tutup dark grey
+- Pointer popup putih
+- Border dan shadow yang konsisten
+- Saiz responsif untuk skrin kecil
+
+Tema ini digunakan secara global kepada popup daripada:
+
+- Bandar DPN2
+- Sempadan PBT
+- Sempadan Daerah
+- Kesihatan
+- Keselamatan
+- Pendidikan
+- Smart Search
+- Flood Intelligence
+- Hasil Ask Mr. TPr. SUO
+
+CSS semantik untuk pembangunan seterusnya turut disediakan:
+
+```text
+.suo-popup
+.suo-popup-title
+.suo-popup-row
 ```
