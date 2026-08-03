@@ -3568,3 +3568,15 @@ body.map-middle-pan-active {
   font-weight: 900;
   letter-spacing: .04em;
 }
+
+
+.compare-segment button:disabled {
+  cursor: not-allowed;
+  color: #64748b;
+  background: rgba(255,255,255,0.025);
+  opacity: 0.65;
+}
+
+.compare-basemap-note strong {
+  color: #fde68a;
+}

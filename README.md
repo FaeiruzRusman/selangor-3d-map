@@ -1,4 +1,4 @@
-# SUO GeoPortal v6.0.1 — Modular Architecture
+# SUO GeoPortal v6.0.2 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -817,4 +817,36 @@ Tanda visual versi aktif:
 GeoPortal v6.0.1
 Compare Mode v6.0.1
 v6.0.1 • 11 BASEMAPS
+```
+
+
+## Compare Stability Fix v6.0.2
+
+Pembetulan utama:
+
+1. OpenStreetMap raster dikunci kepada mod 2D.
+2. Terrain dimatikan secara automatik untuk basemap yang tidak menyokong 3D.
+3. Layer SUO dipasang semula melalui satu pipeline selepas `style.load`.
+4. Left Map dan Right Map menunggu basemap stabil sebelum layer ditambah.
+5. Layer state digunakan semula selepas Flood Intelligence selesai dimuatkan.
+6. Kamera sync menghormati kemampuan 2D/3D setiap paparan.
+7. State lama v6.0.1 tidak digunakan; key baharu ialah:
+
+```text
+suoCompareStateV602
+```
+
+Tanda versi aktif:
+
+```text
+GeoPortal v6.0.2
+Compare Mode v6.0.2
+v6.0.2 • STABILITY FIX
+```
+
+Cache busting:
+
+```text
+styles.css?v=6.0.2
+js/app.js?v=6.0.2
 ```

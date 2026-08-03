@@ -1,0 +1,21 @@
+SUO GEOPORTAL v6.0.2 — COMPARE STABILITY FIX
+
+1. Replace SEMUA fail versi lama dalam repository.
+2. Upload SEMUA kandungan ZIP ini ke root repository.
+3. Pastikan header portal menunjukkan GeoPortal v6.0.2.
+4. Pastikan Compare Panel menunjukkan:
+   - Compare Mode v6.0.2
+   - v6.0.2 • STABILITY FIX
+5. Selepas GitHub Pages deploy:
+   - tekan Ctrl + Shift + R
+   - atau buka Incognito
+
+UJIAN:
+A. Left = OpenStreetMap
+   - Left Map mesti automatik 2D
+   - tiada distorsi terrain
+B. Right = Satellite
+   - layer Pendidikan/Kesihatan/PBT mesti muncul jika diaktifkan
+C. Tukar layer kiri dan kanan secara berasingan
+D. Tutup Compare Mode
+   - Main Map kembali kepada keadaan asal
