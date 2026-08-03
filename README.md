@@ -1,4 +1,4 @@
-# SUO GeoPortal v4.3 — Modular Architecture
+# SUO GeoPortal v5.0 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -634,3 +634,85 @@ CSS semantik untuk pembangunan seterusnya turut disediakan:
 .suo-popup-title
 .suo-popup-row
 ```
+
+
+## Ask Mr. TPr. SUO v5.0 — Attribute Query Engine
+
+Modul baharu:
+
+```text
+js/attribute-query.js
+```
+
+Enjin ini menggunakan registry metadata bagi setiap layer untuk menukar ayat
+pengguna kepada penapis atribut yang dibenarkan.
+
+### Layer yang didaftarkan
+
+- Pendidikan
+- Kesihatan
+- Keselamatan
+- Hierarki Bandar DPN2
+
+### Contoh pertanyaan
+
+```text
+Sekolah yang tiada warta?
+Berapa sekolah yang tiada warta?
+Sekolah menengah dalam PPD Klang yang tiada warta
+Berapa sekolah rendah dalam MBSA?
+Hospital swasta di Daerah Klang
+Klinik Kesihatan kerajaan di Daerah Petaling
+IPD di Daerah Petaling
+Bandar kategori Bandar Utama
+```
+
+### Kaedah
+
+```text
+Soalan pengguna
+→ Intent Parser
+→ Attribute Query Registry
+→ Penapis field/value
+→ Spatial boundary jika perlu
+→ Kiraan
+→ Highlight
+→ Auto-zoom
+→ Jawapan dengan penapis dan kaedah
+```
+
+### Metadata Pendidikan
+
+```text
+web_type       → Status/Jenis Warta
+web_level      → Tahap Sekolah
+web_ppd        → PPD
+web_district   → Daerah
+web_pbt        → PBT
+web_name       → Nama sekolah
+```
+
+Nilai warta yang terdapat dalam data:
+
+```text
+Tiada
+TM_KPM
+W.S62
+166(4)
+SUKSel
+```
+
+### Semakan data
+
+```text
+Sekolah yang tiada warta: 504
+Sekolah menengah dalam PPD Klang yang tiada warta: 27
+Sekolah rendah dalam MBSA: 55
+```
+
+Query daerah menggunakan point-in-polygon apabila poligon daerah tersedia.
+Query PBT bagi kesihatan menggunakan point-in-polygon, manakala data sekolah
+menggunakan atribut kod PBT yang tersedia dalam data sekolah.
+
+Enjin tidak menjalankan JavaScript bebas dan hanya menggunakan field serta
+nilai yang didaftarkan dalam metadata.
