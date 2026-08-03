@@ -1,0 +1,16 @@
+{
+"type": "FeatureCollection",
+"name": "label_daerah_selangor",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "web_name": "Gombak", "web_code": "09", "web_area": 62639.65 }, "geometry": { "type": "Point", "coordinates": [ 101.651844948134951, 3.275398918219804 ] } },
+{ "type": "Feature", "properties": { "web_name": "Hulu Langat", "web_code": "06", "web_area": 84241.31 }, "geometry": { "type": "Point", "coordinates": [ 101.855954742552711, 3.074299476358857 ] } },
+{ "type": "Feature", "properties": { "web_name": "Hulu Selangor", "web_code": "07", "web_area": 175185.57 }, "geometry": { "type": "Point", "coordinates": [ 101.599501877259698, 3.563081741206736 ] } },
+{ "type": "Feature", "properties": { "web_name": "Klang", "web_code": "01", "web_area": 81173.7 }, "geometry": { "type": "Point", "coordinates": [ 101.435535234712049, 3.037355848440774 ] } },
+{ "type": "Feature", "properties": { "web_name": "Kuala Langat", "web_code": "02", "web_area": 89998.13 }, "geometry": { "type": "Point", "coordinates": [ 101.510000922217856, 2.811413626664226 ] } },
+{ "type": "Feature", "properties": { "web_name": "Kuala Selangor", "web_code": "04", "web_area": 126487.7 }, "geometry": { "type": "Point", "coordinates": [ 101.303846120513413, 3.376578291116728 ] } },
+{ "type": "Feature", "properties": { "web_name": "Petaling", "web_code": "08", "web_area": 49839.21 }, "geometry": { "type": "Point", "coordinates": [ 101.551170766724965, 3.102571418078899 ] } },
+{ "type": "Feature", "properties": { "web_name": "Sabak Bernam", "web_code": "05", "web_area": 107810.51 }, "geometry": { "type": "Point", "coordinates": [ 101.085743084139693, 3.676000019877212 ] } },
+{ "type": "Feature", "properties": { "web_name": "Sepang", "web_code": "10", "web_area": 56344.59 }, "geometry": { "type": "Point", "coordinates": [ 101.71224963427872, 2.798139441255723 ] } }
+]
+}
