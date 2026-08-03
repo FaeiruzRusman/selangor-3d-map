@@ -1,4 +1,4 @@
-# SUO GeoPortal v4.0C — Modular Architecture
+# SUO GeoPortal v4.0D — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -459,4 +459,38 @@ Matikan Sempadan Daerah
 ```text
 data/pentadbiran/sempadan_daerah_selangor.geojson
 data/pentadbiran/label_daerah_selangor.geojson
+```
+
+
+## Perbandingan Keluasan Antara Layer
+
+Ask Mr. TPr. SUO kini boleh membandingkan keluasan antara:
+
+- Sempadan Daerah
+- Sempadan PBT
+
+Contoh:
+
+```text
+Beza luas Daerah Sabak Bernam dan Majlis Daerah Sabak Bernam
+```
+
+Sistem akan:
+
+1. Mengesan intent `compareArea`.
+2. Membaca poligon Daerah Sabak Bernam.
+3. Membaca poligon Majlis Daerah Sabak Bernam.
+4. Mengambil atribut `web_area` daripada kedua-dua layer.
+5. Mengira beza mutlak.
+6. Mengira peratus perbezaan berbanding kawasan yang lebih kecil.
+7. Highlight kedua-dua poligon.
+8. Zoom kepada kawasan perbandingan.
+
+Semakan data semasa:
+
+```text
+Daerah Sabak Bernam: 107,810.51 hektar
+Majlis Daerah Sabak Bernam: 99,812.09 hektar
+Perbezaan: 7,998.42 hektar
+Peratus perbezaan: 8.01%
 ```
