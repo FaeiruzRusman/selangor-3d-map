@@ -491,6 +491,25 @@ function addChatBubble(text, type) {
   container.scrollTop = container.scrollHeight;
 }
 
+
+
+document.querySelectorAll("[data-layer-category]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const category = button.dataset.layerCategory;
+    const content = document.querySelector(
+      `[data-layer-category-content="${category}"]`
+    );
+
+    if (!content) return;
+
+    const expanded = button.getAttribute("aria-expanded") === "true";
+
+    button.setAttribute("aria-expanded", String(!expanded));
+    button.classList.toggle("collapsed", expanded);
+    content.hidden = expanded;
+  });
+});
+
 document.getElementById("mobileMenuBtn").addEventListener("click", () => {
   document.getElementById("leftSidebar").classList.toggle("open");
 });
