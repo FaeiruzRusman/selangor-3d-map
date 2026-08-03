@@ -8,6 +8,7 @@ export const layerState = {
   healthFacilities: true,
   liveTraffic: true,
   police: true,
+  schools: true,
   floodRain: true,
   terrain: true,
   buildings: true
@@ -366,6 +367,65 @@ export async function addPortalLayers(map, prefix = "") {
     });
   }
 
+
+  const schoolSource = `${prefix}schools`;
+  const schoolSymbol = `${prefix}school-symbol`;
+  const schoolLabel = `${prefix}school-label`;
+
+  await loadSvgSdf(map, "school-building", DATA_URLS.schoolIcon);
+
+  if (!map.getSource(schoolSource)) {
+    map.addSource(schoolSource, { type: "geojson", data: DATA_URLS.schools });
+  }
+
+  if (!map.getLayer(schoolSymbol)) {
+    map.addLayer({
+      id: schoolSymbol,
+      type: "symbol",
+      source: schoolSource,
+      slot: "top",
+      layout: {
+        "icon-image": "school-building",
+        "icon-size": ["match", ["get", "web_level"],
+          "Sekolah Menengah", 0.42,
+          "Sekolah Rendah", 0.34,
+          0.32],
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
+      },
+      paint: {
+        "icon-color": ["match", ["get", "web_level"],
+          "Sekolah Menengah", "#7C3AED",
+          "Sekolah Rendah", "#F59E0B",
+          "#64748B"],
+        "icon-halo-color": "#FFFFFF",
+        "icon-halo-width": 1.3
+      }
+    });
+  }
+
+  if (!map.getLayer(schoolLabel)) {
+    map.addLayer({
+      id: schoolLabel,
+      type: "symbol",
+      source: schoolSource,
+      slot: "top",
+      minzoom: 12,
+      layout: {
+        "text-field": ["get", "web_name"],
+        "text-size": 9.5,
+        "text-offset": [0, 1.2],
+        "text-anchor": "top",
+        "text-allow-overlap": false
+      },
+      paint: {
+        "text-color": "#FFFFFF",
+        "text-halo-color": "rgba(7,17,31,0.95)",
+        "text-halo-width": 1.4
+      }
+    });
+  }
+
   const trafficSource = `${prefix}traffic-source`;
   const trafficCasing = `${prefix}traffic-casing`;
   const trafficLine = `${prefix}traffic-line`;
@@ -443,7 +503,9 @@ export function applyLayerVisibility(map, prefix = "") {
     [`${prefix}traffic-casing`, layerState.liveTraffic],
     [`${prefix}traffic-line`, layerState.liveTraffic],
     [`${prefix}police-symbol`, layerState.police],
-    [`${prefix}police-label`, layerState.police]
+    [`${prefix}police-label`, layerState.police],
+    [`${prefix}school-symbol`, layerState.schools],
+    [`${prefix}school-label`, layerState.schools]
   ];
 
   for (const [id, visible] of items) {

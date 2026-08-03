@@ -90,6 +90,23 @@ function detectHealth(text) {
   return null;
 }
 
+
+function detectSchool(text) {
+  if (text.includes("sekolah menengah")) {
+    return { layer: "schools", category: "Sekolah Menengah" };
+  }
+
+  if (text.includes("sekolah rendah")) {
+    return { layer: "schools", category: "Sekolah Rendah" };
+  }
+
+  if (text.includes("sekolah") || text.includes("pendidikan")) {
+    return { layer: "schools", category: null };
+  }
+
+  return null;
+}
+
 function detectPolice(text) {
   if (text.includes("ipk")) {
     return { layer: "police", category: "IPK" };
@@ -118,6 +135,8 @@ function detectLayerCommand(text) {
     ["daerah", "districts"],
     ["pbt", "pbt"],
     ["kesihatan", "healthFacilities"],
+    ["sekolah", "schools"],
+    ["pendidikan", "schools"],
     ["keselamatan", "police"],
     ["hierarki bandar", "cityHierarchy"],
     ["bandar dpn2", "cityHierarchy"],
@@ -137,6 +156,7 @@ export function parseIntent(message) {
   const district = detectDistrict(text);
   const pbt = detectPbt(text);
   const health = detectHealth(text);
+  const school = detectSchool(text);
   const police = detectPolice(text);
 
   let intent = "unknown";
@@ -166,7 +186,7 @@ export function parseIntent(message) {
     intent = "count";
   } else if (includesAny(text, ["keluasan", "luas"])) {
     intent = "area";
-  } else if (includesAny(text, ["tunjukkan", "paparkan", "highlight", "cari semua"])) {
+  } else if (includesAny(text, ["tunjukkan", "paparkan", "highlight", "cari semua", "cari "])) {
     intent = "show";
   } else if (includesAny(text, ["buka", "hidupkan", "aktifkan", "on kan", "onkan"])) {
     intent = "open";
@@ -176,7 +196,7 @@ export function parseIntent(message) {
     intent = "navigate";
   }
 
-  let subject = health || police;
+  let subject = health || school || police;
 
   if (!subject && (pbt || text.includes("pbt"))) {
     subject = { layer: "pbt", category: null };
@@ -214,7 +234,11 @@ export function parseIntent(message) {
     asksGovernment:
       text.includes("kerajaan") || text.includes("kkm"),
     asksPrivate:
-      text.includes("swasta")
+      text.includes("swasta"),
+    schoolSearchTerm:
+      school && text.startsWith("cari ")
+        ? text.replace(/^cari\s+/, "").trim()
+        : null
   };
 }
 

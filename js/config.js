@@ -25,5 +25,7 @@ export const DATA_URLS = {
   pbt: "data/pentadbiran/sempadan_pbt_selangor_2024.geojson",
   pbtLabels: "data/pentadbiran/label_pbt_selangor_2024.geojson",
   districts: "data/pentadbiran/sempadan_daerah_selangor.geojson",
-  districtLabels: "data/pentadbiran/label_daerah_selangor.geojson"
+  districtLabels: "data/pentadbiran/label_daerah_selangor.geojson",
+  schools: "data/pendidikan/sekolah_negeri_selangor.geojson",
+  schoolIcon: "assets/icons/school-building.svg"
 };

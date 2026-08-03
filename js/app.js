@@ -59,7 +59,7 @@ map.on("zoom", () => {
 });
 
 map.on("click", (event) => {
-  const layerIds = ["district-fill", "pbt-fill", "police-symbol", "health-symbol", "city-circle"]
+  const layerIds = ["district-fill", "pbt-fill", "school-symbol", "police-symbol", "health-symbol", "city-circle"]
     .filter((id) => map.getLayer(id));
 
   const features = map.queryRenderedFeatures(event.point, {
@@ -93,6 +93,13 @@ map.on("click", (event) => {
       Kategori: ${properties.web_type || "-"}<br>
       Keluasan: ${areaText}<br>
       Tahun data: 2024`;
+  } else if (feature.layer.id === "school-symbol") {
+    html = `<strong>${properties.web_name || "Sekolah"}</strong><br>
+      Tahap: ${properties.web_level || "-"}<br>
+      PPD: ${properties.web_ppd || "-"}<br>
+      Daerah: ${properties.web_district || "-"}<br>
+      PBT: ${properties.web_pbt || "-"}<br>
+      Jenis Warta: ${properties.web_type || "-"}`;
   } else if (feature.layer.id === "police-symbol") {
     html = `<strong>${properties.web_name || "PDRM"}</strong><br>
       Hierarki: ${properties.web_hierarchy || "-"}<br>
@@ -240,6 +247,13 @@ document.getElementById("policeToggle").addEventListener("change", (event) => {
   updateLayerCount();
 });
 
+document.getElementById("schoolToggle").addEventListener("change", (event) => {
+  layerState.schools = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("floodRainToggle").addEventListener("change", (event) => {
   flood.setVisible(event.target.checked);
   updateLayerCount();
@@ -284,6 +298,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   document.getElementById("healthFacilityToggle").checked = allOn;
   document.getElementById("trafficToggle").checked = allOn;
   document.getElementById("policeToggle").checked = allOn;
+  document.getElementById("schoolToggle").checked = allOn;
   document.getElementById("floodRainToggle").checked = allOn;
   document.getElementById("terrainToggle").checked = allOn;
   document.getElementById("buildingToggle").checked = allOn;
@@ -349,6 +364,16 @@ document.getElementById("trafficLegendBtn").addEventListener("click", () => {
 document.getElementById("policeLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("policeLegendBtn");
   const panel = document.getElementById("policeLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("schoolLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("schoolLegendBtn");
+  const panel = document.getElementById("schoolLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));
@@ -683,6 +708,7 @@ const ASSISTANT_LAYER_LABELS = {
   districts: "Sempadan Daerah",
   healthFacilities: "Kemudahan Kesihatan",
   police: "Keselamatan",
+  schools: "Pendidikan",
   cityHierarchy: "Hierarki Bandar DPN2",
   terrain: "Terrain 3D",
   buildings: "Bangunan 3D"
@@ -696,6 +722,7 @@ function setAssistantLayerVisibility(layer, visible) {
     districts: "districtToggle",
     healthFacilities: "healthFacilityToggle",
     police: "policeToggle",
+    schools: "schoolToggle",
     cityHierarchy: "cityHierarchyToggle",
     terrain: "terrainToggle",
     buildings: "buildingToggle"

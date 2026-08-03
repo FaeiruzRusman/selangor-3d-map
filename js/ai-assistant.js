@@ -1,6 +1,7 @@
 import { parseIntent } from "./intent-parser.js";
 import {
   queryHealth,
+  querySchools,
   queryPolice,
   getPbtFeatures,
   findPbtByName,
@@ -122,6 +123,42 @@ export class SpatialAssistant {
     // Questions mentioning a data subject should be treated as queries
     // rather than immediately navigating to a city.
     if (query.layer === "health") {
+      return this.handleCount({ ...query, intent: "count" });
+    }
+
+
+    if (query.layer === "schools") {
+      const district = query.location?.type === "district"
+        ? query.location.name
+        : null;
+
+      const pbtCode = query.location?.type === "pbt"
+        ? query.location.alias
+        : null;
+
+      const features = await querySchools({
+        level: query.category,
+        district,
+        pbtCode,
+        nameContains: query.schoolSearchTerm
+      });
+
+      highlightFeatures(this.map, features);
+      zoomToFeatures(this.map, features);
+
+      const subject = query.category || "sekolah";
+      const place = district
+        ? `di Daerah ${district}`
+        : pbtCode
+          ? `dalam ${pbtCode}`
+          : "di Negeri Selangor";
+
+      return features.length
+        ? `Terdapat ${features.length} ${subject} ${place}. Hasil telah di-highlight pada peta.`
+        : `Tiada ${subject} ditemui ${place}.`;
+    }
+
+    if (query.layer === "schools") {
       return this.handleCount({ ...query, intent: "count" });
     }
 
@@ -376,6 +413,10 @@ export class SpatialAssistant {
 
   async handleShow(query) {
     if (query.layer === "health") {
+      return this.handleCount({ ...query, intent: "count" });
+    }
+
+    if (query.layer === "schools") {
       return this.handleCount({ ...query, intent: "count" });
     }
 

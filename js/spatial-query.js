@@ -121,6 +121,57 @@ export async function queryHealth({
   return features;
 }
 
+
+export async function querySchools({
+  level = null,
+  district = null,
+  pbtCode = null,
+  nameContains = null
+} = {}) {
+  const schools = await loadGeoJSON("schools", DATA_URLS.schools);
+  let features = schools.features || [];
+
+  if (level) {
+    features = features.filter((feature) =>
+      equalText(feature.properties?.web_level, level)
+    );
+  }
+
+  if (district) {
+    const districtFeature = await findDistrictByName(district);
+
+    if (districtFeature) {
+      features = features.filter((feature) => {
+        if (feature.geometry?.type !== "Point") return false;
+        return pointInFeature(feature.geometry.coordinates, districtFeature);
+      });
+    } else {
+      features = features.filter((feature) =>
+        equalText(feature.properties?.web_district, district)
+      );
+    }
+  }
+
+  if (pbtCode) {
+    features = features.filter((feature) =>
+      String(feature.properties?.web_pbt ?? "")
+        .trim()
+        .toLowerCase() === String(pbtCode).trim().toLowerCase()
+    );
+  }
+
+  if (nameContains) {
+    const target = String(nameContains).toLowerCase();
+    features = features.filter((feature) =>
+      String(feature.properties?.web_name ?? "")
+        .toLowerCase()
+        .includes(target)
+    );
+  }
+
+  return features;
+}
+
 export async function queryPolice({
   hierarchy = null,
   district = null
