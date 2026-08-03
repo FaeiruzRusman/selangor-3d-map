@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v4.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v4.1</title>
+  <meta name="description" content="SUO GeoPortal v4.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v4.2</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v4.1</span></h1>
+        <h1>GeoPortal <span>v4.2</span></h1>
       </div>
     </div>
 
@@ -72,11 +72,34 @@
           </div>
         </div>
 
-        <form id="searchForm" class="search-form">
-          <input id="searchInput" type="search" placeholder="Cari lokasi di Malaysia..." autocomplete="off" />
-          <button type="submit">Cari</button>
+        <form id="searchForm" class="search-form smart-search-form" role="search">
+          <div class="smart-search-box">
+            <span class="smart-search-icon" aria-hidden="true">⌕</span>
+            <input id="searchInput"
+                   type="search"
+                   placeholder="Cari bandar, PBT, hospital, sekolah..."
+                   autocomplete="off"
+                   aria-label="Smart Search GeoPortal"
+                   aria-controls="searchResults"
+                   aria-expanded="false" />
+            <button id="clearSearchBtn"
+                    class="smart-search-clear"
+                    type="button"
+                    title="Kosongkan carian"
+                    aria-label="Kosongkan carian"
+                    hidden>✕</button>
+            <button class="smart-search-submit" type="submit" aria-label="Cari">Cari</button>
+          </div>
         </form>
-        <div id="searchResults" class="search-results"></div>
+
+        <div class="smart-search-hint">
+          Cari dalam data SUO atau lokasi umum Mapbox
+        </div>
+
+        <div id="searchResults"
+             class="search-results smart-search-results"
+             role="listbox"
+             hidden></div>
       </section>
 
       <section class="panel">

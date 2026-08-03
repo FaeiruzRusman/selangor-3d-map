@@ -1,4 +1,4 @@
-# SUO GeoPortal v4.1 — Modular Architecture
+# SUO GeoPortal v4.2 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -551,3 +551,53 @@ Matikan sekolah
 Query daerah menggunakan point-in-polygon dengan layer sempadan daerah.
 Query PBT menggunakan kod PBT pada atribut sekolah seperti `MBSA`, `MBPJ`
 dan lain-lain. Hasil query akan di-highlight dan peta dizum kepada hasil.
+
+
+## Smart Search
+
+Carian lokasi biasa telah dinaik taraf kepada carian seluruh GeoPortal.
+
+Modul:
+
+```text
+js/smart-search.js
+```
+
+Smart Search mengindeks:
+
+- Bandar DPN2
+- Sempadan PBT
+- Sempadan Daerah
+- Hospital dan klinik
+- Sekolah
+- IPK dan IPD
+
+Jika hasil tempatan tidak mencukupi, carian akan turut menggunakan Mapbox
+Geocoding untuk lokasi umum di Malaysia.
+
+### Fungsi
+
+- Carian semasa pengguna menaip
+- Pengelompokan keputusan mengikut layer
+- Skor padanan nama dan atribut
+- Navigasi menggunakan anak panah atas/bawah
+- Enter untuk memilih hasil
+- Escape untuk menutup keputusan
+- Highlight feature SUO
+- Auto-zoom
+- Popup atribut
+- Butang kosongkan carian
+- Sokongan geometri Point, Polygon dan MultiPolygon
+
+### Contoh
+
+```text
+Shah Alam
+MBSA
+Daerah Klang
+Hospital Shah Alam
+Klinik Kesihatan Meru
+SMK Seksyen 7
+IPD Klang
+Majlis Perbandaran Kajang
+```
