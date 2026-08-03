@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v3.4 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v3.4</title>
+  <meta name="description" content="SUO GeoPortal v3.5 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v3.5</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v3.4</span></h1>
+        <h1>GeoPortal <span>v3.5</span></h1>
       </div>
     </div>
 
@@ -73,6 +73,50 @@
             </span>
             <input id="cityHierarchyToggle" type="checkbox" checked />
           </label>
+
+          <div class="layer-group">
+            <div class="layer-item layer-item-expandable">
+              <button id="pbtLegendBtn"
+                      class="layer-expand-btn"
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="pbtLegendPanel"
+                      title="Buka legend PBT">
+                ▸
+              </button>
+
+              <span class="legend-symbol pbt-layer-symbol"></span>
+
+              <span class="layer-copy">
+                <strong>Sempadan PBT Negeri Selangor 2024</strong>
+                <small>12 kawasan pentadbiran PBT</small>
+              </span>
+
+              <input id="pbtToggle" type="checkbox" checked />
+            </div>
+
+            <div id="pbtLegendPanel" class="layer-legend-panel" hidden>
+              <div class="legend-heading">
+                <span>Legend Sempadan PBT</span>
+                <small>Sempadan pentadbiran tempatan 2024</small>
+              </div>
+
+              <div class="legend-list">
+                <div class="legend-row">
+                  <span class="pbt-legend-fill"></span>
+                  <span>Kawasan PBT</span>
+                </div>
+                <div class="legend-row">
+                  <span class="pbt-legend-line"></span>
+                  <span>Sempadan PBT</span>
+                </div>
+                <div class="legend-row">
+                  <span class="pbt-legend-label">Aa</span>
+                  <span>Label Nama PBT</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="layer-group">
             <div class="layer-item layer-item-expandable">
@@ -677,7 +721,7 @@
         </article>
         <article class="kpi-card">
           <span>Layer Aktif</span>
-          <strong id="activeLayerCount">7</strong>
+          <strong id="activeLayerCount">8</strong>
           <small>Spatial layers</small>
         </article>
         <article class="kpi-card">

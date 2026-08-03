@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.4 — Modular Architecture
+# SUO GeoPortal v3.5 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -187,3 +187,36 @@ Apabila data rasmi dibekalkan, gunakan lokasi:
 ```text
 data/banjir/risiko_banjir_selangor.geojson
 ```
+
+
+## Sempadan PBT Negeri Selangor 2024
+
+Sumber asal:
+
+```text
+Sempadan_PBT_Negeri_Selangor_2024.shp
+```
+
+Proses:
+
+- CRS asal: EPSG:3380 — GDM2000 / Cassini Selangor
+- CRS portal: EPSG:4326 — WGS84
+- Jumlah feature: 12 PBT
+- Field nama: `NAMA_PBT`
+- Field kategori: `KATEGORI`
+
+Fail output:
+
+```text
+data/pentadbiran/sempadan_pbt_selangor_2024.geojson
+```
+
+Fungsi:
+
+- Fill poligon lutsinar
+- Garisan sempadan biru
+- Label nama PBT
+- Toggle dalam Layer Management
+- Dropdown legend
+- Popup nama, kategori, keluasan dan tahun data
+- Berfungsi pada peta utama serta split screen
