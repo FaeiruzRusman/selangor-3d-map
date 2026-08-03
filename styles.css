@@ -3554,3 +3554,17 @@ body.map-middle-pan-active {
     background: rgba(7,17,31,0.97);
   }
 }
+
+.compare-version-badge {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 3px;
+  padding: 3px 6px;
+  border: 1px solid rgba(247,181,0,.32);
+  border-radius: 999px;
+  color: #fde68a;
+  background: rgba(247,181,0,.08);
+  font-size: .52rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+}

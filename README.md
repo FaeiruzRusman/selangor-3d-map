@@ -1,4 +1,4 @@
-# SUO GeoPortal v6.0 — Modular Architecture
+# SUO GeoPortal v6.0.1 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -800,3 +800,21 @@ styles.css
 
 OpenStreetMap menggunakan raster tiles rasmi OSM. Attribution kekal
 dipaparkan melalui konfigurasi sumber raster.
+
+
+## Cache Fix v6.0.1
+
+`index.html` kini menggunakan cache-busting:
+
+```text
+styles.css?v=6.0.1
+js/app.js?v=6.0.1
+```
+
+Tanda visual versi aktif:
+
+```text
+GeoPortal v6.0.1
+Compare Mode v6.0.1
+v6.0.1 • 11 BASEMAPS
+```

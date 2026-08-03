@@ -1,0 +1,39 @@
+SUO GEOPORTAL v6.0.1 — DEPLOYMENT
+
+1. Padam atau replace SEMUA fail lama dalam root GitHub repository.
+2. Upload SEMUA kandungan folder/ZIP ini ke root repository.
+3. Pastikan fail berikut berada terus di root:
+   - index.html
+   - styles.css
+   - README.md
+   - folder js
+   - folder data
+   - folder assets
+   - folder config
+
+4. GitHub Pages hendaklah membaca:
+   index.html
+
+5. Selepas commit siap:
+   - buka URL portal
+   - tekan Ctrl + Shift + R
+   - atau buka Incognito
+
+TANDA VERSI BETUL:
+- Header: GeoPortal v6.0.1
+- Compare panel: Compare Mode v6.0.1
+- Badge: v6.0.1 • 11 BASEMAPS
+- Tab: Layers / Basemap / Display
+
+BASEMAP LEFT DAN RIGHT:
+1. Standard
+2. Satellite
+3. Hybrid
+4. Terrain
+5. Light
+6. Dark
+7. Outdoors
+8. Streets
+9. Navigation Day
+10. Navigation Night
+11. OpenStreetMap
