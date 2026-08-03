@@ -12,59 +12,6 @@ export const layerState = {
   buildings: true
 };
 
-
-export function hideMapboxLabels(map, prefix = "") {
-  // Mapbox Standard and Standard Satellite configuration.
-  try {
-    map.setConfigProperty(
-      "basemap",
-      "showPointOfInterestLabels",
-      false
-    );
-    map.setConfigProperty(
-      "basemap",
-      "showPlaceLabels",
-      false
-    );
-    map.setConfigProperty(
-      "basemap",
-      "showTransitLabels",
-      false
-    );
-    map.setConfigProperty(
-      "basemap",
-      "showRoadLabels",
-      false
-    );
-  } catch (_) {
-    // Classic Mapbox styles do not expose Standard configuration.
-  }
-
-  // Fallback for classic styles such as Streets, Outdoors and Dark.
-  // Keep only symbol layers created by SUO.
-  const suoSymbolLayers = new Set([
-    `${prefix}city-label`,
-    `${prefix}pbt-label`,
-    `${prefix}health-symbol`,
-    `${prefix}health-label`,
-    `${prefix}police-symbol`,
-    `${prefix}police-label`,
-    `${prefix}flood-rain-label`
-  ]);
-
-  const style = map.getStyle();
-  const styleLayers = style?.layers || [];
-
-  styleLayers.forEach((layer) => {
-    if (layer.type !== "symbol") return;
-    if (suoSymbolLayers.has(layer.id)) return;
-
-    try {
-      map.setLayoutProperty(layer.id, "visibility", "none");
-    } catch (_) {}
-  });
-}
-
 export async function addPortalLayers(map, prefix = "") {
   const citySource = `${prefix}cities`;
   const healthSource = `${prefix}health`;
@@ -381,7 +328,6 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   applyLayerVisibility(map, prefix);
-  hideMapboxLabels(map, prefix);
 }
 
 export function applyLayerVisibility(map, prefix = "") {
