@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v3.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v3.1</title>
+  <meta name="description" content="SUO GeoPortal v3.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v3.2</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v3.1</span></h1>
+        <h1>GeoPortal <span>v3.2</span></h1>
       </div>
     </div>
 
@@ -161,6 +161,29 @@
                 <div class="legend-row"><span class="traffic-legend-line traffic-heavy"></span><span>Sesak</span></div>
                 <div class="legend-row"><span class="traffic-legend-line traffic-severe"></span><span>Sangat Sesak</span></div>
                 <div class="legend-row"><span class="traffic-legend-line traffic-unknown"></span><span>Tiada Maklumat</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layer-group">
+            <div class="layer-item layer-item-expandable">
+              <button id="policeLegendBtn" class="layer-expand-btn" type="button"
+                      aria-expanded="false" aria-controls="policeLegendPanel">▸</button>
+              <span class="legend-symbol police-layer-symbol"></span>
+              <span class="layer-copy">
+                <strong>Keselamatan Awam</strong>
+                <small>17 lokasi IPK dan IPD</small>
+              </span>
+              <input id="policeToggle" type="checkbox" checked />
+            </div>
+            <div id="policeLegendPanel" class="layer-legend-panel" hidden>
+              <div class="legend-heading">
+                <span>Legend Keselamatan Awam</span>
+                <small>Hierarki pentadbiran PDRM</small>
+              </div>
+              <div class="legend-list">
+                <div class="legend-row"><span class="legend-police-icon police-ipk-color"></span><span>IPK (2)</span></div>
+                <div class="legend-row"><span class="legend-police-icon police-ipd-color"></span><span>IPD (15)</span></div>
               </div>
             </div>
           </div>
@@ -362,7 +385,7 @@
         </article>
         <article class="kpi-card">
           <span>Layer Aktif</span>
-          <strong id="activeLayerCount">5</strong>
+          <strong id="activeLayerCount">6</strong>
           <small>Spatial layers</small>
         </article>
         <article class="kpi-card">

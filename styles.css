@@ -1420,3 +1420,32 @@ body.map-middle-pan-active {
 .traffic-heavy { background: #f97316; }
 .traffic-severe { background: #dc2626; }
 .traffic-unknown { background: #94a3b8; }
+
+
+.police-layer-symbol,
+.legend-police-icon {
+  display: inline-block;
+  -webkit-mask: url("assets/icons/police-building.svg") center / contain no-repeat;
+  mask: url("assets/icons/police-building.svg") center / contain no-repeat;
+  background: currentColor;
+}
+
+.police-layer-symbol {
+  width: 17px;
+  height: 17px;
+  color: #2563EB;
+}
+
+.legend-police-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.police-ipk-color {
+  color: #0F172A;
+  filter: drop-shadow(0 0 1px #ffffff);
+}
+
+.police-ipd-color {
+  color: #2563EB;
+}

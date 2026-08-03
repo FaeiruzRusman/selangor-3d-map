@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.1 — Modular Architecture
+# SUO GeoPortal v3.2 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -71,3 +71,29 @@ Kategori kesesakan:
 - lain-lain — Tiada Maklumat
 
 Layer ini dimuatkan pada peta utama dan split screen melalui modul `layers.js`.
+
+
+## Keselamatan Awam
+
+Layer ini hanya mengandungi:
+
+- IPK: 2 lokasi
+- IPD: 15 lokasi
+
+Dikecualikan:
+
+- Balai Polis
+- Balai Trafik
+- Pondok Polis Komuniti
+- Rekod BALAI/UNIT lain
+
+Fail data:
+
+```text
+data/keselamatan/ipk_ipd_selangor.geojson
+```
+
+Simbol:
+
+- IPK — bangunan polis biru gelap dan lebih besar
+- IPD — bangunan polis biru
