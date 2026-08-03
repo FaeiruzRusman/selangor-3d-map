@@ -13,6 +13,7 @@ import { CompareEngine } from "./compare.js";
 import { WeatherIntelligence } from "./weather.js";
 import { FloodIntelligence } from "./flood.js";
 import { SpatialAssistant } from "./ai-assistant.js";
+import { SmartSearch } from "./smart-search.js";
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -451,55 +452,6 @@ document.getElementById("locateBtn").addEventListener("click", () => {
   });
 });
 
-document.getElementById("searchForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  const query = document.getElementById("searchInput").value.trim();
-  const results = document.getElementById("searchResults");
-
-  if (!query) return;
-
-  results.textContent = "Mencari...";
-
-  const url = new URL("https://api.mapbox.com/search/geocode/v6/forward");
-  url.searchParams.set("q", query);
-  url.searchParams.set("access_token", MAPBOX_TOKEN);
-  url.searchParams.set("limit", "5");
-  url.searchParams.set("country", "MY");
-  url.searchParams.set("language", "ms,en");
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    results.innerHTML = "";
-
-    for (const feature of data.features || []) {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "result-item";
-      button.textContent =
-        feature.properties?.full_address ||
-        feature.properties?.name ||
-        "Lokasi";
-
-      button.addEventListener("click", () => {
-        map.flyTo({
-          center: feature.geometry.coordinates,
-          zoom: 16,
-          pitch: viewMode === "3d" ? 60 : 0,
-          bearing: 0
-        });
-
-        results.innerHTML = "";
-      });
-
-      results.appendChild(button);
-    }
-  } catch (_) {
-    results.textContent = "Carian tidak berjaya.";
-  }
-});
-
 function addChatBubble(text, type, options = {}) {
   const container = document.getElementById("chatMessages");
   const bubble = document.createElement("div");
@@ -700,6 +652,11 @@ document.getElementById("rightPanelToggle").addEventListener("click", () => {
   document.getElementById("rightSidebar").classList.toggle("open");
 });
 
+
+const smartSearch = new SmartSearch({
+  map,
+  viewModeProvider: () => viewMode
+});
 
 const ASSISTANT_LAYER_LABELS = {
   traffic: "Live Traffic",
