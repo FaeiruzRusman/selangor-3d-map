@@ -510,6 +510,163 @@ document.querySelectorAll("[data-layer-category]").forEach((button) => {
   });
 });
 
+
+
+const workspace = document.getElementById("workspace");
+const leftSidebar = document.getElementById("leftSidebar");
+const rightSidebar = document.getElementById("rightSidebar");
+const openLeftPanelTab = document.getElementById("openLeftPanelTab");
+const openRightPanelTab = document.getElementById("openRightPanelTab");
+const focusMapBtn = document.getElementById("focusMapBtn");
+
+const WORKSPACE_STORAGE_KEY = "suoWorkspacePanelStateV39";
+
+let workspaceState = {
+  leftOpen: true,
+  rightOpen: true
+};
+
+let stateBeforeFocus = null;
+let resizeWorkspaceTimer = null;
+
+function readWorkspaceState() {
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem(WORKSPACE_STORAGE_KEY) || "null"
+    );
+
+    if (
+      saved &&
+      typeof saved.leftOpen === "boolean" &&
+      typeof saved.rightOpen === "boolean"
+    ) {
+      workspaceState = saved;
+    }
+  } catch (_) {
+    workspaceState = {
+      leftOpen: true,
+      rightOpen: true
+    };
+  }
+}
+
+function saveWorkspaceState() {
+  try {
+    localStorage.setItem(
+      WORKSPACE_STORAGE_KEY,
+      JSON.stringify(workspaceState)
+    );
+  } catch (_) {}
+}
+
+function resizeWorkspaceMaps() {
+  if (resizeWorkspaceTimer) {
+    clearTimeout(resizeWorkspaceTimer);
+  }
+
+  requestAnimationFrame(() => {
+    map.resize();
+    compare.compareMap?.resize();
+  });
+
+  resizeWorkspaceTimer = setTimeout(() => {
+    map.resize();
+    compare.compareMap?.resize();
+  }, 260);
+}
+
+function renderWorkspaceState({ persist = true } = {}) {
+  workspace.classList.toggle(
+    "left-panel-collapsed",
+    !workspaceState.leftOpen
+  );
+
+  workspace.classList.toggle(
+    "right-panel-collapsed",
+    !workspaceState.rightOpen
+  );
+
+  leftSidebar.setAttribute(
+    "aria-hidden",
+    String(!workspaceState.leftOpen)
+  );
+
+  rightSidebar.setAttribute(
+    "aria-hidden",
+    String(!workspaceState.rightOpen)
+  );
+
+  openLeftPanelTab.hidden = workspaceState.leftOpen;
+  openRightPanelTab.hidden = workspaceState.rightOpen;
+
+  const focusMode =
+    !workspaceState.leftOpen &&
+    !workspaceState.rightOpen;
+
+  focusMapBtn.classList.toggle("active", focusMode);
+  focusMapBtn.textContent = focusMode
+    ? "▣ Restore Panels"
+    : "▣ Focus Map";
+
+  if (persist) {
+    saveWorkspaceState();
+  }
+
+  resizeWorkspaceMaps();
+}
+
+function setLeftPanel(open) {
+  workspaceState.leftOpen = Boolean(open);
+  renderWorkspaceState();
+}
+
+function setRightPanel(open) {
+  workspaceState.rightOpen = Boolean(open);
+  renderWorkspaceState();
+}
+
+document.getElementById("closeLeftPanelBtn")
+  .addEventListener("click", () => setLeftPanel(false));
+
+document.getElementById("closeRightPanelBtn")
+  .addEventListener("click", () => setRightPanel(false));
+
+openLeftPanelTab.addEventListener("click", () => {
+  setLeftPanel(true);
+});
+
+openRightPanelTab.addEventListener("click", () => {
+  setRightPanel(true);
+});
+
+focusMapBtn.addEventListener("click", () => {
+  const alreadyFocused =
+    !workspaceState.leftOpen &&
+    !workspaceState.rightOpen;
+
+  if (alreadyFocused) {
+    workspaceState = stateBeforeFocus || {
+      leftOpen: true,
+      rightOpen: true
+    };
+
+    stateBeforeFocus = null;
+  } else {
+    stateBeforeFocus = { ...workspaceState };
+    workspaceState = {
+      leftOpen: false,
+      rightOpen: false
+    };
+  }
+
+  renderWorkspaceState();
+});
+
+readWorkspaceState();
+renderWorkspaceState({ persist: false });
+
+window.addEventListener("resize", resizeWorkspaceMaps);
+
 document.getElementById("mobileMenuBtn").addEventListener("click", () => {
   document.getElementById("leftSidebar").classList.toggle("open");
 });
