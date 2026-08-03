@@ -10,6 +10,7 @@ import { enableMiddleMousePan } from "./utils.js";
 import { initUrbanExplorer } from "./urban-explorer.js";
 import { UrbanTour } from "./urban-tour.js";
 import { CompareEngine } from "./compare.js";
+import { WeatherIntelligence } from "./weather.js";
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -28,6 +29,7 @@ map.addControl(new mapboxgl.ScaleControl({ unit: "metric" }), "bottom-right");
 enableMiddleMousePan(map);
 
 const compare = new CompareEngine(map);
+const weather = new WeatherIntelligence(map);
 let viewMode = "3d";
 let nightMode = false;
 let activeMarker = null;
@@ -54,7 +56,7 @@ map.on("zoom", () => {
 });
 
 map.on("click", (event) => {
-  const layerIds = ["health-symbol", "city-circle"]
+  const layerIds = ["police-symbol", "health-symbol", "city-circle"]
     .filter((id) => map.getLayer(id));
 
   const features = map.queryRenderedFeatures(event.point, {
@@ -66,14 +68,24 @@ map.on("click", (event) => {
   const feature = features[0];
   const properties = feature.properties || {};
 
-  const html = feature.layer.id === "health-symbol"
-    ? `<strong>${properties.web_name || "Kemudahan Kesihatan"}</strong><br>
-       Kategori: ${properties.web_category || "-"}<br>
-       Daerah: ${properties.web_district || "-"}<br>
-       Operator: ${properties.web_operator || "-"}`
-    : `<strong>${properties.nama_bandar || "Bandar"}</strong><br>
-       Hierarki: ${properties.hierarki || "-"}<br>
-       Daerah: ${properties.daerah || "-"}`;
+  let html;
+
+  if (feature.layer.id === "police-symbol") {
+    html = `<strong>${properties.web_name || "PDRM"}</strong><br>
+      Hierarki: ${properties.web_hierarchy || "-"}<br>
+      Daerah: ${properties.web_district || "-"}<br>
+      Alamat: ${properties.web_address || "-"}<br>
+      Telefon: ${properties.web_phone || "-"}`;
+  } else if (feature.layer.id === "health-symbol") {
+    html = `<strong>${properties.web_name || "Kemudahan Kesihatan"}</strong><br>
+      Kategori: ${properties.web_category || "-"}<br>
+      Daerah: ${properties.web_district || "-"}<br>
+      Operator: ${properties.web_operator || "-"}`;
+  } else {
+    html = `<strong>${properties.nama_bandar || "Bandar"}</strong><br>
+      Hierarki: ${properties.hierarki || "-"}<br>
+      Daerah: ${properties.daerah || "-"}`;
+  }
 
   new mapboxgl.Popup()
     .setLngLat(feature.geometry.coordinates)
@@ -92,6 +104,13 @@ function flyToCity(city, duration = 1800) {
     duration,
     essential: true
   });
+
+  window.dispatchEvent(new CustomEvent("suo:location-change", {
+    detail: {
+      name: city.name,
+      center: city.center
+    }
+  }));
 }
 
 const cities = await initUrbanExplorer((city) => flyToCity(city));
@@ -177,6 +196,13 @@ document.getElementById("trafficToggle").addEventListener("change", (event) => {
   updateLayerCount();
 });
 
+document.getElementById("policeToggle").addEventListener("change", (event) => {
+  layerState.police = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("terrainToggle").addEventListener("change", (event) => {
   layerState.terrain = event.target.checked;
 
@@ -213,6 +239,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   document.getElementById("cityHierarchyToggle").checked = allOn;
   document.getElementById("healthFacilityToggle").checked = allOn;
   document.getElementById("trafficToggle").checked = allOn;
+  document.getElementById("policeToggle").checked = allOn;
   document.getElementById("terrainToggle").checked = allOn;
   document.getElementById("buildingToggle").checked = allOn;
 
@@ -246,6 +273,16 @@ document.getElementById("healthLegendBtn").addEventListener("click", () => {
 document.getElementById("trafficLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("trafficLegendBtn");
   const panel = document.getElementById("trafficLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("policeLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("policeLegendBtn");
+  const panel = document.getElementById("policeLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));

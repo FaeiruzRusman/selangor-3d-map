@@ -5,6 +5,7 @@ export const layerState = {
   cityHierarchy: true,
   healthFacilities: true,
   liveTraffic: true,
+  police: true,
   terrain: true,
   buildings: true
 };
@@ -114,6 +115,74 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
 
+
+  const policeSource = `${prefix}police`;
+  const policeSymbol = `${prefix}police-symbol`;
+  const policeLabel = `${prefix}police-label`;
+
+  await loadSvgSdf(map, "police-building", DATA_URLS.policeIcon);
+
+  if (!map.getSource(policeSource)) {
+    map.addSource(policeSource, {
+      type: "geojson",
+      data: DATA_URLS.police
+    });
+  }
+
+  if (!map.getLayer(policeSymbol)) {
+    map.addLayer({
+      id: policeSymbol,
+      type: "symbol",
+      source: policeSource,
+      slot: "top",
+      layout: {
+        "icon-image": "police-building",
+        "icon-size": [
+          "match",
+          ["get", "web_hierarchy"],
+          "IPK", 0.56,
+          "IPD", 0.46,
+          0.42
+        ],
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
+      },
+      paint: {
+        "icon-color": [
+          "match",
+          ["get", "web_hierarchy"],
+          "IPK", "#0F172A",
+          "IPD", "#2563EB",
+          "#64748B"
+        ],
+        "icon-halo-color": "#FFFFFF",
+        "icon-halo-width": 1.5
+      }
+    });
+  }
+
+  if (!map.getLayer(policeLabel)) {
+    map.addLayer({
+      id: policeLabel,
+      type: "symbol",
+      source: policeSource,
+      slot: "top",
+      minzoom: 10,
+      layout: {
+        "text-field": ["get", "web_name"],
+        "text-size": 10,
+        "text-offset": [0, 1.35],
+        "text-anchor": "top",
+        "text-allow-overlap": false
+      },
+      paint: {
+        "text-color": "#FFFFFF",
+        "text-halo-color": "rgba(7,17,31,0.95)",
+        "text-halo-width": 1.4
+      }
+    });
+  }
+
   const trafficSource = `${prefix}traffic-source`;
   const trafficCasing = `${prefix}traffic-casing`;
   const trafficLine = `${prefix}traffic-line`;
@@ -183,7 +252,9 @@ export function applyLayerVisibility(map, prefix = "") {
     [`${prefix}health-symbol`, layerState.healthFacilities],
     [`${prefix}health-label`, layerState.healthFacilities],
     [`${prefix}traffic-casing`, layerState.liveTraffic],
-    [`${prefix}traffic-line`, layerState.liveTraffic]
+    [`${prefix}traffic-line`, layerState.liveTraffic],
+    [`${prefix}police-symbol`, layerState.police],
+    [`${prefix}police-label`, layerState.police]
   ];
 
   for (const [id, visible] of items) {

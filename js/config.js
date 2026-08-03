@@ -19,5 +19,7 @@ export const DATA_URLS = {
   cities: "data/hierarki_bandar_selangor_dpn2.geojson",
   urbanConfig: "config/urban-hierarchy.json",
   health: "data/kesihatan/kemudahan_kesihatan_selangor.geojson",
-  hospitalIcon: "assets/icons/hospital-building.svg"
+  hospitalIcon: "assets/icons/hospital-building.svg",
+  police: "data/keselamatan/ipk_ipd_selangor.geojson",
+  policeIcon: "assets/icons/police-building.svg"
 };
