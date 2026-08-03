@@ -170,6 +170,13 @@ document.getElementById("healthFacilityToggle").addEventListener("change", (even
   updateLayerCount();
 });
 
+document.getElementById("trafficToggle").addEventListener("change", (event) => {
+  layerState.liveTraffic = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("terrainToggle").addEventListener("change", (event) => {
   layerState.terrain = event.target.checked;
 
@@ -205,6 +212,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
 
   document.getElementById("cityHierarchyToggle").checked = allOn;
   document.getElementById("healthFacilityToggle").checked = allOn;
+  document.getElementById("trafficToggle").checked = allOn;
   document.getElementById("terrainToggle").checked = allOn;
   document.getElementById("buildingToggle").checked = allOn;
 
@@ -228,6 +236,16 @@ function updateLayerCount() {
 document.getElementById("healthLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("healthLegendBtn");
   const panel = document.getElementById("healthLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("trafficLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("trafficLegendBtn");
+  const panel = document.getElementById("trafficLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));

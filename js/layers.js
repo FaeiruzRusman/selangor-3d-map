@@ -4,6 +4,7 @@ import { loadSvgSdf } from "./utils.js";
 export const layerState = {
   cityHierarchy: true,
   healthFacilities: true,
+  liveTraffic: true,
   terrain: true,
   buildings: true
 };
@@ -112,6 +113,66 @@ export async function addPortalLayers(map, prefix = "") {
     });
   }
 
+
+  const trafficSource = `${prefix}traffic-source`;
+  const trafficCasing = `${prefix}traffic-casing`;
+  const trafficLine = `${prefix}traffic-line`;
+
+  if (!map.getSource(trafficSource)) {
+    map.addSource(trafficSource, {
+      type: "vector",
+      url: "mapbox://mapbox.mapbox-traffic-v1"
+    });
+  }
+
+  if (!map.getLayer(trafficCasing)) {
+    map.addLayer({
+      id: trafficCasing,
+      type: "line",
+      source: trafficSource,
+      "source-layer": "traffic",
+      slot: "top",
+      minzoom: 7,
+      layout: {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      paint: {
+        "line-color": "rgba(15,23,42,0.86)",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 7, 1.8, 12, 4.5, 16, 9],
+        "line-opacity": 0.78
+      }
+    });
+  }
+
+  if (!map.getLayer(trafficLine)) {
+    map.addLayer({
+      id: trafficLine,
+      type: "line",
+      source: trafficSource,
+      "source-layer": "traffic",
+      slot: "top",
+      minzoom: 7,
+      layout: {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      paint: {
+        "line-color": [
+          "match",
+          ["get", "congestion"],
+          "low", "#22C55E",
+          "moderate", "#FACC15",
+          "heavy", "#F97316",
+          "severe", "#DC2626",
+          "#94A3B8"
+        ],
+        "line-width": ["interpolate", ["linear"], ["zoom"], 7, 1.1, 12, 3, 16, 6.4],
+        "line-opacity": 0.96
+      }
+    });
+  }
+
   applyLayerVisibility(map, prefix);
 }
 
@@ -120,7 +181,9 @@ export function applyLayerVisibility(map, prefix = "") {
     [`${prefix}city-circle`, layerState.cityHierarchy],
     [`${prefix}city-label`, layerState.cityHierarchy],
     [`${prefix}health-symbol`, layerState.healthFacilities],
-    [`${prefix}health-label`, layerState.healthFacilities]
+    [`${prefix}health-label`, layerState.healthFacilities],
+    [`${prefix}traffic-casing`, layerState.liveTraffic],
+    [`${prefix}traffic-line`, layerState.liveTraffic]
   ];
 
   for (const [id, visible] of items) {
