@@ -1,4 +1,4 @@
-# SUO GeoPortal v3.6 — Modular Architecture
+# SUO GeoPortal v3.8 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -258,3 +258,30 @@ Pembantu AI Perancangan Bandar
 ```
 
 Input turut ditukar kepada `Tanya Mr. TPr. SUO...`.
+
+
+## Pembetulan Label PBT
+
+Versi ini dibina semula daripada v3.6.
+
+- Label asal Mapbox dikekalkan dan dihidupkan.
+- Poligon PBT masih digunakan untuk fill, sempadan dan popup.
+- Label PBT tidak lagi dijana terus daripada poligon.
+- Satu `representative_point` dijana untuk setiap PBT.
+- Jumlah label PBT SUO: tepat 12 label, satu bagi setiap PBT.
+- Pembetulan turut digunakan pada split screen melalui modul `layers.js`.
+
+Fail baharu:
+
+```text
+data/pentadbiran/label_pbt_selangor_2024.geojson
+```
+
+Struktur sumber:
+
+```text
+sempadan_pbt_selangor_2024.geojson   → fill, line dan popup
+label_pbt_selangor_2024.geojson      → satu label bagi setiap PBT
+```
+
+Label Mapbox tidak dimatikan dalam versi ini.
