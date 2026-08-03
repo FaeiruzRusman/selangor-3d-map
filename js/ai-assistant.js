@@ -1,5 +1,11 @@
 import { parseIntent } from "./intent-parser.js";
 import {
+  inferAttributeQuery,
+  executeAttributeQuery,
+  formatAttributeFilters,
+  attributeQueryExplanation
+} from "./attribute-query.js";
+import {
   queryHealth,
   querySchools,
   queryPolice,
@@ -55,6 +61,18 @@ export class SpatialAssistant {
 
   async handle(message) {
     const query = parseIntent(message);
+    const attributeQuery = inferAttributeQuery(query);
+
+    if (
+      attributeQuery.supported &&
+      ["count", "show", "unknown"].includes(query.intent) &&
+      (
+        attributeQuery.hasFilters ||
+        ["schools", "health", "police", "cities"].includes(query.layer)
+      )
+    ) {
+      return this.handleAttributeQuery(query, attributeQuery);
+    }
 
     if (query.intent === "count") {
       return this.handleCount(query);
@@ -128,37 +146,6 @@ export class SpatialAssistant {
 
 
     if (query.layer === "schools") {
-      const district = query.location?.type === "district"
-        ? query.location.name
-        : null;
-
-      const pbtCode = query.location?.type === "pbt"
-        ? query.location.alias
-        : null;
-
-      const features = await querySchools({
-        level: query.category,
-        district,
-        pbtCode,
-        nameContains: query.schoolSearchTerm
-      });
-
-      highlightFeatures(this.map, features);
-      zoomToFeatures(this.map, features);
-
-      const subject = query.category || "sekolah";
-      const place = district
-        ? `di Daerah ${district}`
-        : pbtCode
-          ? `dalam ${pbtCode}`
-          : "di Negeri Selangor";
-
-      return features.length
-        ? `Terdapat ${features.length} ${subject} ${place}. Hasil telah di-highlight pada peta.`
-        : `Tiada ${subject} ditemui ${place}.`;
-    }
-
-    if (query.layer === "schools") {
       return this.handleCount({ ...query, intent: "count" });
     }
 
@@ -192,6 +179,38 @@ export class SpatialAssistant {
       "Cuba: “Berapa hospital di daerah Klang?”,",
       "“Berapa IPD di Selangor?”, “Keluasan MBSA”,",
       "“Tunjukkan semua hospital”, atau “Buka Live Traffic”."
+    ].join(" ");
+  }
+
+  async handleAttributeQuery(query, attributeQuery) {
+    const features = await executeAttributeQuery(attributeQuery);
+
+    highlightFeatures(this.map, features);
+    zoomToFeatures(this.map, features, {
+      maxZoom: features.length === 1 ? 16 : 14.5
+    });
+
+    const filterSummary = formatAttributeFilters(
+      attributeQuery.filters
+    );
+
+    const subject = attributeQuery.layerLabel;
+    const actionText =
+      query.intent === "show" || query.schoolSearchTerm
+        ? "ditemui"
+        : "terdapat";
+
+    if (!features.length) {
+      return `Tiada ${subject} ditemui bagi penapis: ${filterSummary}.`;
+    }
+
+    const explanation = attributeQueryExplanation(attributeQuery);
+
+    return [
+      `${actionText === "terdapat" ? "Terdapat" : "Ditemui"} ${features.length} ${subject}.`,
+      `Penapis: ${explanation.filters}.`,
+      `Kaedah: ${explanation.method}.`,
+      "Hasil telah di-highlight pada peta."
     ].join(" ");
   }
 
