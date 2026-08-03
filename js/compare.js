@@ -83,6 +83,10 @@ export class CompareEngine {
       if (this.rightMode === "3d" && layerState.terrain) {
         enableTerrain(this.compareMap, "compare-dem");
       }
+
+      window.dispatchEvent(new CustomEvent("suo:compare-map-ready", {
+        detail: { map: this.compareMap }
+      }));
     });
 
     this.mainMap.on("moveend", () => this.syncLeftToRight());

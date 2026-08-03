@@ -6,6 +6,7 @@ export const layerState = {
   healthFacilities: true,
   liveTraffic: true,
   police: true,
+  floodRain: true,
   terrain: true,
   buildings: true
 };

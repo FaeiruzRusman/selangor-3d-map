@@ -1,0 +1,550 @@
+import { DATA_URLS } from "./config.js";
+import { layerState } from "./layers.js";
+
+const OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast";
+const FLOOD_WARNING_URL = "https://api.data.gov.my/flood-warning";
+
+const RAIN_SOURCE_ID = "flood-rain-forecast";
+const RAIN_CIRCLE_ID = "flood-rain-circle";
+const RAIN_LABEL_ID = "flood-rain-label";
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function formatDateTime(value = new Date()) {
+  return new Intl.DateTimeFormat("ms-MY", {
+    day: "2-digit",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(new Date(value));
+}
+
+function rainLevel(mm) {
+  if (mm >= 60) return "Sangat Tinggi";
+  if (mm >= 30) return "Tinggi";
+  if (mm >= 10) return "Sederhana";
+  return "Rendah";
+}
+
+function normaliseRecords(payload) {
+  if (Array.isArray(payload)) return payload;
+  if (Array.isArray(payload?.data)) return payload.data;
+  if (Array.isArray(payload?.results)) return payload.results;
+  return [];
+}
+
+function getFirst(record, keys, fallback = "-") {
+  for (const key of keys) {
+    const value = record?.[key];
+    if (value !== undefined && value !== null && value !== "") return value;
+  }
+  return fallback;
+}
+
+function recordMentionsSelangor(record) {
+  const text = JSON.stringify(record).toLowerCase();
+  return text.includes("selangor");
+}
+
+export class FloodIntelligence {
+  constructor(map) {
+    this.map = map;
+    this.panel = document.getElementById("floodPanel");
+    this.loading = document.getElementById("floodLoading");
+    this.content = document.getElementById("floodContent");
+    this.error = document.getElementById("floodError");
+    this.latestRainGeoJSON = {
+      type: "FeatureCollection",
+      features: []
+    };
+    this.compareMaps = new Set();
+
+    document.getElementById("openFloodBtn")
+      .addEventListener("click", () => this.open());
+
+    document.getElementById("floodCloseBtn")
+      .addEventListener("click", () => this.close());
+
+    document.getElementById("floodRefreshBtn")
+      .addEventListener("click", () => this.load());
+
+    window.addEventListener("suo:compare-map-ready", (event) => {
+      const compareMap = event.detail?.map;
+      if (!compareMap) return;
+      this.compareMaps.add(compareMap);
+      this.addRainLayer(compareMap, "compare-");
+    });
+
+    this.rainInteractionsBound = false;
+    this.load();
+  }
+
+  open() {
+    this.panel.hidden = false;
+    requestAnimationFrame(() => this.panel.classList.add("visible"));
+  }
+
+  close() {
+    this.panel.classList.remove("visible");
+
+    setTimeout(() => {
+      this.panel.hidden = true;
+    }, 180);
+  }
+
+  async load() {
+    this.showLoading();
+
+    try {
+      const [rainResult, warningResult] = await Promise.allSettled([
+        this.loadRainForecast(),
+        this.loadFloodWarnings()
+      ]);
+
+      if (rainResult.status !== "fulfilled") {
+        throw rainResult.reason;
+      }
+
+      this.renderRainSummary(rainResult.value);
+
+      if (warningResult.status === "fulfilled") {
+        this.renderWarnings(warningResult.value);
+      } else {
+        this.renderWarnings([], true);
+      }
+
+      this.showContent();
+    } catch (error) {
+      this.showError(
+        error?.message ||
+        "Flood Intelligence gagal dimuatkan."
+      );
+    }
+  }
+
+  showLoading() {
+    this.loading.hidden = false;
+    this.content.hidden = true;
+    this.error.hidden = true;
+  }
+
+  showContent() {
+    this.loading.hidden = true;
+    this.content.hidden = false;
+    this.error.hidden = true;
+  }
+
+  showError(message) {
+    this.loading.hidden = true;
+    this.content.hidden = true;
+    this.error.hidden = false;
+    this.error.textContent = message;
+  }
+
+  async loadCities() {
+    const response = await fetch(DATA_URLS.urbanConfig, {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("Senarai bandar DPN2 tidak dapat dimuatkan.");
+    }
+
+    const config = await response.json();
+    const cities = [];
+
+    for (const group of config.groups || []) {
+      for (const city of group.cities || []) {
+        if (!Array.isArray(city.center)) continue;
+
+        cities.push({
+          name: city.name,
+          hierarchy: group.name,
+          longitude: Number(city.center[0]),
+          latitude: Number(city.center[1])
+        });
+      }
+    }
+
+    return cities;
+  }
+
+  async loadRainForecast() {
+    const cities = await this.loadCities();
+
+    const url = new URL(OPEN_METEO_URL);
+    url.searchParams.set(
+      "latitude",
+      cities.map((city) => city.latitude).join(",")
+    );
+    url.searchParams.set(
+      "longitude",
+      cities.map((city) => city.longitude).join(",")
+    );
+    url.searchParams.set("timezone", "Asia/Kuala_Lumpur");
+    url.searchParams.set("forecast_days", "2");
+    url.searchParams.set("hourly", "precipitation");
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Ramalan hujan tidak dapat dimuatkan.");
+    }
+
+    const payload = await response.json();
+    const forecasts = Array.isArray(payload) ? payload : [payload];
+    const now = Date.now();
+    const until = now + (24 * 60 * 60 * 1000);
+
+    const features = cities.map((city, index) => {
+      const forecast = forecasts[index] || forecasts[0] || {};
+      const times = forecast.hourly?.time || [];
+      const precipitation = forecast.hourly?.precipitation || [];
+
+      let total = 0;
+
+      times.forEach((time, timeIndex) => {
+        const timestamp = new Date(time).getTime();
+
+        if (timestamp >= now && timestamp <= until) {
+          total += Number(precipitation[timeIndex] || 0);
+        }
+      });
+
+      return {
+        type: "Feature",
+        properties: {
+          name: city.name,
+          hierarchy: city.hierarchy,
+          rain_mm: Number(total.toFixed(1)),
+          level: rainLevel(total)
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [city.longitude, city.latitude]
+        }
+      };
+    });
+
+    this.latestRainGeoJSON = {
+      type: "FeatureCollection",
+      features
+    };
+
+    this.addRainLayer(this.map);
+
+    for (const compareMap of this.compareMaps) {
+      this.addRainLayer(compareMap, "compare-");
+    }
+
+    return features;
+  }
+
+  addRainLayer(targetMap, prefix = "") {
+    const sourceId = `${prefix}${RAIN_SOURCE_ID}`;
+    const circleId = `${prefix}${RAIN_CIRCLE_ID}`;
+    const labelId = `${prefix}${RAIN_LABEL_ID}`;
+
+    if (!targetMap.isStyleLoaded()) {
+      targetMap.once("style.load", () => {
+        this.addRainLayer(targetMap, prefix);
+      });
+      return;
+    }
+
+    if (targetMap.getSource(sourceId)) {
+      targetMap.getSource(sourceId).setData(this.latestRainGeoJSON);
+    } else {
+      targetMap.addSource(sourceId, {
+        type: "geojson",
+        data: this.latestRainGeoJSON
+      });
+    }
+
+    if (!targetMap.getLayer(circleId)) {
+      targetMap.addLayer({
+        id: circleId,
+        type: "circle",
+        source: sourceId,
+        slot: "top",
+        minzoom: 7,
+        layout: {
+          visibility: layerState.floodRain ? "visible" : "none"
+        },
+        paint: {
+          "circle-radius": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            7, [
+              "interpolate",
+              ["linear"],
+              ["get", "rain_mm"],
+              0, 5,
+              60, 12
+            ],
+            14, [
+              "interpolate",
+              ["linear"],
+              ["get", "rain_mm"],
+              0, 9,
+              60, 21
+            ]
+          ],
+          "circle-color": [
+            "step",
+            ["get", "rain_mm"],
+            "#38BDF8",
+            10, "#FACC15",
+            30, "#F97316",
+            60, "#DC2626"
+          ],
+          "circle-stroke-color": "#FFFFFF",
+          "circle-stroke-width": 1.7,
+          "circle-opacity": 0.9
+        }
+      });
+    }
+
+    if (!targetMap.getLayer(labelId)) {
+      targetMap.addLayer({
+        id: labelId,
+        type: "symbol",
+        source: sourceId,
+        slot: "top",
+        minzoom: 9,
+        layout: {
+          visibility: layerState.floodRain ? "visible" : "none",
+          "text-field": [
+            "concat",
+            ["get", "name"],
+            "\n",
+            ["to-string", ["get", "rain_mm"]],
+            " mm"
+          ],
+          "text-size": 10,
+          "text-offset": [0, 1.65],
+          "text-anchor": "top",
+          "text-allow-overlap": false
+        },
+        paint: {
+          "text-color": "#FFFFFF",
+          "text-halo-color": "rgba(7,17,31,0.96)",
+          "text-halo-width": 1.5
+        }
+      });
+    }
+
+    this.setRainVisibility(targetMap, prefix);
+
+    if (targetMap === this.map && !this.rainInteractionsBound) {
+      this.bindRainInteractions();
+    }
+  }
+
+  bindRainInteractions() {
+    this.rainInteractionsBound = true;
+
+    this.map.on("click", RAIN_CIRCLE_ID, (event) => {
+      const feature = event.features?.[0];
+      if (!feature) return;
+
+      const properties = feature.properties || {};
+
+      new mapboxgl.Popup()
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML(`
+          <strong>${escapeHtml(properties.name)}</strong><br>
+          Ramalan hujan 24 jam: ${Number(properties.rain_mm).toFixed(1)} mm<br>
+          Tahap hujan: ${escapeHtml(properties.level)}<br>
+          <em>Indikator hujan, bukan ramalan banjir.</em>
+        `)
+        .addTo(this.map);
+    });
+
+    this.map.on("mouseenter", RAIN_CIRCLE_ID, () => {
+      this.map.getCanvas().style.cursor = "pointer";
+    });
+
+    this.map.on("mouseleave", RAIN_CIRCLE_ID, () => {
+      this.map.getCanvas().style.cursor = "";
+    });
+  }
+
+  setRainVisibility(targetMap, prefix = "") {
+    const visibility = layerState.floodRain ? "visible" : "none";
+
+    [
+      `${prefix}${RAIN_CIRCLE_ID}`,
+      `${prefix}${RAIN_LABEL_ID}`
+    ].forEach((layerId) => {
+      if (targetMap.getLayer(layerId)) {
+        targetMap.setLayoutProperty(
+          layerId,
+          "visibility",
+          visibility
+        );
+      }
+    });
+  }
+
+  setVisible(visible) {
+    layerState.floodRain = visible;
+    this.setRainVisibility(this.map);
+
+    for (const compareMap of this.compareMaps) {
+      this.setRainVisibility(compareMap, "compare-");
+    }
+  }
+
+  renderRainSummary(features) {
+    const sorted = [...features].sort(
+      (a, b) => b.properties.rain_mm - a.properties.rain_mm
+    );
+
+    const maxFeature = sorted[0];
+    const highCount = sorted.filter(
+      (feature) => feature.properties.rain_mm >= 30
+    ).length;
+
+    document.getElementById("floodMaxRain").textContent =
+      `${Number(maxFeature?.properties.rain_mm || 0).toFixed(1)} mm`;
+
+    document.getElementById("floodMaxRainLocation").textContent =
+      maxFeature?.properties.name || "Bandar DPN2";
+
+    document.getElementById("floodHighRainCities").textContent =
+      String(highCount);
+
+    document.getElementById("floodRainUpdated").textContent =
+      `Dikemas kini ${formatDateTime()}`;
+
+    document.getElementById("floodQuickRisk").textContent =
+      maxFeature?.properties.level || "Rendah";
+
+    document.getElementById("floodQuickSummary").textContent =
+      maxFeature
+        ? `${maxFeature.properties.name}: ${Number(maxFeature.properties.rain_mm).toFixed(1)} mm`
+        : "Tiada data ramalan";
+
+    document.getElementById("floodQuickUpdated").textContent =
+      `Dikemas kini ${formatDateTime()}`;
+
+    const ranking = document.getElementById("floodRainRanking");
+    ranking.innerHTML = sorted.map((feature, index) => {
+      const properties = feature.properties;
+
+      return `
+        <article class="flood-rain-row">
+          <span class="flood-rain-rank">${index + 1}</span>
+          <div>
+            <strong>${escapeHtml(properties.name)}</strong>
+            <small>${escapeHtml(properties.hierarchy)}</small>
+          </div>
+          <div class="flood-rain-value">
+            <b>${Number(properties.rain_mm).toFixed(1)} mm</b>
+            <span class="flood-level-${escapeHtml(properties.level.toLowerCase().replaceAll(" ", "-"))}">
+              ${escapeHtml(properties.level)}
+            </span>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  async loadFloodWarnings() {
+    const response = await fetch(`${FLOOD_WARNING_URL}?limit=100`);
+
+    if (!response.ok) {
+      throw new Error("API amaran banjir tidak tersedia.");
+    }
+
+    const payload = await response.json();
+    return normaliseRecords(payload).filter(recordMentionsSelangor);
+  }
+
+  renderWarnings(records, unavailable = false) {
+    const count = records.length;
+
+    document.getElementById("floodWarningCount").textContent =
+      unavailable ? "N/A" : String(count);
+
+    document.getElementById("floodWarningStatus").textContent =
+      unavailable
+        ? "API tidak dapat dicapai"
+        : count
+          ? "Amaran Selangor ditemui"
+          : "Tiada amaran Selangor";
+
+    const list = document.getElementById("floodWarningList");
+
+    if (unavailable) {
+      list.innerHTML = `
+        <div class="flood-warning-empty">
+          API amaran banjir tidak dapat dicapai. Gunakan pautan Public InfoBanjir untuk semakan operasi.
+        </div>
+      `;
+      return;
+    }
+
+    if (!records.length) {
+      list.innerHTML = `
+        <div class="flood-warning-empty">
+          Tiada amaran banjir aktif bagi Selangor dalam respons API semasa.
+        </div>
+      `;
+      return;
+    }
+
+    list.innerHTML = records.map((record) => {
+      const title = getFirst(
+        record,
+        ["title", "warning_title", "headline", "station_name", "district"],
+        "Amaran Banjir"
+      );
+
+      const location = getFirst(
+        record,
+        ["location", "district", "area", "state", "station_name"],
+        "Selangor"
+      );
+
+      const level = getFirst(
+        record,
+        ["level", "warning_level", "status", "severity"],
+        "Amaran"
+      );
+
+      const updated = getFirst(
+        record,
+        ["updated_at", "datetime", "issued_at", "date", "timestamp"],
+        ""
+      );
+
+      const description = getFirst(
+        record,
+        ["description", "message", "warning_text", "remarks", "content"],
+        "Rujuk sumber rasmi untuk butiran lanjut."
+      );
+
+      return `
+        <article class="flood-warning-card">
+          <div class="flood-warning-icon">!</div>
+          <div>
+            <strong>${escapeHtml(title)}</strong>
+            <span>${escapeHtml(level)} · ${escapeHtml(location)}</span>
+            <p>${escapeHtml(description)}</p>
+            <small>${updated ? `Dikemas kini ${escapeHtml(updated)}` : "data.gov.my"}</small>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+}

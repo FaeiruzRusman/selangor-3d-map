@@ -11,6 +11,7 @@ import { initUrbanExplorer } from "./urban-explorer.js";
 import { UrbanTour } from "./urban-tour.js";
 import { CompareEngine } from "./compare.js";
 import { WeatherIntelligence } from "./weather.js";
+import { FloodIntelligence } from "./flood.js";
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -30,6 +31,7 @@ enableMiddleMousePan(map);
 
 const compare = new CompareEngine(map);
 const weather = new WeatherIntelligence(map);
+const flood = new FloodIntelligence(map);
 let viewMode = "3d";
 let nightMode = false;
 let activeMarker = null;
@@ -203,6 +205,11 @@ document.getElementById("policeToggle").addEventListener("change", (event) => {
   updateLayerCount();
 });
 
+document.getElementById("floodRainToggle").addEventListener("change", (event) => {
+  flood.setVisible(event.target.checked);
+  updateLayerCount();
+});
+
 document.getElementById("terrainToggle").addEventListener("change", (event) => {
   layerState.terrain = event.target.checked;
 
@@ -240,11 +247,13 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   document.getElementById("healthFacilityToggle").checked = allOn;
   document.getElementById("trafficToggle").checked = allOn;
   document.getElementById("policeToggle").checked = allOn;
+  document.getElementById("floodRainToggle").checked = allOn;
   document.getElementById("terrainToggle").checked = allOn;
   document.getElementById("buildingToggle").checked = allOn;
 
   applyLayerVisibility(map);
   compare.refreshLayers();
+  flood.setVisible(allOn);
 
   if (allOn && viewMode === "3d") {
     enableTerrain(map);
@@ -283,6 +292,16 @@ document.getElementById("trafficLegendBtn").addEventListener("click", () => {
 document.getElementById("policeLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("policeLegendBtn");
   const panel = document.getElementById("policeLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("floodLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("floodLegendBtn");
+  const panel = document.getElementById("floodLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));
