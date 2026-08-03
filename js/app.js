@@ -58,7 +58,7 @@ map.on("zoom", () => {
 });
 
 map.on("click", (event) => {
-  const layerIds = ["police-symbol", "health-symbol", "city-circle"]
+  const layerIds = ["pbt-fill", "police-symbol", "health-symbol", "city-circle"]
     .filter((id) => map.getLayer(id));
 
   const features = map.queryRenderedFeatures(event.point, {
@@ -72,7 +72,17 @@ map.on("click", (event) => {
 
   let html;
 
-  if (feature.layer.id === "police-symbol") {
+  if (feature.layer.id === "pbt-fill") {
+    const area = Number(properties.web_area);
+    const areaText = Number.isFinite(area)
+      ? `${area.toLocaleString("ms-MY", { maximumFractionDigits: 2 })} hektar`
+      : "-";
+
+    html = `<strong>${properties.web_name || "PBT"}</strong><br>
+      Kategori: ${properties.web_type || "-"}<br>
+      Keluasan: ${areaText}<br>
+      Tahun data: 2024`;
+  } else if (feature.layer.id === "police-symbol") {
     html = `<strong>${properties.web_name || "PDRM"}</strong><br>
       Hierarki: ${properties.web_hierarchy || "-"}<br>
       Daerah: ${properties.web_district || "-"}<br>
@@ -184,6 +194,13 @@ document.getElementById("cityHierarchyToggle").addEventListener("change", (event
   updateLayerCount();
 });
 
+document.getElementById("pbtToggle").addEventListener("change", (event) => {
+  layerState.pbt = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("healthFacilityToggle").addEventListener("change", (event) => {
   layerState.healthFacilities = event.target.checked;
   applyLayerVisibility(map);
@@ -244,6 +261,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   });
 
   document.getElementById("cityHierarchyToggle").checked = allOn;
+  document.getElementById("pbtToggle").checked = allOn;
   document.getElementById("healthFacilityToggle").checked = allOn;
   document.getElementById("trafficToggle").checked = allOn;
   document.getElementById("policeToggle").checked = allOn;
@@ -272,6 +290,16 @@ function updateLayerCount() {
 document.getElementById("healthLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("healthLegendBtn");
   const panel = document.getElementById("healthLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("pbtLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("pbtLegendBtn");
+  const panel = document.getElementById("pbtLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));

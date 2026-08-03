@@ -3,6 +3,7 @@ import { loadSvgSdf } from "./utils.js";
 
 export const layerState = {
   cityHierarchy: true,
+  pbt: true,
   healthFacilities: true,
   liveTraffic: true,
   police: true,
@@ -116,6 +117,89 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
 
+
+
+  const pbtSource = `${prefix}pbt`;
+  const pbtFill = `${prefix}pbt-fill`;
+  const pbtLine = `${prefix}pbt-line`;
+  const pbtLabel = `${prefix}pbt-label`;
+
+  if (!map.getSource(pbtSource)) {
+    map.addSource(pbtSource, {
+      type: "geojson",
+      data: DATA_URLS.pbt,
+      promoteId: "OBJECTID"
+    });
+  }
+
+  if (!map.getLayer(pbtFill)) {
+    map.addLayer({
+      id: pbtFill,
+      type: "fill",
+      source: pbtSource,
+      slot: "middle",
+      paint: {
+        "fill-color": [
+          "match",
+          ["get", "KATEGORI"],
+          "MAJLIS BANDARAYA", "#2563EB",
+          "MAJLIS PERBANDARAN", "#0EA5E9",
+          "MAJLIS DAERAH", "#14B8A6",
+          "#3B82F6"
+        ],
+        "fill-opacity": 0.08
+      }
+    });
+  }
+
+  if (!map.getLayer(pbtLine)) {
+    map.addLayer({
+      id: pbtLine,
+      type: "line",
+      source: pbtSource,
+      slot: "top",
+      paint: {
+        "line-color": "#1D4ED8",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          7, 1.4,
+          11, 2.4,
+          15, 4
+        ],
+        "line-opacity": 0.95
+      }
+    });
+  }
+
+  if (!map.getLayer(pbtLabel)) {
+    map.addLayer({
+      id: pbtLabel,
+      type: "symbol",
+      source: pbtSource,
+      slot: "top",
+      minzoom: 8,
+      layout: {
+        "text-field": ["get", "web_name"],
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8, 10,
+          13, 14
+        ],
+        "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      paint: {
+        "text-color": "#DBEAFE",
+        "text-halo-color": "rgba(7,17,31,0.96)",
+        "text-halo-width": 1.6
+      }
+    });
+  }
 
   const policeSource = `${prefix}police`;
   const policeSymbol = `${prefix}police-symbol`;
@@ -250,6 +334,9 @@ export function applyLayerVisibility(map, prefix = "") {
   const items = [
     [`${prefix}city-circle`, layerState.cityHierarchy],
     [`${prefix}city-label`, layerState.cityHierarchy],
+    [`${prefix}pbt-fill`, layerState.pbt],
+    [`${prefix}pbt-line`, layerState.pbt],
+    [`${prefix}pbt-label`, layerState.pbt],
     [`${prefix}health-symbol`, layerState.healthFacilities],
     [`${prefix}health-label`, layerState.healthFacilities],
     [`${prefix}traffic-casing`, layerState.liveTraffic],
