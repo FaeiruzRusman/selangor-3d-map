@@ -1,4 +1,4 @@
-# SUO GeoPortal v4.0B — Modular Architecture
+# SUO GeoPortal v4.0C — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -425,3 +425,38 @@ Fungsi:
 - Popup nama, kod dan keluasan
 - Peta utama dan split screen
 - Arahan Ask Mr. TPr. SUO untuk buka/tutup Sempadan Daerah
+
+
+## District Spatial Query
+
+Ask Mr. TPr. SUO kini disambungkan terus kepada poligon sempadan daerah.
+
+Pertanyaan yang disokong:
+
+```text
+Berapa daerah di Selangor?
+Keluasan Daerah Klang
+Tunjukkan Daerah Petaling
+Zoom ke Daerah Gombak
+Berapa hospital di Daerah Klang?
+Berapa klinik kesihatan dalam Daerah Petaling?
+Berapa IPD di Daerah Hulu Langat?
+Tunjukkan semua sempadan daerah
+Buka Sempadan Daerah
+Matikan Sempadan Daerah
+```
+
+### Kaedah query
+
+- Kiraan dan keluasan daerah membaca terus layer sempadan daerah.
+- Query kesihatan mengikut daerah menggunakan point-in-polygon.
+- Query IPK/IPD mengikut daerah menggunakan point-in-polygon.
+- Jika poligon daerah gagal ditemui, sistem menggunakan atribut daerah sebagai fallback.
+- Hasil query di-highlight dan peta dizum kepada hasil.
+
+### Data
+
+```text
+data/pentadbiran/sempadan_daerah_selangor.geojson
+data/pentadbiran/label_daerah_selangor.geojson
+```
