@@ -1,4 +1,4 @@
-# SUO GeoPortal v4.0D — Modular Architecture
+# SUO GeoPortal v4.1 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -494,3 +494,60 @@ Majlis Daerah Sabak Bernam: 99,812.09 hektar
 Perbezaan: 7,998.42 hektar
 Peratus perbezaan: 8.01%
 ```
+
+
+## Kemudahan Pendidikan
+
+Layer baharu:
+
+```text
+Kemudahan
+├── Kesihatan
+├── Keselamatan
+└── Pendidikan
+```
+
+Data sekolah:
+
+```text
+data/pendidikan/sekolah_negeri_selangor.geojson
+```
+
+Ringkasan:
+
+- Jumlah sekolah: 945
+- Sekolah Rendah: 664
+- Sekolah Menengah: 281
+- CRS asal: EPSG:4326
+- Field nama asal: `Nama_Sekol`
+- Field PPD: `PPD`
+- Field PBT: `PBT`
+- Field jenis warta: `JenisWarta`
+- Field tahap: `Tahap_Seko`
+
+Medan portal:
+
+```text
+web_name
+web_type
+web_level
+web_ppd
+web_district
+web_pbt
+```
+
+Ask Mr. TPr. SUO kini menyokong:
+
+```text
+Berapa sekolah di Daerah Klang?
+Berapa sekolah rendah di Daerah Petaling?
+Berapa sekolah menengah dalam MBSA?
+Tunjukkan semua sekolah rendah
+Cari SEKOLAH MENENGAH KEBANGSAAN SEKSYEN 7
+Buka Pendidikan
+Matikan sekolah
+```
+
+Query daerah menggunakan point-in-polygon dengan layer sempadan daerah.
+Query PBT menggunakan kod PBT pada atribut sekolah seperti `MBSA`, `MBPJ`
+dan lain-lain. Hasil query akan di-highlight dan peta dizum kepada hasil.

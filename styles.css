@@ -2925,3 +2925,31 @@ body.map-middle-pan-active {
     -1px 1px 0 #07111f,
     1px 1px 0 #07111f;
 }
+
+
+.school-layer-symbol,
+.legend-school-icon {
+  display: inline-block;
+  -webkit-mask: url("assets/icons/school-building.svg") center / contain no-repeat;
+  mask: url("assets/icons/school-building.svg") center / contain no-repeat;
+  background: currentColor;
+}
+
+.school-layer-symbol {
+  width: 18px;
+  height: 18px;
+  color: #F59E0B;
+}
+
+.legend-school-icon {
+  width: 21px;
+  height: 21px;
+}
+
+.school-primary-color {
+  color: #F59E0B;
+}
+
+.school-secondary-color {
+  color: #7C3AED;
+}
