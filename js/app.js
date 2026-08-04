@@ -10,6 +10,7 @@ import { enableMiddleMousePan } from "./utils.js";
 import { initUrbanExplorer } from "./urban-explorer.js";
 import { UrbanTour } from "./urban-tour.js";
 import { CompareEngine } from "./compare.js";
+import { ComparePanelUI } from "./compare-panel-ui.js";
 import { WeatherIntelligence } from "./weather.js";
 import { FloodIntelligence } from "./flood.js";
 import { SpatialAssistant } from "./ai-assistant.js";
@@ -32,6 +33,7 @@ map.addControl(new mapboxgl.ScaleControl({ unit: "metric" }), "bottom-right");
 enableMiddleMousePan(map);
 
 const compare = new CompareEngine(map);
+const comparePanelUI = new ComparePanelUI();
 const weather = new WeatherIntelligence(map);
 const flood = new FloodIntelligence(map);
 let viewMode = "3d";
