@@ -15,6 +15,11 @@ import { WeatherIntelligence } from "./weather.js";
 import { FloodIntelligence } from "./flood.js";
 import { SpatialAssistant } from "./ai-assistant.js";
 import { SmartSearch } from "./smart-search.js";
+import {
+  addCadastralLayer,
+  cadastralPopupHtml,
+  getCadastralConfig
+} from "./cadastral.js";
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -61,8 +66,8 @@ map.on("zoom", () => {
     `Zoom: ${map.getZoom().toFixed(1)}`;
 });
 
-map.on("click", (event) => {
-  const layerIds = ["district-fill", "pbt-fill", "school-symbol", "police-symbol", "health-symbol", "city-circle"]
+map.on("click", async (event) => {
+  const layerIds = ["cadastral-fill", "district-fill", "pbt-fill", "school-symbol", "police-symbol", "health-symbol", "city-circle"]
     .filter((id) => map.getLayer(id));
 
   const features = map.queryRenderedFeatures(event.point, {
@@ -76,7 +81,10 @@ map.on("click", (event) => {
 
   let html;
 
-  if (feature.layer.id === "district-fill") {
+  if (feature.layer.id === "cadastral-fill") {
+    const config = await getCadastralConfig();
+    html = cadastralPopupHtml(properties, config);
+  } else if (feature.layer.id === "district-fill") {
     const area = Number(properties.web_area);
     const areaText = Number.isFinite(area)
       ? `${area.toLocaleString("ms-MY", { maximumFractionDigits: 2 })} hektar`
@@ -215,6 +223,32 @@ document.getElementById("cityHierarchyToggle").addEventListener("change", (event
   updateLayerCount();
 });
 
+document.getElementById("cadastralToggle").addEventListener("change", async (event) => {
+  const status = document.getElementById("cadastralStatus");
+
+  if (event.target.checked) {
+    const result = await addCadastralLayer(map);
+
+    if (!result.configured) {
+      event.target.checked = false;
+      layerState.cadastral = false;
+      status.textContent =
+        "Vector Tile belum dikonfigurasi. Isi URL dalam config/cadastral-layer.json.";
+      status.classList.add("warning");
+      updateLayerCount();
+      return;
+    }
+
+    status.textContent = "Lot Kadaster aktif. Paparan bermula pada zoom 11.";
+    status.classList.remove("warning");
+  }
+
+  layerState.cadastral = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("pbtToggle").addEventListener("change", (event) => {
   layerState.pbt = event.target.checked;
   applyLayerVisibility(map);
@@ -328,6 +362,16 @@ function updateLayerCount() {
 document.getElementById("healthLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("healthLegendBtn");
   const panel = document.getElementById("healthLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("cadastralLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("cadastralLegendBtn");
+  const panel = document.getElementById("cadastralLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));
@@ -664,6 +708,7 @@ const smartSearch = new SmartSearch({
 const ASSISTANT_LAYER_LABELS = {
   traffic: "Live Traffic",
   floodRain: "Flood Intelligence Fasa 1",
+  cadastral: "Lot Kadaster Selangor 2023",
   pbt: "Sempadan PBT",
   districts: "Sempadan Daerah",
   healthFacilities: "Kemudahan Kesihatan",
@@ -678,6 +723,7 @@ function setAssistantLayerVisibility(layer, visible) {
   const toggleMap = {
     traffic: "trafficToggle",
     floodRain: "floodRainToggle",
+    cadastral: "cadastralToggle",
     pbt: "pbtToggle",
     districts: "districtToggle",
     healthFacilities: "healthFacilityToggle",

@@ -1,10 +1,15 @@
 import { DATA_URLS } from "./config.js";
 import { loadSvgSdf, addLayerCompat } from "./utils.js";
+import {
+  addCadastralLayer,
+  setCadastralVisibility
+} from "./cadastral.js";
 
 export const layerState = {
   cityHierarchy: true,
   pbt: true,
   districts: true,
+  cadastral: false,
   healthFacilities: true,
   liveTraffic: true,
   police: true,
@@ -485,6 +490,7 @@ export async function addPortalLayers(map, prefix = "") {
     });
   }
 
+  await addCadastralLayer(map, prefix);
   applyLayerVisibility(map, prefix);
 }
 
@@ -513,6 +519,12 @@ export function applyLayerVisibility(map, prefix = "") {
       map.setLayoutProperty(id, "visibility", visible ? "visible" : "none");
     }
   }
+
+  setCadastralVisibility(
+    map,
+    layerState.cadastral,
+    prefix
+  );
 
   try {
     map.setConfigProperty("basemap", "show3dObjects", layerState.buildings);

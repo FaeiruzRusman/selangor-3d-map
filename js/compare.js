@@ -16,6 +16,7 @@ const DEFAULT_LAYERS = {
   police: true,
   floodRain: true,
   traffic: true,
+  cadastral: false,
   districts: true,
   pbt: true
 };
@@ -27,6 +28,7 @@ const LAYER_IDS = {
   police: ["police-symbol", "police-label"],
   floodRain: ["flood-rain-circle", "flood-rain-label"],
   traffic: ["traffic-casing", "traffic-line"],
+  cadastral: ["cadastral-fill", "cadastral-line", "cadastral-label"],
   districts: ["district-fill", "district-line", "district-label"],
   pbt: ["pbt-fill", "pbt-line", "pbt-label"]
 };
@@ -713,6 +715,7 @@ export class CompareEngine {
       police: layerState.police,
       floodRain: layerState.floodRain,
       traffic: layerState.liveTraffic,
+      cadastral: layerState.cadastral,
       districts: layerState.districts,
       pbt: layerState.pbt
     };
