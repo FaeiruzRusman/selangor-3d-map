@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v6.0.3 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v6.0.3</title>
+  <meta name="description" content="SUO GeoPortal v6.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v6.1</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=6.0.3" />
+  <link rel="stylesheet" href="styles.css?v=6.1" />
 </head>
 <body>
   <div id="loadingScreen" class="loading-screen">
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v6.0.3</span></h1>
+        <h1>GeoPortal <span>v6.1</span></h1>
       </div>
     </div>
 
@@ -517,10 +517,33 @@
       <section id="comparePanel" class="compare-panel enterprise-compare-panel" aria-label="Enterprise Compare Engine">
         <div class="compare-panel-heading">
           <div>
-            <span class="compare-kicker">ENTERPRISE COMPARE ENGINE</span><span class="compare-version-badge">v6.0.3 • LAYER COMPATIBILITY</span>
-            <strong>Compare Mode v6.0.3</strong>
+            <span class="compare-kicker">ENTERPRISE COMPARE ENGINE</span><span class="compare-version-badge">v6.1 • FLOATING PANEL</span>
+            <strong>Compare Mode v6.1</strong>
           </div>
-          <button id="closeSplitBtn" type="button" aria-label="Tutup compare mode">✕</button>
+          <div class="compare-window-controls">
+            <button id="comparePinBtn"
+                    type="button"
+                    title="Pin panel"
+                    aria-label="Pin atau auto-hide panel"
+                    aria-pressed="true">📌</button>
+            <button id="compareMinimizeBtn"
+                    type="button"
+                    title="Minimize panel"
+                    aria-label="Minimize panel"
+                    aria-expanded="true">—</button>
+            <button id="compareResetPositionBtn"
+                    type="button"
+                    title="Kembalikan kedudukan panel"
+                    aria-label="Reset kedudukan panel">□</button>
+            <button id="closeSplitBtn"
+                    type="button"
+                    title="Tutup Compare Mode"
+                    aria-label="Tutup compare mode">✕</button>
+          </div>
+        </div>
+
+        <div id="comparePanelHint" class="compare-panel-hint">
+          Seret header untuk alih panel. Minimize untuk melihat peta di belakang.
         </div>
 
         <div class="compare-tabs" role="tablist">
@@ -1129,6 +1152,6 @@
   </div>
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-  <script type="module" src="js/app.js?v=6.0.3"></script>
+  <script type="module" src="js/app.js?v=6.1"></script>
 </body>
 </html>

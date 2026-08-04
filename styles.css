@@ -3580,3 +3580,146 @@ body.map-middle-pan-active {
 .compare-basemap-note strong {
   color: #fde68a;
 }
+
+
+/* =========================================================
+   v6.1 — Floating / Minimisable Compare Panel
+   ========================================================= */
+
+.enterprise-compare-panel {
+  transform-origin: top left;
+  transition:
+    width 220ms ease,
+    max-height 220ms ease,
+    padding 220ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease;
+}
+
+.compare-panel-heading {
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.compare-panel.dragging {
+  transition: none;
+  opacity: 0.94;
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.46),
+    0 0 0 2px rgba(247,181,0,0.20);
+}
+
+.compare-panel.dragging .compare-panel-heading {
+  cursor: grabbing;
+}
+
+.compare-window-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.compare-window-controls button {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(255,255,255,0.055);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.compare-window-controls button:hover {
+  color: #171100;
+  background: var(--accent);
+}
+
+.compare-panel-hint {
+  margin: -3px 0 10px;
+  padding: 7px 9px;
+  border: 1px dashed rgba(247,181,0,0.18);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.018);
+  font-size: 0.56rem;
+  line-height: 1.4;
+}
+
+/* Keep only the heading visible in minimized mode. */
+.enterprise-compare-panel.minimized {
+  width: min(430px, calc(100% - 24px));
+  max-height: 62px;
+  overflow: hidden;
+  padding-bottom: 9px;
+}
+
+.enterprise-compare-panel.minimized
+  > :not(.compare-panel-heading) {
+  display: none !important;
+}
+
+.enterprise-compare-panel.minimized
+  .compare-panel-heading {
+  margin-bottom: 0;
+}
+
+.enterprise-compare-panel.minimized
+  .compare-panel-heading > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.enterprise-compare-panel.minimized
+  .compare-kicker {
+  display: none;
+}
+
+.enterprise-compare-panel.minimized
+  .compare-version-badge {
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+.enterprise-compare-panel.unpinned {
+  border-color: rgba(247,181,0,0.24);
+}
+
+.enterprise-compare-panel.unpinned::after {
+  content: "AUTO-HIDE";
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  color: rgba(253,230,138,0.72);
+  font-size: 0.46rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+
+.enterprise-compare-panel.minimized.unpinned::after {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .compare-panel-heading {
+    cursor: default;
+  }
+
+  .enterprise-compare-panel.minimized {
+    width: calc(100% - 16px);
+  }
+
+  #compareResetPositionBtn,
+  #comparePinBtn {
+    display: none;
+  }
+}

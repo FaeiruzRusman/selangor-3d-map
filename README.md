@@ -1,4 +1,4 @@
-# SUO GeoPortal v6.0.3 — Modular Architecture
+# SUO GeoPortal v6.1 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -888,4 +888,61 @@ Cache busting:
 ```text
 styles.css?v=6.0.3
 js/app.js?v=6.0.3
+```
+
+
+## Floating Compare Panel v6.1
+
+Compare Panel kini boleh:
+
+- Minimize dan expand
+- Diseret ke mana-mana lokasi dalam ruang peta
+- Dipin supaya kekal terbuka
+- Di-unpin untuk mengaktifkan auto-hide
+- Dikembalikan ke kedudukan asal
+- Ditutup seperti biasa
+
+### Kawalan
+
+```text
+📌  Pin / Auto-hide
+—   Minimize
+□   Reset kedudukan
+✕   Tutup Compare Mode
+```
+
+### Auto-hide
+
+Apabila panel di-unpin:
+
+1. Panel kekal terbuka semasa tetikus berada di atasnya.
+2. Selepas tetikus keluar, panel diminimize secara automatik.
+3. Apabila tetikus kembali ke header, panel dibuka semula.
+
+### Penyimpanan
+
+Keadaan UI disimpan menggunakan:
+
+```text
+suoComparePanelUIV61
+```
+
+Maklumat yang disimpan:
+
+- status minimized;
+- status pinned;
+- kedudukan X;
+- kedudukan Y.
+
+### Modul baharu
+
+```text
+js/compare-panel-ui.js
+```
+
+Cache busting:
+
+```text
+styles.css?v=6.1
+js/app.js?v=6.1
 ```
