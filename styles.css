@@ -3723,3 +3723,67 @@ body.map-middle-pan-active {
     display: none;
   }
 }
+
+
+/* v6.2 — Lot Kadaster Selangor 2023 */
+.cadastral-category {
+  order: initial;
+}
+
+.cadastral-layer-symbol {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  border: 1.5px solid #FACC15;
+  background:
+    linear-gradient(90deg, transparent 46%, #FACC15 47%, #FACC15 53%, transparent 54%),
+    linear-gradient(0deg, transparent 46%, #FACC15 47%, #FACC15 53%, transparent 54%);
+  opacity: 0.95;
+}
+
+.cadastral-legend-fill {
+  width: 23px;
+  height: 14px;
+  display: inline-block;
+  border: 1px solid #FACC15;
+  border-radius: 2px;
+  background: rgba(234,179,8,0.12);
+}
+
+.cadastral-legend-line {
+  width: 24px;
+  height: 0;
+  display: inline-block;
+  border-top: 2px solid #FACC15;
+}
+
+.cadastral-legend-label {
+  width: 25px;
+  display: inline-block;
+  color: #FEF3C7;
+  font-size: 0.65rem;
+  font-weight: 900;
+  text-align: center;
+  text-shadow:
+    -1px -1px 0 #0f172a,
+    1px -1px 0 #0f172a,
+    -1px 1px 0 #0f172a,
+    1px 1px 0 #0f172a;
+}
+
+.cadastral-status {
+  margin-top: 9px;
+  padding: 8px 9px;
+  border: 1px solid rgba(247,181,0,0.18);
+  border-radius: 8px;
+  color: #cbd5e1;
+  background: rgba(247,181,0,0.045);
+  font-size: 0.56rem;
+  line-height: 1.45;
+}
+
+.cadastral-status.warning {
+  border-color: rgba(248,113,113,0.30);
+  color: #fecaca;
+  background: rgba(248,113,113,0.07);
+}

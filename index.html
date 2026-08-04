@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v6.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v6.1</title>
+  <meta name="description" content="SUO GeoPortal v6.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v6.2</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=6.1" />
+  <link rel="stylesheet" href="styles.css?v=6.2" />
 </head>
 <body>
   <div id="loadingScreen" class="loading-screen">
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v6.1</span></h1>
+        <h1>GeoPortal <span>v6.2</span></h1>
       </div>
     </div>
 
@@ -348,6 +348,74 @@
             </div>
           </section>
 
+          <section class="layer-category cadastral-category">
+            <button class="layer-category-header" type="button"
+                    data-layer-category="cadastral"
+                    aria-expanded="false">
+              <span class="layer-category-icon">▦</span>
+              <span>
+                <strong>Lot Kadaster</strong>
+                <small>1 layer</small>
+              </span>
+              <span class="layer-category-chevron">⌄</span>
+            </button>
+
+            <div class="layer-category-content"
+                 data-layer-category-content="cadastral"
+                 hidden>
+              <div class="layer-group nested-layer-group">
+                <div class="layer-item layer-item-expandable">
+                  <button id="cadastralLegendBtn"
+                          class="layer-expand-btn"
+                          type="button"
+                          aria-expanded="false"
+                          aria-controls="cadastralLegendPanel"
+                          title="Buka legend lot kadaster">▸</button>
+
+                  <span class="legend-symbol cadastral-layer-symbol"></span>
+
+                  <span class="layer-copy">
+                    <strong>Lot Kadaster Selangor 2023</strong>
+                    <small>1,350,128 lot • Vector Tile</small>
+                  </span>
+
+                  <input id="cadastralToggle"
+                         type="checkbox"
+                         aria-label="Paparkan Lot Kadaster Selangor 2023" />
+                </div>
+
+                <div id="cadastralLegendPanel"
+                     class="layer-legend-panel"
+                     hidden>
+                  <div class="legend-heading">
+                    <span>Legend Lot Kadaster</span>
+                    <small>NDCDB Selangor 2023</small>
+                  </div>
+
+                  <div class="legend-list">
+                    <div class="legend-row">
+                      <span class="cadastral-legend-fill"></span>
+                      <span>Poligon Lot</span>
+                    </div>
+                    <div class="legend-row">
+                      <span class="cadastral-legend-line"></span>
+                      <span>Sempadan Lot</span>
+                    </div>
+                    <div class="legend-row">
+                      <span class="cadastral-legend-label">123</span>
+                      <span>Nombor Lot (zoom dekat)</span>
+                    </div>
+                  </div>
+
+                  <div id="cadastralStatus"
+                       class="cadastral-status">
+                    Menunggu URL Vector Tile dikonfigurasi.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section class="layer-category">
             <button class="layer-category-header" type="button"
                     data-layer-category="administration"
@@ -355,7 +423,7 @@
               <span class="layer-category-icon">▱</span>
               <span>
                 <strong>Pentadbiran</strong>
-                <small>1 layer</small>
+                <small>2 layer</small>
               </span>
               <span class="layer-category-chevron">⌄</span>
             </button>
@@ -581,7 +649,13 @@
                   <input type="checkbox" data-compare-side="left" data-compare-layer="traffic" checked />
                   <span>Live Traffic</span>
                 </label>
-                <label class="compare-layer-row">
+                                <label class="compare-layer-row">
+                  <input type="checkbox"
+                         data-compare-side="left"
+                         data-compare-layer="cadastral" />
+                  <span>Lot Kadaster 2023</span>
+                </label>
+<label class="compare-layer-row">
                   <input type="checkbox" data-compare-side="left" data-compare-layer="districts" checked />
                   <span>Sempadan Daerah</span>
                 </label>
@@ -618,7 +692,13 @@
                   <input type="checkbox" data-compare-side="right" data-compare-layer="traffic" checked />
                   <span>Live Traffic</span>
                 </label>
-                <label class="compare-layer-row">
+                                <label class="compare-layer-row">
+                  <input type="checkbox"
+                         data-compare-side="right"
+                         data-compare-layer="cadastral" />
+                  <span>Lot Kadaster 2023</span>
+                </label>
+<label class="compare-layer-row">
                   <input type="checkbox" data-compare-side="right" data-compare-layer="districts" checked />
                   <span>Sempadan Daerah</span>
                 </label>
@@ -1152,6 +1232,6 @@
   </div>
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-  <script type="module" src="js/app.js?v=6.1"></script>
+  <script type="module" src="js/app.js?v=6.2"></script>
 </body>
 </html>

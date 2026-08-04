@@ -1,4 +1,4 @@
-# SUO GeoPortal v6.1 — Modular Architecture
+# SUO GeoPortal v6.2 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -946,3 +946,56 @@ Cache busting:
 styles.css?v=6.1
 js/app.js?v=6.1
 ```
+
+
+## Lot Kadaster Selangor 2023
+
+Kategori baharu diletakkan di atas kategori Pentadbiran:
+
+```text
+Lot Kadaster
+└── Lot Kadaster Selangor 2023
+
+Pentadbiran
+├── Sempadan PBT
+└── Sempadan Daerah
+```
+
+Metadata data asal:
+
+- 1,350,128 poligon
+- CRS: GDM2000 Cassini Selangor
+- SHP: 186.49 MB
+- DBF: 767.40 MB
+
+Disebabkan saiz data, portal menggunakan seni bina Vector Tile dan tidak
+menukar keseluruhan data kepada GeoJSON.
+
+Fail baharu:
+
+```text
+js/cadastral.js
+config/cadastral-layer.json
+data/kadaster/ndcdb_selangor_2023_metadata.json
+PUBLISH_LOT_KADASTER_2023.md
+```
+
+Fungsi:
+
+- toggle dan legend;
+- fill dan sempadan lot;
+- label nombor lot pada zoom dekat;
+- popup atribut;
+- sokongan peta utama;
+- sokongan Left/Right Compare Map;
+- arahan Ask Mr. TPr. SUO untuk buka/tutup layer.
+
+Contoh arahan:
+
+```text
+Buka Lot Kadaster
+Matikan Lot Kadaster
+```
+
+Medan `NAMAPEMILI` dan `ALAMATPEMI` tidak disyorkan untuk diterbitkan dalam
+portal awam.
