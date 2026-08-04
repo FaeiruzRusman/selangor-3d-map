@@ -1,0 +1,22 @@
+{
+  "enabled": false,
+  "title": "Lot Kadaster Selangor 2023",
+  "sourceType": "vectorTiles",
+  "tiles": [],
+  "url": "",
+  "sourceLayer": "NDCDB_SELANGOR",
+  "minzoom": 11,
+  "maxzoom": 22,
+  "fields": {
+    "lot": "LOT",
+    "upi": "UPI",
+    "district": "DAERAH",
+    "mukim": "MUKIM",
+    "section": "SEKSYEN",
+    "area": "KELUASAN",
+    "landUseCode": "KOD_KEGUNA",
+    "status": "STATUS",
+    "surveyFile": "NOFAILUKUR",
+    "updated": "TARIKH_KEM"
+  }
+}
