@@ -1,0 +1,37 @@
+{
+  "source_file": "NDCDB_SELANGOR.shp",
+  "feature_count": 1350128,
+  "geometry_type": "Polygon",
+  "source_crs": "GDM2000 Cassini Selangor",
+  "source_crs_definition": "My_G_Cassini_Selangor",
+  "source_size_mb": {
+    "shp": 186.49,
+    "dbf": 767.4,
+    "shx": 10.3
+  },
+  "fields": [
+    "NEGERI",
+    "DAERAH",
+    "MUKIM",
+    "SEKSYEN",
+    "LOT",
+    "UPI",
+    "KELUASAN",
+    "KOD_KEGUNA",
+    "PA",
+    "STATUS",
+    "NOFAILUKUR",
+    "NAMAPEMILI",
+    "ALAMATPEMI",
+    "GUID",
+    "TARIKH_KEM",
+    "MI_PRINX",
+    "FASA",
+    "BLOCK",
+    "CLASS",
+    "KOD_TUJUAN",
+    "KELUASAN_P",
+    "KOD_UNITLU"
+  ],
+  "portal_note": "Data penuh mesti diterbitkan sebagai vector tile. GeoJSON tidak digunakan kerana terlalu besar."
+}
