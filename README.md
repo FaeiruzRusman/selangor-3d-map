@@ -1,4 +1,4 @@
-# SUO GeoPortal v6.0.2 — Modular Architecture
+# SUO GeoPortal v6.0.3 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -849,4 +849,43 @@ Cache busting:
 ```text
 styles.css?v=6.0.2
 js/app.js?v=6.0.2
+```
+
+
+## Layer Compatibility Fix v6.0.3
+
+Punca Right Map kosong:
+
+```text
+Layer SUO menggunakan slot "top" dan "middle".
+Mapbox Standard mempunyai named slots.
+Satellite, Streets, Dark, Light dan raster OSM tidak semestinya
+mempunyai named slots yang sama.
+```
+
+Pembetulan:
+
+- Fungsi `addLayerCompat()` ditambah dalam `js/utils.js`.
+- Setiap layer menyemak kewujudan slot sebelum dipasang.
+- Jika slot tidak tersedia, property `slot` dibuang secara automatik.
+- Layer kemudian dipasang pada bahagian atas style klasik.
+- Kaedah ini digunakan pada:
+  - semua layer portal;
+  - layer Flood Intelligence;
+  - layer highlight Ask Mr. TPr. SUO.
+- Custom OpenStreetMap style kini mempunyai `glyphs` untuk label teks.
+
+Tanda versi aktif:
+
+```text
+GeoPortal v6.0.3
+Compare Mode v6.0.3
+v6.0.3 • LAYER COMPATIBILITY
+```
+
+Cache busting:
+
+```text
+styles.css?v=6.0.3
+js/app.js?v=6.0.3
 ```
