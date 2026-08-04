@@ -1,5 +1,6 @@
 import { DATA_URLS } from "./config.js";
 import { layerState } from "./layers.js";
+import { addLayerCompat } from "./utils.js";
 
 const OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast";
 const FLOOD_WARNING_URL = "https://api.data.gov.my/flood-warning";
@@ -270,7 +271,7 @@ export class FloodIntelligence {
     }
 
     if (!targetMap.getLayer(circleId)) {
-      targetMap.addLayer({
+      addLayerCompat(targetMap, {
         id: circleId,
         type: "circle",
         source: sourceId,
@@ -315,7 +316,7 @@ export class FloodIntelligence {
     }
 
     if (!targetMap.getLayer(labelId)) {
-      targetMap.addLayer({
+      addLayerCompat(targetMap, {
         id: labelId,
         type: "symbol",
         source: sourceId,

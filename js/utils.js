@@ -21,6 +21,68 @@ export function applyCamera(map, camera) {
   });
 }
 
+
+export function addLayerCompat(map, layerDefinition, beforeId) {
+  if (!layerDefinition?.id) {
+    throw new Error("Layer definition mesti mempunyai id.");
+  }
+
+  if (map.getLayer(layerDefinition.id)) {
+    return;
+  }
+
+  const definition =
+    typeof structuredClone === "function"
+      ? structuredClone(layerDefinition)
+      : JSON.parse(JSON.stringify(layerDefinition));
+
+  const requestedSlot = definition.slot;
+
+  if (requestedSlot) {
+    let availableSlots = [];
+
+    try {
+      availableSlots =
+        typeof map.getSlots === "function"
+          ? map.getSlots()
+          : [];
+    } catch (_) {
+      availableSlots = [];
+    }
+
+    if (!availableSlots.includes(requestedSlot)) {
+      delete definition.slot;
+
+      console.info(
+        `Layer ${definition.id}: slot "${requestedSlot}" tidak tersedia ` +
+        "pada basemap semasa. Layer dipasang tanpa slot."
+      );
+    }
+  }
+
+  try {
+    map.addLayer(definition, beforeId);
+    return;
+  } catch (error) {
+    if (!requestedSlot || !definition.slot) {
+      throw error;
+    }
+
+    const fallback = {
+      ...definition
+    };
+
+    delete fallback.slot;
+
+    console.info(
+      `Layer ${definition.id}: pemasangan menggunakan slot gagal. ` +
+      "Mencuba semula tanpa slot."
+    );
+
+    map.addLayer(fallback, beforeId);
+  }
+}
+
 export async function loadSvgSdf(map, name, url) {
   if (map.hasImage(name)) return;
 

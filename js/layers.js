@@ -1,5 +1,5 @@
 import { DATA_URLS } from "./config.js";
-import { loadSvgSdf } from "./utils.js";
+import { loadSvgSdf, addLayerCompat } from "./utils.js";
 
 export const layerState = {
   cityHierarchy: true,
@@ -23,7 +23,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(`${prefix}city-circle`)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: `${prefix}city-circle`,
       type: "circle",
       source: citySource,
@@ -44,7 +44,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(`${prefix}city-label`)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: `${prefix}city-label`,
       type: "symbol",
       source: citySource,
@@ -71,7 +71,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(`${prefix}health-symbol`)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: `${prefix}health-symbol`,
       type: "symbol",
       source: healthSource,
@@ -98,7 +98,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(`${prefix}health-label`)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: `${prefix}health-label`,
       type: "symbol",
       source: healthSource,
@@ -144,7 +144,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(pbtFill)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: pbtFill,
       type: "fill",
       source: pbtSource,
@@ -164,7 +164,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(pbtLine)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: pbtLine,
       type: "line",
       source: pbtSource,
@@ -185,7 +185,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(pbtLabel)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: pbtLabel,
       type: "symbol",
       source: pbtLabelSource,
@@ -236,7 +236,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(districtFill)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: districtFill,
       type: "fill",
       source: districtSource,
@@ -249,7 +249,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(districtLine)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: districtLine,
       type: "line",
       source: districtSource,
@@ -271,7 +271,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(districtLabel)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: districtLabel,
       type: "symbol",
       source: districtLabelSource,
@@ -314,7 +314,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(policeSymbol)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: policeSymbol,
       type: "symbol",
       source: policeSource,
@@ -346,7 +346,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(policeLabel)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: policeLabel,
       type: "symbol",
       source: policeSource,
@@ -379,7 +379,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(schoolSymbol)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: schoolSymbol,
       type: "symbol",
       source: schoolSource,
@@ -405,7 +405,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(schoolLabel)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: schoolLabel,
       type: "symbol",
       source: schoolSource,
@@ -438,7 +438,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(trafficCasing)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: trafficCasing,
       type: "line",
       source: trafficSource,
@@ -458,7 +458,7 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
   if (!map.getLayer(trafficLine)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: trafficLine,
       type: "line",
       source: trafficSource,

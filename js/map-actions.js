@@ -1,3 +1,5 @@
+import { addLayerCompat } from "./utils.js";
+
 const RESULT_SOURCE_ID = "ai-query-result";
 const RESULT_POINT_ID = "ai-query-result-point";
 const RESULT_FILL_ID = "ai-query-result-fill";
@@ -19,7 +21,7 @@ function ensureResultLayers(map) {
   }
 
   if (!map.getLayer(RESULT_FILL_ID)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: RESULT_FILL_ID,
       type: "fill",
       source: RESULT_SOURCE_ID,
@@ -33,7 +35,7 @@ function ensureResultLayers(map) {
   }
 
   if (!map.getLayer(RESULT_LINE_ID)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: RESULT_LINE_ID,
       type: "line",
       source: RESULT_SOURCE_ID,
@@ -48,7 +50,7 @@ function ensureResultLayers(map) {
   }
 
   if (!map.getLayer(RESULT_POINT_ID)) {
-    map.addLayer({
+    addLayerCompat(map, {
       id: RESULT_POINT_ID,
       type: "circle",
       source: RESULT_SOURCE_ID,

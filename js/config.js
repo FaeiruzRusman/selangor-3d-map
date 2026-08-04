@@ -20,6 +20,7 @@ export const BASEMAPS = {
   navigationNight: "mapbox://styles/mapbox/navigation-night-v1",
   osm: {
     version: 8,
+    glyphs: "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
     sources: {
       osm: {
         type: "raster",
