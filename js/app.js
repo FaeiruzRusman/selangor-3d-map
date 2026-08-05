@@ -11,6 +11,10 @@ import { initUrbanExplorer } from "./urban-explorer.js";
 import { UrbanTour } from "./urban-tour.js";
 import { CompareEngine } from "./compare.js";
 import { ComparePanelUI } from "./compare-panel-ui.js";
+import {
+  SpatialTools,
+  isSpatialToolActive
+} from "./spatial-tools.js";
 import { WeatherIntelligence } from "./weather.js";
 import { FloodIntelligence } from "./flood.js";
 import { SpatialAssistant } from "./ai-assistant.js";
@@ -39,6 +43,7 @@ enableMiddleMousePan(map);
 
 const compare = new CompareEngine(map);
 const comparePanelUI = new ComparePanelUI();
+const spatialTools = new SpatialTools(map);
 const weather = new WeatherIntelligence(map);
 const flood = new FloodIntelligence(map);
 let viewMode = "3d";
@@ -67,6 +72,7 @@ map.on("zoom", () => {
 });
 
 map.on("click", async (event) => {
+  if (isSpatialToolActive()) return;
   const layerIds = ["cadastral-fill", "district-fill", "pbt-fill", "school-symbol", "police-symbol", "health-symbol", "city-circle"]
     .filter((id) => map.getLayer(id));
 
@@ -468,14 +474,6 @@ document.getElementById("nightBtn").addEventListener("click", () => {
   } catch (_) {
     map.setStyle(nightMode ? BASEMAPS.dark : BASEMAPS.standard);
   }
-});
-
-document.getElementById("measureBtn").addEventListener("click", (event) => {
-  event.currentTarget.classList.toggle("active");
-});
-
-document.getElementById("clearMeasureBtn").addEventListener("click", () => {
-  document.getElementById("measureBtn").classList.remove("active");
 });
 
 document.getElementById("locateBtn").addEventListener("click", () => {
