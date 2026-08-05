@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.0 — Modular Architecture
+# SUO GeoPortal v7.1 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1121,4 +1121,36 @@ Cache busting:
 ```text
 styles.css?v=7.0
 js/app.js?v=7.0
+```
+
+
+## Flood Rain Symbols v7.1
+
+Paparan Ramalan Hujan 24 Jam kini menggunakan simbol bulatan biru muda bagi
+setiap bandar DPN2.
+
+Dalam simbol dipaparkan:
+
+```text
+12
+mm
+```
+
+Reka bentuk:
+
+- Isi simbol: biru muda
+- Teks nilai hujan: dark navy
+- Garisan luar menunjukkan tahap hujan:
+  - biru: bawah 10 mm
+  - kuning: 10–29.9 mm
+  - jingga: 30–59.9 mm
+  - merah: 60 mm dan ke atas
+- Nama bandar dipaparkan di bawah simbol
+- Simbol dan label disokong pada Main Map serta Compare Map
+
+Cache busting:
+
+```text
+styles.css?v=7.1
+js/app.js?v=7.1
 ```
