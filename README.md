@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.5 — Modular Architecture
+# SUO GeoPortal v7.6 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1206,4 +1206,27 @@ Cache busting:
 ```text
 styles.css?v=7.5
 js/app.js?v=7.5
+```
+
+
+## Mr. TPr. SUO Official Avatar v7.6
+
+Avatar rasmi Ask Mr. TPr. SUO telah dimasukkan ke dalam:
+
+```text
+assets/mr-tpr-suo-avatar.png
+```
+
+Avatar digunakan pada:
+
+- ikon tajuk panel Ask Mr. TPr. SUO;
+- profil pembantu dalam ruang chat.
+
+Paparan menggunakan crop bulat, border kuning SUO dan `object-fit: cover`.
+
+Cache busting:
+
+```text
+styles.css?v=7.6
+js/app.js?v=7.6
 ```
