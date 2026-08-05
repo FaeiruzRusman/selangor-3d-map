@@ -15,6 +15,7 @@ import {
   SpatialTools,
   isSpatialToolActive
 } from "./spatial-tools.js";
+import { AlertCenter } from "./alert-center.js";
 import { WeatherIntelligence } from "./weather.js";
 import { FloodIntelligence } from "./flood.js";
 import { SpatialAssistant } from "./ai-assistant.js";
@@ -44,6 +45,7 @@ enableMiddleMousePan(map);
 const compare = new CompareEngine(map);
 const comparePanelUI = new ComparePanelUI();
 const spatialTools = new SpatialTools(map);
+const alertCenter = new AlertCenter(map);
 const weather = new WeatherIntelligence(map);
 const flood = new FloodIntelligence(map);
 let viewMode = "3d";
