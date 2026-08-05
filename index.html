@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v7.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v7.1</title>
+  <meta name="description" content="SUO GeoPortal v7.5 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v7.5</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=7.1" />
+  <link rel="stylesheet" href="styles.css?v=7.5" />
 </head>
 <body>
   <div id="loadingScreen" class="loading-screen">
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v7.1</span></h1>
+        <h1>GeoPortal <span>v7.5</span></h1>
       </div>
     </div>
 
@@ -1257,27 +1257,67 @@
         </div>
       </section>
 
-      <section class="panel chart-panel">
-        <div class="panel-heading">
+      <section class="panel executive-landuse-card">
+        <div class="executive-landuse-heading">
           <div>
-            <p class="section-label">LAND USE</p>
-            <h2>Komposisi demonstrasi</h2>
+            <p class="section-label">LAND USE INTELLIGENCE</p>
+            <h2>Ringkasan Eksekutif 2024</h2>
+          </div>
+          <span class="landuse-year-badge">2024</span>
+        </div>
+
+        <div class="landuse-total-block">
+          <span>Keluasan Gunatanah</span>
+          <strong id="landuseTotalArea">833,720.73</strong>
+          <small>Hektar</small>
+        </div>
+
+        <div class="landuse-composition-grid">
+          <article class="landuse-metric built-up">
+            <div class="landuse-metric-icon" aria-hidden="true">▦</div>
+            <span>Tepu Bina</span>
+            <strong id="landuseBuiltArea">239,840.56 ha</strong>
+            <b id="landuseBuiltPercent">28.76%</b>
+          </article>
+
+          <article class="landuse-metric non-built">
+            <div class="landuse-metric-icon" aria-hidden="true">♣</div>
+            <span>Bukan Tepu Bina</span>
+            <strong id="landuseNonBuiltArea">593,880.17 ha</strong>
+            <b id="landuseNonBuiltPercent">71.23%</b>
+          </article>
+        </div>
+
+        <div class="landuse-share-bar"
+             role="img"
+             aria-label="Tepu bina 28.76 peratus dan bukan tepu bina 71.23 peratus">
+          <span class="landuse-share-built" style="width:28.76%"></span>
+          <span class="landuse-share-non-built" style="width:71.23%"></span>
+        </div>
+
+        <div class="landuse-dominant-block">
+          <span class="landuse-dominant-icon" aria-hidden="true">⌁</span>
+          <div>
+            <small>Kategori Dominan</small>
+            <strong id="landuseDominantName">Pertanian</strong>
+            <span id="landuseDominantArea">277,364.81 ha</span>
           </div>
         </div>
 
-        <div class="donut-wrap">
-          <div class="donut-chart">
-            <div class="donut-hole">
-              <strong>100%</strong>
-              <span>Jumlah</span>
-            </div>
-          </div>
-          <div class="chart-legend">
-            <div><span class="legend-dot residential"></span>Perumahan <strong>42%</strong></div>
-            <div><span class="legend-dot commercial"></span>Komersial <strong>16%</strong></div>
-            <div><span class="legend-dot industrial"></span>Industri <strong>18%</strong></div>
-            <div><span class="legend-dot green"></span>Hijau <strong>24%</strong></div>
-          </div>
+        <div class="landuse-status-row">
+          <span>Status Data</span>
+          <strong><i></i>Dikemaskini 2024</strong>
+        </div>
+
+        <a class="landuse-dashboard-btn"
+           href="https://sismaps.jpbdselangor.gov.my/dashboard"
+           target="_blank"
+           rel="noopener noreferrer">
+          Buka Dashboard Guna Tanah
+        </a>
+
+        <div class="landuse-source-note">
+          Sumber: Dashboard Guna Tanah PLANMalaysia Selangor, statistik 2024.
         </div>
       </section>
 
@@ -1367,6 +1407,6 @@
   </section>
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-  <script type="module" src="js/app.js?v=7.1"></script>
+  <script type="module" src="js/app.js?v=7.5"></script>
 </body>
 </html>

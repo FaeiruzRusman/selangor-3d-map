@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.1 — Modular Architecture
+# SUO GeoPortal v7.5 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1153,4 +1153,57 @@ Cache busting:
 ```text
 styles.css?v=7.1
 js/app.js?v=7.1
+```
+
+
+## Executive Land Use Intelligence v7.5
+
+Kad donut demonstrasi telah digantikan dengan kad ringkasan eksekutif
+berdasarkan statistik Dashboard Guna Tanah 2024.
+
+### Statistik
+
+```text
+Keluasan Gunatanah:
+833,720.73 ha
+
+Tepu Bina:
+239,840.56 ha
+28.76%
+
+Bukan Tepu Bina:
+593,880.17 ha
+71.23%
+
+Kategori Dominan:
+Pertanian
+277,364.81 ha
+```
+
+### Fungsi
+
+- paparan KPI ringkas dalam kolum kanan;
+- bar perbandingan tepu bina dan bukan tepu bina;
+- status kemas kini data 2024;
+- butang ke Dashboard Guna Tanah SISMAPS;
+- data disimpan secara berasingan dalam fail konfigurasi.
+
+### Fail baharu
+
+```text
+js/landuse-intelligence.js
+config/landuse-intelligence.json
+```
+
+Dashboard:
+
+```text
+https://sismaps.jpbdselangor.gov.my/dashboard
+```
+
+Cache busting:
+
+```text
+styles.css?v=7.5
+js/app.js?v=7.5
 ```
