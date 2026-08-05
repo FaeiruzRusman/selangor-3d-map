@@ -1,0 +1,18 @@
+{
+  "year": 2024,
+  "total_area_ha": 833720.73,
+  "built_up": {
+    "area_ha": 239840.56,
+    "percent": 28.76
+  },
+  "non_built_up": {
+    "area_ha": 593880.17,
+    "percent": 71.23
+  },
+  "dominant_category": {
+    "name": "Pertanian",
+    "area_ha": 277364.81
+  },
+  "source": "Dashboard Guna Tanah PLANMalaysia Selangor",
+  "dashboard_url": "https://sismaps.jpbdselangor.gov.my/dashboard"
+}

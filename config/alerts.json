@@ -1,0 +1,102 @@
+{
+  "mode": "prototype",
+  "refreshMinutes": 5,
+  "alerts": [
+    {
+      "id": "flood-kajang",
+      "severity": "critical",
+      "category": "flood",
+      "title": "Pemantauan Risiko Banjir",
+      "location": "Kajang",
+      "summary": "Hujan tinggi memerlukan pemantauan kawasan rendah dan koridor sungai.",
+      "timeLabel": "Terkini",
+      "coordinates": [
+        101.7909,
+        2.9935
+      ],
+      "zoom": 12.5,
+      "analysisTarget": "flood",
+      "assistantPrompt": "Terangkan status risiko banjir dan kemudahan penting di sekitar Kajang berdasarkan data yang tersedia dalam portal."
+    },
+    {
+      "id": "rain-hulu-langat",
+      "severity": "warning",
+      "category": "weather",
+      "title": "Pemantauan Hujan Lebat",
+      "location": "Hulu Langat",
+      "summary": "Semak ramalan hujan dan kemungkinan gangguan operasi tempatan.",
+      "timeLabel": "10 min lalu",
+      "coordinates": [
+        101.8117,
+        3.1134
+      ],
+      "zoom": 10.5,
+      "analysisTarget": "weather",
+      "assistantPrompt": "Apakah kemudahan awam dan kawasan pentadbiran yang perlu diberi perhatian di Hulu Langat ketika hujan lebat?"
+    },
+    {
+      "id": "traffic-federal",
+      "severity": "warning",
+      "category": "traffic",
+      "title": "Kesesakan Trafik",
+      "location": "Federal Highway",
+      "summary": "Aliran trafik perlahan pada koridor utama Shah Alam–Petaling Jaya.",
+      "timeLabel": "12 min lalu",
+      "coordinates": [
+        101.5856,
+        3.0744
+      ],
+      "zoom": 13,
+      "analysisTarget": "traffic",
+      "assistantPrompt": "Tunjukkan konteks kemudahan dan kawasan pentadbiran berhampiran Federal Highway."
+    },
+    {
+      "id": "school-demand-klang",
+      "severity": "info",
+      "category": "forecast",
+      "title": "AI Facility Demand",
+      "location": "Daerah Klang",
+      "summary": "Permintaan kemudahan pendidikan wajar dinilai bersama pertumbuhan pembangunan.",
+      "timeLabel": "Hari ini",
+      "coordinates": [
+        101.4444,
+        3.0449
+      ],
+      "zoom": 10.8,
+      "analysisTarget": "schools",
+      "assistantPrompt": "Berapa sekolah di Daerah Klang dan apakah analisis awal keperluan kemudahan pendidikan yang boleh dibuat daripada data portal?"
+    },
+    {
+      "id": "cadastral-config",
+      "severity": "info",
+      "category": "data",
+      "title": "Konfigurasi Data",
+      "location": "Lot Kadaster 2023",
+      "summary": "Layer tersedia dalam portal tetapi memerlukan URL Vector Tile untuk diaktifkan.",
+      "timeLabel": "Semakan sistem",
+      "coordinates": [
+        101.5183,
+        3.0738
+      ],
+      "zoom": 8.4,
+      "analysisTarget": "cadastral",
+      "assistantPrompt": "Terangkan status layer Lot Kadaster Selangor 2023 dan langkah yang diperlukan untuk mengaktifkannya."
+    },
+    {
+      "id": "system-online",
+      "severity": "success",
+      "category": "system",
+      "title": "Sistem GeoPortal Aktif",
+      "location": "Selangor",
+      "summary": "Modul peta, Smart Search, Compare dan Ask Mr. TPr. SUO tersedia.",
+      "timeLabel": "Sekarang",
+      "coordinates": [
+        101.5183,
+        3.0738
+      ],
+      "zoom": 8.4,
+      "analysisTarget": "system",
+      "assistantPrompt": "Senaraikan fungsi utama yang sedang tersedia dalam SUO GeoPortal."
+    }
+  ]
+}
