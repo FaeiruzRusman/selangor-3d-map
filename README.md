@@ -1,4 +1,4 @@
-# SUO GeoPortal v6.3 — Modular Architecture
+# SUO GeoPortal v7.0 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1055,4 +1055,70 @@ Cache busting:
 ```text
 styles.css?v=6.3
 js/app.js?v=6.3
+```
+
+
+## Actionable Alert Center v7.0
+
+Alert Center diletakkan dalam kolum kanan selepas Weather Intelligence.
+
+### Fungsi
+
+- Feed alert mengikut severity:
+  - Critical
+  - Warning
+  - Info
+  - Success
+- Ticker alert bertukar setiap 5 saat
+- Bilangan alert belum dibaca
+- Sejarah semua alert
+- Tanda satu atau semua alert sebagai dibaca
+- Status dibaca disimpan dalam browser
+- Tiga tindakan bagi setiap alert:
+  - Zoom
+  - Analisis
+  - Tanya Mr. TPr. SUO
+
+### Integrasi
+
+`Zoom` memfokuskan peta dan membuka popup.
+
+`Analisis` boleh:
+
+- membuka Flood Intelligence;
+- membuka Weather Intelligence;
+- mengaktifkan Live Traffic;
+- mengaktifkan layer Pendidikan;
+- membuka konfigurasi Lot Kadaster.
+
+`Tanya` menghantar konteks alert terus ke Ask Mr. TPr. SUO.
+
+### Status data
+
+Alert dalam versi ini ialah prototaip dan disimpan dalam:
+
+```text
+config/alerts.json
+```
+
+Alert operasi rasmi perlu disambungkan kepada API atau feed agensi berkaitan.
+
+### Fail baharu
+
+```text
+js/alert-center.js
+config/alerts.json
+```
+
+State alert dibaca:
+
+```text
+suoAlertReadStateV70
+```
+
+Cache busting:
+
+```text
+styles.css?v=7.0
+js/app.js?v=7.0
 ```
