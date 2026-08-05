@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v6.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v6.2</title>
+  <meta name="description" content="SUO GeoPortal v6.3 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
+  <title>SUO GeoPortal v6.3</title>
 
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=6.2" />
+  <link rel="stylesheet" href="styles.css?v=6.3" />
 </head>
 <body>
   <div id="loadingScreen" class="loading-screen">
@@ -25,7 +25,7 @@
       <div class="brand-mark">SUO</div>
       <div>
         <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v6.2</span></h1>
+        <h1>GeoPortal <span>v6.3</span></h1>
       </div>
     </div>
 
@@ -543,14 +543,77 @@
         <div id="urbanExplorer" class="urban-explorer"></div>
       </section>
 
-      <section class="panel">
-        <p class="section-label">TOOLS</p>
-        <h2>Analisis pantas</h2>
-        <div class="tool-grid">
-          <button id="measureBtn" type="button">↔ Ukur Jarak</button>
-          <button id="clearMeasureBtn" type="button">✕ Padam Ukuran</button>
-          <button id="locateBtn" type="button">◎ Lokasi Saya</button>
-          <button id="nightBtn" type="button">◐ Mod Malam</button>
+      <section class="panel spatial-analysis-panel">
+        <p class="section-label">UKUR & ANALISIS</p>
+        <h2>Alat Spatial</h2>
+
+        <div class="spatial-tool-grid">
+          <button id="measureDistanceBtn"
+                  type="button"
+                  aria-pressed="false">
+            <span>↔</span>
+            <strong>Ukur Jarak</strong>
+            <small>Klik beberapa titik</small>
+          </button>
+
+          <button id="measureAreaBtn"
+                  type="button"
+                  aria-pressed="false">
+            <span>▱</span>
+            <strong>Ukur Keluasan</strong>
+            <small>Poligon minimum 3 titik</small>
+          </button>
+        </div>
+
+        <div class="buffer-tool-card">
+          <div class="buffer-tool-heading">
+            <span class="buffer-tool-icon">◎</span>
+            <div>
+              <strong>Analisis Buffer</strong>
+              <small>Jana zon radius dari titik pilihan</small>
+            </div>
+          </div>
+
+          <div class="buffer-input-row">
+            <input id="bufferDistance"
+                   type="number"
+                   min="0.1"
+                   step="0.1"
+                   value="500"
+                   aria-label="Jarak buffer" />
+
+            <select id="bufferUnit"
+                    aria-label="Unit buffer">
+              <option value="m">Meter</option>
+              <option value="km">Kilometer</option>
+            </select>
+          </div>
+
+          <button id="bufferAnalysisBtn"
+                  class="buffer-run-btn"
+                  type="button"
+                  aria-pressed="false">
+            Klik Titik Pusat Buffer
+          </button>
+        </div>
+
+        <div id="spatialToolStatus"
+             class="spatial-tool-status"
+             role="status"
+             aria-live="polite">
+          Pilih alat untuk memulakan analisis.
+        </div>
+
+        <div class="tool-grid secondary-tool-grid">
+          <button id="clearSpatialToolsBtn" type="button">
+            ✕ Padam Hasil
+          </button>
+          <button id="locateBtn" type="button">
+            ◎ Lokasi Saya
+          </button>
+          <button id="nightBtn" type="button">
+            ◐ Mod Malam
+          </button>
         </div>
       </section>
     </aside>
@@ -1232,6 +1295,6 @@
   </div>
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-  <script type="module" src="js/app.js?v=6.2"></script>
+  <script type="module" src="js/app.js?v=6.3"></script>
 </body>
 </html>

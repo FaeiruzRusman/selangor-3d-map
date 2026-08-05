@@ -1,4 +1,4 @@
-# SUO GeoPortal v6.2 — Modular Architecture
+# SUO GeoPortal v6.3 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -999,3 +999,60 @@ Matikan Lot Kadaster
 
 Medan `NAMAPEMILI` dan `ALAMATPEMI` tidak disyorkan untuk diterbitkan dalam
 portal awam.
+
+
+## Ukur & Analisis Spatial v6.3
+
+Panel lama `Analisis pantas` telah dinaik taraf kepada:
+
+```text
+Ukur & Analisis
+├── Ukur Jarak
+├── Ukur Keluasan
+├── Analisis Buffer
+├── Padam Hasil
+├── Lokasi Saya
+└── Mod Malam
+```
+
+### Ukur Jarak
+
+1. Tekan `Ukur Jarak`.
+2. Klik dua atau lebih titik pada peta.
+3. Klik dua kali pada titik terakhir.
+4. Portal memaparkan jumlah jarak dan bilangan segmen.
+
+### Ukur Keluasan
+
+1. Tekan `Ukur Keluasan`.
+2. Klik sekurang-kurangnya tiga titik.
+3. Klik dua kali untuk menamatkan poligon.
+4. Portal memaparkan keluasan dan perimeter.
+
+### Analisis Buffer
+
+1. Masukkan nilai jarak.
+2. Pilih unit meter atau kilometer.
+3. Tekan `Klik Titik Pusat Buffer`.
+4. Klik lokasi pusat pada peta.
+5. Portal menjana poligon buffer geodesik dan memaparkan radius serta keluasan.
+
+### Kaedah
+
+- Jarak menggunakan formula Haversine.
+- Buffer menggunakan destinasi geodesik daripada titik pusat.
+- Keluasan menggunakan pengiraan planar tempatan berasaskan latitud purata.
+- Semua hasil boleh dipadam menggunakan `Padam Hasil`.
+
+Modul baharu:
+
+```text
+js/spatial-tools.js
+```
+
+Cache busting:
+
+```text
+styles.css?v=6.3
+js/app.js?v=6.3
+```

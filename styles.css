@@ -3787,3 +3787,179 @@ body.map-middle-pan-active {
   color: #fecaca;
   background: rgba(248,113,113,0.07);
 }
+
+
+/* v6.3 — Ukur & Analisis Spatial */
+.spatial-analysis-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.spatial-tool-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.spatial-tool-grid button {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 27px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1px 7px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: #e5edf5;
+  background: rgba(255,255,255,0.025);
+  text-align: left;
+}
+
+.spatial-tool-grid button > span {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border: 1px solid rgba(247,181,0,0.20);
+  border-radius: 8px;
+  color: var(--accent);
+  background: rgba(247,181,0,0.06);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.spatial-tool-grid button strong {
+  overflow: hidden;
+  font-size: 0.63rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spatial-tool-grid button small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.52rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spatial-tool-grid button:hover,
+.spatial-tool-grid button.active {
+  border-color: rgba(247,181,0,0.45);
+  background: rgba(247,181,0,0.10);
+}
+
+.buffer-tool-card {
+  display: grid;
+  gap: 9px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 11px;
+  background: rgba(255,255,255,0.025);
+}
+
+.buffer-tool-heading {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.buffer-tool-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(34,211,238,0.25);
+  border-radius: 9px;
+  color: #22d3ee;
+  background: rgba(34,211,238,0.07);
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.buffer-tool-heading div {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.buffer-tool-heading strong {
+  color: #f8fafc;
+  font-size: 0.65rem;
+}
+
+.buffer-tool-heading small {
+  color: var(--muted);
+  font-size: 0.54rem;
+}
+
+.buffer-input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 105px;
+  gap: 7px;
+}
+
+.buffer-input-row input,
+.buffer-input-row select {
+  width: 100%;
+  min-width: 0;
+  height: 35px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: #0e1d31;
+  font-size: 0.62rem;
+}
+
+.buffer-run-btn {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid rgba(34,211,238,0.25);
+  border-radius: 8px;
+  color: #cffafe;
+  background: rgba(34,211,238,0.08);
+  font-size: 0.61rem;
+  font-weight: 900;
+}
+
+.buffer-run-btn:hover,
+.buffer-run-btn.active {
+  color: #062b31;
+  background: #22d3ee;
+}
+
+.spatial-tool-status {
+  min-height: 35px;
+  padding: 8px 9px;
+  border: 1px dashed rgba(247,181,0,0.20);
+  border-radius: 9px;
+  color: #cbd5e1;
+  background: rgba(247,181,0,0.035);
+  font-size: 0.56rem;
+  line-height: 1.45;
+}
+
+.secondary-tool-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.secondary-tool-grid button {
+  min-width: 0;
+  padding-inline: 6px;
+  font-size: 0.55rem;
+}
+
+.spatial-tool-cursor {
+  cursor: crosshair !important;
+}
+
+@media (max-width: 420px) {
+  .spatial-tool-grid,
+  .secondary-tool-grid {
+    grid-template-columns: 1fr;
+  }
+}
