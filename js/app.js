@@ -36,7 +36,19 @@ import {
   getCadastralConfig
 } from "./cadastral.js";
 
+if (
+  typeof window.mapboxgl === "undefined" ||
+  typeof window.mapboxgl.Map !== "function"
+) {
+  throw new Error("Mapbox GL JS tidak tersedia.");
+}
+
 mapboxgl.accessToken = MAPBOX_TOKEN;
+
+const mapContainer = document.getElementById("map");
+if (!mapContainer) {
+  throw new Error('Container peta "#map" tidak ditemui.');
+}
 
 const map = new mapboxgl.Map({
   container: "map",
@@ -128,6 +140,11 @@ function showStartupWarning(message) {
 }
 
 map.on("style.load", async () => {
+  if (window.__SUO_BOOT_TIMER__) {
+    window.clearTimeout(window.__SUO_BOOT_TIMER__);
+    window.__SUO_BOOT_TIMER__ = null;
+  }
+
   try {
     await addPortalLayers(map);
 
@@ -874,3 +891,14 @@ document.querySelectorAll("[data-assistant-example]").forEach((button) => {
   });
 });
 
+
+
+window.addEventListener("load", () => {
+  window.setTimeout(() => {
+    try {
+      map.resize();
+    } catch (error) {
+      console.warn("Map resize selepas load gagal:", error);
+    }
+  }, 250);
+});
