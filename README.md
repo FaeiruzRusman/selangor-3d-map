@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.6 — Modular Architecture
+# SUO GeoPortal v7.7 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1058,175 +1058,107 @@ js/app.js?v=6.3
 ```
 
 
-## Actionable Alert Center v7.0
+## Jarak Perjalanan Jalan v6.4
 
-Alert Center diletakkan dalam kolum kanan selepas Weather Intelligence.
-
-### Fungsi
-
-- Feed alert mengikut severity:
-  - Critical
-  - Warning
-  - Info
-  - Success
-- Ticker alert bertukar setiap 5 saat
-- Bilangan alert belum dibaca
-- Sejarah semua alert
-- Tanda satu atau semua alert sebagai dibaca
-- Status dibaca disimpan dalam browser
-- Tiga tindakan bagi setiap alert:
-  - Zoom
-  - Analisis
-  - Tanya Mr. TPr. SUO
-
-### Integrasi
-
-`Zoom` memfokuskan peta dan membuka popup.
-
-`Analisis` boleh:
-
-- membuka Flood Intelligence;
-- membuka Weather Intelligence;
-- mengaktifkan Live Traffic;
-- mengaktifkan layer Pendidikan;
-- membuka konfigurasi Lot Kadaster.
-
-`Tanya` menghantar konteks alert terus ke Ask Mr. TPr. SUO.
-
-### Status data
-
-Alert dalam versi ini ialah prototaip dan disimpan dalam:
+Alat baharu di bawah `Ukur & Analisis`:
 
 ```text
-config/alerts.json
+Jarak Perjalanan Jalan
+├── Jarak Terpendek
+├── Masa Terpantas
+├── Elak Tol
+└── Elak Highway
 ```
 
-Alert operasi rasmi perlu disambungkan kepada API atau feed agensi berkaitan.
+### Cara guna
 
-### Fail baharu
+1. Pilih `Jarak Terpendek` atau `Masa Terpantas`.
+2. Aktifkan `Elak Tol` atau `Elak Highway` jika diperlukan.
+3. Tekan `Pilih Titik Mula & Destinasi`.
+4. Klik titik mula.
+5. Klik destinasi.
+6. Portal memaparkan laluan jalan, jarak dan anggaran masa.
+
+### Kaedah
+
+- `Jarak Terpendek` menggunakan profil `mapbox/driving`,
+  meminta laluan alternatif dan memilih alternatif dengan nilai jarak terendah.
+- `Masa Terpantas` menggunakan profil `mapbox/driving-traffic`.
+- Parameter `exclude=toll` dan `exclude=motorway` digunakan untuk pilihan
+  elak tol dan elak lebuh raya.
+- Titik mula dan destinasi dihantar kepada Mapbox Directions API.
+- Laluan dikembalikan sebagai GeoJSON penuh dan dipaparkan pada peta.
+
+### Nota
+
+Pilihan `Jarak Terpendek` memilih laluan paling pendek daripada alternatif
+yang dikembalikan oleh Directions API. Ia bukan jaminan carian exhaustive
+bagi setiap kombinasi jalan yang mungkin.
+
+Cache busting:
 
 ```text
-js/alert-center.js
-config/alerts.json
+styles.css?v=6.4
+js/app.js?v=6.4
 ```
 
-State alert dibaca:
+
+## Network Intelligence v7.7
+
+Panel kiri kekal untuk alat GIS asas:
 
 ```text
-suoAlertReadStateV70
+Ukur & Analisis
+├── Ukur Jarak
+├── Ukur Keluasan
+├── Analisis Buffer
+├── Lokasi Saya
+└── Padam Hasil
+```
+
+Panel kanan kini mempunyai modul:
+
+```text
+Network Intelligence
+├── Route Intelligence
+├── Accessibility Intelligence
+├── Facility Intelligence
+├── Planning Intelligence
+└── Emergency Intelligence
+```
+
+### Fungsi aktif
+
+- Jarak terpendek
+- Masa terpantas
+- Driving
+- Walking
+- Cycling
+- Elak tol
+- Elak highway
+- Drive-time isochrone
+- Walking/cycling isochrone
+- Nearest hospital
+- Nearest clinic
+- Nearest school
+- Nearest IPK/IPD
+- Polis emergency nearest search
+- Clear network results
+
+### API
+
+- Mapbox Directions API
+- Mapbox Isochrone API
+
+### Modul baharu
+
+```text
+js/network-intelligence.js
 ```
 
 Cache busting:
 
 ```text
-styles.css?v=7.0
-js/app.js?v=7.0
-```
-
-
-## Flood Rain Symbols v7.1
-
-Paparan Ramalan Hujan 24 Jam kini menggunakan simbol bulatan biru muda bagi
-setiap bandar DPN2.
-
-Dalam simbol dipaparkan:
-
-```text
-12
-mm
-```
-
-Reka bentuk:
-
-- Isi simbol: biru muda
-- Teks nilai hujan: dark navy
-- Garisan luar menunjukkan tahap hujan:
-  - biru: bawah 10 mm
-  - kuning: 10–29.9 mm
-  - jingga: 30–59.9 mm
-  - merah: 60 mm dan ke atas
-- Nama bandar dipaparkan di bawah simbol
-- Simbol dan label disokong pada Main Map serta Compare Map
-
-Cache busting:
-
-```text
-styles.css?v=7.1
-js/app.js?v=7.1
-```
-
-
-## Executive Land Use Intelligence v7.5
-
-Kad donut demonstrasi telah digantikan dengan kad ringkasan eksekutif
-berdasarkan statistik Dashboard Guna Tanah 2024.
-
-### Statistik
-
-```text
-Keluasan Gunatanah:
-833,720.73 ha
-
-Tepu Bina:
-239,840.56 ha
-28.76%
-
-Bukan Tepu Bina:
-593,880.17 ha
-71.23%
-
-Kategori Dominan:
-Pertanian
-277,364.81 ha
-```
-
-### Fungsi
-
-- paparan KPI ringkas dalam kolum kanan;
-- bar perbandingan tepu bina dan bukan tepu bina;
-- status kemas kini data 2024;
-- butang ke Dashboard Guna Tanah SISMAPS;
-- data disimpan secara berasingan dalam fail konfigurasi.
-
-### Fail baharu
-
-```text
-js/landuse-intelligence.js
-config/landuse-intelligence.json
-```
-
-Dashboard:
-
-```text
-https://sismaps.jpbdselangor.gov.my/dashboard
-```
-
-Cache busting:
-
-```text
-styles.css?v=7.5
-js/app.js?v=7.5
-```
-
-
-## Mr. TPr. SUO Official Avatar v7.6
-
-Avatar rasmi Ask Mr. TPr. SUO telah dimasukkan ke dalam:
-
-```text
-assets/mr-tpr-suo-avatar.png
-```
-
-Avatar digunakan pada:
-
-- ikon tajuk panel Ask Mr. TPr. SUO;
-- profil pembantu dalam ruang chat.
-
-Paparan menggunakan crop bulat, border kuning SUO dan `object-fit: cover`.
-
-Cache busting:
-
-```text
-styles.css?v=7.6
-js/app.js?v=7.6
+styles.css?v=7.7
+js/app.js?v=7.7
 ```
