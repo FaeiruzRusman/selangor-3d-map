@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="SUO GeoPortal v7.7.3 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
-<title>SUO GeoPortal v7.7.3</title>
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet"/>
-<link href="styles.css?v=7.7.3" rel="stylesheet"/>
+<meta content="SUO GeoPortal v7.7.4 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
+<title>SUO GeoPortal v7.7.4</title>
+<link id="mapboxCss" href="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css" rel="stylesheet" />
+<link href="styles.css?v=7.7.4" rel="stylesheet"/>
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen">
@@ -24,7 +24,7 @@
 <div class="brand-mark">SUO</div>
 <div>
 <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-<h1>GeoPortal <span>v7.7.3</span></h1>
+<h1>GeoPortal <span>v7.7.4</span></h1>
 </div>
 </div>
 <div class="header-actions">
@@ -953,7 +953,7 @@
 <p class="section-label">NETWORK INTELLIGENCE</p>
 <h2>Analisis Rangkaian</h2>
 </div>
-<span class="network-version-badge">v7.7.3</span>
+<span class="network-version-badge">v7.7.4</span>
 </div>
 <div class="network-tabs" role="tablist">
 <button class="network-tab active" data-network-tab="route" type="button">Route</button>
@@ -1214,10 +1214,74 @@
 </div>
 
 <script>
-  window.__SUO_BOOT_TIMER__ = window.setTimeout(function () {
-    var loading = document.getElementById("loadingScreen");
-    if (loading) loading.classList.add("hidden");
-  }, 15000);
+(function () {
+  "use strict";
+
+  var loading = document.getElementById("loadingScreen");
+  var mapContainer = document.getElementById("map");
+  var cssLink = document.getElementById("mapboxCss");
+
+  function showFatal(message) {
+    console.error(message);
+
+    if (loading) {
+      loading.classList.add("hidden");
+    }
+
+    if (!mapContainer) return;
+
+    mapContainer.innerHTML =
+      '<div class="map-startup-error">' +
+        '<strong>Peta gagal dimuatkan</strong>' +
+        '<span>' + message + '</span>' +
+        '<button type="button" onclick="location.reload()">Muat Semula</button>' +
+      '</div>';
+  }
+
+  function loadApp() {
+    if (!window.mapboxgl || typeof window.mapboxgl.Map !== "function") {
+      showFatal("Library Mapbox GL tidak tersedia selepas dimuatkan.");
+      return;
+    }
+
+    import("./js/app.js?v=7.7.4").catch(function (error) {
+      console.error("SUO app module gagal:", error);
+      showFatal(
+        "Modul GeoPortal gagal dimulakan: " +
+        (error && error.message ? error.message : "Ralat tidak diketahui")
+      );
+    });
+  }
+
+  function loadScript(url, onSuccess, onFailure) {
+    var script = document.createElement("script");
+    script.src = url;
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    script.onload = onSuccess;
+    script.onerror = onFailure;
+    document.head.appendChild(script);
+  }
+
+  function loadFallback() {
+    console.warn("Mapbox CDN utama gagal. Mencuba CDN fallback.");
+
+    if (cssLink) {
+      cssLink.href =
+        "https://cdn.jsdelivr.net/npm/mapbox-gl@3.25.0/dist/mapbox-gl.css";
+    }
+
+    loadScript(
+      "https://cdn.jsdelivr.net/npm/mapbox-gl@3.25.0/dist/mapbox-gl.js",
+      loadApp,
+      function () {
+        showFatal(
+          "Kedua-dua sumber Mapbox GL gagal dimuatkan. " +
+          "Semak sambungan internet, content blocker atau polisi firewall."
+        );
+      }
+    );
+  }
 
   window.addEventListener("error", function (event) {
     console.error("SUO startup error:", event.error || event.message);
@@ -1226,8 +1290,23 @@
   window.addEventListener("unhandledrejection", function (event) {
     console.error("SUO unhandled promise rejection:", event.reason);
   });
+
+  window.__SUO_BOOT_TIMER__ = window.setTimeout(function () {
+    if (!document.querySelector("#map .mapboxgl-canvas")) {
+      showFatal(
+        "Mapbox mengambil masa terlalu lama untuk dimulakan. " +
+        "Sila muat semula atau semak akses ke api.mapbox.com."
+      );
+    }
+  }, 20000);
+
+  loadScript(
+    "https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.js",
+    loadApp,
+    loadFallback
+  );
+})();
 </script>
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-<script src="js/app.js?v=7.7.3" type="module"></script>
+
 </body>
 </html>

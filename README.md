@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.7.3 — Modular Architecture
+# SUO GeoPortal v7.7.4 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1268,3 +1268,14 @@ Cache busting:
 styles.css?v=7.7.3
 js/app.js?v=7.7.3
 ```
+
+
+## Map Bootstrap Fix v7.7.4
+
+- Mapbox GL JS dinaik taraf kepada v3.25.0.
+- CDN rasmi digunakan sebagai sumber utama.
+- jsDelivr digunakan sebagai fallback.
+- app.js hanya dimuatkan selepas Mapbox GL tersedia.
+- Ralat startup dipaparkan dalam ruang peta.
+- Timeout ditutup selepas style.load.
+- map.resize() dijalankan selepas layout stabil.

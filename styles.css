@@ -4530,3 +4530,47 @@ body.map-middle-pan-active {
 .startup-warning[hidden] {
   display: none !important;
 }
+
+
+/* v7.7.4 — Map Bootstrap & Fatal Error State */
+.map-startup-error {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-content: center;
+  gap: 10px;
+  padding: 28px;
+  color: #f8fafc;
+  background:
+    radial-gradient(circle at center, rgba(239,68,68,.10), transparent 35%),
+    #07111f;
+  text-align: center;
+}
+
+.map-startup-error strong {
+  color: #fecaca;
+  font-size: 1rem;
+}
+
+.map-startup-error span {
+  max-width: 520px;
+  color: #cbd5e1;
+  font-size: .72rem;
+  line-height: 1.55;
+}
+
+.map-startup-error button {
+  justify-self: center;
+  padding: 9px 14px;
+  border: 1px solid rgba(247,181,0,.35);
+  border-radius: 8px;
+  color: #171100;
+  background: var(--accent);
+  font-weight: 900;
+}
+
+#map > .mapboxgl-canvas-container {
+  position: absolute;
+  inset: 0;
+}
