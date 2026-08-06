@@ -647,9 +647,12 @@ const spatialAssistant = new SpatialAssistant({
     setViewMode,
     flyToCity,
     openSplit: () => compare.open(),
-    focusMap: () => focusMapBtn.click(),
-    setLeftPanel,
-    setRightPanel,
+    focusMap: () =>
+      document.getElementById("focusMapBtn")?.click(),
+    setLeftPanel: (open) =>
+      workspaceController.setLeft(open),
+    setRightPanel: (open) =>
+      workspaceController.setRight(open),
     setLayerVisibility: setAssistantLayerVisibility,
     getLayerLabel: (layer) => ASSISTANT_LAYER_LABELS[layer] || layer
   }
