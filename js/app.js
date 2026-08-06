@@ -1,4 +1,3 @@
-import { MAPBOX_TOKEN, START_VIEW, BASEMAPS } from "./config.js";
 import {
   addPortalLayers,
   applyLayerVisibility,
@@ -6,7 +5,6 @@ import {
   disableTerrain,
   layerState
 } from "./layers.js";
-import { enableMiddleMousePan } from "./utils.js";
 import { initUrbanExplorer } from "./urban-explorer.js";
 import { UrbanTour } from "./urban-tour.js";
 import { CompareEngine } from "./compare.js";
@@ -19,50 +17,20 @@ import {
   NetworkIntelligence,
   isNetworkIntelligenceActive
 } from "./network-intelligence.js";
-import {
-  applyRightPanelRegistry,
-  validateRightPanelRegistry
-} from "./component-registry.js";
-import {
-  ExecutiveLanduseIntelligence
-} from "./executive-landuse.js";
-import { WeatherIntelligence } from "./weather.js";
-import { FloodIntelligence } from "./flood.js";
 import { SpatialAssistant } from "./ai-assistant.js";
 import { SmartSearch } from "./smart-search.js";
+import { createMainMap } from "./core/map-engine.js";
+import { WorkspaceController } from "./ui/workspace-controller.js";
+import {
+  initializeIntelligenceHub
+} from "./intelligence/intelligence-hub.js";
 import {
   addCadastralLayer,
   cadastralPopupHtml,
   getCadastralConfig
 } from "./cadastral.js";
 
-if (
-  typeof window.mapboxgl === "undefined" ||
-  typeof window.mapboxgl.Map !== "function"
-) {
-  throw new Error("Mapbox GL JS tidak tersedia.");
-}
-
-mapboxgl.accessToken = MAPBOX_TOKEN;
-
-const mapContainer = document.getElementById("map");
-if (!mapContainer) {
-  throw new Error('Container peta "#map" tidak ditemui.');
-}
-
-const map = new mapboxgl.Map({
-  container: "map",
-  style: BASEMAPS.standard,
-  center: START_VIEW.center,
-  zoom: START_VIEW.zoom,
-  pitch: START_VIEW.pitch,
-  bearing: 0,
-  antialias: true
-});
-
-map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "top-right");
-map.addControl(new mapboxgl.ScaleControl({ unit: "metric" }), "bottom-right");
-enableMiddleMousePan(map);
+const map = createMainMap();
 
 const compare = new CompareEngine(map);
 const comparePanelUI = new ComparePanelUI();
@@ -72,42 +40,11 @@ const networkIntelligence = new NetworkIntelligence(
   spatialTools
 );
 
-const rightSidebar = document.getElementById("rightSidebar");
+const {
+  weather,
+  flood
+} = initializeIntelligenceHub(map);
 
-try {
-  applyRightPanelRegistry(rightSidebar);
-
-  const registryStatus = validateRightPanelRegistry(rightSidebar);
-  if (!registryStatus.valid) {
-    console.warn(
-      "Right Panel Component Registry tidak lengkap:",
-      registryStatus.missing
-    );
-  }
-} catch (error) {
-  console.error("Component Registry gagal dimulakan:", error);
-}
-
-try {
-  new ExecutiveLanduseIntelligence();
-} catch (error) {
-  console.error("Executive Landuse gagal dimulakan:", error);
-}
-
-let weather = null;
-let flood = null;
-
-try {
-  weather = new WeatherIntelligence(map);
-} catch (error) {
-  console.error("Weather Intelligence gagal dimulakan:", error);
-}
-
-try {
-  flood = new FloodIntelligence(map);
-} catch (error) {
-  console.error("Flood Intelligence gagal dimulakan:", error);
-}
 let viewMode = "3d";
 let nightMode = false;
 let activeMarker = null;
@@ -652,169 +589,10 @@ document.querySelectorAll("[data-layer-category]").forEach((button) => {
 
 
 
-const workspace = document.getElementById("workspace");
-const leftSidebar = document.getElementById("leftSidebar");
-const rightSidebar = document.getElementById("rightSidebar");
-const openLeftPanelTab = document.getElementById("openLeftPanelTab");
-const openRightPanelTab = document.getElementById("openRightPanelTab");
-const focusMapBtn = document.getElementById("focusMapBtn");
-
-const WORKSPACE_STORAGE_KEY = "suoWorkspacePanelStateV39";
-
-let workspaceState = {
-  leftOpen: true,
-  rightOpen: true
-};
-
-let stateBeforeFocus = null;
-let resizeWorkspaceTimer = null;
-
-function readWorkspaceState() {
-  try {
-    const saved = JSON.parse(
-      localStorage.getItem(WORKSPACE_STORAGE_KEY) || "null"
-    );
-
-    if (
-      saved &&
-      typeof saved.leftOpen === "boolean" &&
-      typeof saved.rightOpen === "boolean"
-    ) {
-      workspaceState = saved;
-    }
-  } catch (_) {
-    workspaceState = {
-      leftOpen: true,
-      rightOpen: true
-    };
-  }
-}
-
-function saveWorkspaceState() {
-  try {
-    localStorage.setItem(
-      WORKSPACE_STORAGE_KEY,
-      JSON.stringify(workspaceState)
-    );
-  } catch (_) {}
-}
-
-function resizeWorkspaceMaps() {
-  if (resizeWorkspaceTimer) {
-    clearTimeout(resizeWorkspaceTimer);
-  }
-
-  requestAnimationFrame(() => {
-    map.resize();
-    compare.compareMap?.resize();
-  });
-
-  resizeWorkspaceTimer = setTimeout(() => {
-    map.resize();
-    compare.compareMap?.resize();
-  }, 260);
-}
-
-function renderWorkspaceState({ persist = true } = {}) {
-  workspace.classList.toggle(
-    "left-panel-collapsed",
-    !workspaceState.leftOpen
-  );
-
-  workspace.classList.toggle(
-    "right-panel-collapsed",
-    !workspaceState.rightOpen
-  );
-
-  leftSidebar.setAttribute(
-    "aria-hidden",
-    String(!workspaceState.leftOpen)
-  );
-
-  rightSidebar.setAttribute(
-    "aria-hidden",
-    String(!workspaceState.rightOpen)
-  );
-
-  openLeftPanelTab.hidden = workspaceState.leftOpen;
-  openRightPanelTab.hidden = workspaceState.rightOpen;
-
-  const focusMode =
-    !workspaceState.leftOpen &&
-    !workspaceState.rightOpen;
-
-  focusMapBtn.classList.toggle("active", focusMode);
-  focusMapBtn.textContent = focusMode
-    ? "▣ Restore Panels"
-    : "▣ Focus Map";
-
-  if (persist) {
-    saveWorkspaceState();
-  }
-
-  resizeWorkspaceMaps();
-}
-
-function setLeftPanel(open) {
-  workspaceState.leftOpen = Boolean(open);
-  renderWorkspaceState();
-}
-
-function setRightPanel(open) {
-  workspaceState.rightOpen = Boolean(open);
-  renderWorkspaceState();
-}
-
-document.getElementById("closeLeftPanelBtn")
-  .addEventListener("click", () => setLeftPanel(false));
-
-document.getElementById("closeRightPanelBtn")
-  .addEventListener("click", () => setRightPanel(false));
-
-openLeftPanelTab.addEventListener("click", () => {
-  setLeftPanel(true);
+const workspaceController = new WorkspaceController({
+  map,
+  compare
 });
-
-openRightPanelTab.addEventListener("click", () => {
-  setRightPanel(true);
-});
-
-focusMapBtn.addEventListener("click", () => {
-  const alreadyFocused =
-    !workspaceState.leftOpen &&
-    !workspaceState.rightOpen;
-
-  if (alreadyFocused) {
-    workspaceState = stateBeforeFocus || {
-      leftOpen: true,
-      rightOpen: true
-    };
-
-    stateBeforeFocus = null;
-  } else {
-    stateBeforeFocus = { ...workspaceState };
-    workspaceState = {
-      leftOpen: false,
-      rightOpen: false
-    };
-  }
-
-  renderWorkspaceState();
-});
-
-readWorkspaceState();
-renderWorkspaceState({ persist: false });
-
-window.addEventListener("resize", resizeWorkspaceMaps);
-
-document.getElementById("mobileMenuBtn").addEventListener("click", () => {
-  document.getElementById("leftSidebar").classList.toggle("open");
-});
-
-document.getElementById("rightPanelToggle").addEventListener("click", () => {
-  document.getElementById("rightSidebar").classList.toggle("open");
-});
-
 
 const smartSearch = new SmartSearch({
   map,
