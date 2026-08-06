@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.7.4 — Modular Architecture
+# SUO GeoPortal v8.0 Enterprise Refactor
 
 ## Struktur JavaScript
 
@@ -1279,3 +1279,24 @@ js/app.js?v=7.7.3
 - Ralat startup dipaparkan dalam ruang peta.
 - Timeout ditutup selepas style.load.
 - map.resize() dijalankan selepas layout stabil.
+
+
+## v8.0 Enterprise Refactor
+
+Pembetulan utama:
+
+- Duplicate declaration `rightSidebar` dibuang.
+- Map creation dipindahkan ke `js/core/map-engine.js`.
+- Workspace panel control dipindahkan ke `js/ui/workspace-controller.js`.
+- Urban Intelligence initialization dipindahkan ke `js/intelligence/intelligence-hub.js`.
+- `app.js` dikurangkan dan berfungsi sebagai orchestration layer.
+- Fail architecture manifest ditambah.
+- Semua fungsi v7.7.x dikekalkan.
+- Mapbox bootstrap fallback dikekalkan.
+
+Tanda versi aktif:
+
+```text
+GeoPortal v8.0
+Network Intelligence v8.0
+```
