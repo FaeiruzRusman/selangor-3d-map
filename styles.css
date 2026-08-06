@@ -4285,3 +4285,25 @@ body.map-middle-pan-active {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* v7.7.1 — Right Panel Ordering Fix */
+.summary-heading-panel {
+  padding-bottom: 8px;
+}
+
+.summary-heading-panel .panel-heading {
+  margin-bottom: 0;
+}
+
+.right-sidebar .hero-panel {
+  border-color: rgba(247,181,0,0.20);
+}
+
+.right-sidebar .network-intelligence-panel {
+  border-color: rgba(34,211,238,0.20);
+}
+
+.right-sidebar .chart-panel {
+  border-color: rgba(74,222,128,0.17);
+}

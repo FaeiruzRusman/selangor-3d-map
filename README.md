@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.7 — Modular Architecture
+# SUO GeoPortal v7.7.1 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1162,3 +1162,27 @@ Cache busting:
 styles.css?v=7.7
 js/app.js?v=7.7
 ```
+
+
+## Right Panel Fix v7.7.1
+
+Susunan panel kanan dikunci kepada:
+
+```text
+1. Urban Intelligence
+2. Ringkasan PBT, Daerah & DPN2
+3. Network Intelligence
+4. Flood Intelligence
+5. Weather Intelligence
+6. Landuse Intelligence
+7. Urban Planning AI Assistant
+8. Feature Info
+```
+
+Pembetulan:
+
+- Network Intelligence tidak lagi muncul paling atas.
+- Ringkasan negeri kini mengandungi PBT, daerah, Bandar DPN2 dan layer aktif.
+- Card Land Use dipulihkan dan dinamakan `Landuse Intelligence`.
+- Semua fungsi Network Intelligence v7.7 dikekalkan.
+- Cache-busting dinaik taraf kepada v7.7.1.

@@ -1,784 +1,583 @@
 <!DOCTYPE html>
+
 <html lang="ms">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SUO GeoPortal v7.7 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." />
-  <title>SUO GeoPortal v7.7</title>
-
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=7.7" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="SUO GeoPortal v7.7.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
+<title>SUO GeoPortal v7.7.1</title>
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet"/>
+<link href="styles.css?v=7.7.1" rel="stylesheet"/>
 </head>
 <body>
-  <div id="loadingScreen" class="loading-screen">
-    <div class="loader-ring"></div>
-    <div>
-      <p class="loading-kicker">SELANGOR URBAN OBSERVATORY</p>
-      <h1>SUO GeoPortal</h1>
-      <p>Memuatkan data spatial dan persekitaran 3D...</p>
-    </div>
-  </div>
-
-  <header class="app-header">
-    <div class="brand-wrap">
-      <button id="mobileMenuBtn" class="icon-btn mobile-only" type="button" aria-label="Buka menu">☰</button>
-      <div class="brand-mark">SUO</div>
-      <div>
-        <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-        <h1>GeoPortal <span>v7.7</span></h1>
-      </div>
-    </div>
-
-    <div class="header-actions">
-      <button id="splitBtn" class="header-btn" type="button">◫ Split Screen</button>
-      <button id="tourBtn" class="header-btn secondary" type="button">▶ Urban Tour</button>
-      <button id="focusMapBtn" class="header-btn secondary" type="button">▣ Focus Map</button>
-      <button id="resetBtn" class="header-btn secondary" type="button">⟳ Reset</button>
-      <button id="fullscreenBtn" class="header-btn secondary" type="button">⛶ Fullscreen</button>
-    </div>
-  </header>
-
-  <div id="workspace" class="workspace">
-    <button id="openLeftPanelTab"
-            class="sidebar-reopen-tab left-reopen-tab"
-            type="button"
-            title="Buka kolum kiri"
-            aria-label="Buka kolum kiri"
-            hidden>
-      <span>▶</span>
-      <b>Layer & Navigasi</b>
-    </button>
-
-    <button id="openRightPanelTab"
-            class="sidebar-reopen-tab right-reopen-tab"
-            type="button"
-            title="Buka kolum kanan"
-            aria-label="Buka kolum kanan"
-            hidden>
-      <b>Network Intelligence</b>
-      <span>◀</span>
-    </button>
-
-    <aside id="leftSidebar" class="sidebar left-sidebar">
-      <div class="sidebar-collapse-bar">
-        <span>Navigasi & Layer</span>
-        <button id="closeLeftPanelBtn" type="button" title="Simpan kolum kiri" aria-label="Simpan kolum kiri">◀</button>
-      </div>
-      <section class="panel search-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="section-label">NAVIGASI</p>
-            <h2>Carian lokasi</h2>
-          </div>
-        </div>
-
-        <form id="searchForm" class="search-form smart-search-form" role="search">
-          <div class="smart-search-box">
-            <span class="smart-search-icon" aria-hidden="true">⌕</span>
-            <input id="searchInput"
-                   type="search"
-                   placeholder="Cari bandar, PBT, hospital, sekolah..."
-                   autocomplete="off"
-                   aria-label="Smart Search GeoPortal"
-                   aria-controls="searchResults"
-                   aria-expanded="false" />
-            <button id="clearSearchBtn"
-                    class="smart-search-clear"
-                    type="button"
-                    title="Kosongkan carian"
-                    aria-label="Kosongkan carian"
-                    hidden>✕</button>
-            <button class="smart-search-submit" type="submit" aria-label="Cari">Cari</button>
-          </div>
-        </form>
-
-        <div class="smart-search-hint">
+<div class="loading-screen" id="loadingScreen">
+<div class="loader-ring"></div>
+<div>
+<p class="loading-kicker">SELANGOR URBAN OBSERVATORY</p>
+<h1>SUO GeoPortal</h1>
+<p>Memuatkan data spatial dan persekitaran 3D...</p>
+</div>
+</div>
+<header class="app-header">
+<div class="brand-wrap">
+<button aria-label="Buka menu" class="icon-btn mobile-only" id="mobileMenuBtn" type="button">☰</button>
+<div class="brand-mark">SUO</div>
+<div>
+<p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
+<h1>GeoPortal <span>v7.7.1</span></h1>
+</div>
+</div>
+<div class="header-actions">
+<button class="header-btn" id="splitBtn" type="button">◫ Split Screen</button>
+<button class="header-btn secondary" id="tourBtn" type="button">▶ Urban Tour</button>
+<button class="header-btn secondary" id="focusMapBtn" type="button">▣ Focus Map</button>
+<button class="header-btn secondary" id="resetBtn" type="button">⟳ Reset</button>
+<button class="header-btn secondary" id="fullscreenBtn" type="button">⛶ Fullscreen</button>
+</div>
+</header>
+<div class="workspace" id="workspace">
+<button aria-label="Buka kolum kiri" class="sidebar-reopen-tab left-reopen-tab" hidden="" id="openLeftPanelTab" title="Buka kolum kiri" type="button">
+<span>▶</span>
+<b>Layer &amp; Navigasi</b>
+</button>
+<button aria-label="Buka kolum kanan" class="sidebar-reopen-tab right-reopen-tab" hidden="" id="openRightPanelTab" title="Buka kolum kanan" type="button">
+<b>Network Intelligence</b>
+<span>◀</span>
+</button>
+<aside class="sidebar left-sidebar" id="leftSidebar">
+<div class="sidebar-collapse-bar">
+<span>Navigasi &amp; Layer</span>
+<button aria-label="Simpan kolum kiri" id="closeLeftPanelBtn" title="Simpan kolum kiri" type="button">◀</button>
+</div>
+<section class="panel search-panel">
+<div class="panel-heading">
+<div>
+<p class="section-label">NAVIGASI</p>
+<h2>Carian lokasi</h2>
+</div>
+</div>
+<form class="search-form smart-search-form" id="searchForm" role="search">
+<div class="smart-search-box">
+<span aria-hidden="true" class="smart-search-icon">⌕</span>
+<input aria-controls="searchResults" aria-expanded="false" aria-label="Smart Search GeoPortal" autocomplete="off" id="searchInput" placeholder="Cari bandar, PBT, hospital, sekolah..." type="search"/>
+<button aria-label="Kosongkan carian" class="smart-search-clear" hidden="" id="clearSearchBtn" title="Kosongkan carian" type="button">✕</button>
+<button aria-label="Cari" class="smart-search-submit" type="submit">Cari</button>
+</div>
+</form>
+<div class="smart-search-hint">
           Cari dalam data SUO atau lokasi umum Mapbox
         </div>
-
-        <div id="searchResults"
-             class="search-results smart-search-results"
-             role="listbox"
-             hidden></div>
-      </section>
-
-      <section class="panel">
-        <div class="panel-heading">
-          <div>
-            <p class="section-label">LAYER MANAGEMENT</p>
-            <h2>Kandungan peta</h2>
-          </div>
-          <button id="toggleAllLayers" class="mini-btn" type="button">Semua</button>
-        </div>
-
-        <div class="layer-list enterprise-layer-list">
-
-          <section class="layer-category">
-            <button class="layer-category-header" type="button"
-                    data-layer-category="urbanHierarchy"
-                    aria-expanded="true">
-              <span class="layer-category-icon">◉</span>
-              <span>
-                <strong>Hierarki Bandar DPN2</strong>
-                <small>3 layer</small>
-              </span>
-              <span class="layer-category-chevron">⌄</span>
-            </button>
-
-            <div class="layer-category-content" data-layer-category-content="urbanHierarchy">
-              <label class="layer-item">
-                <span class="legend-symbol city-hierarchy-symbol"></span>
-                <span class="layer-copy">
-                  <strong>Hierarki Bandar DPN2</strong>
-                  <small>Bandar Negeri, Utama dan Tempatan</small>
-                </span>
-                <input id="cityHierarchyToggle" type="checkbox" checked />
-              </label>
-            </div>
-          </section>
-
-          <section class="layer-category">
-            <button class="layer-category-header" type="button"
-                    data-layer-category="facilities"
-                    aria-expanded="true">
-              <span class="layer-category-icon">▦</span>
-              <span>
-                <strong>Kemudahan</strong>
-                <small>2 layer</small>
-              </span>
-              <span class="layer-category-chevron">⌄</span>
-            </button>
-
-            <div class="layer-category-content" data-layer-category-content="facilities">
-              <div class="layer-group nested-layer-group">
-                <div class="layer-item layer-item-expandable">
-                  <button id="healthLegendBtn"
-                          class="layer-expand-btn"
-                          type="button"
-                          aria-expanded="false"
-                          aria-controls="healthLegendPanel"
-                          title="Buka legend kesihatan">▸</button>
-
-                  <span class="legend-symbol health-facility-symbol"></span>
-
-                  <span class="layer-copy">
-                    <strong>Kesihatan</strong>
-                    <small>Kemudahan Kesihatan Negeri Selangor</small>
-                  </span>
-
-                  <input id="healthFacilityToggle" type="checkbox" checked />
-                </div>
-
-                <div id="healthLegendPanel" class="layer-legend-panel" hidden>
-                  <div class="legend-heading">
-                    <span>Legend Kemudahan Kesihatan</span>
-                    <small>87 kemudahan kesihatan rasmi</small>
-                  </div>
-                  <div class="legend-list">
-                    <div class="legend-row"><span class="legend-hospital-icon hospital-color"></span><span>Hospital</span></div>
-                    <div class="legend-row"><span class="legend-hospital-icon clinic-color"></span><span>Klinik Kesihatan</span></div>
-                    <div class="legend-row"><span class="legend-hospital-icon mother-child-color"></span><span>Klinik Ibu dan Anak</span></div>
-                    <div class="legend-row"><span class="legend-hospital-icon village-clinic-color"></span><span>Klinik Desa</span></div>
-                    <div class="legend-row"><span class="legend-hospital-icon other-health-color"></span><span>Lain-lain Kemudahan Kesihatan</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="layer-group nested-layer-group">
-                <div class="layer-item layer-item-expandable">
-                  <button id="policeLegendBtn"
-                          class="layer-expand-btn"
-                          type="button"
-                          aria-expanded="false"
-                          aria-controls="policeLegendPanel"
-                          title="Buka legend keselamatan">▸</button>
-
-                  <span class="legend-symbol police-layer-symbol"></span>
-
-                  <span class="layer-copy">
-                    <strong>Keselamatan</strong>
-                    <small>17 lokasi IPK dan IPD</small>
-                  </span>
-
-                  <input id="policeToggle" type="checkbox" checked />
-                </div>
-
-                <div id="policeLegendPanel" class="layer-legend-panel" hidden>
-                  <div class="legend-heading">
-                    <span>Legend Keselamatan Awam</span>
-                    <small>Hierarki pentadbiran PDRM</small>
-                  </div>
-                  <div class="legend-list">
-                    <div class="legend-row"><span class="legend-police-icon police-ipk-color"></span><span>IPK (2)</span></div>
-                    <div class="legend-row"><span class="legend-police-icon police-ipd-color"></span><span>IPD (15)</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="layer-group nested-layer-group">
-                <div class="layer-item layer-item-expandable">
-                  <button id="schoolLegendBtn"
-                          class="layer-expand-btn"
-                          type="button"
-                          aria-expanded="false"
-                          aria-controls="schoolLegendPanel"
-                          title="Buka legend pendidikan">▸</button>
-
-                  <span class="legend-symbol school-layer-symbol"></span>
-
-                  <span class="layer-copy">
-                    <strong>Pendidikan</strong>
-                    <small>945 sekolah Negeri Selangor</small>
-                  </span>
-
-                  <input id="schoolToggle" type="checkbox" checked />
-                </div>
-
-                <div id="schoolLegendPanel" class="layer-legend-panel" hidden>
-                  <div class="legend-heading">
-                    <span>Legend Pendidikan</span>
-                    <small>Taburan sekolah Negeri Selangor</small>
-                  </div>
-                  <div class="legend-list">
-                    <div class="legend-row"><span class="legend-school-icon school-primary-color"></span><span>Sekolah Rendah (664)</span></div>
-                    <div class="legend-row"><span class="legend-school-icon school-secondary-color"></span><span>Sekolah Menengah (281)</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="layer-category">
-            <button class="layer-category-header" type="button"
-                    data-layer-category="flood"
-                    aria-expanded="true">
-              <span class="layer-category-icon">≋</span>
-              <span>
-                <strong>Flood Intelligence Fasa 1</strong>
-                <small>1 layer</small>
-              </span>
-              <span class="layer-category-chevron">⌄</span>
-            </button>
-
-            <div class="layer-category-content" data-layer-category-content="flood">
-              <div class="layer-group nested-layer-group">
-                <div class="layer-item layer-item-expandable">
-                  <button id="floodLegendBtn"
-                          class="layer-expand-btn"
-                          type="button"
-                          aria-expanded="false"
-                          aria-controls="floodLegendPanel"
-                          title="Buka legend banjir">▸</button>
-
-                  <span class="legend-symbol flood-layer-symbol"></span>
-
-                  <span class="layer-copy">
-                    <strong>Ramalan Hujan 24 Jam</strong>
-                    <small>Bandar DPN2 dan amaran banjir</small>
-                  </span>
-
-                  <input id="floodRainToggle" type="checkbox" checked />
-                </div>
-
-                <div id="floodLegendPanel" class="layer-legend-panel" hidden>
-                  <div class="legend-heading">
-                    <span>Ramalan Hujan 24 Jam</span>
-                    <small>Jumlah hujan diramal, bukan kebarangkalian banjir</small>
-                  </div>
-                  <div class="legend-list">
-                    <div class="legend-row"><span class="flood-rain-dot rain-low"></span><span>Rendah: bawah 10 mm</span></div>
-                    <div class="legend-row"><span class="flood-rain-dot rain-moderate"></span><span>Sederhana: 10–29.9 mm</span></div>
-                    <div class="legend-row"><span class="flood-rain-dot rain-high"></span><span>Tinggi: 30–59.9 mm</span></div>
-                    <div class="legend-row"><span class="flood-rain-dot rain-severe"></span><span>Sangat Tinggi: 60 mm dan ke atas</span></div>
-                  </div>
-                  <div class="flood-layer-note">
+<div class="search-results smart-search-results" hidden="" id="searchResults" role="listbox"></div>
+</section>
+<section class="panel">
+<div class="panel-heading">
+<div>
+<p class="section-label">LAYER MANAGEMENT</p>
+<h2>Kandungan peta</h2>
+</div>
+<button class="mini-btn" id="toggleAllLayers" type="button">Semua</button>
+</div>
+<div class="layer-list enterprise-layer-list">
+<section class="layer-category">
+<button aria-expanded="true" class="layer-category-header" data-layer-category="urbanHierarchy" type="button">
+<span class="layer-category-icon">◉</span>
+<span>
+<strong>Hierarki Bandar DPN2</strong>
+<small>3 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="urbanHierarchy">
+<label class="layer-item">
+<span class="legend-symbol city-hierarchy-symbol"></span>
+<span class="layer-copy">
+<strong>Hierarki Bandar DPN2</strong>
+<small>Bandar Negeri, Utama dan Tempatan</small>
+</span>
+<input checked="" id="cityHierarchyToggle" type="checkbox"/>
+</label>
+</div>
+</section>
+<section class="layer-category">
+<button aria-expanded="true" class="layer-category-header" data-layer-category="facilities" type="button">
+<span class="layer-category-icon">▦</span>
+<span>
+<strong>Kemudahan</strong>
+<small>2 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="facilities">
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="healthLegendPanel" aria-expanded="false" class="layer-expand-btn" id="healthLegendBtn" title="Buka legend kesihatan" type="button">▸</button>
+<span class="legend-symbol health-facility-symbol"></span>
+<span class="layer-copy">
+<strong>Kesihatan</strong>
+<small>Kemudahan Kesihatan Negeri Selangor</small>
+</span>
+<input checked="" id="healthFacilityToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="healthLegendPanel">
+<div class="legend-heading">
+<span>Legend Kemudahan Kesihatan</span>
+<small>87 kemudahan kesihatan rasmi</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="legend-hospital-icon hospital-color"></span><span>Hospital</span></div>
+<div class="legend-row"><span class="legend-hospital-icon clinic-color"></span><span>Klinik Kesihatan</span></div>
+<div class="legend-row"><span class="legend-hospital-icon mother-child-color"></span><span>Klinik Ibu dan Anak</span></div>
+<div class="legend-row"><span class="legend-hospital-icon village-clinic-color"></span><span>Klinik Desa</span></div>
+<div class="legend-row"><span class="legend-hospital-icon other-health-color"></span><span>Lain-lain Kemudahan Kesihatan</span></div>
+</div>
+</div>
+</div>
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="policeLegendPanel" aria-expanded="false" class="layer-expand-btn" id="policeLegendBtn" title="Buka legend keselamatan" type="button">▸</button>
+<span class="legend-symbol police-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Keselamatan</strong>
+<small>17 lokasi IPK dan IPD</small>
+</span>
+<input checked="" id="policeToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="policeLegendPanel">
+<div class="legend-heading">
+<span>Legend Keselamatan Awam</span>
+<small>Hierarki pentadbiran PDRM</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="legend-police-icon police-ipk-color"></span><span>IPK (2)</span></div>
+<div class="legend-row"><span class="legend-police-icon police-ipd-color"></span><span>IPD (15)</span></div>
+</div>
+</div>
+</div>
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="schoolLegendPanel" aria-expanded="false" class="layer-expand-btn" id="schoolLegendBtn" title="Buka legend pendidikan" type="button">▸</button>
+<span class="legend-symbol school-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Pendidikan</strong>
+<small>945 sekolah Negeri Selangor</small>
+</span>
+<input checked="" id="schoolToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="schoolLegendPanel">
+<div class="legend-heading">
+<span>Legend Pendidikan</span>
+<small>Taburan sekolah Negeri Selangor</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="legend-school-icon school-primary-color"></span><span>Sekolah Rendah (664)</span></div>
+<div class="legend-row"><span class="legend-school-icon school-secondary-color"></span><span>Sekolah Menengah (281)</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="layer-category">
+<button aria-expanded="true" class="layer-category-header" data-layer-category="flood" type="button">
+<span class="layer-category-icon">≋</span>
+<span>
+<strong>Flood Intelligence Fasa 1</strong>
+<small>1 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="flood">
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="floodLegendPanel" aria-expanded="false" class="layer-expand-btn" id="floodLegendBtn" title="Buka legend banjir" type="button">▸</button>
+<span class="legend-symbol flood-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Ramalan Hujan 24 Jam</strong>
+<small>Bandar DPN2 dan amaran banjir</small>
+</span>
+<input checked="" id="floodRainToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="floodLegendPanel">
+<div class="legend-heading">
+<span>Ramalan Hujan 24 Jam</span>
+<small>Jumlah hujan diramal, bukan kebarangkalian banjir</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="flood-rain-dot rain-low"></span><span>Rendah: bawah 10 mm</span></div>
+<div class="legend-row"><span class="flood-rain-dot rain-moderate"></span><span>Sederhana: 10–29.9 mm</span></div>
+<div class="legend-row"><span class="flood-rain-dot rain-high"></span><span>Tinggi: 30–59.9 mm</span></div>
+<div class="legend-row"><span class="flood-rain-dot rain-severe"></span><span>Sangat Tinggi: 60 mm dan ke atas</span></div>
+</div>
+<div class="flood-layer-note">
                     Layer risiko banjir statik belum disambungkan kerana data hazard rasmi belum dibekalkan.
                   </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="layer-category">
-            <button class="layer-category-header" type="button"
-                    data-layer-category="traffic"
-                    aria-expanded="true">
-              <span class="layer-category-icon">≡</span>
-              <span>
-                <strong>Live Traffic</strong>
-                <small>1 layer</small>
-              </span>
-              <span class="layer-category-chevron">⌄</span>
-            </button>
-
-            <div class="layer-category-content" data-layer-category-content="traffic">
-              <div class="layer-group nested-layer-group">
-                <div class="layer-item layer-item-expandable">
-                  <button id="trafficLegendBtn"
-                          class="layer-expand-btn"
-                          type="button"
-                          aria-expanded="false"
-                          aria-controls="trafficLegendPanel"
-                          title="Buka legend trafik">▸</button>
-
-                  <span class="legend-symbol traffic-layer-symbol"></span>
-
-                  <span class="layer-copy">
-                    <strong>Live Traffic</strong>
-                    <small>Keadaan kesesakan jalan masa nyata</small>
-                  </span>
-
-                  <input id="trafficToggle" type="checkbox" checked />
-                </div>
-
-                <div id="trafficLegendPanel" class="layer-legend-panel" hidden>
-                  <div class="legend-heading">
-                    <span>Legend Live Traffic</span>
-                    <small>Tahap kesesakan semasa</small>
-                  </div>
-                  <div class="legend-list">
-                    <div class="legend-row"><span class="traffic-legend-line traffic-low"></span><span>Lancar</span></div>
-                    <div class="legend-row"><span class="traffic-legend-line traffic-moderate"></span><span>Sederhana</span></div>
-                    <div class="legend-row"><span class="traffic-legend-line traffic-heavy"></span><span>Sesak</span></div>
-                    <div class="legend-row"><span class="traffic-legend-line traffic-severe"></span><span>Sangat Sesak</span></div>
-                    <div class="legend-row"><span class="traffic-legend-line traffic-unknown"></span><span>Tiada Maklumat</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="layer-category cadastral-category">
-            <button class="layer-category-header" type="button"
-                    data-layer-category="cadastral"
-                    aria-expanded="false">
-              <span class="layer-category-icon">▦</span>
-              <span>
-                <strong>Lot Kadaster</strong>
-                <small>1 layer</small>
-              </span>
-              <span class="layer-category-chevron">⌄</span>
-            </button>
-
-            <div class="layer-category-content"
-                 data-layer-category-content="cadastral"
-                 hidden>
-              <div class="layer-group nested-layer-group">
-                <div class="layer-item layer-item-expandable">
-                  <button id="cadastralLegendBtn"
-                          class="layer-expand-btn"
-                          type="button"
-                          aria-expanded="false"
-                          aria-controls="cadastralLegendPanel"
-                          title="Buka legend lot kadaster">▸</button>
-
-                  <span class="legend-symbol cadastral-layer-symbol"></span>
-
-                  <span class="layer-copy">
-                    <strong>Lot Kadaster Selangor 2023</strong>
-                    <small>1,350,128 lot • Vector Tile</small>
-                  </span>
-
-                  <input id="cadastralToggle"
-                         type="checkbox"
-                         aria-label="Paparkan Lot Kadaster Selangor 2023" />
-                </div>
-
-                <div id="cadastralLegendPanel"
-                     class="layer-legend-panel"
-                     hidden>
-                  <div class="legend-heading">
-                    <span>Legend Lot Kadaster</span>
-                    <small>NDCDB Selangor 2023</small>
-                  </div>
-
-                  <div class="legend-list">
-                    <div class="legend-row">
-                      <span class="cadastral-legend-fill"></span>
-                      <span>Poligon Lot</span>
-                    </div>
-                    <div class="legend-row">
-                      <span class="cadastral-legend-line"></span>
-                      <span>Sempadan Lot</span>
-                    </div>
-                    <div class="legend-row">
-                      <span class="cadastral-legend-label">123</span>
-                      <span>Nombor Lot (zoom dekat)</span>
-                    </div>
-                  </div>
-
-                  <div id="cadastralStatus"
-                       class="cadastral-status">
+</div>
+</div>
+</div>
+</section>
+<section class="layer-category">
+<button aria-expanded="true" class="layer-category-header" data-layer-category="traffic" type="button">
+<span class="layer-category-icon">≡</span>
+<span>
+<strong>Live Traffic</strong>
+<small>1 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="traffic">
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="trafficLegendPanel" aria-expanded="false" class="layer-expand-btn" id="trafficLegendBtn" title="Buka legend trafik" type="button">▸</button>
+<span class="legend-symbol traffic-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Live Traffic</strong>
+<small>Keadaan kesesakan jalan masa nyata</small>
+</span>
+<input checked="" id="trafficToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="trafficLegendPanel">
+<div class="legend-heading">
+<span>Legend Live Traffic</span>
+<small>Tahap kesesakan semasa</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="traffic-legend-line traffic-low"></span><span>Lancar</span></div>
+<div class="legend-row"><span class="traffic-legend-line traffic-moderate"></span><span>Sederhana</span></div>
+<div class="legend-row"><span class="traffic-legend-line traffic-heavy"></span><span>Sesak</span></div>
+<div class="legend-row"><span class="traffic-legend-line traffic-severe"></span><span>Sangat Sesak</span></div>
+<div class="legend-row"><span class="traffic-legend-line traffic-unknown"></span><span>Tiada Maklumat</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="layer-category cadastral-category">
+<button aria-expanded="false" class="layer-category-header" data-layer-category="cadastral" type="button">
+<span class="layer-category-icon">▦</span>
+<span>
+<strong>Lot Kadaster</strong>
+<small>1 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="cadastral" hidden="">
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="cadastralLegendPanel" aria-expanded="false" class="layer-expand-btn" id="cadastralLegendBtn" title="Buka legend lot kadaster" type="button">▸</button>
+<span class="legend-symbol cadastral-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Lot Kadaster Selangor 2023</strong>
+<small>1,350,128 lot • Vector Tile</small>
+</span>
+<input aria-label="Paparkan Lot Kadaster Selangor 2023" id="cadastralToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="cadastralLegendPanel">
+<div class="legend-heading">
+<span>Legend Lot Kadaster</span>
+<small>NDCDB Selangor 2023</small>
+</div>
+<div class="legend-list">
+<div class="legend-row">
+<span class="cadastral-legend-fill"></span>
+<span>Poligon Lot</span>
+</div>
+<div class="legend-row">
+<span class="cadastral-legend-line"></span>
+<span>Sempadan Lot</span>
+</div>
+<div class="legend-row">
+<span class="cadastral-legend-label">123</span>
+<span>Nombor Lot (zoom dekat)</span>
+</div>
+</div>
+<div class="cadastral-status" id="cadastralStatus">
                     Menunggu URL Vector Tile dikonfigurasi.
                   </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="layer-category">
-            <button class="layer-category-header" type="button"
-                    data-layer-category="administration"
-                    aria-expanded="false">
-              <span class="layer-category-icon">▱</span>
-              <span>
-                <strong>Pentadbiran</strong>
-                <small>2 layer</small>
-              </span>
-              <span class="layer-category-chevron">⌄</span>
-            </button>
-
-            <div class="layer-category-content" data-layer-category-content="administration" hidden>
-              <div class="layer-group nested-layer-group">
-                <div class="layer-item layer-item-expandable">
-                  <button id="pbtLegendBtn"
-                          class="layer-expand-btn"
-                          type="button"
-                          aria-expanded="false"
-                          aria-controls="pbtLegendPanel"
-                          title="Buka legend PBT">▸</button>
-
-                  <span class="legend-symbol pbt-layer-symbol"></span>
-
-                  <span class="layer-copy">
-                    <strong>Sempadan PBT Selangor 2024</strong>
-                    <small>12 kawasan pentadbiran PBT</small>
-                  </span>
-
-                  <input id="pbtToggle" type="checkbox" checked />
-                </div>
-
-                <div id="pbtLegendPanel" class="layer-legend-panel" hidden>
-                  <div class="legend-heading">
-                    <span>Legend Sempadan PBT</span>
-                    <small>Sempadan pentadbiran tempatan 2024</small>
-                  </div>
-                  <div class="legend-list">
-                    <div class="legend-row"><span class="pbt-legend-fill"></span><span>Kawasan PBT</span></div>
-                    <div class="legend-row"><span class="pbt-legend-line"></span><span>Sempadan PBT</span></div>
-                    <div class="legend-row"><span class="pbt-legend-label">Aa</span><span>Label Nama PBT</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="layer-group nested-layer-group">
-                <div class="layer-item layer-item-expandable">
-                  <button id="districtLegendBtn"
-                          class="layer-expand-btn"
-                          type="button"
-                          aria-expanded="false"
-                          aria-controls="districtLegendPanel"
-                          title="Buka legend daerah">▸</button>
-
-                  <span class="legend-symbol district-layer-symbol"></span>
-
-                  <span class="layer-copy">
-                    <strong>Sempadan Daerah</strong>
-                    <small>9 daerah Negeri Selangor</small>
-                  </span>
-
-                  <input id="districtToggle" type="checkbox" checked />
-                </div>
-
-                <div id="districtLegendPanel" class="layer-legend-panel" hidden>
-                  <div class="legend-heading">
-                    <span>Legend Sempadan Daerah</span>
-                    <small>Sempadan pentadbiran daerah Selangor</small>
-                  </div>
-                  <div class="legend-list">
-                    <div class="legend-row"><span class="district-legend-fill"></span><span>Kawasan Daerah</span></div>
-                    <div class="legend-row"><span class="district-legend-line"></span><span>Sempadan Daerah</span></div>
-                    <div class="legend-row"><span class="district-legend-label">Aa</span><span>Label Nama Daerah</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="layer-category">
-            <button class="layer-category-header" type="button"
-                    data-layer-category="baseMap"
-                    aria-expanded="false">
-              <span class="layer-category-icon">◇</span>
-              <span>
-                <strong>Peta Asas</strong>
-                <small>2 layer</small>
-              </span>
-              <span class="layer-category-chevron">⌄</span>
-            </button>
-
-            <div class="layer-category-content" data-layer-category-content="baseMap" hidden>
-              <label class="layer-item">
-                <span class="legend-symbol terrain-symbol"></span>
-                <span class="layer-copy">
-                  <strong>Terrain 3D</strong>
-                  <small>Bentuk muka bumi</small>
-                </span>
-                <input id="terrainToggle" type="checkbox" checked />
-              </label>
-
-              <label class="layer-item">
-                <span class="legend-symbol building-symbol"></span>
-                <span class="layer-copy">
-                  <strong>Bangunan 3D</strong>
-                  <small>Objek 3D Mapbox Standard</small>
-                </span>
-                <input id="buildingToggle" type="checkbox" checked />
-              </label>
-            </div>
-          </section>
-
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="panel-heading">
-          <div>
-            <p class="section-label">URBAN EXPLORER</p>
-            <h2>Bandar DPN2 Selangor</h2>
-          </div>
-          <span id="urbanPolicyBadge" class="policy-badge">DPN2</span>
-        </div>
-        <div id="urbanPolicyStatus" class="policy-status">Memuatkan konfigurasi rasmi...</div>
-        <div id="urbanExplorer" class="urban-explorer"></div>
-      </section>
-
-      <section class="panel spatial-analysis-panel">
-        <p class="section-label">UKUR & ANALISIS</p>
-        <h2>Alat Spatial</h2>
-
-        <div class="spatial-tool-grid">
-          <button id="measureDistanceBtn"
-                  type="button"
-                  aria-pressed="false">
-            <span>↔</span>
-            <strong>Ukur Jarak</strong>
-            <small>Klik beberapa titik</small>
-          </button>
-
-          <button id="measureAreaBtn"
-                  type="button"
-                  aria-pressed="false">
-            <span>▱</span>
-            <strong>Ukur Keluasan</strong>
-            <small>Poligon minimum 3 titik</small>
-          </button>
-        </div>
-
-        <div class="buffer-tool-card">
-          <div class="buffer-tool-heading">
-            <span class="buffer-tool-icon">◎</span>
-            <div>
-              <strong>Analisis Buffer</strong>
-              <small>Jana zon radius dari titik pilihan</small>
-            </div>
-          </div>
-
-          <div class="buffer-input-row">
-            <input id="bufferDistance"
-                   type="number"
-                   min="0.1"
-                   step="0.1"
-                   value="500"
-                   aria-label="Jarak buffer" />
-
-            <select id="bufferUnit"
-                    aria-label="Unit buffer">
-              <option value="m">Meter</option>
-              <option value="km">Kilometer</option>
-            </select>
-          </div>
-
-          <button id="bufferAnalysisBtn"
-                  class="buffer-run-btn"
-                  type="button"
-                  aria-pressed="false">
+</div>
+</div>
+</div>
+</section>
+<section class="layer-category">
+<button aria-expanded="false" class="layer-category-header" data-layer-category="administration" type="button">
+<span class="layer-category-icon">▱</span>
+<span>
+<strong>Pentadbiran</strong>
+<small>2 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="administration" hidden="">
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="pbtLegendPanel" aria-expanded="false" class="layer-expand-btn" id="pbtLegendBtn" title="Buka legend PBT" type="button">▸</button>
+<span class="legend-symbol pbt-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Sempadan PBT Selangor 2024</strong>
+<small>12 kawasan pentadbiran PBT</small>
+</span>
+<input checked="" id="pbtToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="pbtLegendPanel">
+<div class="legend-heading">
+<span>Legend Sempadan PBT</span>
+<small>Sempadan pentadbiran tempatan 2024</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="pbt-legend-fill"></span><span>Kawasan PBT</span></div>
+<div class="legend-row"><span class="pbt-legend-line"></span><span>Sempadan PBT</span></div>
+<div class="legend-row"><span class="pbt-legend-label">Aa</span><span>Label Nama PBT</span></div>
+</div>
+</div>
+</div>
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="districtLegendPanel" aria-expanded="false" class="layer-expand-btn" id="districtLegendBtn" title="Buka legend daerah" type="button">▸</button>
+<span class="legend-symbol district-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Sempadan Daerah</strong>
+<small>9 daerah Negeri Selangor</small>
+</span>
+<input checked="" id="districtToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="districtLegendPanel">
+<div class="legend-heading">
+<span>Legend Sempadan Daerah</span>
+<small>Sempadan pentadbiran daerah Selangor</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="district-legend-fill"></span><span>Kawasan Daerah</span></div>
+<div class="legend-row"><span class="district-legend-line"></span><span>Sempadan Daerah</span></div>
+<div class="legend-row"><span class="district-legend-label">Aa</span><span>Label Nama Daerah</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="layer-category">
+<button aria-expanded="false" class="layer-category-header" data-layer-category="baseMap" type="button">
+<span class="layer-category-icon">◇</span>
+<span>
+<strong>Peta Asas</strong>
+<small>2 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="baseMap" hidden="">
+<label class="layer-item">
+<span class="legend-symbol terrain-symbol"></span>
+<span class="layer-copy">
+<strong>Terrain 3D</strong>
+<small>Bentuk muka bumi</small>
+</span>
+<input checked="" id="terrainToggle" type="checkbox"/>
+</label>
+<label class="layer-item">
+<span class="legend-symbol building-symbol"></span>
+<span class="layer-copy">
+<strong>Bangunan 3D</strong>
+<small>Objek 3D Mapbox Standard</small>
+</span>
+<input checked="" id="buildingToggle" type="checkbox"/>
+</label>
+</div>
+</section>
+</div>
+</section>
+<section class="panel">
+<div class="panel-heading">
+<div>
+<p class="section-label">URBAN EXPLORER</p>
+<h2>Bandar DPN2 Selangor</h2>
+</div>
+<span class="policy-badge" id="urbanPolicyBadge">DPN2</span>
+</div>
+<div class="policy-status" id="urbanPolicyStatus">Memuatkan konfigurasi rasmi...</div>
+<div class="urban-explorer" id="urbanExplorer"></div>
+</section>
+<section class="panel spatial-analysis-panel">
+<p class="section-label">UKUR &amp; ANALISIS</p>
+<h2>Alat Spatial</h2>
+<div class="spatial-tool-grid">
+<button aria-pressed="false" id="measureDistanceBtn" type="button">
+<span>↔</span>
+<strong>Ukur Jarak</strong>
+<small>Klik beberapa titik</small>
+</button>
+<button aria-pressed="false" id="measureAreaBtn" type="button">
+<span>▱</span>
+<strong>Ukur Keluasan</strong>
+<small>Poligon minimum 3 titik</small>
+</button>
+</div>
+<div class="buffer-tool-card">
+<div class="buffer-tool-heading">
+<span class="buffer-tool-icon">◎</span>
+<div>
+<strong>Analisis Buffer</strong>
+<small>Jana zon radius dari titik pilihan</small>
+</div>
+</div>
+<div class="buffer-input-row">
+<input aria-label="Jarak buffer" id="bufferDistance" min="0.1" step="0.1" type="number" value="500"/>
+<select aria-label="Unit buffer" id="bufferUnit">
+<option value="m">Meter</option>
+<option value="km">Kilometer</option>
+</select>
+</div>
+<button aria-pressed="false" class="buffer-run-btn" id="bufferAnalysisBtn" type="button">
             Klik Titik Pusat Buffer
           </button>
-        </div>
-
-        <div id="spatialToolStatus"
-             class="spatial-tool-status"
-             role="status"
-             aria-live="polite">
+</div>
+<div aria-live="polite" class="spatial-tool-status" id="spatialToolStatus" role="status">
           Pilih alat untuk memulakan analisis.
         </div>
-
-        <div class="tool-grid secondary-tool-grid">
-          <button id="clearSpatialToolsBtn" type="button">
+<div class="tool-grid secondary-tool-grid">
+<button id="clearSpatialToolsBtn" type="button">
             ✕ Padam Hasil
           </button>
-          <button id="locateBtn" type="button">
+<button id="locateBtn" type="button">
             ◎ Lokasi Saya
           </button>
-          <button id="nightBtn" type="button">
+<button id="nightBtn" type="button">
             ◐ Mod Malam
           </button>
-        </div>
-      </section>
-    </aside>
-
-    <main class="map-shell">
-      <div id="map" class="split-map split-map-left"></div>
-      <div id="compareMap" class="split-map split-map-right" aria-label="Peta perbandingan"></div>
-      <div id="splitDivider" class="split-divider" aria-hidden="true"></div>
-
-      <div class="map-top-tools">
-        <div class="basemap-control">
-          <span>Basemap</span>
-          <select id="basemapSelect">
-            <option value="standard">Standard</option>
-            <option value="satellite">Satellite</option>
-            <option value="streets">Streets</option>
-            <option value="outdoors">Outdoors</option>
-            <option value="dark">Dark</option>
-          </select>
-        </div>
-
-        <div class="view-mode-control" aria-label="Pilihan paparan peta">
-          <span>Paparan</span>
-          <div class="view-mode-buttons" role="group" aria-label="Mod paparan">
-            <button id="view2DBtn" type="button" aria-pressed="false">2D</button>
-            <button id="view3DBtn" class="active" type="button" aria-pressed="true">3D</button>
-          </div>
-        </div>
-      </div>
-
-
-      <section id="comparePanel" class="compare-panel enterprise-compare-panel" aria-label="Enterprise Compare Engine">
-        <div class="compare-panel-heading">
-          <div>
-            <span class="compare-kicker">ENTERPRISE COMPARE ENGINE</span><span class="compare-version-badge">v6.1 • FLOATING PANEL</span>
-            <strong>Compare Mode v6.1</strong>
-          </div>
-          <div class="compare-window-controls">
-            <button id="comparePinBtn"
-                    type="button"
-                    title="Pin panel"
-                    aria-label="Pin atau auto-hide panel"
-                    aria-pressed="true">📌</button>
-            <button id="compareMinimizeBtn"
-                    type="button"
-                    title="Minimize panel"
-                    aria-label="Minimize panel"
-                    aria-expanded="true">—</button>
-            <button id="compareResetPositionBtn"
-                    type="button"
-                    title="Kembalikan kedudukan panel"
-                    aria-label="Reset kedudukan panel">□</button>
-            <button id="closeSplitBtn"
-                    type="button"
-                    title="Tutup Compare Mode"
-                    aria-label="Tutup compare mode">✕</button>
-          </div>
-        </div>
-
-        <div id="comparePanelHint" class="compare-panel-hint">
+</div>
+</section>
+</aside>
+<main class="map-shell">
+<div class="split-map split-map-left" id="map"></div>
+<div aria-label="Peta perbandingan" class="split-map split-map-right" id="compareMap"></div>
+<div aria-hidden="true" class="split-divider" id="splitDivider"></div>
+<div class="map-top-tools">
+<div class="basemap-control">
+<span>Basemap</span>
+<select id="basemapSelect">
+<option value="standard">Standard</option>
+<option value="satellite">Satellite</option>
+<option value="streets">Streets</option>
+<option value="outdoors">Outdoors</option>
+<option value="dark">Dark</option>
+</select>
+</div>
+<div aria-label="Pilihan paparan peta" class="view-mode-control">
+<span>Paparan</span>
+<div aria-label="Mod paparan" class="view-mode-buttons" role="group">
+<button aria-pressed="false" id="view2DBtn" type="button">2D</button>
+<button aria-pressed="true" class="active" id="view3DBtn" type="button">3D</button>
+</div>
+</div>
+</div>
+<section aria-label="Enterprise Compare Engine" class="compare-panel enterprise-compare-panel" id="comparePanel">
+<div class="compare-panel-heading">
+<div>
+<span class="compare-kicker">ENTERPRISE COMPARE ENGINE</span><span class="compare-version-badge">v6.1 • FLOATING PANEL</span>
+<strong>Compare Mode v6.1</strong>
+</div>
+<div class="compare-window-controls">
+<button aria-label="Pin atau auto-hide panel" aria-pressed="true" id="comparePinBtn" title="Pin panel" type="button">📌</button>
+<button aria-expanded="true" aria-label="Minimize panel" id="compareMinimizeBtn" title="Minimize panel" type="button">—</button>
+<button aria-label="Reset kedudukan panel" id="compareResetPositionBtn" title="Kembalikan kedudukan panel" type="button">□</button>
+<button aria-label="Tutup compare mode" id="closeSplitBtn" title="Tutup Compare Mode" type="button">✕</button>
+</div>
+</div>
+<div class="compare-panel-hint" id="comparePanelHint">
           Seret header untuk alih panel. Minimize untuk melihat peta di belakang.
         </div>
-
-        <div class="compare-tabs" role="tablist">
-          <button class="compare-tab active" type="button" data-compare-tab="layers">Layers</button>
-          <button class="compare-tab" type="button" data-compare-tab="basemap">Basemap</button>
-          <button class="compare-tab" type="button" data-compare-tab="display">Display</button>
-        </div>
-
-        <div class="compare-tab-panel active" data-compare-panel="layers">
-          <div class="compare-side-grid">
-            <section class="compare-side-card">
-              <div class="compare-side-title"><span>LEFT MAP</span><button type="button" data-select-all="left">Semua</button></div>
-              <div class="compare-layer-list">
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="left" data-compare-layer="cityHierarchy" checked />
-                  <span>Hierarki Bandar DPN2</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="left" data-compare-layer="healthFacilities" checked />
-                  <span>Kesihatan</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="left" data-compare-layer="schools" checked />
-                  <span>Pendidikan</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="left" data-compare-layer="police" checked />
-                  <span>Keselamatan</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="left" data-compare-layer="floodRain" checked />
-                  <span>Flood Intelligence</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="left" data-compare-layer="traffic" checked />
-                  <span>Live Traffic</span>
-                </label>
-                                <label class="compare-layer-row">
-                  <input type="checkbox"
-                         data-compare-side="left"
-                         data-compare-layer="cadastral" />
-                  <span>Lot Kadaster 2023</span>
-                </label>
+<div class="compare-tabs" role="tablist">
+<button class="compare-tab active" data-compare-tab="layers" type="button">Layers</button>
+<button class="compare-tab" data-compare-tab="basemap" type="button">Basemap</button>
+<button class="compare-tab" data-compare-tab="display" type="button">Display</button>
+</div>
+<div class="compare-tab-panel active" data-compare-panel="layers">
+<div class="compare-side-grid">
+<section class="compare-side-card">
+<div class="compare-side-title"><span>LEFT MAP</span><button data-select-all="left" type="button">Semua</button></div>
+<div class="compare-layer-list">
 <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="left" data-compare-layer="districts" checked />
-                  <span>Sempadan Daerah</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="left" data-compare-layer="pbt" checked />
-                  <span>Sempadan PBT</span>
-                </label>
-              </div>
-            </section>
-            <section class="compare-side-card">
-              <div class="compare-side-title"><span>RIGHT MAP</span><button type="button" data-select-all="right">Semua</button></div>
-              <div class="compare-layer-list">
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="right" data-compare-layer="cityHierarchy" checked />
-                  <span>Hierarki Bandar DPN2</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="right" data-compare-layer="healthFacilities" checked />
-                  <span>Kesihatan</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="right" data-compare-layer="schools" checked />
-                  <span>Pendidikan</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="right" data-compare-layer="police" checked />
-                  <span>Keselamatan</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="right" data-compare-layer="floodRain" checked />
-                  <span>Flood Intelligence</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="right" data-compare-layer="traffic" checked />
-                  <span>Live Traffic</span>
-                </label>
-                                <label class="compare-layer-row">
-                  <input type="checkbox"
-                         data-compare-side="right"
-                         data-compare-layer="cadastral" />
-                  <span>Lot Kadaster 2023</span>
-                </label>
+<input checked="" data-compare-layer="cityHierarchy" data-compare-side="left" type="checkbox"/>
+<span>Hierarki Bandar DPN2</span>
+</label>
 <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="right" data-compare-layer="districts" checked />
-                  <span>Sempadan Daerah</span>
-                </label>
-                <label class="compare-layer-row">
-                  <input type="checkbox" data-compare-side="right" data-compare-layer="pbt" checked />
-                  <span>Sempadan PBT</span>
-                </label>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <div class="compare-tab-panel" data-compare-panel="basemap" hidden>
-          <div class="compare-side-grid">
-            <label class="compare-side-card compare-basemap-card">
-              <span class="compare-side-title">LEFT MAP</span>
-              <select id="leftBasemapSelect">
+<input checked="" data-compare-layer="healthFacilities" data-compare-side="left" type="checkbox"/>
+<span>Kesihatan</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="schools" data-compare-side="left" type="checkbox"/>
+<span>Pendidikan</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="police" data-compare-side="left" type="checkbox"/>
+<span>Keselamatan</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="floodRain" data-compare-side="left" type="checkbox"/>
+<span>Flood Intelligence</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="traffic" data-compare-side="left" type="checkbox"/>
+<span>Live Traffic</span>
+</label>
+<label class="compare-layer-row">
+<input data-compare-layer="cadastral" data-compare-side="left" type="checkbox"/>
+<span>Lot Kadaster 2023</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="districts" data-compare-side="left" type="checkbox"/>
+<span>Sempadan Daerah</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="pbt" data-compare-side="left" type="checkbox"/>
+<span>Sempadan PBT</span>
+</label>
+</div>
+</section>
+<section class="compare-side-card">
+<div class="compare-side-title"><span>RIGHT MAP</span><button data-select-all="right" type="button">Semua</button></div>
+<div class="compare-layer-list">
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="cityHierarchy" data-compare-side="right" type="checkbox"/>
+<span>Hierarki Bandar DPN2</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="healthFacilities" data-compare-side="right" type="checkbox"/>
+<span>Kesihatan</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="schools" data-compare-side="right" type="checkbox"/>
+<span>Pendidikan</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="police" data-compare-side="right" type="checkbox"/>
+<span>Keselamatan</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="floodRain" data-compare-side="right" type="checkbox"/>
+<span>Flood Intelligence</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="traffic" data-compare-side="right" type="checkbox"/>
+<span>Live Traffic</span>
+</label>
+<label class="compare-layer-row">
+<input data-compare-layer="cadastral" data-compare-side="right" type="checkbox"/>
+<span>Lot Kadaster 2023</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="districts" data-compare-side="right" type="checkbox"/>
+<span>Sempadan Daerah</span>
+</label>
+<label class="compare-layer-row">
+<input checked="" data-compare-layer="pbt" data-compare-side="right" type="checkbox"/>
+<span>Sempadan PBT</span>
+</label>
+</div>
+</section>
+</div>
+</div>
+<div class="compare-tab-panel" data-compare-panel="basemap" hidden="">
+<div class="compare-side-grid">
+<label class="compare-side-card compare-basemap-card">
+<span class="compare-side-title">LEFT MAP</span>
+<select id="leftBasemapSelect">
 <option value="standard">Standard</option>
 <option value="satellite">Satellite</option>
 <option value="hybrid">Hybrid</option>
@@ -790,13 +589,13 @@
 <option value="navigationDay">Navigation Day</option>
 <option value="navigationNight">Navigation Night</option>
 <option value="osm">OpenStreetMap</option>
-              </select>
-            </label>
-            <label class="compare-side-card compare-basemap-card">
-              <span class="compare-side-title">RIGHT MAP</span>
-              <select id="rightBasemapSelect">
+</select>
+</label>
+<label class="compare-side-card compare-basemap-card">
+<span class="compare-side-title">RIGHT MAP</span>
+<select id="rightBasemapSelect">
 <option value="standard">Standard</option>
-<option value="satellite" selected>Satellite</option>
+<option selected="" value="satellite">Satellite</option>
 <option value="hybrid">Hybrid</option>
 <option value="terrain">Terrain</option>
 <option value="light">Light</option>
@@ -806,650 +605,586 @@
 <option value="navigationDay">Navigation Day</option>
 <option value="navigationNight">Navigation Night</option>
 <option value="osm">OpenStreetMap</option>
-              </select>
-            </label>
-          </div>
-          <div class="compare-basemap-note">Semua pilihan basemap tersedia secara bebas untuk kedua-dua paparan. <strong>OpenStreetMap dikunci kepada 2D</strong> bagi mengelakkan distorsi raster.</div>
-          <button id="swapMapsBtn" class="compare-wide-btn" type="button">⇄ Tukar Basemap Kiri/Kanan</button>
-        </div>
-
-        <div class="compare-tab-panel" data-compare-panel="display" hidden>
-          <div class="compare-side-grid">
-            <section class="compare-side-card">
-              <span class="compare-side-title">LEFT MAP</span>
-              <div class="compare-segment">
-                <button id="left2DBtn" type="button">2D</button>
-                <button id="left3DBtn" class="active" type="button">3D</button>
-              </div>
-              <label class="compare-switch-row"><span>Basemap Labels</span><input id="leftLabelsToggle" type="checkbox" checked /></label>
-            </section>
-            <section class="compare-side-card">
-              <span class="compare-side-title">RIGHT MAP</span>
-              <div class="compare-segment">
-                <button id="right2DBtn" type="button">2D</button>
-                <button id="right3DBtn" class="active" type="button">3D</button>
-              </div>
-              <label class="compare-switch-row"><span>Basemap Labels</span><input id="rightLabelsToggle" type="checkbox" checked /></label>
-            </section>
-          </div>
-
-          <div class="compare-sync-grid">
-            <label><input id="syncPanToggle" type="checkbox" checked /> Sync Pan</label>
-            <label><input id="syncZoomToggle" type="checkbox" checked /> Sync Zoom</label>
-            <label><input id="syncBearingToggle" type="checkbox" checked /> Sync Bearing</label>
-            <label><input id="syncPitchToggle" type="checkbox" checked /> Sync Pitch</label>
-          </div>
-        </div>
-
-        <div id="compareStatus" class="compare-status">Left dan Right Map mempunyai state berasingan.</div>
-      </section>
-
-
-      <section id="tourPanel" class="tour-panel" hidden>
-        <div class="tour-heading">
-          <div>
-            <span class="compare-kicker">URBAN TOUR ENGINE</span>
-            <strong id="tourCityName">Bandar</strong>
-          </div>
-          <button id="tourCloseBtn" type="button">✕</button>
-        </div>
-
-        <div class="tour-meta">
-          <span id="tourHierarchy">Hierarki</span>
-          <span id="tourDistrict">Daerah</span>
-        </div>
-
-        <div class="tour-progress-track">
-          <div id="tourProgressBar"></div>
-        </div>
-
-        <div class="tour-counter">
-          <span id="tourCounter">0 / 0</span>
-          <span id="tourStatus">Sedia</span>
-        </div>
-
-        <div class="tour-actions">
-          <button id="tourPrevBtn" type="button">⏮</button>
-          <button id="tourPauseBtn" type="button">⏸ Pause</button>
-          <button id="tourNextBtn" type="button">⏭</button>
-          <button id="tourStopBtn" type="button">■ Stop</button>
-        </div>
-      </section>
-
-
-      <section id="floodPanel" class="flood-panel" hidden>
-        <div class="flood-panel-header">
-          <div>
-            <span class="compare-kicker">FLOOD INTELLIGENCE — FASA 1</span>
-            <h2 id="floodPanelTitle">Selangor</h2>
-            <p>Gabungan ramalan hujan, amaran rasmi dan pautan operasi.</p>
-          </div>
-          <div class="flood-panel-actions">
-            <button id="floodRefreshBtn" type="button" title="Muat semula">↻</button>
-            <button id="floodCloseBtn" type="button" title="Tutup">✕</button>
-          </div>
-        </div>
-
-        <div id="floodLoading" class="flood-loading">Memuatkan Flood Intelligence...</div>
-
-        <div id="floodContent" hidden>
-          <section class="flood-summary-grid">
-            <article class="flood-summary-card">
-              <span>Amaran Banjir Aktif</span>
-              <strong id="floodWarningCount">--</strong>
-              <small id="floodWarningStatus">Menyemak data rasmi</small>
-            </article>
-            <article class="flood-summary-card">
-              <span>Hujan Tertinggi 24 Jam</span>
-              <strong id="floodMaxRain">-- mm</strong>
-              <small id="floodMaxRainLocation">Bandar DPN2</small>
-            </article>
-            <article class="flood-summary-card">
-              <span>Bandar Tahap Tinggi</span>
-              <strong id="floodHighRainCities">--</strong>
-              <small>30 mm dan ke atas</small>
-            </article>
-            <article class="flood-summary-card">
-              <span>Risiko Statik</span>
-              <strong class="flood-pending">PENDING</strong>
-              <small>Menunggu layer hazard rasmi</small>
-            </article>
-          </section>
-
-          <section class="flood-section">
-            <div class="flood-section-heading">
-              <div>
-                <p class="section-label">RAMALAN HUJAN 24 JAM</p>
-                <h3>Bandar DPN2 Selangor</h3>
-              </div>
-              <span id="floodRainUpdated">--</span>
-            </div>
-            <div id="floodRainRanking" class="flood-rain-ranking"></div>
-            <div class="flood-disclaimer">
+</select>
+</label>
+</div>
+<div class="compare-basemap-note">Semua pilihan basemap tersedia secara bebas untuk kedua-dua paparan. <strong>OpenStreetMap dikunci kepada 2D</strong> bagi mengelakkan distorsi raster.</div>
+<button class="compare-wide-btn" id="swapMapsBtn" type="button">⇄ Tukar Basemap Kiri/Kanan</button>
+</div>
+<div class="compare-tab-panel" data-compare-panel="display" hidden="">
+<div class="compare-side-grid">
+<section class="compare-side-card">
+<span class="compare-side-title">LEFT MAP</span>
+<div class="compare-segment">
+<button id="left2DBtn" type="button">2D</button>
+<button class="active" id="left3DBtn" type="button">3D</button>
+</div>
+<label class="compare-switch-row"><span>Basemap Labels</span><input checked="" id="leftLabelsToggle" type="checkbox"/></label>
+</section>
+<section class="compare-side-card">
+<span class="compare-side-title">RIGHT MAP</span>
+<div class="compare-segment">
+<button id="right2DBtn" type="button">2D</button>
+<button class="active" id="right3DBtn" type="button">3D</button>
+</div>
+<label class="compare-switch-row"><span>Basemap Labels</span><input checked="" id="rightLabelsToggle" type="checkbox"/></label>
+</section>
+</div>
+<div class="compare-sync-grid">
+<label><input checked="" id="syncPanToggle" type="checkbox"/> Sync Pan</label>
+<label><input checked="" id="syncZoomToggle" type="checkbox"/> Sync Zoom</label>
+<label><input checked="" id="syncBearingToggle" type="checkbox"/> Sync Bearing</label>
+<label><input checked="" id="syncPitchToggle" type="checkbox"/> Sync Pitch</label>
+</div>
+</div>
+<div class="compare-status" id="compareStatus">Left dan Right Map mempunyai state berasingan.</div>
+</section>
+<section class="tour-panel" hidden="" id="tourPanel">
+<div class="tour-heading">
+<div>
+<span class="compare-kicker">URBAN TOUR ENGINE</span>
+<strong id="tourCityName">Bandar</strong>
+</div>
+<button id="tourCloseBtn" type="button">✕</button>
+</div>
+<div class="tour-meta">
+<span id="tourHierarchy">Hierarki</span>
+<span id="tourDistrict">Daerah</span>
+</div>
+<div class="tour-progress-track">
+<div id="tourProgressBar"></div>
+</div>
+<div class="tour-counter">
+<span id="tourCounter">0 / 0</span>
+<span id="tourStatus">Sedia</span>
+</div>
+<div class="tour-actions">
+<button id="tourPrevBtn" type="button">⏮</button>
+<button id="tourPauseBtn" type="button">⏸ Pause</button>
+<button id="tourNextBtn" type="button">⏭</button>
+<button id="tourStopBtn" type="button">■ Stop</button>
+</div>
+</section>
+<section class="flood-panel" hidden="" id="floodPanel">
+<div class="flood-panel-header">
+<div>
+<span class="compare-kicker">FLOOD INTELLIGENCE — FASA 1</span>
+<h2 id="floodPanelTitle">Selangor</h2>
+<p>Gabungan ramalan hujan, amaran rasmi dan pautan operasi.</p>
+</div>
+<div class="flood-panel-actions">
+<button id="floodRefreshBtn" title="Muat semula" type="button">↻</button>
+<button id="floodCloseBtn" title="Tutup" type="button">✕</button>
+</div>
+</div>
+<div class="flood-loading" id="floodLoading">Memuatkan Flood Intelligence...</div>
+<div hidden="" id="floodContent">
+<section class="flood-summary-grid">
+<article class="flood-summary-card">
+<span>Amaran Banjir Aktif</span>
+<strong id="floodWarningCount">--</strong>
+<small id="floodWarningStatus">Menyemak data rasmi</small>
+</article>
+<article class="flood-summary-card">
+<span>Hujan Tertinggi 24 Jam</span>
+<strong id="floodMaxRain">-- mm</strong>
+<small id="floodMaxRainLocation">Bandar DPN2</small>
+</article>
+<article class="flood-summary-card">
+<span>Bandar Tahap Tinggi</span>
+<strong id="floodHighRainCities">--</strong>
+<small>30 mm dan ke atas</small>
+</article>
+<article class="flood-summary-card">
+<span>Risiko Statik</span>
+<strong class="flood-pending">PENDING</strong>
+<small>Menunggu layer hazard rasmi</small>
+</article>
+</section>
+<section class="flood-section">
+<div class="flood-section-heading">
+<div>
+<p class="section-label">RAMALAN HUJAN 24 JAM</p>
+<h3>Bandar DPN2 Selangor</h3>
+</div>
+<span id="floodRainUpdated">--</span>
+</div>
+<div class="flood-rain-ranking" id="floodRainRanking"></div>
+<div class="flood-disclaimer">
               Jumlah hujan ialah indikator awal. Ia tidak sama dengan ramalan kawasan akan banjir.
             </div>
-          </section>
-
-          <section class="flood-section">
-            <div class="flood-section-heading">
-              <div>
-                <p class="section-label">AMARAN BANJIR</p>
-                <h3>Data masa nyata Malaysia</h3>
-              </div>
-              <span class="flood-live-pill">LIVE</span>
-            </div>
-            <div id="floodWarningList" class="flood-warning-list"></div>
-          </section>
-
-          <section class="flood-section">
-            <div class="flood-section-heading">
-              <div>
-                <p class="section-label">PARAS SUNGAI & HUJAN</p>
-                <h3>Public InfoBanjir JPS</h3>
-              </div>
-            </div>
-            <div class="flood-resource-card">
-              <div class="flood-resource-icon">≋</div>
-              <div>
-                <strong>Stesen Hidrologi Selangor</strong>
-                <p>Semak paras sungai, trend naik/turun dan data hujan stesen secara langsung.</p>
-                <div class="flood-resource-actions">
-                  <a href="https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?lang=ms&state=SEL"
-                     target="_blank" rel="noopener noreferrer">Buka Paras Sungai</a>
-                  <a href="https://publicinfobanjir.water.gov.my/hujan/data-hujan/?lang=ms&state=SEL"
-                     target="_blank" rel="noopener noreferrer">Buka Data Hujan</a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="flood-section">
-            <div class="flood-section-heading">
-              <div>
-                <p class="section-label">PUSAT PEMINDAHAN SEMENTARA</p>
-                <h3>Semakan PPS Aktif</h3>
-              </div>
-            </div>
-            <div class="flood-resource-card">
-              <div class="flood-resource-icon">⌂</div>
-              <div>
-                <strong>InfoBencana JKM</strong>
-                <p>Semak PPS aktif, keluarga dan mangsa bencana terkini.</p>
-                <div class="flood-resource-actions">
-                  <a href="https://infobencanajkmv2.jkm.gov.my/landing/index.php?a=0&b=1"
-                     target="_blank" rel="noopener noreferrer">Buka Semakan PPS</a>
-                  <a href="https://portalbencana.nadma.gov.my/ms/"
-                     target="_blank" rel="noopener noreferrer">Portal NADMA</a>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="flood-section">
-            <div class="flood-section-heading">
-              <div>
-                <p class="section-label">RISIKO BANJIR STATIK</p>
-                <h3>Layer hazard rasmi</h3>
-              </div>
-            </div>
-            <div class="flood-static-placeholder">
-              <div class="flood-placeholder-icon">▧</div>
-              <div>
-                <strong>Belum Disambungkan</strong>
-                <p>Masukkan layer kawasan risiko/hazard banjir rasmi JPS atau negeri untuk mengaktifkan paparan ini.</p>
-                <code>data/banjir/risiko_banjir_selangor.geojson</code>
-              </div>
-            </div>
-          </section>
-
-          <div class="flood-source-note">
+</section>
+<section class="flood-section">
+<div class="flood-section-heading">
+<div>
+<p class="section-label">AMARAN BANJIR</p>
+<h3>Data masa nyata Malaysia</h3>
+</div>
+<span class="flood-live-pill">LIVE</span>
+</div>
+<div class="flood-warning-list" id="floodWarningList"></div>
+</section>
+<section class="flood-section">
+<div class="flood-section-heading">
+<div>
+<p class="section-label">PARAS SUNGAI &amp; HUJAN</p>
+<h3>Public InfoBanjir JPS</h3>
+</div>
+</div>
+<div class="flood-resource-card">
+<div class="flood-resource-icon">≋</div>
+<div>
+<strong>Stesen Hidrologi Selangor</strong>
+<p>Semak paras sungai, trend naik/turun dan data hujan stesen secara langsung.</p>
+<div class="flood-resource-actions">
+<a href="https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?lang=ms&amp;state=SEL" rel="noopener noreferrer" target="_blank">Buka Paras Sungai</a>
+<a href="https://publicinfobanjir.water.gov.my/hujan/data-hujan/?lang=ms&amp;state=SEL" rel="noopener noreferrer" target="_blank">Buka Data Hujan</a>
+</div>
+</div>
+</div>
+</section>
+<section class="flood-section">
+<div class="flood-section-heading">
+<div>
+<p class="section-label">PUSAT PEMINDAHAN SEMENTARA</p>
+<h3>Semakan PPS Aktif</h3>
+</div>
+</div>
+<div class="flood-resource-card">
+<div class="flood-resource-icon">⌂</div>
+<div>
+<strong>InfoBencana JKM</strong>
+<p>Semak PPS aktif, keluarga dan mangsa bencana terkini.</p>
+<div class="flood-resource-actions">
+<a href="https://infobencanajkmv2.jkm.gov.my/landing/index.php?a=0&amp;b=1" rel="noopener noreferrer" target="_blank">Buka Semakan PPS</a>
+<a href="https://portalbencana.nadma.gov.my/ms/" rel="noopener noreferrer" target="_blank">Portal NADMA</a>
+</div>
+</div>
+</div>
+</section>
+<section class="flood-section">
+<div class="flood-section-heading">
+<div>
+<p class="section-label">RISIKO BANJIR STATIK</p>
+<h3>Layer hazard rasmi</h3>
+</div>
+</div>
+<div class="flood-static-placeholder">
+<div class="flood-placeholder-icon">▧</div>
+<div>
+<strong>Belum Disambungkan</strong>
+<p>Masukkan layer kawasan risiko/hazard banjir rasmi JPS atau negeri untuk mengaktifkan paparan ini.</p>
+<code>data/banjir/risiko_banjir_selangor.geojson</code>
+</div>
+</div>
+</section>
+<div class="flood-source-note">
             Sumber: data.gov.my, METMalaysia, JPS Public InfoBanjir, JKM InfoBencana dan NADMA.
           </div>
-        </div>
-
-        <div id="floodError" class="flood-error" hidden></div>
-      </section>
-
-      <section id="weatherPanel" class="weather-panel" hidden>
-        <div class="weather-panel-header">
-          <div>
-            <span class="compare-kicker">WEATHER INTELLIGENCE</span>
-            <h2 id="weatherLocationName">Shah Alam</h2>
-            <p id="weatherCoordinates">3.0738, 101.5183</p>
-          </div>
-          <div class="weather-panel-actions">
-            <button id="weatherUseMapCenterBtn" type="button" title="Gunakan pusat peta">◎ Pusat Peta</button>
-            <button id="weatherRefreshBtn" type="button" title="Muat semula">↻</button>
-            <button id="weatherCloseBtn" type="button" title="Tutup">✕</button>
-          </div>
-        </div>
-
-        <div id="weatherLoading" class="weather-loading">
+</div>
+<div class="flood-error" hidden="" id="floodError"></div>
+</section>
+<section class="weather-panel" hidden="" id="weatherPanel">
+<div class="weather-panel-header">
+<div>
+<span class="compare-kicker">WEATHER INTELLIGENCE</span>
+<h2 id="weatherLocationName">Shah Alam</h2>
+<p id="weatherCoordinates">3.0738, 101.5183</p>
+</div>
+<div class="weather-panel-actions">
+<button id="weatherUseMapCenterBtn" title="Gunakan pusat peta" type="button">◎ Pusat Peta</button>
+<button id="weatherRefreshBtn" title="Muat semula" type="button">↻</button>
+<button id="weatherCloseBtn" title="Tutup" type="button">✕</button>
+</div>
+</div>
+<div class="weather-loading" id="weatherLoading">
           Memuatkan Weather Intelligence...
         </div>
-
-        <div id="weatherContent" hidden>
-          <section class="weather-current-card">
-            <div class="weather-current-main">
-              <div id="weatherMainIcon" class="weather-main-icon">☁</div>
-              <div>
-                <strong id="weatherCurrentTemp">--°C</strong>
-                <span id="weatherCurrentCondition">--</span>
-                <small id="weatherFeelsLike">Terasa seperti --°C</small>
-              </div>
-            </div>
-
-            <div class="weather-current-grid">
-              <div><span>Kelembapan</span><strong id="weatherHumidity">--%</strong></div>
-              <div><span>Hujan</span><strong id="weatherRain">-- mm</strong></div>
-              <div><span>Angin</span><strong id="weatherWind">-- km/j</strong></div>
-              <div><span>UV</span><strong id="weatherUv">--</strong></div>
-              <div><span>Jarak Penglihatan</span><strong id="weatherVisibility">-- km</strong></div>
-              <div><span>Tekanan</span><strong id="weatherPressure">-- hPa</strong></div>
-              <div><span>Matahari Terbit</span><strong id="weatherSunrise">--</strong></div>
-              <div><span>Matahari Terbenam</span><strong id="weatherSunset">--</strong></div>
-            </div>
-          </section>
-
-          <section class="weather-section">
-            <div class="weather-section-heading">
-              <div>
-                <p class="section-label">RAMALAN 24 JAM</p>
-                <h3>Ramalan mengikut jam</h3>
-              </div>
-              <span id="weatherUpdatedAt">--</span>
-            </div>
-            <div id="weatherHourlyList" class="weather-hourly-list"></div>
-          </section>
-
-          <section class="weather-section">
-            <div class="weather-section-heading">
-              <div>
-                <p class="section-label">RAMALAN 7 HARI</p>
-                <h3>Tinjauan mingguan</h3>
-              </div>
-            </div>
-            <div id="weatherDailyList" class="weather-daily-list"></div>
-          </section>
-
-          <section class="weather-section">
-            <div class="weather-section-heading">
-              <div>
-                <p class="section-label">RADAR HUJAN</p>
-                <h3>Pemantauan hujan</h3>
-              </div>
-              <span class="weather-live-pill">LIVE</span>
-            </div>
-            <div class="weather-radar-card">
-              <div class="weather-radar-visual">
-                <div class="radar-ring ring-1"></div>
-                <div class="radar-ring ring-2"></div>
-                <div class="radar-ring ring-3"></div>
-                <div class="radar-sweep"></div>
-                <span class="radar-center"></span>
-              </div>
-              <div>
-                <strong>Radar hujan rasmi</strong>
-                <p>Buka paparan radar METMalaysia untuk semakan taburan hujan terkini.</p>
-                <a href="https://www.met.gov.my/forecast/weather/radar/" target="_blank" rel="noopener noreferrer">
+<div hidden="" id="weatherContent">
+<section class="weather-current-card">
+<div class="weather-current-main">
+<div class="weather-main-icon" id="weatherMainIcon">☁</div>
+<div>
+<strong id="weatherCurrentTemp">--°C</strong>
+<span id="weatherCurrentCondition">--</span>
+<small id="weatherFeelsLike">Terasa seperti --°C</small>
+</div>
+</div>
+<div class="weather-current-grid">
+<div><span>Kelembapan</span><strong id="weatherHumidity">--%</strong></div>
+<div><span>Hujan</span><strong id="weatherRain">-- mm</strong></div>
+<div><span>Angin</span><strong id="weatherWind">-- km/j</strong></div>
+<div><span>UV</span><strong id="weatherUv">--</strong></div>
+<div><span>Jarak Penglihatan</span><strong id="weatherVisibility">-- km</strong></div>
+<div><span>Tekanan</span><strong id="weatherPressure">-- hPa</strong></div>
+<div><span>Matahari Terbit</span><strong id="weatherSunrise">--</strong></div>
+<div><span>Matahari Terbenam</span><strong id="weatherSunset">--</strong></div>
+</div>
+</section>
+<section class="weather-section">
+<div class="weather-section-heading">
+<div>
+<p class="section-label">RAMALAN 24 JAM</p>
+<h3>Ramalan mengikut jam</h3>
+</div>
+<span id="weatherUpdatedAt">--</span>
+</div>
+<div class="weather-hourly-list" id="weatherHourlyList"></div>
+</section>
+<section class="weather-section">
+<div class="weather-section-heading">
+<div>
+<p class="section-label">RAMALAN 7 HARI</p>
+<h3>Tinjauan mingguan</h3>
+</div>
+</div>
+<div class="weather-daily-list" id="weatherDailyList"></div>
+</section>
+<section class="weather-section">
+<div class="weather-section-heading">
+<div>
+<p class="section-label">RADAR HUJAN</p>
+<h3>Pemantauan hujan</h3>
+</div>
+<span class="weather-live-pill">LIVE</span>
+</div>
+<div class="weather-radar-card">
+<div class="weather-radar-visual">
+<div class="radar-ring ring-1"></div>
+<div class="radar-ring ring-2"></div>
+<div class="radar-ring ring-3"></div>
+<div class="radar-sweep"></div>
+<span class="radar-center"></span>
+</div>
+<div>
+<strong>Radar hujan rasmi</strong>
+<p>Buka paparan radar METMalaysia untuk semakan taburan hujan terkini.</p>
+<a href="https://www.met.gov.my/forecast/weather/radar/" rel="noopener noreferrer" target="_blank">
                   Buka Radar METMalaysia
                 </a>
-              </div>
-            </div>
-          </section>
-
-          <section class="weather-section">
-            <div class="weather-section-heading">
-              <div>
-                <p class="section-label">AMARAN METMALAYSIA</p>
-                <h3>Amaran cuaca aktif</h3>
-              </div>
-            </div>
-            <div id="weatherWarningList" class="weather-warning-list">
-              <div class="weather-warning-empty">Memuatkan amaran rasmi...</div>
-            </div>
-          </section>
-
-          <section class="weather-section">
-            <div class="weather-section-heading">
-              <div>
-                <p class="section-label">PARAMETER</p>
-                <h3>Ringkasan indikator</h3>
-              </div>
-            </div>
-            <div class="weather-parameter-grid">
-              <button type="button" data-weather-focus="temperature">🌡 Suhu</button>
-              <button type="button" data-weather-focus="rain">💧 Hujan</button>
-              <button type="button" data-weather-focus="wind">🌬 Angin</button>
-              <button type="button" data-weather-focus="humidity">💦 Kelembapan</button>
-            </div>
-          </section>
-
-          <div class="weather-source-note">
+</div>
+</div>
+</section>
+<section class="weather-section">
+<div class="weather-section-heading">
+<div>
+<p class="section-label">AMARAN METMALAYSIA</p>
+<h3>Amaran cuaca aktif</h3>
+</div>
+</div>
+<div class="weather-warning-list" id="weatherWarningList">
+<div class="weather-warning-empty">Memuatkan amaran rasmi...</div>
+</div>
+</section>
+<section class="weather-section">
+<div class="weather-section-heading">
+<div>
+<p class="section-label">PARAMETER</p>
+<h3>Ringkasan indikator</h3>
+</div>
+</div>
+<div class="weather-parameter-grid">
+<button data-weather-focus="temperature" type="button">🌡 Suhu</button>
+<button data-weather-focus="rain" type="button">💧 Hujan</button>
+<button data-weather-focus="wind" type="button">🌬 Angin</button>
+<button data-weather-focus="humidity" type="button">💦 Kelembapan</button>
+</div>
+</section>
+<div class="weather-source-note">
             Ramalan: Open-Meteo. Amaran rasmi: METMalaysia melalui data.gov.my.
           </div>
-        </div>
+</div>
+<div class="weather-error" hidden="" id="weatherError"></div>
+</section>
+<div class="map-status">
+<div>
+<span class="status-dot"></span>
+<strong>Sistem Aktif</strong>
+</div>
+<span id="zoomStatus">Zoom: --</span>
+<span id="coordinateStatus">Lat: --, Lng: --</span>
+</div>
+<button class="right-panel-toggle mobile-only" id="rightPanelToggle" type="button">KPI</button>
+</main>
+<aside class="sidebar right-sidebar" id="rightSidebar">
+<div class="sidebar-collapse-bar right-collapse-bar">
+<button aria-label="Simpan kolum kanan" id="closeRightPanelBtn" title="Simpan kolum kanan" type="button">▶</button>
+<span>Urban Intelligence</span>
+</div>
 
-        <div id="weatherError" class="weather-error" hidden></div>
-      </section>
 
-      <div class="map-status">
-        <div>
-          <span class="status-dot"></span>
-          <strong>Sistem Aktif</strong>
-        </div>
-        <span id="zoomStatus">Zoom: --</span>
-        <span id="coordinateStatus">Lat: --, Lng: --</span>
-      </div>
 
-      <button id="rightPanelToggle" class="right-panel-toggle mobile-only" type="button">KPI</button>
-    </main>
 
-    <aside id="rightSidebar" class="sidebar right-sidebar">
-      <div class="sidebar-collapse-bar right-collapse-bar">
-        <button id="closeRightPanelBtn" type="button" title="Simpan kolum kanan" aria-label="Simpan kolum kanan">▶</button>
-        <span>Network Intelligence</span>
-      </div>
 
-      <section class="panel network-intelligence-panel">
-        <div class="network-panel-heading">
-          <div>
-            <p class="section-label">NETWORK INTELLIGENCE</p>
-            <h2>Analisis Rangkaian</h2>
-          </div>
-          <span class="network-version-badge">v7.7</span>
-        </div>
 
-        <div class="network-tabs" role="tablist">
-          <button class="network-tab active" type="button" data-network-tab="route">Route</button>
-          <button class="network-tab" type="button" data-network-tab="accessibility">Accessibility</button>
-          <button class="network-tab" type="button" data-network-tab="facility">Facility</button>
-          <button class="network-tab" type="button" data-network-tab="planning">Planning</button>
-          <button class="network-tab" type="button" data-network-tab="emergency">Emergency</button>
-        </div>
 
-        <div class="network-tab-panel active" data-network-panel="route">
-          <div class="network-section-title">
-            <strong>Route Intelligence</strong>
-            <small>Ikut rangkaian jalan dan sekatan arah</small>
-          </div>
 
-          <div class="route-option-grid">
-            <label>
-              <span>Kaedah</span>
-              <select id="routeProfile">
-                <option value="shortest">Jarak Terpendek</option>
-                <option value="fastest">Masa Terpantas</option>
-              </select>
-            </label>
-
-            <label class="route-check-option">
-              <input id="avoidTollToggle" type="checkbox" />
-              <span>Elak Tol</span>
-            </label>
-
-            <label class="route-check-option">
-              <input id="avoidMotorwayToggle" type="checkbox" />
-              <span>Elak Highway</span>
-            </label>
-          </div>
-
-          <button id="networkDistanceBtn"
-                  class="route-run-btn"
-                  type="button"
-                  aria-pressed="false">
-            Pilih Titik Mula & Destinasi
+<section class="panel hero-panel">
+<div>
+<p class="section-label">URBAN INTELLIGENCE</p>
+<h2>Intelligence Hub</h2>
+<p class="muted">Pusat modul analitik dan intelligence SUO Negeri Selangor.</p>
+</div>
+<div class="live-pill">LIVE DEMO</div>
+</section><section class="panel summary-heading-panel">
+<div class="panel-heading">
+<div>
+<p class="section-label">RINGKASAN PBT, DAERAH &amp; DPN2</p>
+<h2>Ringkasan Negeri Selangor</h2>
+<p class="muted">Statistik utama pentadbiran, bandar dan layer aktif.</p>
+</div>
+</div>
+</section><section class="kpi-grid">
+<article class="kpi-card">
+<span>PBT</span>
+<strong>12</strong>
+<small>Seluruh Selangor</small>
+</article>
+<article class="kpi-card">
+<span>Daerah</span>
+<strong>9</strong>
+<small>Daerah pentadbiran</small>
+</article>
+<article class="kpi-card">
+<span>Bandar DPN2</span>
+<strong id="urbanLocationCount">0</strong>
+<small>Lokasi fokus</small>
+</article>
+<article class="kpi-card">
+<span>Layer Aktif</span>
+<strong id="activeLayerCount">9</strong>
+<small>Spatial layers</small>
+</article>
+</section><section class="panel network-intelligence-panel">
+<div class="network-panel-heading">
+<div>
+<p class="section-label">NETWORK INTELLIGENCE</p>
+<h2>Analisis Rangkaian</h2>
+</div>
+<span class="network-version-badge">v7.7.1</span>
+</div>
+<div class="network-tabs" role="tablist">
+<button class="network-tab active" data-network-tab="route" type="button">Route</button>
+<button class="network-tab" data-network-tab="accessibility" type="button">Accessibility</button>
+<button class="network-tab" data-network-tab="facility" type="button">Facility</button>
+<button class="network-tab" data-network-tab="planning" type="button">Planning</button>
+<button class="network-tab" data-network-tab="emergency" type="button">Emergency</button>
+</div>
+<div class="network-tab-panel active" data-network-panel="route">
+<div class="network-section-title">
+<strong>Route Intelligence</strong>
+<small>Ikut rangkaian jalan dan sekatan arah</small>
+</div>
+<div class="route-option-grid">
+<label>
+<span>Kaedah</span>
+<select id="routeProfile">
+<option value="shortest">Jarak Terpendek</option>
+<option value="fastest">Masa Terpantas</option>
+</select>
+</label>
+<label class="route-check-option">
+<input id="avoidTollToggle" type="checkbox"/>
+<span>Elak Tol</span>
+</label>
+<label class="route-check-option">
+<input id="avoidMotorwayToggle" type="checkbox"/>
+<span>Elak Highway</span>
+</label>
+</div>
+<button aria-pressed="false" class="route-run-btn" id="networkDistanceBtn" type="button">
+            Pilih Titik Mula &amp; Destinasi
           </button>
-
-          <div class="network-mode-grid">
-            <button type="button" data-route-mode="driving" class="active">🚗 Driving</button>
-            <button type="button" data-route-mode="walking">🚶 Walking</button>
-            <button type="button" data-route-mode="cycling">🚲 Cycling</button>
-          </div>
-        </div>
-
-        <div class="network-tab-panel" data-network-panel="accessibility" hidden>
-          <div class="network-section-title">
-            <strong>Accessibility Intelligence</strong>
-            <small>Drive-time dan kawasan capaian</small>
-          </div>
-
-          <div class="network-form-grid">
-            <label>
-              <span>Masa perjalanan</span>
-              <select id="isochroneMinutes">
-                <option value="5">5 minit</option>
-                <option value="10" selected>10 minit</option>
-                <option value="15">15 minit</option>
-                <option value="20">20 minit</option>
-                <option value="30">30 minit</option>
-              </select>
-            </label>
-            <label>
-              <span>Mod</span>
-              <select id="isochroneProfile">
-                <option value="driving">Driving</option>
-                <option value="walking">Walking</option>
-                <option value="cycling">Cycling</option>
-              </select>
-            </label>
-          </div>
-
-          <button id="driveTimeBtn" class="network-primary-btn" type="button">
+<div class="network-mode-grid">
+<button class="active" data-route-mode="driving" type="button">🚗 Driving</button>
+<button data-route-mode="walking" type="button">🚶 Walking</button>
+<button data-route-mode="cycling" type="button">🚲 Cycling</button>
+</div>
+</div>
+<div class="network-tab-panel" data-network-panel="accessibility" hidden="">
+<div class="network-section-title">
+<strong>Accessibility Intelligence</strong>
+<small>Drive-time dan kawasan capaian</small>
+</div>
+<div class="network-form-grid">
+<label>
+<span>Masa perjalanan</span>
+<select id="isochroneMinutes">
+<option value="5">5 minit</option>
+<option selected="" value="10">10 minit</option>
+<option value="15">15 minit</option>
+<option value="20">20 minit</option>
+<option value="30">30 minit</option>
+</select>
+</label>
+<label>
+<span>Mod</span>
+<select id="isochroneProfile">
+<option value="driving">Driving</option>
+<option value="walking">Walking</option>
+<option value="cycling">Cycling</option>
+</select>
+</label>
+</div>
+<button class="network-primary-btn" id="driveTimeBtn" type="button">
             Klik Pusat Drive-Time
           </button>
-        </div>
-
-        <div class="network-tab-panel" data-network-panel="facility" hidden>
-          <div class="network-section-title">
-            <strong>Facility Intelligence</strong>
-            <small>Cari kemudahan paling hampir</small>
-          </div>
-
-          <label class="network-field">
-            <span>Jenis kemudahan</span>
-            <select id="nearestFacilityType">
-              <option value="hospital">Hospital</option>
-              <option value="health">Klinik Kesihatan</option>
-              <option value="school">Sekolah</option>
-              <option value="police">IPK / IPD</option>
-            </select>
-          </label>
-
-          <button id="nearestFacilityBtn" class="network-primary-btn" type="button">
+</div>
+<div class="network-tab-panel" data-network-panel="facility" hidden="">
+<div class="network-section-title">
+<strong>Facility Intelligence</strong>
+<small>Cari kemudahan paling hampir</small>
+</div>
+<label class="network-field">
+<span>Jenis kemudahan</span>
+<select id="nearestFacilityType">
+<option value="hospital">Hospital</option>
+<option value="health">Klinik Kesihatan</option>
+<option value="school">Sekolah</option>
+<option value="police">IPK / IPD</option>
+</select>
+</label>
+<button class="network-primary-btn" id="nearestFacilityBtn" type="button">
             Klik Lokasi Asal
           </button>
-
-          <div id="nearestFacilityResult" class="network-result-box">
+<div class="network-result-box" id="nearestFacilityResult">
             Belum ada analisis.
           </div>
-        </div>
-
-        <div class="network-tab-panel" data-network-panel="planning" hidden>
-          <div class="network-section-title">
-            <strong>Planning Intelligence</strong>
-            <small>Analisis liputan berasaskan hasil network</small>
-          </div>
-          <div class="network-feature-list">
-            <button id="serviceAreaBtn" type="button">Service Area</button>
-            <button id="coverageBtn" type="button">Coverage Analysis</button>
-            <button id="gapAnalysisBtn" type="button">Gap Analysis</button>
-            <button id="accessibilityScoreBtn" type="button">Accessibility Score</button>
-          </div>
-          <div class="network-beta-note">
+</div>
+<div class="network-tab-panel" data-network-panel="planning" hidden="">
+<div class="network-section-title">
+<strong>Planning Intelligence</strong>
+<small>Analisis liputan berasaskan hasil network</small>
+</div>
+<div class="network-feature-list">
+<button id="serviceAreaBtn" type="button">Service Area</button>
+<button id="coverageBtn" type="button">Coverage Analysis</button>
+<button id="gapAnalysisBtn" type="button">Gap Analysis</button>
+<button id="accessibilityScoreBtn" type="button">Accessibility Score</button>
+</div>
+<div class="network-beta-note">
             Modul perancangan menggunakan hasil drive-time dan nearest facility sebagai input.
           </div>
-        </div>
-
-        <div class="network-tab-panel" data-network-panel="emergency" hidden>
-          <div class="network-section-title">
-            <strong>Emergency Intelligence</strong>
-            <small>Laluan respons kecemasan</small>
-          </div>
-          <div class="network-feature-list emergency-list">
-            <button type="button" data-emergency-type="ambulance">🚑 Ambulans</button>
-            <button type="button" data-emergency-type="fire">🚒 Bomba</button>
-            <button type="button" data-emergency-type="police">🚓 Polis</button>
-            <button type="button" data-emergency-type="evacuation">⚠ Evakuasi</button>
-          </div>
-          <div class="network-beta-note">
+</div>
+<div class="network-tab-panel" data-network-panel="emergency" hidden="">
+<div class="network-section-title">
+<strong>Emergency Intelligence</strong>
+<small>Laluan respons kecemasan</small>
+</div>
+<div class="network-feature-list emergency-list">
+<button data-emergency-type="ambulance" type="button">🚑 Ambulans</button>
+<button data-emergency-type="fire" type="button">🚒 Bomba</button>
+<button data-emergency-type="police" type="button">🚓 Polis</button>
+<button data-emergency-type="evacuation" type="button">⚠ Evakuasi</button>
+</div>
+<div class="network-beta-note">
             Polis menggunakan data IPK/IPD semasa. Data balai bomba diperlukan untuk analisis bomba penuh.
           </div>
-        </div>
-
-        <div id="networkStatus" class="network-status" role="status">
+</div>
+<div class="network-status" id="networkStatus" role="status">
           Pilih modul Network Intelligence untuk memulakan analisis.
         </div>
-
-        <button id="clearNetworkBtn" class="network-clear-btn" type="button">
+<button class="network-clear-btn" id="clearNetworkBtn" type="button">
           ✕ Padam Hasil Network
         </button>
-      </section>
-      <section class="panel hero-panel">
-        <div>
-          <p class="section-label">URBAN INTELLIGENCE</p>
-          <h2>Ringkasan Negeri</h2>
-          <p class="muted">Paparan indikator demonstrasi untuk prototaip SUO.</p>
-        </div>
-        <div class="live-pill">LIVE DEMO</div>
-      </section>
-
-      <section class="kpi-grid">
-        <article class="kpi-card">
-          <span>PBT</span>
-          <strong>12</strong>
-          <small>Seluruh Selangor</small>
-        </article>
-        <article class="kpi-card">
-          <span>Layer Aktif</span>
-          <strong id="activeLayerCount">9</strong>
-          <small>Spatial layers</small>
-        </article>
-        <article class="kpi-card">
-          <span>Lokasi Fokus</span>
-          <strong id="urbanLocationCount">0</strong>
-          <small>Bandar DPN2</small>
-        </article>
-        <article class="kpi-card">
-          <span>Status Sistem</span>
-          <strong class="online-text">ONLINE</strong>
-          <small>GitHub Pages</small>
-        </article>
-      </section>
-
-
-      <section class="panel flood-launch-card">
-        <div class="flood-launch-icon" aria-hidden="true">
-          <span class="flood-wave">≋</span>
-          <span class="flood-cloud">☁</span>
-          <span class="flood-drop">💧</span>
-        </div>
-        <div class="flood-launch-copy">
-          <p class="section-label">FLOOD INTELLIGENCE</p>
-          <h2>Fasa 1</h2>
-          <div class="flood-quick-reading">
-            <strong id="floodQuickRisk">--</strong>
-            <span id="floodQuickSummary">Memuatkan status...</span>
-          </div>
-          <small id="floodQuickUpdated">Belum dikemas kini</small>
-        </div>
-        <button id="openFloodBtn" class="flood-open-btn" type="button">Buka</button>
-      </section>
-
-      <section class="panel weather-launch-card">
-        <div class="weather-launch-icon" aria-hidden="true">
-          <span class="weather-sun">☀</span>
-          <span class="weather-cloud">☁</span>
-          <span class="weather-rain">⋮⋮</span>
-        </div>
-        <div class="weather-launch-copy">
-          <p class="section-label">WEATHER INTELLIGENCE</p>
-          <h2 id="weatherQuickLocation">Shah Alam</h2>
-          <div class="weather-quick-reading">
-            <strong id="weatherQuickTemp">--°C</strong>
-            <span id="weatherQuickCondition">Memuatkan cuaca...</span>
-          </div>
-          <small id="weatherQuickUpdated">Belum dikemas kini</small>
-        </div>
-        <button id="openWeatherBtn" class="weather-open-btn" type="button">
+</section><section class="panel flood-launch-card">
+<div aria-hidden="true" class="flood-launch-icon">
+<span class="flood-wave">≋</span>
+<span class="flood-cloud">☁</span>
+<span class="flood-drop">💧</span>
+</div>
+<div class="flood-launch-copy">
+<p class="section-label">FLOOD INTELLIGENCE</p>
+<h2>Fasa 1</h2>
+<div class="flood-quick-reading">
+<strong id="floodQuickRisk">--</strong>
+<span id="floodQuickSummary">Memuatkan status...</span>
+</div>
+<small id="floodQuickUpdated">Belum dikemas kini</small>
+</div>
+<button class="flood-open-btn" id="openFloodBtn" type="button">Buka</button>
+</section><section class="panel weather-launch-card">
+<div aria-hidden="true" class="weather-launch-icon">
+<span class="weather-sun">☀</span>
+<span class="weather-cloud">☁</span>
+<span class="weather-rain">⋮⋮</span>
+</div>
+<div class="weather-launch-copy">
+<p class="section-label">WEATHER INTELLIGENCE</p>
+<h2 id="weatherQuickLocation">Shah Alam</h2>
+<div class="weather-quick-reading">
+<strong id="weatherQuickTemp">--°C</strong>
+<span id="weatherQuickCondition">Memuatkan cuaca...</span>
+</div>
+<small id="weatherQuickUpdated">Belum dikemas kini</small>
+</div>
+<button class="weather-open-btn" id="openWeatherBtn" type="button">
           Buka
         </button>
-      </section>
-
-      <section class="panel chart-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="section-label">LAND USE</p>
-            <h2>Komposisi demonstrasi</h2>
-          </div>
-        </div>
-
-        <div class="donut-wrap">
-          <div class="donut-chart">
-            <div class="donut-hole">
-              <strong>100%</strong>
-              <span>Jumlah</span>
-            </div>
-          </div>
-          <div class="chart-legend">
-            <div><span class="legend-dot residential"></span>Perumahan <strong>42%</strong></div>
-            <div><span class="legend-dot commercial"></span>Komersial <strong>16%</strong></div>
-            <div><span class="legend-dot industrial"></span>Industri <strong>18%</strong></div>
-            <div><span class="legend-dot green"></span>Hijau <strong>24%</strong></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="panel-heading">
-          <div>
-            <p class="section-label">URBAN PLANNING AI ASSISTANT</p>
-            <h2>Ask Mr. TPr. SUO</h2>
-          </div>
-        </div>
-
-        <div id="chatMessages" class="chat-messages">
-          <div class="chat-assistant-intro">
-            <div class="chat-assistant-avatar">TPr</div>
-            <div>
-              <strong>Mr. TPr. SUO</strong>
-              <span>Pembantu AI Perancangan Bandar</span>
-            </div>
-          </div>
-          <div class="chat-bubble bot">Saya boleh menapis atribut, mengira, membandingkan, highlight dan zoom berdasarkan data spatial tempatan.</div>
-        </div>
-
-        <form id="chatForm" class="chat-form">
-          <input id="chatInput" type="text" placeholder="Tanya Mr. TPr. SUO..." autocomplete="off" />
-          <button type="submit">Tanya</button>
-        </form>
-
-        <div class="assistant-examples">
-          <button type="button" data-assistant-example="Berapa hospital di daerah Klang?">Hospital di Klang</button>
-          <button type="button" data-assistant-example="Berapa IPD di Selangor?">Jumlah IPD</button>
-          <button type="button" data-assistant-example="Berapa sekolah di Daerah Klang?">Sekolah di Klang</button>
-          <button type="button" data-assistant-example="Berapa sekolah yang tiada warta?">Sekolah Tiada Warta</button>
-          <button type="button" data-assistant-example="Sekolah menengah dalam PPD Klang yang tiada warta">PPD + Warta</button>
-          <button type="button" data-assistant-example="Berapa sekolah menengah dalam MBSA?">Sekolah Menengah MBSA</button>
-          <button type="button" data-assistant-example="Keluasan MBSA">Keluasan MBSA</button>
-          <button type="button" data-assistant-example="Keluasan Daerah Klang">Keluasan Daerah Klang</button>
-          <button type="button" data-assistant-example="Beza luas Daerah Sabak Bernam dan Majlis Daerah Sabak Bernam">Beza Daerah & PBT</button>
-          <button type="button" data-assistant-example="Berapa daerah di Selangor?">Jumlah Daerah</button>
-          <button type="button" data-assistant-example="Tunjukkan semua hospital">Highlight hospital</button>
-        </div>
-      </section>
-
-      <section class="panel info-panel">
-        <p class="section-label">FEATURE INFO</p>
-        <h2>Maklumat pilihan</h2>
-        <div id="featureInfo" class="feature-info">
+</section><section class="panel chart-panel">
+<div class="panel-heading">
+<div>
+<p class="section-label">LANDUSE INTELLIGENCE</p>
+<h2>Komposisi Guna Tanah</h2>
+</div>
+</div>
+<div class="donut-wrap">
+<div class="donut-chart">
+<div class="donut-hole">
+<strong>100%</strong>
+<span>Jumlah</span>
+</div>
+</div>
+<div class="chart-legend">
+<div><span class="legend-dot residential"></span>Perumahan <strong>42%</strong></div>
+<div><span class="legend-dot commercial"></span>Komersial <strong>16%</strong></div>
+<div><span class="legend-dot industrial"></span>Industri <strong>18%</strong></div>
+<div><span class="legend-dot green"></span>Hijau <strong>24%</strong></div>
+</div>
+</div>
+</section><section class="panel">
+<div class="panel-heading">
+<div>
+<p class="section-label">URBAN PLANNING AI ASSISTANT</p>
+<h2>Ask Mr. TPr. SUO</h2>
+</div>
+</div>
+<div class="chat-messages" id="chatMessages">
+<div class="chat-assistant-intro">
+<div class="chat-assistant-avatar">TPr</div>
+<div>
+<strong>Mr. TPr. SUO</strong>
+<span>Pembantu AI Perancangan Bandar</span>
+</div>
+</div>
+<div class="chat-bubble bot">Saya boleh menapis atribut, mengira, membandingkan, highlight dan zoom berdasarkan data spatial tempatan.</div>
+</div>
+<form class="chat-form" id="chatForm">
+<input autocomplete="off" id="chatInput" placeholder="Tanya Mr. TPr. SUO..." type="text"/>
+<button type="submit">Tanya</button>
+</form>
+<div class="assistant-examples">
+<button data-assistant-example="Berapa hospital di daerah Klang?" type="button">Hospital di Klang</button>
+<button data-assistant-example="Berapa IPD di Selangor?" type="button">Jumlah IPD</button>
+<button data-assistant-example="Berapa sekolah di Daerah Klang?" type="button">Sekolah di Klang</button>
+<button data-assistant-example="Berapa sekolah yang tiada warta?" type="button">Sekolah Tiada Warta</button>
+<button data-assistant-example="Sekolah menengah dalam PPD Klang yang tiada warta" type="button">PPD + Warta</button>
+<button data-assistant-example="Berapa sekolah menengah dalam MBSA?" type="button">Sekolah Menengah MBSA</button>
+<button data-assistant-example="Keluasan MBSA" type="button">Keluasan MBSA</button>
+<button data-assistant-example="Keluasan Daerah Klang" type="button">Keluasan Daerah Klang</button>
+<button data-assistant-example="Beza luas Daerah Sabak Bernam dan Majlis Daerah Sabak Bernam" type="button">Beza Daerah &amp; PBT</button>
+<button data-assistant-example="Berapa daerah di Selangor?" type="button">Jumlah Daerah</button>
+<button data-assistant-example="Tunjukkan semua hospital" type="button">Highlight hospital</button>
+</div>
+</section><section class="panel info-panel">
+<p class="section-label">FEATURE INFO</p>
+<h2>Maklumat pilihan</h2>
+<div class="feature-info" id="featureInfo">
           Klik bandar atau kemudahan kesihatan pada peta untuk melihat maklumat.
         </div>
-      </section>
-    </aside>
-  </div>
-
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-  <script type="module" src="js/app.js?v=7.7"></script>
+</section></aside>
+</div>
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+<script src="js/app.js?v=7.7.1" type="module"></script>
 </body>
 </html>
