@@ -61,34 +61,103 @@ const networkIntelligence = new NetworkIntelligence(
 );
 
 const rightSidebar = document.getElementById("rightSidebar");
-applyRightPanelRegistry(rightSidebar);
 
-const registryStatus = validateRightPanelRegistry(rightSidebar);
-if (!registryStatus.valid) {
-  console.warn(
-    "Right Panel Component Registry tidak lengkap:",
-    registryStatus.missing
-  );
+try {
+  applyRightPanelRegistry(rightSidebar);
+
+  const registryStatus = validateRightPanelRegistry(rightSidebar);
+  if (!registryStatus.valid) {
+    console.warn(
+      "Right Panel Component Registry tidak lengkap:",
+      registryStatus.missing
+    );
+  }
+} catch (error) {
+  console.error("Component Registry gagal dimulakan:", error);
 }
 
-const executiveLanduse =
+try {
   new ExecutiveLanduseIntelligence();
-const weather = new WeatherIntelligence(map);
-const flood = new FloodIntelligence(map);
+} catch (error) {
+  console.error("Executive Landuse gagal dimulakan:", error);
+}
+
+let weather = null;
+let flood = null;
+
+try {
+  weather = new WeatherIntelligence(map);
+} catch (error) {
+  console.error("Weather Intelligence gagal dimulakan:", error);
+}
+
+try {
+  flood = new FloodIntelligence(map);
+} catch (error) {
+  console.error("Flood Intelligence gagal dimulakan:", error);
+}
 let viewMode = "3d";
 let nightMode = false;
 let activeMarker = null;
 let cityLookup = new Map();
 
-map.on("style.load", async () => {
-  await addPortalLayers(map);
+function hideLoadingScreen() {
+  const loadingScreen = document.getElementById("loadingScreen");
+  if (loadingScreen) {
+    loadingScreen.classList.add("hidden");
+  }
+}
 
-  if (viewMode === "3d" && layerState.terrain) {
-    enableTerrain(map);
+function showStartupWarning(message) {
+  console.warn(message);
+
+  let notice = document.getElementById("startupWarning");
+  if (!notice) {
+    notice = document.createElement("div");
+    notice.id = "startupWarning";
+    notice.className = "startup-warning";
+    document.body.appendChild(notice);
   }
 
-  document.getElementById("loadingScreen").classList.add("hidden");
+  notice.textContent = message;
+  notice.hidden = false;
+
+  window.setTimeout(() => {
+    notice.hidden = true;
+  }, 9000);
+}
+
+map.on("style.load", async () => {
+  try {
+    await addPortalLayers(map);
+
+    if (viewMode === "3d" && layerState.terrain) {
+      enableTerrain(map);
+    }
+  } catch (error) {
+    console.error("Sebahagian layer portal gagal dimuatkan:", error);
+    showStartupWarning(
+      "Portal dibuka, tetapi sebahagian layer gagal dimuatkan. Semak Console untuk butiran."
+    );
+  } finally {
+    hideLoadingScreen();
+  }
 });
+
+map.on("error", (event) => {
+  console.error("Mapbox map error:", event?.error || event);
+});
+
+// Startup failsafe: loading overlay tidak boleh mengunci portal.
+window.setTimeout(() => {
+  const loadingScreen = document.getElementById("loadingScreen");
+  if (loadingScreen && !loadingScreen.classList.contains("hidden")) {
+    hideLoadingScreen();
+    showStartupWarning(
+      "Portal dibuka dalam mod pemulihan kerana proses startup mengambil masa terlalu lama."
+    );
+  }
+}, 12000);
 
 map.on("mousemove", (event) => {
   document.getElementById("coordinateStatus").textContent =
