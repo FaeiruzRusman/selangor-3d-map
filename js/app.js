@@ -15,8 +15,10 @@ import {
   SpatialTools,
   isSpatialToolActive
 } from "./spatial-tools.js";
-import { AlertCenter } from "./alert-center.js";
-import { LandUseIntelligence } from "./landuse-intelligence.js";
+import {
+  NetworkIntelligence,
+  isNetworkIntelligenceActive
+} from "./network-intelligence.js";
 import { WeatherIntelligence } from "./weather.js";
 import { FloodIntelligence } from "./flood.js";
 import { SpatialAssistant } from "./ai-assistant.js";
@@ -46,8 +48,10 @@ enableMiddleMousePan(map);
 const compare = new CompareEngine(map);
 const comparePanelUI = new ComparePanelUI();
 const spatialTools = new SpatialTools(map);
-const alertCenter = new AlertCenter(map);
-const landUseIntelligence = new LandUseIntelligence();
+const networkIntelligence = new NetworkIntelligence(
+  map,
+  spatialTools
+);
 const weather = new WeatherIntelligence(map);
 const flood = new FloodIntelligence(map);
 let viewMode = "3d";
@@ -76,7 +80,10 @@ map.on("zoom", () => {
 });
 
 map.on("click", async (event) => {
-  if (isSpatialToolActive()) return;
+  if (
+    isSpatialToolActive() ||
+    isNetworkIntelligenceActive()
+  ) return;
   const layerIds = ["cadastral-fill", "district-fill", "pbt-fill", "school-symbol", "police-symbol", "health-symbol", "city-circle"]
     .filter((id) => map.getLayer(id));
 

@@ -1,3 +1,5 @@
+import { MAPBOX_TOKEN } from "./config.js";
+
 const EARTH_RADIUS_M = 6371008.8;
 
 const SOURCE_ID = "spatial-tools-source";
@@ -5,6 +7,10 @@ const POINT_LAYER_ID = "spatial-tools-points";
 const LINE_LAYER_ID = "spatial-tools-line";
 const FILL_LAYER_ID = "spatial-tools-fill";
 const OUTLINE_LAYER_ID = "spatial-tools-outline";
+const ROUTE_SOURCE_ID = "network-route-source";
+const ROUTE_CASING_LAYER_ID = "network-route-casing";
+const ROUTE_LAYER_ID = "network-route-line";
+const ROUTE_POINT_LAYER_ID = "network-route-points";
 
 let activeInstance = null;
 
@@ -223,11 +229,20 @@ export class SpatialTools {
     this.mode = null;
     this.coordinates = [];
     this.popup = null;
+    this.routeTravelMode = "driving";
 
     this.measureDistanceButton =
       document.getElementById("measureDistanceBtn");
     this.measureAreaButton =
       document.getElementById("measureAreaBtn");
+    this.networkDistanceButton =
+      document.getElementById("networkDistanceBtn");
+    this.routeProfile =
+      document.getElementById("routeProfile");
+    this.avoidTollToggle =
+      document.getElementById("avoidTollToggle");
+    this.avoidMotorwayToggle =
+      document.getElementById("avoidMotorwayToggle");
     this.bufferButton =
       document.getElementById("bufferAnalysisBtn");
     this.clearButton =
@@ -254,6 +269,10 @@ export class SpatialTools {
       this.toggleMode("area");
     });
 
+    this.networkDistanceButton.addEventListener("click", () => {
+      this.toggleMode("network");
+    });
+
     this.bufferButton.addEventListener("click", () => {
       this.toggleMode("buffer");
     });
@@ -277,6 +296,20 @@ export class SpatialTools {
 
       if (this.mode === "buffer") {
         this.createBuffer(coordinate);
+        return;
+      }
+
+      if (this.mode === "network") {
+        this.coordinates.push(coordinate);
+        this.renderNetworkEndpoints();
+
+        if (this.coordinates.length === 1) {
+          this.setStatus(
+            "Titik mula ditetapkan. Klik destinasi pada peta."
+          );
+        } else if (this.coordinates.length === 2) {
+          this.calculateNetworkRoute();
+        }
         return;
       }
 
@@ -393,6 +426,68 @@ export class SpatialTools {
         }
       });
     }
+
+    if (!this.map.getSource(ROUTE_SOURCE_ID)) {
+      this.map.addSource(ROUTE_SOURCE_ID, {
+        type: "geojson",
+        data: featureCollection()
+      });
+    }
+
+    if (!this.map.getLayer(ROUTE_CASING_LAYER_ID)) {
+      this.map.addLayer({
+        id: ROUTE_CASING_LAYER_ID,
+        type: "line",
+        source: ROUTE_SOURCE_ID,
+        filter: ["==", ["geometry-type"], "LineString"],
+        paint: {
+          "line-color": "#0F172A",
+          "line-width": 8,
+          "line-opacity": 0.82
+        }
+      });
+    }
+
+    if (!this.map.getLayer(ROUTE_LAYER_ID)) {
+      this.map.addLayer({
+        id: ROUTE_LAYER_ID,
+        type: "line",
+        source: ROUTE_SOURCE_ID,
+        filter: ["==", ["geometry-type"], "LineString"],
+        paint: {
+          "line-color": "#22D3EE",
+          "line-width": 4.5,
+          "line-opacity": 0.98
+        }
+      });
+    }
+
+    if (!this.map.getLayer(ROUTE_POINT_LAYER_ID)) {
+      this.map.addLayer({
+        id: ROUTE_POINT_LAYER_ID,
+        type: "circle",
+        source: ROUTE_SOURCE_ID,
+        filter: ["==", ["geometry-type"], "Point"],
+        paint: {
+          "circle-radius": [
+            "match",
+            ["get", "role"],
+            "start", 7,
+            "end", 7,
+            5
+          ],
+          "circle-color": [
+            "match",
+            ["get", "role"],
+            "start", "#22C55E",
+            "end", "#EF4444",
+            "#22D3EE"
+          ],
+          "circle-stroke-color": "#FFFFFF",
+          "circle-stroke-width": 2
+        }
+      });
+    }
   }
 
   toggleMode(mode) {
@@ -414,6 +509,10 @@ export class SpatialTools {
     if (mode === "distance") {
       this.setStatus(
         "Ukur Jarak aktif. Klik titik pertama pada peta."
+      );
+    } else if (mode === "network") {
+      this.setStatus(
+        "Jarak Perjalanan aktif. Klik titik mula pada peta."
       );
     } else if (mode === "area") {
       this.setStatus(
@@ -540,6 +639,211 @@ export class SpatialTools {
     );
   }
 
+  renderNetworkEndpoints(routeGeometry = null) {
+    this.ensureLayers();
+
+    const source = this.map.getSource(ROUTE_SOURCE_ID);
+    if (!source) return;
+
+    const features = [];
+
+    if (routeGeometry) {
+      features.push({
+        type: "Feature",
+        properties: {
+          tool: "network-route"
+        },
+        geometry: routeGeometry
+      });
+    }
+
+    if (this.coordinates[0]) {
+      features.push(
+        pointFeature(this.coordinates[0], {
+          role: "start"
+        })
+      );
+    }
+
+    if (this.coordinates[1]) {
+      features.push(
+        pointFeature(this.coordinates[1], {
+          role: "end"
+        })
+      );
+    }
+
+    source.setData(featureCollection(features));
+  }
+
+  async calculateNetworkRoute() {
+    const [start, end] = this.coordinates;
+
+    if (!start || !end) return;
+
+    this.setStatus("Mengira laluan melalui rangkaian jalan...");
+    this.networkDistanceButton.disabled = true;
+
+    const mode = this.routeProfile.value;
+    const profile =
+      this.routeTravelMode === "walking"
+        ? "mapbox/walking"
+        : this.routeTravelMode === "cycling"
+          ? "mapbox/cycling"
+          : mode === "fastest"
+            ? "mapbox/driving-traffic"
+            : "mapbox/driving";
+
+    const coordinates =
+      `${start[0]},${start[1]};${end[0]},${end[1]}`;
+
+    const url = new URL(
+      `https://api.mapbox.com/directions/v5/${profile}/${coordinates}`
+    );
+
+    url.searchParams.set("access_token", MAPBOX_TOKEN);
+    url.searchParams.set("geometries", "geojson");
+    url.searchParams.set("overview", "full");
+    url.searchParams.set("steps", "true");
+    url.searchParams.set("language", "ms");
+    url.searchParams.set("alternatives", mode === "shortest" ? "true" : "false");
+
+    const exclusions = [];
+
+    if (this.routeTravelMode === "driving") {
+      if (this.avoidTollToggle.checked) {
+        exclusions.push("toll");
+      }
+
+      if (this.avoidMotorwayToggle.checked) {
+        exclusions.push("motorway");
+      }
+    }
+
+    if (exclusions.length) {
+      url.searchParams.set("exclude", exclusions.join(","));
+    }
+
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Directions API ${response.status}`);
+      }
+
+      const data = await response.json();
+      const routes = data.routes || [];
+
+      if (!routes.length) {
+        throw new Error("Tiada laluan jalan ditemui.");
+      }
+
+      const selectedRoute =
+        mode === "shortest"
+          ? [...routes].sort((a, b) => a.distance - b.distance)[0]
+          : routes[0];
+
+      this.renderNetworkEndpoints(selectedRoute.geometry);
+
+      const bounds = new mapboxgl.LngLatBounds();
+
+      selectedRoute.geometry.coordinates.forEach((coordinate) => {
+        bounds.extend(coordinate);
+      });
+
+      if (!bounds.isEmpty()) {
+        this.map.fitBounds(bounds, {
+          padding: 90,
+          maxZoom: 16,
+          duration: 900
+        });
+      }
+
+      const destination =
+        selectedRoute.geometry.coordinates[
+          selectedRoute.geometry.coordinates.length - 1
+        ];
+
+      const durationMinutes = selectedRoute.duration / 60;
+      const selectedMethod =
+        mode === "shortest"
+          ? "Jarak terpendek antara alternatif jalan"
+          : "Masa terpantas berdasarkan profil trafik";
+
+      const restrictions = [
+        this.avoidTollToggle.checked ? "Elak tol" : null,
+        this.avoidMotorwayToggle.checked ? "Elak highway" : null
+      ].filter(Boolean);
+
+      this.popup?.remove();
+      this.popup = new mapboxgl.Popup({
+        closeOnClick: false,
+        closeButton: true
+      })
+        .setLngLat(destination)
+        .setHTML(
+          `<strong>Jarak Perjalanan Jalan</strong><br>
+           Jarak: ${formatDistance(selectedRoute.distance)}<br>
+           Anggaran masa: ${durationMinutes.toLocaleString("ms-MY", {
+             maximumFractionDigits: 0
+           })} minit<br>
+           Kaedah: ${selectedMethod}<br>
+           Sekatan: ${restrictions.length
+             ? restrictions.join(", ")
+             : "Tiada"}`
+        )
+        .addTo(this.map);
+
+      this.mode = null;
+      this.map.doubleClickZoom.enable();
+      this.map.getCanvas().classList.remove("spatial-tool-cursor");
+      this.renderButtons();
+
+      this.setStatus(
+        `Laluan siap: ${formatDistance(selectedRoute.distance)} • ` +
+        `${durationMinutes.toLocaleString("ms-MY", {
+          maximumFractionDigits: 0
+        })} minit`
+      );
+    } catch (error) {
+      console.error(error);
+
+      this.coordinates = [];
+      this.renderNetworkEndpoints();
+
+      this.setStatus(
+        "Laluan gagal dikira. Semak token Mapbox, sambungan internet atau lokasi titik."
+      );
+    } finally {
+      this.networkDistanceButton.disabled = false;
+    }
+  }
+
+  setRouteTravelMode(mode) {
+    if (!["driving", "walking", "cycling"].includes(mode)) {
+      return;
+    }
+
+    this.routeTravelMode = mode;
+
+    const drivingOnly = mode === "driving";
+    this.avoidTollToggle.disabled = !drivingOnly;
+    this.avoidMotorwayToggle.disabled = !drivingOnly;
+
+    if (!drivingOnly) {
+      this.avoidTollToggle.checked = false;
+      this.avoidMotorwayToggle.checked = false;
+    }
+
+    this.setStatus(
+      mode === "walking"
+        ? "Mod laluan berjalan kaki dipilih."
+        : mode === "cycling"
+          ? "Mod laluan berbasikal dipilih."
+          : "Mod laluan kenderaan dipilih."
+    );
+  }
+
   updateResult() {
     // Reserved for live statistics and future intersect analysis.
   }
@@ -595,6 +899,9 @@ export class SpatialTools {
     const source = this.map.getSource(SOURCE_ID);
     source?.setData(featureCollection());
 
+    const routeSource = this.map.getSource(ROUTE_SOURCE_ID);
+    routeSource?.setData(featureCollection());
+
     this.renderButtons();
     this.setStatus("Semua hasil ukuran dan analisis telah dipadam.");
   }
@@ -602,6 +909,7 @@ export class SpatialTools {
   renderButtons() {
     const map = {
       distance: this.measureDistanceButton,
+      network: this.networkDistanceButton,
       area: this.measureAreaButton,
       buffer: this.bufferButton
     };

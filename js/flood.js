@@ -8,7 +8,6 @@ const FLOOD_WARNING_URL = "https://api.data.gov.my/flood-warning";
 const RAIN_SOURCE_ID = "flood-rain-forecast";
 const RAIN_CIRCLE_ID = "flood-rain-circle";
 const RAIN_LABEL_ID = "flood-rain-label";
-const RAIN_CITY_LABEL_ID = "flood-rain-city-label";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -286,21 +285,32 @@ export class FloodIntelligence {
             "interpolate",
             ["linear"],
             ["zoom"],
-            7, 13,
-            10, 16,
-            14, 20
+            7, [
+              "interpolate",
+              ["linear"],
+              ["get", "rain_mm"],
+              0, 5,
+              60, 12
+            ],
+            14, [
+              "interpolate",
+              ["linear"],
+              ["get", "rain_mm"],
+              0, 9,
+              60, 21
+            ]
           ],
-          "circle-color": "#7DD3FC",
-          "circle-stroke-color": [
+          "circle-color": [
             "step",
             ["get", "rain_mm"],
-            "#0284C7",
-            10, "#EAB308",
+            "#38BDF8",
+            10, "#FACC15",
             30, "#F97316",
             60, "#DC2626"
           ],
-          "circle-stroke-width": 2.4,
-          "circle-opacity": 0.96
+          "circle-stroke-color": "#FFFFFF",
+          "circle-stroke-width": 1.7,
+          "circle-opacity": 0.9
         }
       });
     }
@@ -311,52 +321,18 @@ export class FloodIntelligence {
         type: "symbol",
         source: sourceId,
         slot: "top",
-        minzoom: 7,
+        minzoom: 9,
         layout: {
           visibility: layerState.floodRain ? "visible" : "none",
           "text-field": [
             "concat",
+            ["get", "name"],
+            "\n",
             ["to-string", ["get", "rain_mm"]],
-            "\nmm"
+            " mm"
           ],
-          "text-size": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            7, 8.5,
-            11, 10.5,
-            14, 12
-          ],
-          "text-font": [
-            "DIN Pro Bold",
-            "Arial Unicode MS Bold"
-          ],
-          "text-anchor": "center",
-          "text-allow-overlap": true,
-          "text-ignore-placement": true
-        },
-        paint: {
-          "text-color": "#0F172A",
-          "text-halo-color": "rgba(255,255,255,0.35)",
-          "text-halo-width": 0.6
-        }
-      });
-    }
-
-    const cityLabelId = `${prefix}${RAIN_CITY_LABEL_ID}`;
-
-    if (!targetMap.getLayer(cityLabelId)) {
-      addLayerCompat(targetMap, {
-        id: cityLabelId,
-        type: "symbol",
-        source: sourceId,
-        slot: "top",
-        minzoom: 8,
-        layout: {
-          visibility: layerState.floodRain ? "visible" : "none",
-          "text-field": ["get", "name"],
-          "text-size": 9.5,
-          "text-offset": [0, 2.15],
+          "text-size": 10,
+          "text-offset": [0, 1.65],
           "text-anchor": "top",
           "text-allow-overlap": false
         },
@@ -409,8 +385,7 @@ export class FloodIntelligence {
 
     [
       `${prefix}${RAIN_CIRCLE_ID}`,
-      `${prefix}${RAIN_LABEL_ID}`,
-      `${prefix}${RAIN_CITY_LABEL_ID}`
+      `${prefix}${RAIN_LABEL_ID}`
     ].forEach((layerId) => {
       if (targetMap.getLayer(layerId)) {
         targetMap.setLayoutProperty(
