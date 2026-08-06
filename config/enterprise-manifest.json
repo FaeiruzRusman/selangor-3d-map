@@ -1,0 +1,28 @@
+{
+  "name": "SUO GeoPortal Enterprise",
+  "version": "8.0.0",
+  "architecture": "ES Modules",
+  "core": [
+    "js/core/map-engine.js",
+    "js/app.js"
+  ],
+  "ui": [
+    "js/ui/workspace-controller.js",
+    "js/compare-panel-ui.js"
+  ],
+  "intelligence": [
+    "js/intelligence/intelligence-hub.js",
+    "js/network-intelligence.js",
+    "js/weather.js",
+    "js/flood.js",
+    "js/executive-landuse.js",
+    "js/ai-assistant.js"
+  ],
+  "principles": [
+    "Fail-soft module initialization",
+    "No duplicate top-level declarations",
+    "Component registry for right panel",
+    "Independent feature modules",
+    "Map bootstrap fallback"
+  ]
+}
