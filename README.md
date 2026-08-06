@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.7.1 — Modular Architecture
+# SUO GeoPortal v7.7.2 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1186,3 +1186,66 @@ Pembetulan:
 - Card Land Use dipulihkan dan dinamakan `Landuse Intelligence`.
 - Semua fungsi Network Intelligence v7.7 dikekalkan.
 - Cache-busting dinaik taraf kepada v7.7.1.
+
+
+## Merge Release v7.7.2
+
+Release ini memulihkan `Executive Landuse Intelligence` tanpa membuang
+Network Intelligence, Flood Intelligence, Weather Intelligence,
+Ask Mr. TPr. SUO atau Feature Info.
+
+### Executive Landuse Intelligence
+
+- Ringkasan KPI dashboard
+- Komposisi guna tanah
+- Butang SISMAPS Executive Dashboard
+- Butang Applications SUO
+- Statistik
+- Trend
+- Perbandingan
+- Forecast
+- Status konfigurasi pautan
+
+Pautan luaran dikawal melalui:
+
+```text
+config/external-links.json
+```
+
+Masukkan URL terus dashboard pada:
+
+```json
+"sismapsExecutiveDashboard": "URL_DASHBOARD_SEBENAR"
+```
+
+Jika ruang tersebut kosong, butang dashboard akan membuka halaman Applications
+SUO sebagai fallback.
+
+### Component Registry
+
+Susunan panel kanan kini dikunci melalui:
+
+```text
+js/component-registry.js
+```
+
+Susunan rasmi:
+
+```text
+1. Urban Intelligence
+2. Ringkasan PBT, Daerah dan DPN2
+3. Network Intelligence
+4. Flood Intelligence
+5. Weather Intelligence
+6. Executive Landuse Intelligence
+7. Urban Planning AI Assistant
+8. Feature Info
+```
+
+Fail baharu:
+
+```text
+js/component-registry.js
+js/executive-landuse.js
+config/external-links.json
+```

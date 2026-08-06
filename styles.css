@@ -4307,3 +4307,202 @@ body.map-middle-pan-active {
 .right-sidebar .chart-panel {
   border-color: rgba(74,222,128,0.17);
 }
+
+
+/* =========================================================
+   v7.7.2 — Executive Landuse Intelligence Merge Release
+   ========================================================= */
+
+.executive-landuse-panel {
+  display: grid;
+  gap: 11px;
+  border-color: rgba(74,222,128,0.19);
+}
+
+.executive-landuse-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.landuse-live-badge {
+  padding: 4px 7px;
+  border: 1px solid rgba(74,222,128,0.25);
+  border-radius: 999px;
+  color: #bbf7d0;
+  background: rgba(74,222,128,0.08);
+  font-size: 0.52rem;
+  font-weight: 900;
+}
+
+.executive-landuse-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 7px;
+}
+
+.executive-landuse-kpis article {
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 9px;
+  background: rgba(255,255,255,0.025);
+}
+
+.executive-landuse-kpis span,
+.executive-landuse-kpis small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.5rem;
+}
+
+.executive-landuse-kpis strong {
+  display: block;
+  margin: 3px 0;
+  color: #dcfce7;
+  font-size: 0.68rem;
+}
+
+.executive-landuse-preview {
+  display: grid;
+  grid-template-columns: 104px minmax(0,1fr);
+  gap: 11px;
+  align-items: center;
+}
+
+.landuse-donut {
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      #f59e0b 0 42%,
+      #ef4444 42% 58%,
+      #8b5cf6 58% 76%,
+      #22c55e 76% 100%
+    );
+}
+
+.landuse-donut > div {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #0e1d31;
+  text-align: center;
+}
+
+.landuse-donut strong,
+.landuse-donut span {
+  display: block;
+}
+
+.landuse-donut strong {
+  color: #f8fafc;
+  font-size: 0.74rem;
+}
+
+.landuse-donut span {
+  color: var(--muted);
+  font-size: 0.47rem;
+}
+
+.landuse-legend {
+  display: grid;
+  gap: 5px;
+}
+
+.landuse-legend > div {
+  display: grid;
+  grid-template-columns: 9px minmax(0,1fr) auto;
+  gap: 6px;
+  align-items: center;
+  color: #dbe7f1;
+  font-size: 0.54rem;
+}
+
+.executive-landuse-tools {
+  display: grid;
+  gap: 7px;
+}
+
+.executive-landuse-tools a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 35px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.58rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.landuse-primary-link {
+  border: 1px solid rgba(74,222,128,0.28);
+  color: #052e16;
+  background: #4ade80;
+}
+
+.landuse-secondary-link {
+  border: 1px solid var(--line);
+  color: #dbe7f1;
+  background: rgba(255,255,255,0.035);
+}
+
+.landuse-intelligence-actions {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 5px;
+}
+
+.landuse-intelligence-actions button {
+  min-width: 0;
+  padding: 7px 4px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: #dbe7f1;
+  background: rgba(255,255,255,0.025);
+  font-size: 0.5rem;
+  font-weight: 800;
+}
+
+.landuse-intelligence-actions button:hover {
+  color: #052e16;
+  background: #4ade80;
+}
+
+.landuse-intelligence-status {
+  padding: 8px 9px;
+  border: 1px dashed rgba(74,222,128,0.20);
+  border-radius: 8px;
+  color: #cbd5e1;
+  background: rgba(74,222,128,0.035);
+  font-size: 0.54rem;
+  line-height: 1.45;
+}
+
+.landuse-intelligence-status.ready {
+  color: #bbf7d0;
+}
+
+.landuse-intelligence-status.warning {
+  color: #fde68a;
+  border-color: rgba(250,204,21,0.24);
+  background: rgba(250,204,21,0.04);
+}
+
+@media (max-width: 430px) {
+  .executive-landuse-kpis,
+  .landuse-intelligence-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .executive-landuse-preview {
+    grid-template-columns: 1fr;
+  }
+}

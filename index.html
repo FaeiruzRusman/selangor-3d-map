@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="SUO GeoPortal v7.7.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
-<title>SUO GeoPortal v7.7.1</title>
+<meta content="SUO GeoPortal v7.7.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
+<title>SUO GeoPortal v7.7.2</title>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet"/>
-<link href="styles.css?v=7.7.1" rel="stylesheet"/>
+<link href="styles.css?v=7.7.2" rel="stylesheet"/>
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen">
@@ -24,7 +24,7 @@
 <div class="brand-mark">SUO</div>
 <div>
 <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-<h1>GeoPortal <span>v7.7.1</span></h1>
+<h1>GeoPortal <span>v7.7.2</span></h1>
 </div>
 </div>
 <div class="header-actions">
@@ -911,22 +911,14 @@
 <button aria-label="Simpan kolum kanan" id="closeRightPanelBtn" title="Simpan kolum kanan" type="button">▶</button>
 <span>Urban Intelligence</span>
 </div>
-
-
-
-
-
-
-
-
-<section class="panel hero-panel">
+<section class="panel hero-panel" data-right-component="urban-intelligence">
 <div>
 <p class="section-label">URBAN INTELLIGENCE</p>
 <h2>Intelligence Hub</h2>
 <p class="muted">Pusat modul analitik dan intelligence SUO Negeri Selangor.</p>
 </div>
 <div class="live-pill">LIVE DEMO</div>
-</section><section class="panel summary-heading-panel">
+</section><section class="panel summary-heading-panel" data-right-component="selangor-summary-heading">
 <div class="panel-heading">
 <div>
 <p class="section-label">RINGKASAN PBT, DAERAH &amp; DPN2</p>
@@ -934,7 +926,7 @@
 <p class="muted">Statistik utama pentadbiran, bandar dan layer aktif.</p>
 </div>
 </div>
-</section><section class="kpi-grid">
+</section><section class="kpi-grid" data-right-component="selangor-summary">
 <article class="kpi-card">
 <span>PBT</span>
 <strong>12</strong>
@@ -955,13 +947,13 @@
 <strong id="activeLayerCount">9</strong>
 <small>Spatial layers</small>
 </article>
-</section><section class="panel network-intelligence-panel">
+</section><section class="panel network-intelligence-panel" data-right-component="network-intelligence">
 <div class="network-panel-heading">
 <div>
 <p class="section-label">NETWORK INTELLIGENCE</p>
 <h2>Analisis Rangkaian</h2>
 </div>
-<span class="network-version-badge">v7.7.1</span>
+<span class="network-version-badge">v7.7.2</span>
 </div>
 <div class="network-tabs" role="tablist">
 <button class="network-tab active" data-network-tab="route" type="button">Route</button>
@@ -1087,7 +1079,7 @@
 <button class="network-clear-btn" id="clearNetworkBtn" type="button">
           ✕ Padam Hasil Network
         </button>
-</section><section class="panel flood-launch-card">
+</section><section class="panel flood-launch-card" data-right-component="flood-intelligence">
 <div aria-hidden="true" class="flood-launch-icon">
 <span class="flood-wave">≋</span>
 <span class="flood-cloud">☁</span>
@@ -1103,7 +1095,7 @@
 <small id="floodQuickUpdated">Belum dikemas kini</small>
 </div>
 <button class="flood-open-btn" id="openFloodBtn" type="button">Buka</button>
-</section><section class="panel weather-launch-card">
+</section><section class="panel weather-launch-card" data-right-component="weather-intelligence">
 <div aria-hidden="true" class="weather-launch-icon">
 <span class="weather-sun">☀</span>
 <span class="weather-cloud">☁</span>
@@ -1121,28 +1113,64 @@
 <button class="weather-open-btn" id="openWeatherBtn" type="button">
           Buka
         </button>
-</section><section class="panel chart-panel">
-<div class="panel-heading">
+</section><section class="panel executive-landuse-panel" data-right-component="executive-landuse">
+<div class="executive-landuse-header">
 <div>
-<p class="section-label">LANDUSE INTELLIGENCE</p>
-<h2>Komposisi Guna Tanah</h2>
+<p class="section-label">EXECUTIVE LANDUSE INTELLIGENCE</p>
+<h2>Guna Tanah Negeri Selangor</h2>
+<p class="muted">Akses pantas kepada dashboard eksekutif dan analitik guna tanah SISMAPS.</p>
 </div>
+<span class="landuse-live-badge">SISMAPS</span>
 </div>
-<div class="donut-wrap">
-<div class="donut-chart">
-<div class="donut-hole">
+<div class="executive-landuse-kpis">
+<article>
+<span>Dashboard</span>
+<strong>ONLINE</strong>
+<small>Executive monitoring</small>
+</article>
+<article>
+<span>Skop</span>
+<strong>12 PBT</strong>
+<small>Negeri Selangor</small>
+</article>
+<article>
+<span>Analitik</span>
+<strong>GTN</strong>
+<small>Komposisi &amp; trend</small>
+</article>
+</div>
+<div class="executive-landuse-preview">
+<div class="landuse-donut">
+<div>
 <strong>100%</strong>
-<span>Jumlah</span>
+<span>Guna Tanah</span>
 </div>
 </div>
-<div class="chart-legend">
+<div class="landuse-legend">
 <div><span class="legend-dot residential"></span>Perumahan <strong>42%</strong></div>
 <div><span class="legend-dot commercial"></span>Komersial <strong>16%</strong></div>
 <div><span class="legend-dot industrial"></span>Industri <strong>18%</strong></div>
-<div><span class="legend-dot green"></span>Hijau <strong>24%</strong></div>
+<div><span class="legend-dot green"></span>Hijau / Lain-lain <strong>24%</strong></div>
 </div>
 </div>
-</section><section class="panel">
+<div class="executive-landuse-tools">
+<a class="landuse-primary-link" href="#" id="openSismapsDashboard" rel="noopener noreferrer" target="_blank">
+      📊 Buka SISMAPS Executive Dashboard
+    </a>
+<a class="landuse-secondary-link" href="https://faeiruzrusman.github.io/SUOLandingPageTesting/applications.html" id="openSismapsApplications" rel="noopener noreferrer" target="_blank">
+      🗺 Buka Senarai Aplikasi SUO
+    </a>
+</div>
+<div class="landuse-intelligence-actions">
+<button data-landuse-action="statistics" type="button">Statistik</button>
+<button data-landuse-action="trend" type="button">Trend</button>
+<button data-landuse-action="comparison" type="button">Perbandingan</button>
+<button data-landuse-action="forecast" type="button">Forecast</button>
+</div>
+<div class="landuse-intelligence-status" id="landuseIntelligenceStatus">
+    Memuatkan konfigurasi pautan SISMAPS...
+  </div>
+</section><section class="panel" data-right-component="urban-planning-ai">
 <div class="panel-heading">
 <div>
 <p class="section-label">URBAN PLANNING AI ASSISTANT</p>
@@ -1176,7 +1204,7 @@
 <button data-assistant-example="Berapa daerah di Selangor?" type="button">Jumlah Daerah</button>
 <button data-assistant-example="Tunjukkan semua hospital" type="button">Highlight hospital</button>
 </div>
-</section><section class="panel info-panel">
+</section><section class="panel info-panel" data-right-component="feature-info">
 <p class="section-label">FEATURE INFO</p>
 <h2>Maklumat pilihan</h2>
 <div class="feature-info" id="featureInfo">
@@ -1185,6 +1213,6 @@
 </section></aside>
 </div>
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-<script src="js/app.js?v=7.7.1" type="module"></script>
+<script src="js/app.js?v=7.7.2" type="module"></script>
 </body>
 </html>
