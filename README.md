@@ -1,4 +1,4 @@
-# SUO GeoPortal v7.7.2 — Modular Architecture
+# SUO GeoPortal v7.7.3 — Modular Architecture
 
 ## Struktur JavaScript
 
@@ -1248,4 +1248,23 @@ Fail baharu:
 js/component-registry.js
 js/executive-landuse.js
 config/external-links.json
+```
+
+
+## Startup Hotfix v7.7.3
+
+Pembetulan startup:
+
+- Loading screen ditutup melalui `finally` walaupun layer gagal.
+- Failsafe 12–15 saat menghalang loading overlay kekal selama-lamanya.
+- Executive Landuse, Component Registry, Weather dan Flood dimulakan secara selamat.
+- Ralat satu modul tidak lagi menghentikan keseluruhan GeoPortal.
+- Notis pemulihan dipaparkan apabila sebahagian layer gagal.
+- Semua komponen v7.7.2 dikekalkan.
+
+Cache busting:
+
+```text
+styles.css?v=7.7.3
+js/app.js?v=7.7.3
 ```

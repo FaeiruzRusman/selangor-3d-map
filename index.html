@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="SUO GeoPortal v7.7.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
-<title>SUO GeoPortal v7.7.2</title>
+<meta content="SUO GeoPortal v7.7.3 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
+<title>SUO GeoPortal v7.7.3</title>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet"/>
-<link href="styles.css?v=7.7.2" rel="stylesheet"/>
+<link href="styles.css?v=7.7.3" rel="stylesheet"/>
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen">
@@ -24,7 +24,7 @@
 <div class="brand-mark">SUO</div>
 <div>
 <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-<h1>GeoPortal <span>v7.7.2</span></h1>
+<h1>GeoPortal <span>v7.7.3</span></h1>
 </div>
 </div>
 <div class="header-actions">
@@ -953,7 +953,7 @@
 <p class="section-label">NETWORK INTELLIGENCE</p>
 <h2>Analisis Rangkaian</h2>
 </div>
-<span class="network-version-badge">v7.7.2</span>
+<span class="network-version-badge">v7.7.3</span>
 </div>
 <div class="network-tabs" role="tablist">
 <button class="network-tab active" data-network-tab="route" type="button">Route</button>
@@ -1212,7 +1212,22 @@
         </div>
 </section></aside>
 </div>
+
+<script>
+  window.__SUO_BOOT_TIMER__ = window.setTimeout(function () {
+    var loading = document.getElementById("loadingScreen");
+    if (loading) loading.classList.add("hidden");
+  }, 15000);
+
+  window.addEventListener("error", function (event) {
+    console.error("SUO startup error:", event.error || event.message);
+  });
+
+  window.addEventListener("unhandledrejection", function (event) {
+    console.error("SUO unhandled promise rejection:", event.reason);
+  });
+</script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-<script src="js/app.js?v=7.7.2" type="module"></script>
+<script src="js/app.js?v=7.7.3" type="module"></script>
 </body>
 </html>
