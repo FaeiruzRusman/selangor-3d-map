@@ -4574,3 +4574,145 @@ body.map-middle-pan-active {
   position: absolute;
   inset: 0;
 }
+
+
+/* v8.0.2 — Executive Landuse Data Fix */
+.landuse-total-card {
+  display: grid;
+  gap: 3px;
+  padding: 11px;
+  border: 1px solid rgba(74,222,128,.20);
+  border-radius: 10px;
+  background: rgba(74,222,128,.045);
+}
+
+.landuse-total-card span,
+.landuse-total-card small {
+  color: var(--muted);
+  font-size: .52rem;
+}
+
+.landuse-total-card strong {
+  color: #dcfce7;
+  font-size: .88rem;
+}
+
+.executive-landuse-kpis.two-column {
+  grid-template-columns: 1fr 1fr;
+}
+
+.landuse-builtup-preview {
+  display: grid;
+  grid-template-columns: 102px minmax(0,1fr);
+  gap: 11px;
+  align-items: center;
+}
+
+.landuse-builtup-donut {
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      #fb923c 0 28.76%,
+      #22c55e 28.76% 100%
+    );
+}
+
+.landuse-builtup-donut > div {
+  width: 59px;
+  height: 59px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #0e1d31;
+  text-align: center;
+}
+
+.landuse-builtup-donut strong {
+  color: #f8fafc;
+  font-size: .7rem;
+}
+
+.landuse-builtup-donut span {
+  color: var(--muted);
+  font-size: .46rem;
+}
+
+.landuse-builtup-legend {
+  display: grid;
+  gap: 8px;
+}
+
+.landuse-builtup-legend > div {
+  display: grid;
+  grid-template-columns: 10px minmax(0,1fr);
+  gap: 4px 7px;
+  align-items: center;
+  font-size: .53rem;
+}
+
+.landuse-builtup-legend strong {
+  grid-column: 2;
+  color: #f8fafc;
+  font-size: .56rem;
+}
+
+.landuse-key {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+}
+
+.landuse-key.builtup {
+  background: #fb923c;
+}
+
+.landuse-key.nonbuilt {
+  background: #22c55e;
+}
+
+.landuse-category-details {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  overflow: hidden;
+  background: rgba(255,255,255,.02);
+}
+
+.landuse-category-details summary {
+  padding: 9px 10px;
+  color: #dbe7f1;
+  cursor: pointer;
+  font-size: .57rem;
+  font-weight: 900;
+}
+
+.landuse-category-list {
+  display: grid;
+  max-height: 240px;
+  overflow-y: auto;
+  border-top: 1px solid var(--line);
+}
+
+.landuse-category-list > div {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 9px;
+  padding: 7px 9px;
+  border-bottom: 1px solid rgba(255,255,255,.045);
+  color: #cbd5e1;
+  font-size: .52rem;
+}
+
+.landuse-category-list strong {
+  color: #f8fafc;
+  white-space: nowrap;
+}
+
+@media (max-width: 430px) {
+  .landuse-builtup-preview {
+    grid-template-columns: 1fr;
+  }
+}

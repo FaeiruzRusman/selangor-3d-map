@@ -1,4 +1,4 @@
-# SUO GeoPortal v8.0.1 Workspace Hotfix
+# SUO GeoPortal v8.0.2 Landuse Data Fix
 
 ## Struktur JavaScript
 
@@ -1339,3 +1339,21 @@ setRightPanel: (open) => workspaceController.setRight(open)
 ```
 
 Ini menghapuskan ralat `setLeftPanel is not defined` semasa import modul.
+
+
+## v8.0.2 Executive Landuse Data Fix
+
+Angka demo lama telah dibuang dan diganti dengan data dashboard SISMAPS 2024:
+
+- Keluasan guna tanah: 833,720.73 ha
+- Tepu bina: 239,840.56 ha (28.76%)
+- Bukan tepu bina: 593,880.17 ha (71.23%)
+
+Pecahan 12 kategori guna tanah turut dimasukkan berdasarkan dashboard yang
+dibekalkan.
+
+Data berstruktur disimpan dalam:
+
+```text
+data/landuse/landuse_summary_2024.json
+```

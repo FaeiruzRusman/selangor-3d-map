@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="SUO GeoPortal v8.0.1 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
-<title>SUO GeoPortal v8.0.1</title>
-<link id="mapboxCss" href="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css" rel="stylesheet" />
-<link href="styles.css?v=8.0.1" rel="stylesheet"/>
+<meta content="SUO GeoPortal v8.0.2 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
+<title>SUO GeoPortal v8.0.2</title>
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css" id="mapboxCss" rel="stylesheet"/>
+<link href="styles.css?v=8.0.2" rel="stylesheet"/>
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen">
@@ -24,7 +24,7 @@
 <div class="brand-mark">SUO</div>
 <div>
 <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-<h1>GeoPortal <span>v8.0.1</span></h1>
+<h1>GeoPortal <span>v8.0.2</span></h1>
 </div>
 </div>
 <div class="header-actions">
@@ -953,7 +953,7 @@
 <p class="section-label">NETWORK INTELLIGENCE</p>
 <h2>Analisis Rangkaian</h2>
 </div>
-<span class="network-version-badge">v8.0.1</span>
+<span class="network-version-badge">v8.0.2</span>
 </div>
 <div class="network-tabs" role="tablist">
 <button class="network-tab active" data-network-tab="route" type="button">Route</button>
@@ -1118,41 +1118,64 @@
 <div>
 <p class="section-label">EXECUTIVE LANDUSE INTELLIGENCE</p>
 <h2>Guna Tanah Negeri Selangor</h2>
-<p class="muted">Akses pantas kepada dashboard eksekutif dan analitik guna tanah SISMAPS.</p>
+<p class="muted">Ringkasan dashboard guna tanah SISMAPS bagi tahun 2024.</p>
 </div>
 <span class="landuse-live-badge">SISMAPS</span>
 </div>
-<div class="executive-landuse-kpis">
+<div class="landuse-total-card">
+<span>Keluasan Guna Tanah</span>
+<strong>833,720.73 ha</strong>
+<small>Negeri Selangor • Tahun 2024</small>
+</div>
+<div class="executive-landuse-kpis two-column">
 <article>
-<span>Dashboard</span>
-<strong>ONLINE</strong>
-<small>Executive monitoring</small>
+<span>Tepu Bina</span>
+<strong>239,840.56 ha</strong>
+<small>28.76%</small>
 </article>
 <article>
-<span>Skop</span>
-<strong>12 PBT</strong>
-<small>Negeri Selangor</small>
-</article>
-<article>
-<span>Analitik</span>
-<strong>GTN</strong>
-<small>Komposisi &amp; trend</small>
+<span>Bukan Tepu Bina</span>
+<strong>593,880.17 ha</strong>
+<small>71.23%</small>
 </article>
 </div>
-<div class="executive-landuse-preview">
-<div class="landuse-donut">
+<div class="landuse-builtup-preview">
+<div class="landuse-builtup-donut">
 <div>
-<strong>100%</strong>
-<span>Guna Tanah</span>
+<strong>28.76%</strong>
+<span>Tepu Bina</span>
 </div>
 </div>
-<div class="landuse-legend">
-<div><span class="legend-dot residential"></span>Perumahan <strong>42%</strong></div>
-<div><span class="legend-dot commercial"></span>Komersial <strong>16%</strong></div>
-<div><span class="legend-dot industrial"></span>Industri <strong>18%</strong></div>
-<div><span class="legend-dot green"></span>Hijau / Lain-lain <strong>24%</strong></div>
+<div class="landuse-builtup-legend">
+<div>
+<span class="landuse-key builtup"></span>
+<span>Tepu Bina</span>
+<strong>239,840.56 ha</strong>
+</div>
+<div>
+<span class="landuse-key nonbuilt"></span>
+<span>Bukan Tepu Bina</span>
+<strong>593,880.17 ha</strong>
 </div>
 </div>
+</div>
+<details class="landuse-category-details">
+<summary>Pecahan Kategori Guna Tanah</summary>
+<div class="landuse-category-list">
+<div><span>Perumahan</span><strong>48,131.83 ha</strong></div>
+<div><span>Komersial</span><strong>8,885.36 ha</strong></div>
+<div><span>Industri</span><strong>19,840.79 ha</strong></div>
+<div><span>Infrastruktur dan Utiliti</span><strong>15,190.98 ha</strong></div>
+<div><span>Institusi dan Kemudahan Masyarakat</span><strong>14,935.47 ha</strong></div>
+<div><span>Pengangkutan</span><strong>60,721.99 ha</strong></div>
+<div><span>Badan Air</span><strong>19,759.78 ha</strong></div>
+<div><span>Hutan</span><strong>262,962.83 ha</strong></div>
+<div><span>Pertanian</span><strong>277,364.81 ha</strong></div>
+<div><span>Tanah Lapang dan Rekreasi</span><strong>18,946.18 ha</strong></div>
+<div><span>Pantai</span><strong>33,792.75 ha</strong></div>
+<div><span>Tanah Kosong</span><strong>53,187.96 ha</strong></div>
+</div>
+</details>
 <div class="executive-landuse-tools">
 <a class="landuse-primary-link" href="#" id="openSismapsDashboard" rel="noopener noreferrer" target="_blank">
       📊 Buka SISMAPS Executive Dashboard
@@ -1160,12 +1183,6 @@
 <a class="landuse-secondary-link" href="https://faeiruzrusman.github.io/SUOLandingPageTesting/applications.html" id="openSismapsApplications" rel="noopener noreferrer" target="_blank">
       🗺 Buka Senarai Aplikasi SUO
     </a>
-</div>
-<div class="landuse-intelligence-actions">
-<button data-landuse-action="statistics" type="button">Statistik</button>
-<button data-landuse-action="trend" type="button">Trend</button>
-<button data-landuse-action="comparison" type="button">Perbandingan</button>
-<button data-landuse-action="forecast" type="button">Forecast</button>
 </div>
 <div class="landuse-intelligence-status" id="landuseIntelligenceStatus">
     Memuatkan konfigurasi pautan SISMAPS...
@@ -1212,7 +1229,6 @@
         </div>
 </section></aside>
 </div>
-
 <script>
 (function () {
   "use strict";
@@ -1244,7 +1260,7 @@
       return;
     }
 
-    import("./js/app.js?v=8.0.1").catch(function (error) {
+    import("./js/app.js?v=8.0.2").catch(function (error) {
       console.error("SUO app module gagal:", error);
       showFatal(
         "Modul GeoPortal gagal dimulakan: " +
@@ -1307,6 +1323,5 @@
   );
 })();
 </script>
-
 </body>
 </html>
