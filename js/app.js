@@ -19,6 +19,13 @@ import {
   NetworkIntelligence,
   isNetworkIntelligenceActive
 } from "./network-intelligence.js";
+import {
+  applyRightPanelRegistry,
+  validateRightPanelRegistry
+} from "./component-registry.js";
+import {
+  ExecutiveLanduseIntelligence
+} from "./executive-landuse.js";
 import { WeatherIntelligence } from "./weather.js";
 import { FloodIntelligence } from "./flood.js";
 import { SpatialAssistant } from "./ai-assistant.js";
@@ -52,6 +59,20 @@ const networkIntelligence = new NetworkIntelligence(
   map,
   spatialTools
 );
+
+const rightSidebar = document.getElementById("rightSidebar");
+applyRightPanelRegistry(rightSidebar);
+
+const registryStatus = validateRightPanelRegistry(rightSidebar);
+if (!registryStatus.valid) {
+  console.warn(
+    "Right Panel Component Registry tidak lengkap:",
+    registryStatus.missing
+  );
+}
+
+const executiveLanduse =
+  new ExecutiveLanduseIntelligence();
 const weather = new WeatherIntelligence(map);
 const flood = new FloodIntelligence(map);
 let viewMode = "3d";
