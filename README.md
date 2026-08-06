@@ -1,4 +1,4 @@
-# SUO GeoPortal v8.0 Enterprise Refactor
+# SUO GeoPortal v8.0.1 Workspace Hotfix
 
 ## Struktur JavaScript
 
@@ -1300,3 +1300,42 @@ Tanda versi aktif:
 GeoPortal v8.0
 Network Intelligence v8.0
 ```
+
+
+## v8.0.1 Workspace Hotfix
+
+Punca:
+
+```text
+setLeftPanel is not defined
+```
+
+Semasa refactor v8.0, kawalan panel dipindahkan ke `WorkspaceController`,
+tetapi sebahagian event lama masih memanggil fungsi global `setLeftPanel()`.
+
+Pembetulan:
+
+- Semua panggilan lama diganti dengan `workspaceController.setLeft()`.
+- Semua panggilan lama `setRightPanel()` diganti dengan
+  `workspaceController.setRight()`.
+- Event panel lama yang bertindih dibuang.
+- Cache busting dikemas kini kepada v8.0.1.
+
+
+### Additional startup correction
+
+Ask Mr. TPr. SUO masih menerima shorthand action lama:
+
+```javascript
+setLeftPanel,
+setRightPanel
+```
+
+Ia telah diganti dengan:
+
+```javascript
+setLeftPanel: (open) => workspaceController.setLeft(open),
+setRightPanel: (open) => workspaceController.setRight(open)
+```
+
+Ini menghapuskan ralat `setLeftPanel is not defined` semasa import modul.
