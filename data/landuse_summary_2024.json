@@ -1,0 +1,63 @@
+{
+  "year": 2024,
+  "total_area_ha": 833720.73,
+  "built_up": {
+    "area_ha": 239840.56,
+    "percentage": 28.76
+  },
+  "non_built_up": {
+    "area_ha": 593880.17,
+    "percentage": 71.23
+  },
+  "categories": [
+    {
+      "name": "Perumahan",
+      "area_ha": 48131.83
+    },
+    {
+      "name": "Komersial",
+      "area_ha": 8885.36
+    },
+    {
+      "name": "Industri",
+      "area_ha": 19840.79
+    },
+    {
+      "name": "Infrastruktur dan Utiliti",
+      "area_ha": 15190.98
+    },
+    {
+      "name": "Institusi dan Kemudahan Masyarakat",
+      "area_ha": 14935.47
+    },
+    {
+      "name": "Pengangkutan",
+      "area_ha": 60721.99
+    },
+    {
+      "name": "Badan Air",
+      "area_ha": 19759.78
+    },
+    {
+      "name": "Hutan",
+      "area_ha": 262962.83
+    },
+    {
+      "name": "Pertanian",
+      "area_ha": 277364.81
+    },
+    {
+      "name": "Tanah Lapang dan Rekreasi",
+      "area_ha": 18946.18
+    },
+    {
+      "name": "Pantai",
+      "area_ha": 33792.75
+    },
+    {
+      "name": "Tanah Kosong",
+      "area_ha": 53187.96
+    }
+  ],
+  "source_note": "Nilai disalin daripada tangkapan skrin Dashboard Guna Tanah SISMAPS yang dibekalkan pengguna."
+}
