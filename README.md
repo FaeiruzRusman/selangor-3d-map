@@ -1,4 +1,4 @@
-# SUO GeoPortal v8.0.2 Landuse Data Fix
+# SUO GeoPortal v8.0.3 Mr. TPr. SUO Avatar Restore
 
 ## Struktur JavaScript
 
@@ -1357,3 +1357,27 @@ Data berstruktur disimpan dalam:
 ```text
 data/landuse/landuse_summary_2024.json
 ```
+
+
+## v8.0.3 Mr. TPr. SUO Avatar Restore
+
+Avatar rasmi Mr. TPr. SUO dipulihkan menggunakan artwork yang dibekalkan.
+
+Aset:
+
+```text
+assets/avatar/mr-tpr-suo.png
+```
+
+Perubahan:
+
+- Avatar 58px pada profile card.
+- Border emas dan online status indicator.
+- Label `Urban Planning AI Assistant`.
+- Capability badges: Spatial, Analytics, Forecasting.
+- Engine status: `SUO Planner v8`.
+- Spatial Data status: `Connected`.
+- Setiap bubble jawapan AI kini mempunyai avatar kecil.
+- Bubble pengguna kekal tanpa avatar.
+- Avatar dioptimumkan kepada 640px untuk prestasi web.
+- Semua fungsi v8.0.2 dikekalkan.
