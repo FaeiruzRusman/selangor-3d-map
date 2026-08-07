@@ -557,13 +557,36 @@ function addChatBubble(text, type, options = {}) {
   const bubble = document.createElement("div");
 
   bubble.className = `chat-bubble ${type}`;
+
   if (options.loading) {
     bubble.classList.add("chat-loading");
   }
 
   bubble.textContent = text;
 
-  container.appendChild(bubble);
+  if (type === "bot") {
+    const row = document.createElement("div");
+    row.className = "chat-row bot-row";
+
+    const avatar = document.createElement("div");
+    avatar.className = "chat-mini-avatar";
+
+    const image = document.createElement("img");
+    image.src = "assets/avatar/mr-tpr-suo.png";
+    image.alt = "";
+    image.setAttribute("aria-hidden", "true");
+
+    avatar.appendChild(image);
+    row.appendChild(avatar);
+    row.appendChild(bubble);
+    container.appendChild(row);
+  } else {
+    const row = document.createElement("div");
+    row.className = "chat-row user-row";
+    row.appendChild(bubble);
+    container.appendChild(row);
+  }
+
   container.scrollTop = container.scrollHeight;
   return bubble;
 }
