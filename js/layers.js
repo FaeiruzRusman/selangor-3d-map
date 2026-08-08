@@ -15,6 +15,7 @@ export const layerState = {
   police: true,
   schools: true,
   rail: true,
+  railStations: true,
   floodRain: true,
   terrain: true,
   buildings: true
@@ -237,6 +238,88 @@ export async function addPortalLayers(map, prefix = "") {
         "line-width": ["interpolate", ["linear"], ["zoom"], 7, 2.8, 11, 4.5, 15, 6.4],
         "line-dasharray": [2.2, 1.35],
         "line-opacity": 1
+      }
+    });
+  }
+
+
+  const railStationSource = `${prefix}rail-stations`;
+  const railStationHalo = `${prefix}rail-station-halo`;
+  const railStationCircle = `${prefix}rail-station-circle`;
+  const railStationLabel = `${prefix}rail-station-label`;
+
+  if (!map.getSource(railStationSource)) {
+    map.addSource(railStationSource, {
+      type: "geojson",
+      data: DATA_URLS.railStations
+    });
+  }
+
+  const railStationColor = [
+    "match", ["get", "line_name"],
+    "MRT Kajang Line", "#0EA5E9",
+    "MRT Putrajaya Line", "#EAB308",
+    "LRT Kelana Jaya Line", "#E11D48",
+    "LRT Ampang Line", "#84CC16",
+    "LRT Sri Petaling Line", "#16A34A",
+    "LRT Shah Alam Line", "#8B5CF6",
+    "KTM Port Klang Line", "#F59E0B",
+    "KTM Seremban Line", "#D97706",
+    "KLIA Transit", "#7C3AED",
+    "KLIA Transit / KLIA Ekspres", "#7C3AED",
+    "KL Monorail Line", "#EC4899",
+    "BRT Sunway Line", "#14B8A6",
+    "#64748B"
+  ];
+
+  if (!map.getLayer(railStationHalo)) {
+    addLayerCompat(map, {
+      id: railStationHalo,
+      type: "circle",
+      source: railStationSource,
+      slot: "top",
+      paint: {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 7, 4.6, 12, 6.8, 16, 8.6],
+        "circle-color": "#FFFFFF",
+        "circle-opacity": 0.98
+      }
+    });
+  }
+
+  if (!map.getLayer(railStationCircle)) {
+    addLayerCompat(map, {
+      id: railStationCircle,
+      type: "circle",
+      source: railStationSource,
+      slot: "top",
+      paint: {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 7, 2.7, 12, 4.2, 16, 5.4],
+        "circle-color": railStationColor,
+        "circle-stroke-color": "#0F172A",
+        "circle-stroke-width": 0.7
+      }
+    });
+  }
+
+  if (!map.getLayer(railStationLabel)) {
+    addLayerCompat(map, {
+      id: railStationLabel,
+      type: "symbol",
+      source: railStationSource,
+      slot: "top",
+      minzoom: 11,
+      layout: {
+        "text-field": ["get", "station_name"],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 11, 9, 15, 11],
+        "text-offset": [0, 1.2],
+        "text-anchor": "top",
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      paint: {
+        "text-color": "#FFFFFF",
+        "text-halo-color": "rgba(7,17,31,0.96)",
+        "text-halo-width": 1.5
       }
     });
   }
@@ -631,7 +714,10 @@ export function applyLayerVisibility(map, prefix = "") {
     [`${prefix}rail-casing`, layerState.rail],
     [`${prefix}rail-line`, layerState.rail],
     [`${prefix}rail-mrt-kajang`, layerState.rail],
-    [`${prefix}rail-mrt-putrajaya`, layerState.rail]
+    [`${prefix}rail-mrt-putrajaya`, layerState.rail],
+    [`${prefix}rail-station-halo`, layerState.railStations],
+    [`${prefix}rail-station-circle`, layerState.railStations],
+    [`${prefix}rail-station-label`, layerState.railStations]
   ];
 
   for (const [id, visible] of items) {

@@ -359,6 +359,13 @@ document.getElementById("railToggle").addEventListener("change", (event) => {
   updateLayerCount();
 });
 
+document.getElementById("railStationToggle").addEventListener("change", (event) => {
+  layerState.railStations = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("floodRainToggle").addEventListener("change", (event) => {
   flood.setVisible(event.target.checked);
   compare.refreshLayers();
@@ -406,6 +413,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   document.getElementById("policeToggle").checked = allOn;
   document.getElementById("schoolToggle").checked = allOn;
   document.getElementById("railToggle").checked = allOn;
+  document.getElementById("railStationToggle").checked = allOn;
   document.getElementById("floodRainToggle").checked = allOn;
   document.getElementById("terrainToggle").checked = allOn;
   document.getElementById("buildingToggle").checked = allOn;
@@ -441,6 +449,16 @@ document.getElementById("healthLegendBtn").addEventListener("click", () => {
 document.getElementById("railLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("railLegendBtn");
   const panel = document.getElementById("railLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("railStationLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("railStationLegendBtn");
+  const panel = document.getElementById("railStationLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));
@@ -547,6 +565,42 @@ document.getElementById("nightBtn").addEventListener("click", () => {
   } catch (_) {
     map.setStyle(nightMode ? BASEMAPS.dark : BASEMAPS.standard);
   }
+});
+
+
+map.on("click", "rail-station-circle", (event) => {
+  const feature = event.features?.[0];
+  if (!feature) return;
+
+  const p = feature.properties || {};
+  const coord = feature.geometry?.coordinates;
+  if (!coord) return;
+
+  const html = `
+    <div class="standard-popup-content">
+      <div class="popup-kicker">STESEN REL</div>
+      <h3>${p.station_name || "-"}</h3>
+      <div class="popup-info-grid">
+        <span>Kod</span><strong>${p.station_code || "-"}</strong>
+        <span>Line</span><strong>${p.line_name || "-"}</strong>
+        <span>Mode</span><strong>${p.mode || "-"}</strong>
+        <span>Operator</span><strong>${p.operator || "-"}</strong>
+        <span>Status</span><strong>${p.status || "-"}</strong>
+      </div>
+    </div>`;
+
+  new mapboxgl.Popup({ closeButton: true, maxWidth: "310px" })
+    .setLngLat(coord)
+    .setHTML(html)
+    .addTo(map);
+});
+
+map.on("mouseenter", "rail-station-circle", () => {
+  map.getCanvas().style.cursor = "pointer";
+});
+
+map.on("mouseleave", "rail-station-circle", () => {
+  map.getCanvas().style.cursor = "";
 });
 
 document.getElementById("locateBtn").addEventListener("click", () => {
