@@ -149,14 +149,14 @@ export async function addPortalLayers(map, prefix = "") {
         "line-join": "round"
       },
       paint: {
-        "line-color": "rgba(7,17,31,0.82)",
+        "line-color": "#FFFFFF",
         "line-width": [
           "interpolate", ["linear"], ["zoom"],
-          7, 3.8,
-          11, 6.2,
-          15, 9
+          7, 4.8,
+          11, 7.2,
+          15, 10.2
         ],
-        "line-opacity": 0.9
+        "line-opacity": 0.96
       }
     });
   }
@@ -173,22 +173,70 @@ export async function addPortalLayers(map, prefix = "") {
       },
       paint: {
         "line-color": [
-          "match", ["get", "mode"],
-          "MRT", "#2563EB",
-          "LRT", "#EF4444",
-          "KTM", "#F59E0B",
-          "ERL", "#8B5CF6",
-          "Monorail", "#EC4899",
-          "BRT", "#14B8A6",
+          "match", ["get", "line_name"],
+          "KTM Double Track", "#F59E0B",
+          "Express Rail Link", "#7C3AED",
+          "KL Monorail", "#EC4899",
+          "LRT Gombak Line", "#16A34A",
+          "LRT Kelana Jaya Line", "#E11D48",
+          "LRT Kelana Jaya Line Extension", "#FB7185",
+          "MRT 1 Sungai Buloh–Kajang", "#0EA5E9",
+          "MRT 2 Sungai Buloh–Putrajaya", "#EAB308",
+          "BRT Sunway", "#14B8A6",
+          "Subang Skypark Line", "#D97706",
+          "LRT 3 Damansara–Johan Setia", "#8B5CF6",
+          "LRT Ampang Line", "#84CC16",
           "#94A3B8"
         ],
         "line-width": [
           "interpolate", ["linear"], ["zoom"],
-          7, 2,
-          11, 3.6,
-          15, 5.5
+          7, 2.4,
+          11, 4.0,
+          15, 6.0
         ],
-        "line-opacity": 0.96
+        "line-dasharray": [2.2, 1.35],
+        "line-opacity": 1
+      }
+    });
+  }
+
+
+  // v8.0.4A: dedicated MRT layers.
+  // Drawn separately above the general rail layer so both MRT alignments
+  // remain clearly visible on every basemap.
+  const mrtKajang = `${prefix}rail-mrt-kajang`;
+  const mrtPutrajaya = `${prefix}rail-mrt-putrajaya`;
+
+  if (!map.getLayer(mrtKajang)) {
+    addLayerCompat(map, {
+      id: mrtKajang,
+      type: "line",
+      source: railSource,
+      slot: "top",
+      filter: ["==", ["get", "line_name"], "MRT 1 Sungai Buloh–Kajang"],
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": "#0EA5E9",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 7, 2.8, 11, 4.5, 15, 6.4],
+        "line-dasharray": [2.2, 1.35],
+        "line-opacity": 1
+      }
+    });
+  }
+
+  if (!map.getLayer(mrtPutrajaya)) {
+    addLayerCompat(map, {
+      id: mrtPutrajaya,
+      type: "line",
+      source: railSource,
+      slot: "top",
+      filter: ["==", ["get", "line_name"], "MRT 2 Sungai Buloh–Putrajaya"],
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": "#EAB308",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 7, 2.8, 11, 4.5, 15, 6.4],
+        "line-dasharray": [2.2, 1.35],
+        "line-opacity": 1
       }
     });
   }
@@ -581,7 +629,9 @@ export function applyLayerVisibility(map, prefix = "") {
     [`${prefix}school-symbol`, layerState.schools],
     [`${prefix}school-label`, layerState.schools],
     [`${prefix}rail-casing`, layerState.rail],
-    [`${prefix}rail-line`, layerState.rail]
+    [`${prefix}rail-line`, layerState.rail],
+    [`${prefix}rail-mrt-kajang`, layerState.rail],
+    [`${prefix}rail-mrt-putrajaya`, layerState.rail]
   ];
 
   for (const [id, visible] of items) {
