@@ -1,0 +1,18 @@
+{
+  "version": "8.0.4B",
+  "style_by": "line_name",
+  "colors": {
+    "KTM Double Track": "#F59E0B",
+    "Express Rail Link": "#7C3AED",
+    "KL Monorail": "#EC4899",
+    "LRT Gombak Line": "#16A34A",
+    "LRT Kelana Jaya Line": "#E11D48",
+    "LRT Kelana Jaya Line Extension": "#FB7185",
+    "MRT 1 Sungai Buloh–Kajang": "#0EA5E9",
+    "MRT 2 Sungai Buloh–Putrajaya": "#EAB308",
+    "BRT Sunway": "#14B8A6",
+    "Subang Skypark Line": "#D97706",
+    "LRT 3 Damansara–Johan Setia": "#8B5CF6",
+    "LRT Ampang Line": "#84CC16"
+  }
+}
