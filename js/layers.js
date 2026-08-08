@@ -691,6 +691,34 @@ export async function addPortalLayers(map, prefix = "") {
 
   await addCadastralLayer(map, prefix);
   applyLayerVisibility(map, prefix);
+
+  applyLayerRenderOrder(map, prefix);
+}
+
+
+/**
+ * Synchronize actual Mapbox draw order with Layer Contents priority.
+ * Transport overlay order: Live Traffic < Rail < Rail Stations.
+ */
+export function applyLayerRenderOrder(map, prefix = "") {
+  const moveTop = (id) => {
+    if (!map.getLayer(id)) return;
+    try { map.moveLayer(id); } catch (_) {}
+  };
+
+  // Move from lower to higher display priority.
+  moveTop(`${prefix}traffic-casing`);
+  moveTop(`${prefix}traffic-line`);
+  moveTop(`${prefix}traffic`);
+
+  moveTop(`${prefix}rail-casing`);
+  moveTop(`${prefix}rail-line`);
+  moveTop(`${prefix}rail-mrt-kajang`);
+  moveTop(`${prefix}rail-mrt-putrajaya`);
+
+  moveTop(`${prefix}rail-station-halo`);
+  moveTop(`${prefix}rail-station-circle`);
+  moveTop(`${prefix}rail-station-label`);
 }
 
 export function applyLayerVisibility(map, prefix = "") {

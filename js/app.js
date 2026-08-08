@@ -1,6 +1,7 @@
 import {
   addPortalLayers,
   applyLayerVisibility,
+  applyLayerRenderOrder,
   enableTerrain,
   disableTerrain,
   layerState
@@ -84,6 +85,7 @@ map.on("style.load", async () => {
 
   try {
     await addPortalLayers(map);
+applyLayerRenderOrder(map);
 
     if (viewMode === "3d" && layerState.terrain) {
       enableTerrain(map);
