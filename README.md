@@ -1471,3 +1471,14 @@ Station source is now generated directly from the cleaned finalized dataset:
 - No runtime/render deduplication is required for the finalized station dataset.
 
 This prevents duplicate counts in future analytics.
+
+## v8.0.5C — Actual Map Render Order
+
+Mapbox draw stack now explicitly keeps the transport overlays in this order
+(bottom to top):
+
+Live Traffic → Rail white casing → coloured dashed rail → MRT overlays →
+station halo → station point → station label.
+
+This fixes the mismatch where the left panel showed rail above traffic but the
+actual map rendered traffic above rail.
