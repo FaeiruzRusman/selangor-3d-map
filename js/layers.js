@@ -14,6 +14,7 @@ export const layerState = {
   liveTraffic: true,
   police: true,
   schools: true,
+  rail: true,
   floodRain: true,
   terrain: true,
   buildings: true
@@ -124,6 +125,73 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
 
+
+
+  const railSource = `${prefix}rail-transportation`;
+  const railCasing = `${prefix}rail-casing`;
+  const railLine = `${prefix}rail-line`;
+
+  if (!map.getSource(railSource)) {
+    map.addSource(railSource, {
+      type: "geojson",
+      data: DATA_URLS.rail
+    });
+  }
+
+  if (!map.getLayer(railCasing)) {
+    addLayerCompat(map, {
+      id: railCasing,
+      type: "line",
+      source: railSource,
+      slot: "top",
+      layout: {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      paint: {
+        "line-color": "rgba(7,17,31,0.82)",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          7, 3.8,
+          11, 6.2,
+          15, 9
+        ],
+        "line-opacity": 0.9
+      }
+    });
+  }
+
+  if (!map.getLayer(railLine)) {
+    addLayerCompat(map, {
+      id: railLine,
+      type: "line",
+      source: railSource,
+      slot: "top",
+      layout: {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      paint: {
+        "line-color": [
+          "match", ["get", "mode"],
+          "MRT", "#2563EB",
+          "LRT", "#EF4444",
+          "KTM", "#F59E0B",
+          "ERL", "#8B5CF6",
+          "Monorail", "#EC4899",
+          "BRT", "#14B8A6",
+          "#94A3B8"
+        ],
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          7, 2,
+          11, 3.6,
+          15, 5.5
+        ],
+        "line-opacity": 0.96
+      }
+    });
+  }
 
 
   const pbtSource = `${prefix}pbt`;
@@ -511,7 +579,9 @@ export function applyLayerVisibility(map, prefix = "") {
     [`${prefix}police-symbol`, layerState.police],
     [`${prefix}police-label`, layerState.police],
     [`${prefix}school-symbol`, layerState.schools],
-    [`${prefix}school-label`, layerState.schools]
+    [`${prefix}school-label`, layerState.schools],
+    [`${prefix}rail-casing`, layerState.rail],
+    [`${prefix}rail-line`, layerState.rail]
   ];
 
   for (const [id, visible] of items) {

@@ -352,6 +352,13 @@ document.getElementById("schoolToggle").addEventListener("change", (event) => {
   updateLayerCount();
 });
 
+document.getElementById("railToggle").addEventListener("change", (event) => {
+  layerState.rail = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("floodRainToggle").addEventListener("change", (event) => {
   flood.setVisible(event.target.checked);
   compare.refreshLayers();
@@ -398,6 +405,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   document.getElementById("trafficToggle").checked = allOn;
   document.getElementById("policeToggle").checked = allOn;
   document.getElementById("schoolToggle").checked = allOn;
+  document.getElementById("railToggle").checked = allOn;
   document.getElementById("floodRainToggle").checked = allOn;
   document.getElementById("terrainToggle").checked = allOn;
   document.getElementById("buildingToggle").checked = allOn;
@@ -423,6 +431,16 @@ function updateLayerCount() {
 document.getElementById("healthLegendBtn").addEventListener("click", () => {
   const button = document.getElementById("healthLegendBtn");
   const panel = document.getElementById("healthLegendPanel");
+  const expanded = button.getAttribute("aria-expanded") === "true";
+
+  button.setAttribute("aria-expanded", String(!expanded));
+  button.classList.toggle("open", !expanded);
+  panel.hidden = expanded;
+});
+
+document.getElementById("railLegendBtn").addEventListener("click", () => {
+  const button = document.getElementById("railLegendBtn");
+  const panel = document.getElementById("railLegendPanel");
   const expanded = button.getAttribute("aria-expanded") === "true";
 
   button.setAttribute("aria-expanded", String(!expanded));

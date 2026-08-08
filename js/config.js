@@ -67,5 +67,6 @@ export const DATA_URLS = {
   districts: "data/pentadbiran/sempadan_daerah_selangor.geojson",
   districtLabels: "data/pentadbiran/label_daerah_selangor.geojson",
   schools: "data/pendidikan/sekolah_negeri_selangor.geojson",
-  schoolIcon: "assets/icons/school-building.svg"
+  schoolIcon: "assets/icons/school-building.svg",
+  rail: "data/transport/rail_transportation_selangor.geojson"
 };
