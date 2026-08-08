@@ -1,0 +1,9 @@
+{
+  "source": "Selangor Rail Network.zip",
+  "source_status": "User checked and finalized",
+  "portal_crs": "EPSG:4326",
+  "line_features": 15,
+  "station_features_after_exact_display_deduplication": 234,
+  "exact_duplicate_station_records_removed_for_display": 20,
+  "note": "Only exact duplicate station records were removed for portal rendering; original uploaded source was not modified."
+}
