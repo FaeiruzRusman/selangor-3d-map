@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="SUO GeoPortal v8.0.5C - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
-<title>SUO GeoPortal v8.0.5C</title>
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css" id="mapboxCss" rel="stylesheet"/>
-<link href="styles.css?v=8.0.5C" rel="stylesheet"/>
+<meta content="SUO GeoPortal v8.0.5D - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
+<title>SUO GeoPortal v8.0.5D</title>
+<link href="https://cdn.jsdelivr.net/npm/mapbox-gl@3.25.0/dist/mapbox-gl.css" id="mapboxCss" rel="stylesheet"/>
+<link href="styles.css?v=8.0.5D" rel="stylesheet"/>
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen">
@@ -24,7 +24,7 @@
 <div class="brand-mark">SUO</div>
 <div>
 <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-<h1>GeoPortal <span>v8.0.5C</span></h1>
+<h1>GeoPortal <span>v8.0.5D</span></h1>
 </div>
 </div>
 <div class="header-actions">
@@ -1033,7 +1033,7 @@
 <p class="section-label">NETWORK INTELLIGENCE</p>
 <h2>Analisis Rangkaian</h2>
 </div>
-<span class="network-version-badge">v8.0.5C</span>
+<span class="network-version-badge">v8.0.5D</span>
 </div>
 <div class="network-tabs" role="tablist">
 <button class="network-tab active" data-network-tab="route" type="button">Route</button>
@@ -1360,7 +1360,7 @@
       return;
     }
 
-    import("./js/app.js?v=8.0.5C").catch(function (error) {
+    import("./js/app.js?v=8.0.5D").catch(function (error) {
       console.error("SUO app module gagal:", error);
       showFatal(
         "Modul GeoPortal gagal dimulakan: " +
@@ -1369,33 +1369,66 @@
     });
   }
 
-  function loadScript(url, onSuccess, onFailure) {
+  var mapboxLoadResolved = false;
+
+  function loadScript(url, onSuccess, onFailure, timeoutMs) {
     var script = document.createElement("script");
+    var settled = false;
+    var timer = null;
+
+    function succeed() {
+      if (settled) return;
+      settled = true;
+      if (timer) window.clearTimeout(timer);
+      onSuccess();
+    }
+
+    function fail() {
+      if (settled) return;
+      settled = true;
+      if (timer) window.clearTimeout(timer);
+      try { script.remove(); } catch (_) {}
+      onFailure();
+    }
+
     script.src = url;
     script.async = true;
     script.crossOrigin = "anonymous";
-    script.onload = onSuccess;
-    script.onerror = onFailure;
+    script.onload = succeed;
+    script.onerror = fail;
     document.head.appendChild(script);
+
+    timer = window.setTimeout(fail, timeoutMs || 7000);
+  }
+
+  function loadAppOnce() {
+    if (mapboxLoadResolved) return;
+    if (!window.mapboxgl || typeof window.mapboxgl.Map !== "function") {
+      return;
+    }
+    mapboxLoadResolved = true;
+    loadApp();
   }
 
   function loadFallback() {
-    console.warn("Mapbox CDN utama gagal. Mencuba CDN fallback.");
+    if (mapboxLoadResolved) return;
+    console.warn("Mapbox CDN utama lambat/gagal. Mencuba CDN fallback.");
 
     if (cssLink) {
       cssLink.href =
-        "https://cdn.jsdelivr.net/npm/mapbox-gl@3.25.0/dist/mapbox-gl.css";
+        "https://unpkg.com/mapbox-gl@3.25.0/dist/mapbox-gl.css";
     }
 
     loadScript(
-      "https://cdn.jsdelivr.net/npm/mapbox-gl@3.25.0/dist/mapbox-gl.js",
-      loadApp,
+      "https://unpkg.com/mapbox-gl@3.25.0/dist/mapbox-gl.js",
+      loadAppOnce,
       function () {
         showFatal(
-          "Kedua-dua sumber Mapbox GL gagal dimuatkan. " +
-          "Semak sambungan internet, content blocker atau polisi firewall."
+          "Library Mapbox GL tidak dapat dimuatkan daripada kedua-dua CDN. " +
+          "Semak sambungan internet atau polisi rangkaian."
         );
-      }
+      },
+      8000
     );
   }
 
@@ -1410,16 +1443,17 @@
   window.__SUO_BOOT_TIMER__ = window.setTimeout(function () {
     if (!document.querySelector("#map .mapboxgl-canvas")) {
       showFatal(
-        "Mapbox mengambil masa terlalu lama untuk dimulakan. " +
-        "Sila muat semula atau semak akses ke api.mapbox.com."
+        "Mapbox GL masih belum dapat dimulakan selepas percubaan CDN utama dan fallback. " +
+        "Sila muat semula atau semak sambungan rangkaian."
       );
     }
   }, 20000);
 
   loadScript(
-    "https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.js",
-    loadApp,
-    loadFallback
+    "https://cdn.jsdelivr.net/npm/mapbox-gl@3.25.0/dist/mapbox-gl.js",
+    loadAppOnce,
+    loadFallback,
+    6000
   );
 })();
 </script>

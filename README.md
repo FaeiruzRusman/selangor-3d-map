@@ -1482,3 +1482,17 @@ station halo → station point → station label.
 
 This fixes the mismatch where the left panel showed rail above traffic but the
 actual map rendered traffic above rail.
+
+## v8.0.5D — Mapbox Loader Recovery Fix
+
+The previous startup could wait on `api.mapbox.com` for the Mapbox GL JS
+library without triggering the fallback quickly enough.
+
+New startup sequence:
+1. jsDelivr Mapbox GL JS/CSS
+2. 6-second timeout if the primary CDN hangs
+3. automatic fallback to unpkg
+4. app initialization is guarded so it runs only once
+
+The v8.0.5C map render-order fix remains intact:
+Live Traffic < Rail < Rail Stations.
