@@ -1418,3 +1418,56 @@ Tujuan:
 - warna setiap line masih dikekalkan;
 - MRT dedicated layers menggunakan dash pattern yang sama;
 - legend diselaraskan dengan simbol sebenar di peta.
+
+
+## v8.0.5 Final Rail Network
+
+Source of truth:
+`Selangor Rail Network.zip` supplied by user after checking/finalization.
+
+Portal data:
+- `data/transport/rail_network_final.geojson`
+- `data/transport/rail_stations_final.geojson`
+
+Rendering:
+- Rail lines: white solid casing + coloured dashed route.
+- Stations: white halo + coloured station core by line.
+- Labels appear from zoom 11.
+- Station popup: station name, code, line, mode, operator and status.
+- Separate toggles for rail network and rail stations.
+
+Data normalization:
+20 exact duplicate LRT Shah Alam station records in the supplied station
+shapefile were removed from the PORTAL RENDERING COPY only to prevent duplicate
+symbols/labels. The uploaded source was not changed.
+
+
+## v8.0.5A Layer Order Fix
+
+Susunan Kandungan Peta dikemas kini supaya:
+
+```text
+...
+Flood Intelligence Fasa 1
+Pengangkutan Awam Rel
+  ├── Rangkaian Rel
+  └── Stesen Rel
+Live Traffic
+Lot Kadaster
+Pentadbiran
+...
+```
+
+Tiada perubahan pada data finalized, styling rel, simbol stesen atau popup.
+
+
+## v8.0.5B Clean Rail Data Sync
+
+Station source is now generated directly from the cleaned finalized dataset:
+
+- Before cleaning: 254 station records
+- Exact duplicate LRT Shah Alam records removed: 20
+- Clean station source: 234 station records
+- No runtime/render deduplication is required for the finalized station dataset.
+
+This prevents duplicate counts in future analytics.

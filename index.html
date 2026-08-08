@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="SUO GeoPortal v8.0.4C - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
-<title>SUO GeoPortal v8.0.4C</title>
+<meta content="SUO GeoPortal v8.0.5B - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
+<title>SUO GeoPortal v8.0.5B</title>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css" id="mapboxCss" rel="stylesheet"/>
-<link href="styles.css?v=8.0.4C" rel="stylesheet"/>
+<link href="styles.css?v=8.0.5B" rel="stylesheet"/>
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen">
@@ -24,7 +24,7 @@
 <div class="brand-mark">SUO</div>
 <div>
 <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-<h1>GeoPortal <span>v8.0.4C</span></h1>
+<h1>GeoPortal <span>v8.0.5B</span></h1>
 </div>
 </div>
 <div class="header-actions">
@@ -215,6 +215,85 @@
 </div>
 </section>
 <section class="layer-category">
+<button aria-expanded="true" class="layer-category-header" data-layer-category="publicTransport" type="button">
+<span class="layer-category-icon">⌁</span>
+<span>
+<strong>Pengangkutan Awam Rel</strong>
+<small>2 layer • finalized</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="publicTransport">
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="railLegendPanel" aria-expanded="false" class="layer-expand-btn" id="railLegendBtn" title="Buka legend rangkaian rel" type="button">▸</button>
+<span class="legend-symbol rail-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Rangkaian Rel</strong>
+<small>Line rail finalized • 15 feature</small>
+</span>
+<input checked="" id="railToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="railLegendPanel">
+<div class="legend-heading">
+<span>Legend Rangkaian Rel</span>
+<small>Dash berwarna + casing putih</small>
+</div>
+<div class="rail-line-legend">
+<div class="rail-legend-group"><strong>MRT</strong>
+<div class="legend-row"><span class="rail-legend-line rail-mrt-kajang"></span><span>MRT 1 Sungai Buloh–Kajang</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-mrt-putrajaya"></span><span>MRT 2 Sungai Buloh–Putrajaya</span></div>
+</div>
+<div class="rail-legend-group"><strong>LRT</strong>
+<div class="legend-row"><span class="rail-legend-line rail-lrt-gombak"></span><span>LRT Gombak Line</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-lrt-kj"></span><span>LRT Kelana Jaya Line</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-lrt-kj-ext"></span><span>LRT Kelana Jaya Extension</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-lrt3"></span><span>LRT 3 Damansara–Johan Setia</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-lrt-ampang"></span><span>LRT Ampang Line</span></div>
+</div>
+<div class="rail-legend-group"><strong>KTM / Airport Rail</strong>
+<div class="legend-row"><span class="rail-legend-line rail-ktm-double"></span><span>KTM Double Track</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-skypark"></span><span>Subang Skypark Line</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-erl"></span><span>Express Rail Link</span></div>
+</div>
+<div class="rail-legend-group"><strong>Lain-lain</strong>
+<div class="legend-row"><span class="rail-legend-line rail-monorail"></span><span>KL Monorail</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-brt"></span><span>BRT Sunway</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="railStationLegendPanel" aria-expanded="false" class="layer-expand-btn" id="railStationLegendBtn" title="Buka legend stesen rel" type="button">▸</button>
+<span class="legend-symbol rail-station-symbol"></span>
+<span class="layer-copy">
+<strong>Stesen Rel</strong>
+<small>234 station-line records finalized</small>
+</span>
+<input checked="" id="railStationToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="railStationLegendPanel">
+<div class="legend-heading">
+<span>Legend Stesen Rel</span>
+<small>Warna mengikut line perkhidmatan</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="station-dot stn-mrt1"></span><span>MRT Kajang</span></div>
+<div class="legend-row"><span class="station-dot stn-mrt2"></span><span>MRT Putrajaya</span></div>
+<div class="legend-row"><span class="station-dot stn-lrt-kj"></span><span>LRT Kelana Jaya</span></div>
+<div class="legend-row"><span class="station-dot stn-lrt-ampang"></span><span>LRT Ampang</span></div>
+<div class="legend-row"><span class="station-dot stn-lrt-sp"></span><span>LRT Sri Petaling</span></div>
+<div class="legend-row"><span class="station-dot stn-lrt3"></span><span>LRT Shah Alam</span></div>
+<div class="legend-row"><span class="station-dot stn-ktm"></span><span>KTM Komuter</span></div>
+<div class="legend-row"><span class="station-dot stn-erl"></span><span>ERL</span></div>
+<div class="legend-row"><span class="station-dot stn-mono"></span><span>Monorail</span></div>
+<div class="legend-row"><span class="station-dot stn-brt"></span><span>BRT Sunway</span></div>
+</div>
+</div>
+</div>
+</div>
+</section><section class="layer-category">
 <button aria-expanded="true" class="layer-category-header" data-layer-category="traffic" type="button">
 <span class="layer-category-icon">≡</span>
 <span>
@@ -250,66 +329,7 @@
 </div>
 </div>
 </section>
-<section class="layer-category">
-<button aria-expanded="true" class="layer-category-header" data-layer-category="publicTransport" type="button">
-<span class="layer-category-icon">⌁</span>
-<span>
-<strong>Pengangkutan Awam</strong>
-<small>1 layer</small>
-</span>
-<span class="layer-category-chevron">⌄</span>
-</button>
-<div class="layer-category-content" data-layer-category-content="publicTransport">
-<div class="layer-group nested-layer-group">
-<div class="layer-item layer-item-expandable">
-<button aria-controls="railLegendPanel" aria-expanded="false" class="layer-expand-btn" id="railLegendBtn" title="Buka legend rangkaian rel" type="button">▸</button>
-<span class="legend-symbol rail-layer-symbol"></span>
-<span class="layer-copy">
-<strong>Rangkaian Rel</strong>
-<small>12 laluan verified • MRT, LRT, KTM, ERL, Monorail &amp; BRT</small>
-</span>
-<input checked="" id="railToggle" type="checkbox"/>
-</div>
-<div class="layer-legend-panel" hidden="" id="railLegendPanel">
-<div class="legend-heading">
-<span>Legend Rangkaian Rel</span>
-<small>Warna mengikut line verified</small>
-</div>
-<div class="rail-line-legend">
 
-<div class="rail-legend-group">
-<strong>MRT</strong>
-<div class="legend-row"><span class="rail-legend-line rail-mrt-kajang"></span><span>MRT 1 Sungai Buloh–Kajang</span></div>
-<div class="legend-row"><span class="rail-legend-line rail-mrt-putrajaya"></span><span>MRT 2 Sungai Buloh–Putrajaya</span></div>
-</div>
-
-<div class="rail-legend-group">
-<strong>LRT</strong>
-<div class="legend-row"><span class="rail-legend-line rail-lrt-gombak"></span><span>LRT Gombak Line</span></div>
-<div class="legend-row"><span class="rail-legend-line rail-lrt-kj"></span><span>LRT Kelana Jaya Line</span></div>
-<div class="legend-row"><span class="rail-legend-line rail-lrt-kj-ext"></span><span>LRT Kelana Jaya Line Extension</span></div>
-<div class="legend-row"><span class="rail-legend-line rail-lrt3"></span><span>LRT 3 Damansara–Johan Setia</span></div>
-<div class="legend-row"><span class="rail-legend-line rail-lrt-ampang"></span><span>LRT Ampang Line</span></div>
-</div>
-
-<div class="rail-legend-group">
-<strong>KTM / Airport Rail</strong>
-<div class="legend-row"><span class="rail-legend-line rail-ktm-double"></span><span>KTM Double Track</span></div>
-<div class="legend-row"><span class="rail-legend-line rail-skypark"></span><span>Subang Skypark Line</span></div>
-<div class="legend-row"><span class="rail-legend-line rail-erl"></span><span>Express Rail Link</span></div>
-</div>
-
-<div class="rail-legend-group">
-<strong>Lain-lain</strong>
-<div class="legend-row"><span class="rail-legend-line rail-monorail"></span><span>KL Monorail</span></div>
-<div class="legend-row"><span class="rail-legend-line rail-brt"></span><span>BRT Sunway</span></div>
-</div>
-
-</div>
-</div>
-</div>
-</div>
-</section>
 <section class="layer-category cadastral-category">
 <button aria-expanded="false" class="layer-category-header" data-layer-category="cadastral" type="button">
 <span class="layer-category-icon">▦</span>
@@ -1013,7 +1033,7 @@
 <p class="section-label">NETWORK INTELLIGENCE</p>
 <h2>Analisis Rangkaian</h2>
 </div>
-<span class="network-version-badge">v8.0.4C</span>
+<span class="network-version-badge">v8.0.5B</span>
 </div>
 <div class="network-tabs" role="tablist">
 <button class="network-tab active" data-network-tab="route" type="button">Route</button>
@@ -1340,7 +1360,7 @@
       return;
     }
 
-    import("./js/app.js?v=8.0.4C").catch(function (error) {
+    import("./js/app.js?v=8.0.5B").catch(function (error) {
       console.error("SUO app module gagal:", error);
       showFatal(
         "Modul GeoPortal gagal dimulakan: " +
