@@ -4931,3 +4931,113 @@ body.map-middle-pan-active {
 .rail-erl { background:#8B5CF6; }
 .rail-monorail { background:#EC4899; }
 .rail-brt { background:#14B8A6; }
+
+.rail-mrt-kajang{background:#00AEEF}.rail-mrt-putrajaya{background:#FACC15}
+
+/* v8.0.4B — Rail lines separated by verified line name */
+.rail-line-legend {
+  display: grid;
+  gap: 10px;
+}
+.rail-legend-group {
+  display: grid;
+  gap: 5px;
+}
+.rail-legend-group > strong {
+  color: #94A3B8;
+  font-size: .5rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.rail-mrt-kajang { background: #0EA5E9; }
+.rail-mrt-putrajaya { background: #EAB308; }
+.rail-lrt-gombak { background: #16A34A; }
+.rail-lrt-kj { background: #E11D48; }
+.rail-lrt-kj-ext { background: #FB7185; }
+.rail-lrt3 { background: #8B5CF6; }
+.rail-lrt-ampang { background: #84CC16; }
+.rail-ktm-double { background: #F59E0B; }
+.rail-skypark { background: #D97706; }
+.rail-erl { background: #7C3AED; }
+.rail-monorail { background: #EC4899; }
+.rail-brt { background: #14B8A6; }
+
+
+/* =========================================================
+   v8.0.4C — Rail Visual Language
+   White solid casing + coloured dashed centre line
+   ========================================================= */
+
+.rail-legend-line {
+  position: relative;
+  width: 30px;
+  height: 8px;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #ffffff !important;
+  box-shadow:
+    0 0 0 1px rgba(15,23,42,.18),
+    0 1px 3px rgba(0,0,0,.18);
+}
+
+.rail-legend-line::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: 50%;
+  height: 3px;
+  transform: translateY(-50%);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      currentColor 0 6px,
+      transparent 6px 10px
+    );
+  border-radius: 999px;
+}
+
+.rail-mrt-kajang { color: #0EA5E9; }
+.rail-mrt-putrajaya { color: #EAB308; }
+.rail-lrt-gombak { color: #16A34A; }
+.rail-lrt-kj { color: #E11D48; }
+.rail-lrt-kj-ext { color: #FB7185; }
+.rail-lrt3 { color: #8B5CF6; }
+.rail-lrt-ampang { color: #84CC16; }
+.rail-ktm-double { color: #F59E0B; }
+.rail-skypark { color: #D97706; }
+.rail-erl { color: #7C3AED; }
+.rail-monorail { color: #EC4899; }
+.rail-brt { color: #14B8A6; }
+
+.rail-layer-symbol {
+  position: relative;
+  width: 25px;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(15,23,42,.18);
+}
+
+.rail-layer-symbol::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: 50%;
+  height: 3px;
+  transform: translateY(-50%);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #0EA5E9 0 4px,
+      transparent 4px 6px,
+      #E11D48 6px 10px,
+      transparent 10px 12px,
+      #F59E0B 12px 16px,
+      transparent 16px 18px,
+      #8B5CF6 18px 22px
+    );
+}

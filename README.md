@@ -1392,3 +1392,29 @@ Layer baharu:
 - Styling mengikut mode
 - Toggle, legend, split-screen refresh dan Toggle Semua disambungkan
 - Data: `data/transport/rail_transportation_selangor.geojson`
+
+## v8.0.4B Rail Line Colour Separation
+
+Rangkaian rel kini diwarnakan berdasarkan `line_name`, bukan hanya mode.
+Ini membezakan MRT 1/MRT 2 dan setiap LRT/KTM/ERL/BRT/Monorail secara visual.
+
+Konfigurasi warna:
+`config/rail-line-colors.json`
+
+
+## v8.0.4C Rail Symbol Enhancement
+
+Semua rangkaian rel kini menggunakan visual standard:
+
+```text
+White solid casing
+        +
+Coloured dashed centre line
+```
+
+Tujuan:
+- membezakan rel daripada jalan, sempadan dan layer linear lain;
+- memastikan line kekal jelas pada basemap cerah atau gelap;
+- warna setiap line masih dikekalkan;
+- MRT dedicated layers menggunakan dash pattern yang sama;
+- legend diselaraskan dengan simbol sebenar di peta.
