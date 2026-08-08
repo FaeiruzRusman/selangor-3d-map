@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="SUO GeoPortal v8.0.3 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
-<title>SUO GeoPortal v8.0.3</title>
+<meta content="SUO GeoPortal v8.0.4 - Prototaip Selangor Urban Observatory menggunakan Mapbox GL JS." name="description"/>
+<title>SUO GeoPortal v8.0.4</title>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css" id="mapboxCss" rel="stylesheet"/>
-<link href="styles.css?v=8.0.3" rel="stylesheet"/>
+<link href="styles.css?v=8.0.4" rel="stylesheet"/>
 </head>
 <body>
 <div class="loading-screen" id="loadingScreen">
@@ -24,7 +24,7 @@
 <div class="brand-mark">SUO</div>
 <div>
 <p class="eyebrow">SELANGOR URBAN OBSERVATORY</p>
-<h1>GeoPortal <span>v8.0.3</span></h1>
+<h1>GeoPortal <span>v8.0.4</span></h1>
 </div>
 </div>
 <div class="header-actions">
@@ -245,6 +245,43 @@
 <div class="legend-row"><span class="traffic-legend-line traffic-heavy"></span><span>Sesak</span></div>
 <div class="legend-row"><span class="traffic-legend-line traffic-severe"></span><span>Sangat Sesak</span></div>
 <div class="legend-row"><span class="traffic-legend-line traffic-unknown"></span><span>Tiada Maklumat</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="layer-category">
+<button aria-expanded="true" class="layer-category-header" data-layer-category="publicTransport" type="button">
+<span class="layer-category-icon">⌁</span>
+<span>
+<strong>Pengangkutan Awam</strong>
+<small>1 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="publicTransport">
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="railLegendPanel" aria-expanded="false" class="layer-expand-btn" id="railLegendBtn" title="Buka legend rangkaian rel" type="button">▸</button>
+<span class="legend-symbol rail-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Rangkaian Rel</strong>
+<small>12 laluan verified • MRT, LRT, KTM, ERL, Monorail &amp; BRT</small>
+</span>
+<input checked="" id="railToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="railLegendPanel">
+<div class="legend-heading">
+<span>Legend Pengangkutan Awam</span>
+<small>Verified source &amp; line • WGS84 GeoJSON</small>
+</div>
+<div class="legend-list">
+<div class="legend-row"><span class="rail-legend-line rail-mrt"></span><span>MRT</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-lrt"></span><span>LRT</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-ktm"></span><span>KTM</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-erl"></span><span>ERL</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-monorail"></span><span>Monorail</span></div>
+<div class="legend-row"><span class="rail-legend-line rail-brt"></span><span>BRT</span></div>
 </div>
 </div>
 </div>
@@ -953,7 +990,7 @@
 <p class="section-label">NETWORK INTELLIGENCE</p>
 <h2>Analisis Rangkaian</h2>
 </div>
-<span class="network-version-badge">v8.0.3</span>
+<span class="network-version-badge">v8.0.4</span>
 </div>
 <div class="network-tabs" role="tablist">
 <button class="network-tab active" data-network-tab="route" type="button">Route</button>
@@ -1280,7 +1317,7 @@
       return;
     }
 
-    import("./js/app.js?v=8.0.3").catch(function (error) {
+    import("./js/app.js?v=8.0.4").catch(function (error) {
       console.error("SUO app module gagal:", error);
       showFatal(
         "Modul GeoPortal gagal dimulakan: " +

@@ -1,4 +1,4 @@
-# SUO GeoPortal v8.0.3 Mr. TPr. SUO Avatar Restore
+# SUO GeoPortal v8.0.4 Public Transport Rail Layer
 
 ## Struktur JavaScript
 
@@ -1381,3 +1381,14 @@ Perubahan:
 - Bubble pengguna kekal tanpa avatar.
 - Avatar dioptimumkan kepada 640px untuk prestasi web.
 - Semua fungsi v8.0.2 dikekalkan.
+
+## v8.0.4 Public Transport Rail Layer
+
+Layer baharu:
+- Pengangkutan Awam > Rangkaian Rel
+- 12 laluan unik daripada dataset verified pengguna
+- MRT, LRT, KTM, ERL, Monorail dan BRT
+- GeoJSON WGS84
+- Styling mengikut mode
+- Toggle, legend, split-screen refresh dan Toggle Semua disambungkan
+- Data: `data/transport/rail_transportation_selangor.geojson`

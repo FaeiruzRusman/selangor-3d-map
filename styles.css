@@ -4910,3 +4910,24 @@ body.map-middle-pan-active {
     grid-template-columns: 1fr;
   }
 }
+
+/* v8.0.4 — Public Transport / Rail Layer */
+.rail-layer-symbol {
+  width: 22px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#2563EB,#EF4444,#F59E0B,#8B5CF6,#EC4899,#14B8A6);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12);
+}
+.rail-legend-line {
+  width: 25px;
+  height: 4px;
+  display: inline-block;
+  border-radius: 999px;
+}
+.rail-mrt { background:#2563EB; }
+.rail-lrt { background:#EF4444; }
+.rail-ktm { background:#F59E0B; }
+.rail-erl { background:#8B5CF6; }
+.rail-monorail { background:#EC4899; }
+.rail-brt { background:#14B8A6; }
