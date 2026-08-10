@@ -1,0 +1,23 @@
+/* Kemudahan Masyarakat nested layer panel */
+.layer-children { padding-left: 14px; }
+.layer-subchildren { padding-left: 25px; display: grid; gap: 4px; }
+.layer-subgroup:not(.open) .layer-subchildren { display: none; }
+.layer-check-row {
+  display:flex; align-items:center; gap:8px;
+  min-height:34px; font-size:12px;
+}
+.layer-check-row small { margin-left:auto; opacity:.55; font-size:10px; }
+.layer-sub-number { width:28px; opacity:.55; font-size:10px; }
+.health-icon { color:#fb7185; }
+.safety-icon { color:#60a5fa; }
+
+.suo-popup { min-width:220px; font-family:inherit; }
+.suo-popup-kicker {
+  font-size:9px; font-weight:800; letter-spacing:.12em;
+  color:#dc2626; margin-bottom:4px;
+}
+.suo-popup h3 { margin:0 0 9px; font-size:15px; }
+.suo-popup-grid {
+  display:grid; grid-template-columns:75px 1fr; gap:5px 8px; font-size:11px;
+}
+.suo-popup-grid span { opacity:.65; }
