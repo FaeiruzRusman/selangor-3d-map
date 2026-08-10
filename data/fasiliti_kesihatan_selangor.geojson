@@ -1,0 +1,2053 @@
+{
+  "type": "FeatureCollection",
+  "name": "fasiliti_kesihatan_selangor",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5183,
+          3.0738
+        ]
+      },
+      "properties": {
+        "FAC_ID": 1,
+        "NAMA": "Hospital Shah Alam",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.0738,
+        "LONGITUDE": 101.5183,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5837,
+          3.2195
+        ]
+      },
+      "properties": {
+        "FAC_ID": 2,
+        "NAMA": "Hospital Sungai Buloh",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Sungai Buloh",
+        "LATITUDE": 3.2195,
+        "LONGITUDE": 101.5837,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.7208,
+          2.9764
+        ]
+      },
+      "properties": {
+        "FAC_ID": 3,
+        "NAMA": "Hospital Sultan Idris Shah Serdang",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Serdang",
+        "LATITUDE": 2.9764,
+        "LONGITUDE": 101.7208,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.7619,
+          3.1479
+        ]
+      },
+      "properties": {
+        "FAC_ID": 4,
+        "NAMA": "Hospital Ampang",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Ampang",
+        "LATITUDE": 3.1479,
+        "LONGITUDE": 101.7619,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.7884,
+          2.9932
+        ]
+      },
+      "properties": {
+        "FAC_ID": 5,
+        "NAMA": "Hospital Tengku Permaisuri Norashikin",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Kajang",
+        "LATITUDE": 2.9932,
+        "LONGITUDE": 101.7884,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.6559,
+          2.9213
+        ]
+      },
+      "properties": {
+        "FAC_ID": 6,
+        "NAMA": "Hospital Cyberjaya",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sepang",
+        "LOKALITI": "Cyberjaya",
+        "LATITUDE": 2.9213,
+        "LONGITUDE": 101.6559,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.4378,
+          3.0223
+        ]
+      },
+      "properties": {
+        "FAC_ID": 7,
+        "NAMA": "Hospital Tengku Ampuan Rahimah",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Klang",
+        "LOKALITI": "Klang",
+        "LATITUDE": 3.0223,
+        "LONGITUDE": 101.4378,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.5031,
+          2.8123
+        ]
+      },
+      "properties": {
+        "FAC_ID": 8,
+        "NAMA": "Hospital Banting",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Langat",
+        "LOKALITI": "Banting",
+        "LATITUDE": 2.8123,
+        "LONGITUDE": 101.5031,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.1842,
+          3.4244
+        ]
+      },
+      "properties": {
+        "FAC_ID": 9,
+        "NAMA": "Hospital Tanjung Karang",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Tanjung Karang",
+        "LATITUDE": 3.4244,
+        "LONGITUDE": 101.1842,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.6579,
+          3.5652
+        ]
+      },
+      "properties": {
+        "FAC_ID": 10,
+        "NAMA": "Hospital Kuala Kubu Bharu",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Selangor",
+        "LOKALITI": "Kuala Kubu Bharu",
+        "LATITUDE": 3.5652,
+        "LONGITUDE": 101.6579,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.987,
+          3.768
+        ]
+      },
+      "properties": {
+        "FAC_ID": 11,
+        "NAMA": "Hospital Tengku Ampuan Jemaah",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sabak Bernam",
+        "LOKALITI": "Sabak Bernam",
+        "LATITUDE": 3.768,
+        "LONGITUDE": 100.987,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.647,
+          3.242
+        ]
+      },
+      "properties": {
+        "FAC_ID": 12,
+        "NAMA": "Hospital Selayang",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Gombak",
+        "LOKALITI": "Selayang",
+        "LATITUDE": 3.242,
+        "LONGITUDE": 101.647,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.752,
+          3.325
+        ]
+      },
+      "properties": {
+        "FAC_ID": 13,
+        "NAMA": "Hospital Orang Asli Gombak",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Gombak",
+        "LOKALITI": "Gombak",
+        "LATITUDE": 3.325,
+        "LONGITUDE": 101.752,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.427,
+          3.227
+        ]
+      },
+      "properties": {
+        "FAC_ID": 14,
+        "NAMA": "Hospital Al-Sultan Abdullah UiTM",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "UiTM",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Puncak Alam",
+        "LATITUDE": 3.227,
+        "LONGITUDE": 101.427,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.716,
+          2.991
+        ]
+      },
+      "properties": {
+        "FAC_ID": 15,
+        "NAMA": "Hospital Sultan Abdul Aziz Shah UPM",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "UPM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Serdang",
+        "LATITUDE": 2.991,
+        "LONGITUDE": 101.716,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.609,
+          3.065
+        ]
+      },
+      "properties": {
+        "FAC_ID": 16,
+        "NAMA": "Sunway Medical Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Bandar Sunway",
+        "LATITUDE": 3.065,
+        "LONGITUDE": 101.609,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.593,
+          3.0795
+        ]
+      },
+      "properties": {
+        "FAC_ID": 17,
+        "NAMA": "Subang Jaya Medical Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Subang Jaya",
+        "LATITUDE": 3.0795,
+        "LONGITUDE": 101.593,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.585,
+          3.158
+        ]
+      },
+      "properties": {
+        "FAC_ID": 18,
+        "NAMA": "Thomson Hospital Kota Damansara",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Kota Damansara",
+        "LATITUDE": 3.158,
+        "LONGITUDE": 101.585,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.576,
+          3.113
+        ]
+      },
+      "properties": {
+        "FAC_ID": 19,
+        "NAMA": "Ara Damansara Medical Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Ara Damansara",
+        "LATITUDE": 3.113,
+        "LONGITUDE": 101.576,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.645,
+          3.094
+        ]
+      },
+      "properties": {
+        "FAC_ID": 20,
+        "NAMA": "Assunta Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Petaling Jaya",
+        "LATITUDE": 3.094,
+        "LONGITUDE": 101.645,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.6,
+          3.105
+        ]
+      },
+      "properties": {
+        "FAC_ID": 21,
+        "NAMA": "KMI Kelana Jaya Medical Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Kelana Jaya",
+        "LATITUDE": 3.105,
+        "LONGITUDE": 101.6,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.625,
+          3.133
+        ]
+      },
+      "properties": {
+        "FAC_ID": 22,
+        "NAMA": "KPJ Damansara Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Damansara Utama",
+        "LATITUDE": 3.133,
+        "LONGITUDE": 101.625,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.614,
+          3.171
+        ]
+      },
+      "properties": {
+        "FAC_ID": 23,
+        "NAMA": "KPJ Damansara Specialist Hospital 2",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Bukit Lanjan",
+        "LATITUDE": 3.171,
+        "LONGITUDE": 101.614,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.632,
+          3.096
+        ]
+      },
+      "properties": {
+        "FAC_ID": 24,
+        "NAMA": "Columbia Asia Hospital Petaling Jaya",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Petaling Jaya",
+        "LATITUDE": 3.096,
+        "LONGITUDE": 101.632,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.62,
+          3.033
+        ]
+      },
+      "properties": {
+        "FAC_ID": 25,
+        "NAMA": "Columbia Asia Hospital Puchong",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Puchong",
+        "LATITUDE": 3.033,
+        "LONGITUDE": 101.62,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.616,
+          3.024
+        ]
+      },
+      "properties": {
+        "FAC_ID": 26,
+        "NAMA": "KPMC Puchong Specialist Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Puchong",
+        "LATITUDE": 3.024,
+        "LONGITUDE": 101.616,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.534,
+          3.085
+        ]
+      },
+      "properties": {
+        "FAC_ID": 27,
+        "NAMA": "KPJ Selangor Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.085,
+        "LONGITUDE": 101.534,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.523,
+          3.077
+        ]
+      },
+      "properties": {
+        "FAC_ID": 28,
+        "NAMA": "Avisena Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.077,
+        "LONGITUDE": 101.523,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.521,
+          3.078
+        ]
+      },
+      "properties": {
+        "FAC_ID": 29,
+        "NAMA": "Avisena Women's & Children's Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.078,
+        "LONGITUDE": 101.521,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.49,
+          3.07
+        ]
+      },
+      "properties": {
+        "FAC_ID": 30,
+        "NAMA": "SALAM Shah Alam Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.07,
+        "LONGITUDE": 101.49,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.524,
+          3.072
+        ]
+      },
+      "properties": {
+        "FAC_ID": 31,
+        "NAMA": "UMRA Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.072,
+        "LONGITUDE": 101.524,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.552,
+          3.076
+        ]
+      },
+      "properties": {
+        "FAC_ID": 32,
+        "NAMA": "MSU Medical Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.076,
+        "LONGITUDE": 101.552,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.533,
+          3.001
+        ]
+      },
+      "properties": {
+        "FAC_ID": 33,
+        "NAMA": "Columbia Asia Hospital Bukit Rimau",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Klang",
+        "LOKALITI": "Bukit Rimau",
+        "LATITUDE": 3.001,
+        "LONGITUDE": 101.533,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.437,
+          3.01
+        ]
+      },
+      "properties": {
+        "FAC_ID": 34,
+        "NAMA": "Bukit Tinggi Medical Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Klang",
+        "LOKALITI": "Bandar Bukit Tinggi",
+        "LATITUDE": 3.01,
+        "LONGITUDE": 101.437,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.413,
+          3.006
+        ]
+      },
+      "properties": {
+        "FAC_ID": 35,
+        "NAMA": "Pantai Hospital Klang",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Klang",
+        "LOKALITI": "Klang",
+        "LATITUDE": 3.006,
+        "LONGITUDE": 101.413,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.447,
+          3.076
+        ]
+      },
+      "properties": {
+        "FAC_ID": 36,
+        "NAMA": "KPJ Klang Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Klang",
+        "LOKALITI": "Klang",
+        "LATITUDE": 3.076,
+        "LONGITUDE": 101.447,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.449,
+          3.044
+        ]
+      },
+      "properties": {
+        "FAC_ID": 37,
+        "NAMA": "Sri Kota Specialist Medical Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Klang",
+        "LOKALITI": "Klang",
+        "LATITUDE": 3.044,
+        "LONGITUDE": 101.449,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.449,
+          3.046
+        ]
+      },
+      "properties": {
+        "FAC_ID": 38,
+        "NAMA": "Sentosa Specialist Hospital Klang",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Klang",
+        "LOKALITI": "Klang",
+        "LATITUDE": 3.046,
+        "LONGITUDE": 101.449,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.447,
+          3.04
+        ]
+      },
+      "properties": {
+        "FAC_ID": 39,
+        "NAMA": "Hospital Wanita Metro Klang",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Klang",
+        "LOKALITI": "Klang",
+        "LATITUDE": 3.04,
+        "LONGITUDE": 101.447,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.748,
+          3.16
+        ]
+      },
+      "properties": {
+        "FAC_ID": 40,
+        "NAMA": "KPJ Ampang Puteri Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Ampang",
+        "LATITUDE": 3.16,
+        "LONGITUDE": 101.748,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.787,
+          2.999
+        ]
+      },
+      "properties": {
+        "FAC_ID": 41,
+        "NAMA": "KPJ Kajang Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Kajang",
+        "LATITUDE": 2.999,
+        "LONGITUDE": 101.787,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.789,
+          2.994
+        ]
+      },
+      "properties": {
+        "FAC_ID": 42,
+        "NAMA": "Kajang Plaza Medical Centre",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Kajang",
+        "LATITUDE": 2.994,
+        "LONGITUDE": 101.789,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.793,
+          3.038
+        ]
+      },
+      "properties": {
+        "FAC_ID": 43,
+        "NAMA": "Sungai Long Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Bandar Sungai Long",
+        "LATITUDE": 3.038,
+        "LONGITUDE": 101.793,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.635,
+          3.118
+        ]
+      },
+      "properties": {
+        "FAC_ID": 44,
+        "NAMA": "Hospital Picaso",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Petaling Jaya",
+        "LATITUDE": 3.118,
+        "LONGITUDE": 101.635,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.576,
+          3.321
+        ]
+      },
+      "properties": {
+        "FAC_ID": 45,
+        "NAMA": "KPJ Rawang Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Gombak",
+        "LOKALITI": "Rawang",
+        "LATITUDE": 3.321,
+        "LONGITUDE": 101.576,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.251,
+          3.339
+        ]
+      },
+      "properties": {
+        "FAC_ID": 46,
+        "NAMA": "KPJ Kuala Selangor Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Kuala Selangor",
+        "LATITUDE": 3.339,
+        "LONGITUDE": 101.251,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.58,
+          2.958
+        ]
+      },
+      "properties": {
+        "FAC_ID": 47,
+        "NAMA": "MAHSA Specialist Hospital",
+        "KATEGORI": "Hospital",
+        "SEKTOR": "Swasta",
+        "OPERATOR": "Swasta",
+        "DAERAH": "Kuala Langat",
+        "LOKALITI": "Bandar Saujana Putra",
+        "LATITUDE": 2.958,
+        "LONGITUDE": 101.58,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.518,
+          3.0745
+        ]
+      },
+      "properties": {
+        "FAC_ID": 48,
+        "NAMA": "Klinik Kesihatan Shah Alam Seksyen 7",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.0745,
+        "LONGITUDE": 101.518,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.532,
+          3.05
+        ]
+      },
+      "properties": {
+        "FAC_ID": 49,
+        "NAMA": "Klinik Kesihatan Shah Alam Seksyen 19",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.05,
+        "LONGITUDE": 101.532,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.604,
+          3.105
+        ]
+      },
+      "properties": {
+        "FAC_ID": 50,
+        "NAMA": "Klinik Kesihatan Kelana Jaya",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Kelana Jaya",
+        "LATITUDE": 3.105,
+        "LONGITUDE": 101.604,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.636,
+          3.081
+        ]
+      },
+      "properties": {
+        "FAC_ID": 51,
+        "NAMA": "Klinik Kesihatan Taman Medan",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Petaling Jaya",
+        "LATITUDE": 3.081,
+        "LONGITUDE": 101.636,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.617,
+          3.017
+        ]
+      },
+      "properties": {
+        "FAC_ID": 52,
+        "NAMA": "Klinik Kesihatan Puchong Batu 14",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Puchong",
+        "LATITUDE": 3.017,
+        "LONGITUDE": 101.617,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.58,
+          3.207
+        ]
+      },
+      "properties": {
+        "FAC_ID": 53,
+        "NAMA": "Klinik Kesihatan Sungai Buloh",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Sungai Buloh",
+        "LATITUDE": 3.207,
+        "LONGITUDE": 101.58,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.79,
+          2.996
+        ]
+      },
+      "properties": {
+        "FAC_ID": 54,
+        "NAMA": "Klinik Kesihatan Kajang",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Kajang",
+        "LATITUDE": 2.996,
+        "LONGITUDE": 101.79,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.756,
+          2.96
+        ]
+      },
+      "properties": {
+        "FAC_ID": 55,
+        "NAMA": "Klinik Kesihatan Bandar Baru Bangi",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Bandar Baru Bangi",
+        "LATITUDE": 2.96,
+        "LONGITUDE": 101.756,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.87,
+          2.873
+        ]
+      },
+      "properties": {
+        "FAC_ID": 56,
+        "NAMA": "Klinik Kesihatan Beranang",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Beranang",
+        "LATITUDE": 2.873,
+        "LONGITUDE": 101.87,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.845,
+          2.951
+        ]
+      },
+      "properties": {
+        "FAC_ID": 57,
+        "NAMA": "Klinik Kesihatan Semenyih",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Semenyih",
+        "LATITUDE": 2.951,
+        "LONGITUDE": 101.845,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.762,
+          3.149
+        ]
+      },
+      "properties": {
+        "FAC_ID": 58,
+        "NAMA": "Klinik Kesihatan Ampang",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Ampang",
+        "LATITUDE": 3.149,
+        "LONGITUDE": 101.762,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.422,
+          3.002
+        ]
+      },
+      "properties": {
+        "FAC_ID": 59,
+        "NAMA": "Klinik Kesihatan Pandamaran",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Klang",
+        "LOKALITI": "Pandamaran",
+        "LATITUDE": 3.002,
+        "LONGITUDE": 101.422,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.397,
+          3.0
+        ]
+      },
+      "properties": {
+        "FAC_ID": 60,
+        "NAMA": "Klinik Kesihatan Pelabuhan Klang",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Klang",
+        "LOKALITI": "Pelabuhan Klang",
+        "LATITUDE": 3.0,
+        "LONGITUDE": 101.397,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.375,
+          3.137
+        ]
+      },
+      "properties": {
+        "FAC_ID": 61,
+        "NAMA": "Klinik Kesihatan Kapar",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Klang",
+        "LOKALITI": "Kapar",
+        "LATITUDE": 3.137,
+        "LONGITUDE": 101.375,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.445,
+          3.141
+        ]
+      },
+      "properties": {
+        "FAC_ID": 62,
+        "NAMA": "Klinik Kesihatan Meru",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Klang",
+        "LOKALITI": "Meru",
+        "LATITUDE": 3.141,
+        "LONGITUDE": 101.445,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.458,
+          3.058
+        ]
+      },
+      "properties": {
+        "FAC_ID": 63,
+        "NAMA": "Klinik Kesihatan Bukit Kuda",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Klang",
+        "LOKALITI": "Klang",
+        "LATITUDE": 3.058,
+        "LONGITUDE": 101.458,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.444,
+          2.999
+        ]
+      },
+      "properties": {
+        "FAC_ID": 64,
+        "NAMA": "Klinik Kesihatan Bandar Botanic",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Klang",
+        "LOKALITI": "Bandar Botanic",
+        "LATITUDE": 2.999,
+        "LONGITUDE": 101.444,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.501,
+          2.814
+        ]
+      },
+      "properties": {
+        "FAC_ID": 65,
+        "NAMA": "Klinik Kesihatan Banting",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Langat",
+        "LOKALITI": "Banting",
+        "LATITUDE": 2.814,
+        "LONGITUDE": 101.501,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.503,
+          2.817
+        ]
+      },
+      "properties": {
+        "FAC_ID": 66,
+        "NAMA": "Klinik Kesihatan Telok Datok",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Langat",
+        "LOKALITI": "Banting",
+        "LATITUDE": 2.817,
+        "LONGITUDE": 101.503,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.498,
+          2.88
+        ]
+      },
+      "properties": {
+        "FAC_ID": 67,
+        "NAMA": "Klinik Kesihatan Jenjarom",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Langat",
+        "LOKALITI": "Jenjarom",
+        "LATITUDE": 2.88,
+        "LONGITUDE": 101.498,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.75,
+          2.691
+        ]
+      },
+      "properties": {
+        "FAC_ID": 68,
+        "NAMA": "Klinik Kesihatan Sepang",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sepang",
+        "LOKALITI": "Sepang",
+        "LATITUDE": 2.691,
+        "LONGITUDE": 101.75,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.681,
+          2.86
+        ]
+      },
+      "properties": {
+        "FAC_ID": 69,
+        "NAMA": "Klinik Kesihatan Dengkil",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sepang",
+        "LOKALITI": "Dengkil",
+        "LATITUDE": 2.86,
+        "LONGITUDE": 101.681,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.74,
+          2.744
+        ]
+      },
+      "properties": {
+        "FAC_ID": 70,
+        "NAMA": "Klinik Kesihatan Salak",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sepang",
+        "LOKALITI": "Salak",
+        "LATITUDE": 2.744,
+        "LONGITUDE": 101.74,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.25,
+          3.341
+        ]
+      },
+      "properties": {
+        "FAC_ID": 71,
+        "NAMA": "Klinik Kesihatan Kuala Selangor",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Kuala Selangor",
+        "LATITUDE": 3.341,
+        "LONGITUDE": 101.25,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.183,
+          3.425
+        ]
+      },
+      "properties": {
+        "FAC_ID": 72,
+        "NAMA": "Klinik Kesihatan Tanjung Karang",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Tanjung Karang",
+        "LATITUDE": 3.425,
+        "LONGITUDE": 101.183,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.397,
+          3.318
+        ]
+      },
+      "properties": {
+        "FAC_ID": 73,
+        "NAMA": "Klinik Kesihatan Ijok",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Ijok",
+        "LATITUDE": 3.318,
+        "LONGITUDE": 101.397,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.417,
+          3.381
+        ]
+      },
+      "properties": {
+        "FAC_ID": 74,
+        "NAMA": "Klinik Kesihatan Bestari Jaya",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Bestari Jaya",
+        "LATITUDE": 3.381,
+        "LONGITUDE": 101.417,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.66,
+          3.566
+        ]
+      },
+      "properties": {
+        "FAC_ID": 75,
+        "NAMA": "Klinik Kesihatan Kuala Kubu Bharu",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Selangor",
+        "LOKALITI": "Kuala Kubu Bharu",
+        "LATITUDE": 3.566,
+        "LONGITUDE": 101.66,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.575,
+          3.321
+        ]
+      },
+      "properties": {
+        "FAC_ID": 76,
+        "NAMA": "Klinik Kesihatan Rawang",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Gombak",
+        "LOKALITI": "Rawang",
+        "LATITUDE": 3.321,
+        "LONGITUDE": 101.575,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.653,
+          3.253
+        ]
+      },
+      "properties": {
+        "FAC_ID": 77,
+        "NAMA": "Klinik Kesihatan Selayang Baru",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Gombak",
+        "LOKALITI": "Selayang",
+        "LATITUDE": 3.253,
+        "LONGITUDE": 101.653,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.555,
+          3.259
+        ]
+      },
+      "properties": {
+        "FAC_ID": 78,
+        "NAMA": "Klinik Kesihatan Kuang",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Gombak",
+        "LOKALITI": "Kuang",
+        "LATITUDE": 3.259,
+        "LONGITUDE": 101.555,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.988,
+          3.769
+        ]
+      },
+      "properties": {
+        "FAC_ID": 79,
+        "NAMA": "Klinik Kesihatan Sabak Bernam",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sabak Bernam",
+        "LOKALITI": "Sabak Bernam",
+        "LATITUDE": 3.769,
+        "LONGITUDE": 100.988,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.987,
+          3.674
+        ]
+      },
+      "properties": {
+        "FAC_ID": 80,
+        "NAMA": "Klinik Kesihatan Sungai Besar",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sabak Bernam",
+        "LOKALITI": "Sungai Besar",
+        "LATITUDE": 3.674,
+        "LONGITUDE": 100.987,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.101,
+          3.506
+        ]
+      },
+      "properties": {
+        "FAC_ID": 81,
+        "NAMA": "Klinik Kesihatan Sekinchan",
+        "KATEGORI": "Klinik Kesihatan",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sabak Bernam",
+        "LOKALITI": "Sekinchan",
+        "LATITUDE": 3.506,
+        "LONGITUDE": 101.101,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.519,
+          3.074
+        ]
+      },
+      "properties": {
+        "FAC_ID": 82,
+        "NAMA": "Klinik Kesihatan Ibu dan Anak Shah Alam",
+        "KATEGORI": "Klinik Ibu dan Anak",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Petaling",
+        "LOKALITI": "Shah Alam",
+        "LATITUDE": 3.074,
+        "LONGITUDE": 101.519,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.448,
+          3.044
+        ]
+      },
+      "properties": {
+        "FAC_ID": 83,
+        "NAMA": "Klinik Kesihatan Ibu dan Anak Klang",
+        "KATEGORI": "Klinik Ibu dan Anak",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Klang",
+        "LOKALITI": "Klang",
+        "LATITUDE": 3.044,
+        "LONGITUDE": 101.448,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.789,
+          2.995
+        ]
+      },
+      "properties": {
+        "FAC_ID": 84,
+        "NAMA": "Klinik Kesihatan Ibu dan Anak Kajang",
+        "KATEGORI": "Klinik Ibu dan Anak",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Kajang",
+        "LATITUDE": 2.995,
+        "LONGITUDE": 101.789,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.761,
+          3.15
+        ]
+      },
+      "properties": {
+        "FAC_ID": 85,
+        "NAMA": "Klinik Kesihatan Ibu dan Anak Ampang",
+        "KATEGORI": "Klinik Ibu dan Anak",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Hulu Langat",
+        "LOKALITI": "Ampang",
+        "LATITUDE": 3.15,
+        "LONGITUDE": 101.761,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.164,
+          3.495
+        ]
+      },
+      "properties": {
+        "FAC_ID": 86,
+        "NAMA": "Klinik Desa Sungai Sireh",
+        "KATEGORI": "Klinik Desa",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Sungai Sireh",
+        "LATITUDE": 3.495,
+        "LONGITUDE": 101.164,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.123,
+          3.428
+        ]
+      },
+      "properties": {
+        "FAC_ID": 87,
+        "NAMA": "Klinik Desa Sungai Burong",
+        "KATEGORI": "Klinik Desa",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Kuala Selangor",
+        "LOKALITI": "Sungai Burong",
+        "LATITUDE": 3.428,
+        "LONGITUDE": 101.123,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.054,
+          3.6
+        ]
+      },
+      "properties": {
+        "FAC_ID": 88,
+        "NAMA": "Klinik Desa Sungai Panjang",
+        "KATEGORI": "Klinik Desa",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sabak Bernam",
+        "LOKALITI": "Sungai Panjang",
+        "LATITUDE": 3.6,
+        "LONGITUDE": 101.054,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.986,
+          3.72
+        ]
+      },
+      "properties": {
+        "FAC_ID": 89,
+        "NAMA": "Klinik Desa Panchang Bedena",
+        "KATEGORI": "Klinik Desa",
+        "SEKTOR": "Kerajaan",
+        "OPERATOR": "KKM",
+        "DAERAH": "Sabak Bernam",
+        "LOKALITI": "Panchang Bedena",
+        "LATITUDE": 3.72,
+        "LONGITUDE": 100.986,
+        "SUMBER": "Senarai awam + anggaran lokasi",
+        "SEMAKAN": "PERLU_SEMAKAN"
+      }
+    }
+  ]
+}
