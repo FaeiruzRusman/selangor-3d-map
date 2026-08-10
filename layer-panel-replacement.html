@@ -1,0 +1,59 @@
+<!-- REPLACE/UPDATE THE LAYER MANAGEMENT BLOCK WITH THIS STRUCTURE -->
+
+<div class="layer-item" data-layer-group="urban-hierarchy">
+  <button class="layer-row">
+    <span class="layer-number">1</span>
+    <span class="layer-icon">◆</span>
+    <span class="layer-name">Hierarki Bandar DPN2</span>
+  </button>
+</div>
+
+<div class="layer-item layer-group open" data-layer-group="community-facilities">
+  <button class="layer-row layer-group-toggle">
+    <span class="layer-number">2</span>
+    <span class="layer-icon">▦</span>
+    <span class="layer-name">Kemudahan Masyarakat</span>
+    <span class="layer-count">2 kategori</span>
+    <span class="layer-chevron">⌄</span>
+  </button>
+
+  <div class="layer-children">
+    <div class="layer-subgroup">
+      <button class="layer-row layer-subgroup-toggle">
+        <span class="layer-sub-number">2.1</span>
+        <span class="layer-icon health-icon">✚</span>
+        <span class="layer-name">Kesihatan</span>
+        <span class="layer-chevron">›</span>
+      </button>
+
+      <div class="layer-subchildren">
+        <label class="layer-check-row">
+          <input type="checkbox" data-map-layers="health-facilities-points" checked>
+          <span>Fasiliti Kesihatan</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="layer-subgroup open">
+      <button class="layer-row layer-subgroup-toggle">
+        <span class="layer-sub-number">2.2</span>
+        <span class="layer-icon safety-icon">◆</span>
+        <span class="layer-name">Keselamatan</span>
+        <span class="layer-chevron">⌄</span>
+      </button>
+
+      <div class="layer-subchildren">
+        <!-- Keep your existing PDRM checkbox(es) here -->
+        <label class="layer-check-row">
+          <input
+            type="checkbox"
+            data-map-layers="fire-stations-halo,fire-stations-points,fire-stations-labels"
+            checked
+          >
+          <span>Balai Bomba &amp; Penyelamat</span>
+          <small>37 BBP</small>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
