@@ -62,6 +62,7 @@ export const DATA_URLS = {
   hospitalIcon: "assets/icons/hospital-building.svg",
   police: "data/keselamatan/ipk_ipd_selangor.geojson",
   policeIcon: "assets/icons/police-building.svg",
+  fire: "data/balai_bomba_negeri_selangor_final.geojson",
   pbt: "data/pentadbiran/sempadan_pbt_selangor_2024.geojson",
   pbtLabels: "data/pentadbiran/label_pbt_selangor_2024.geojson",
   districts: "data/pentadbiran/sempadan_daerah_selangor.geojson",

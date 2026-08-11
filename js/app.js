@@ -130,7 +130,7 @@ map.on("click", async (event) => {
     isSpatialToolActive() ||
     isNetworkIntelligenceActive()
   ) return;
-  const layerIds = ["cadastral-fill", "district-fill", "pbt-fill", "school-symbol", "police-symbol", "health-symbol", "city-circle"]
+  const layerIds = ["cadastral-fill", "district-fill", "pbt-fill", "school-symbol", "fire-station-point", "police-symbol", "health-symbol", "city-circle"]
     .filter((id) => map.getLayer(id));
 
   const features = map.queryRenderedFeatures(event.point, {
@@ -180,6 +180,10 @@ map.on("click", async (event) => {
       Daerah: ${properties.web_district || "-"}<br>
       Alamat: ${properties.web_address || "-"}<br>
       Telefon: ${properties.web_phone || "-"}`;
+  } else if (feature.layer.id === "fire-station-point") {
+    html = `<strong>${properties.NAMA_BBP || "Balai Bomba & Penyelamat"}</strong><br>
+      Zon: ${properties.ZON || "-"} — ${properties.NAMA_ZON || "-"}<br>
+      Kategori: ${properties.KATEGORI || "-"}`;
   } else if (feature.layer.id === "health-symbol") {
     html = `<strong>${properties.web_name || "Kemudahan Kesihatan"}</strong><br>
       Kategori: ${properties.web_category || "-"}<br>
@@ -347,6 +351,13 @@ document.getElementById("policeToggle").addEventListener("change", (event) => {
   updateLayerCount();
 });
 
+document.getElementById("fireStationToggle").addEventListener("change", (event) => {
+  layerState.fireStations = event.target.checked;
+  applyLayerVisibility(map);
+  compare.refreshLayers();
+  updateLayerCount();
+});
+
 document.getElementById("schoolToggle").addEventListener("change", (event) => {
   layerState.schools = event.target.checked;
   applyLayerVisibility(map);
@@ -413,6 +424,7 @@ document.getElementById("toggleAllLayers").addEventListener("click", () => {
   document.getElementById("healthFacilityToggle").checked = allOn;
   document.getElementById("trafficToggle").checked = allOn;
   document.getElementById("policeToggle").checked = allOn;
+  document.getElementById("fireStationToggle").checked = allOn;
   document.getElementById("schoolToggle").checked = allOn;
   document.getElementById("railToggle").checked = allOn;
   document.getElementById("railStationToggle").checked = allOn;
@@ -703,7 +715,8 @@ const ASSISTANT_LAYER_LABELS = {
   pbt: "Sempadan PBT",
   districts: "Sempadan Daerah",
   healthFacilities: "Kemudahan Kesihatan",
-  police: "Keselamatan",
+  police: "Polis Diraja Malaysia",
+  fireStations: "Balai Bomba & Penyelamat",
   schools: "Pendidikan",
   cityHierarchy: "Hierarki Bandar DPN2",
   terrain: "Terrain 3D",
@@ -719,6 +732,7 @@ function setAssistantLayerVisibility(layer, visible) {
     districts: "districtToggle",
     healthFacilities: "healthFacilityToggle",
     police: "policeToggle",
+    fireStations: "fireStationToggle",
     schools: "schoolToggle",
     cityHierarchy: "cityHierarchyToggle",
     terrain: "terrainToggle",

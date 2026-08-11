@@ -13,6 +13,7 @@ export const layerState = {
   healthFacilities: true,
   liveTraffic: true,
   police: true,
+  fireStations: true,
   schools: true,
   rail: true,
   railStations: true,
@@ -572,6 +573,84 @@ export async function addPortalLayers(map, prefix = "") {
   }
 
 
+  // Balai Bomba & Penyelamat Negeri Selangor (37 BBP)
+  const fireSource = `${prefix}fire-stations`;
+  const fireHalo = `${prefix}fire-station-halo`;
+  const firePoint = `${prefix}fire-station-point`;
+  const fireLabel = `${prefix}fire-station-label`;
+
+  if (!map.getSource(fireSource)) {
+    map.addSource(fireSource, {
+      type: "geojson",
+      data: DATA_URLS.fire
+    });
+  }
+
+  if (!map.getLayer(fireHalo)) {
+    addLayerCompat(map, {
+      id: fireHalo,
+      type: "circle",
+      source: fireSource,
+      slot: "top",
+      paint: {
+        "circle-radius": [
+          "case",
+          ["==", ["get", "KATEGORI"], "BBP / Pejabat Zon"], 8.4,
+          7.0
+        ],
+        "circle-color": "#FFFFFF",
+        "circle-opacity": 0.98
+      }
+    });
+  }
+
+  if (!map.getLayer(firePoint)) {
+    addLayerCompat(map, {
+      id: firePoint,
+      type: "circle",
+      source: fireSource,
+      slot: "top",
+      paint: {
+        "circle-radius": [
+          "case",
+          ["==", ["get", "KATEGORI"], "BBP / Pejabat Zon"], 5.7,
+          4.6
+        ],
+        "circle-color": [
+          "case",
+          ["==", ["get", "KATEGORI"], "BBP / Pejabat Zon"], "#991B1B",
+          "#DC2626"
+        ],
+        "circle-stroke-color": "#7F1D1D",
+        "circle-stroke-width": 1.0
+      }
+    });
+  }
+
+  if (!map.getLayer(fireLabel)) {
+    addLayerCompat(map, {
+      id: fireLabel,
+      type: "symbol",
+      source: fireSource,
+      slot: "top",
+      minzoom: 10.5,
+      layout: {
+        "text-field": ["get", "NAMA_BBP"],
+        "text-size": 10,
+        "text-offset": [0, 1.25],
+        "text-anchor": "top",
+        "text-allow-overlap": false,
+        "text-optional": true
+      },
+      paint: {
+        "text-color": "#FFFFFF",
+        "text-halo-color": "rgba(127,29,29,0.96)",
+        "text-halo-width": 1.5
+      }
+    });
+  }
+
+
   const schoolSource = `${prefix}schools`;
   const schoolSymbol = `${prefix}school-symbol`;
   const schoolLabel = `${prefix}school-label`;
@@ -719,6 +798,17 @@ export function applyLayerRenderOrder(map, prefix = "") {
   moveTop(`${prefix}rail-station-halo`);
   moveTop(`${prefix}rail-station-circle`);
   moveTop(`${prefix}rail-station-label`);
+
+  // Kemudahan masyarakat mesti kekal jelas di atas overlay pengangkutan.
+  moveTop(`${prefix}school-symbol`);
+  moveTop(`${prefix}school-label`);
+  moveTop(`${prefix}health-symbol`);
+  moveTop(`${prefix}health-label`);
+  moveTop(`${prefix}police-symbol`);
+  moveTop(`${prefix}police-label`);
+  moveTop(`${prefix}fire-station-halo`);
+  moveTop(`${prefix}fire-station-point`);
+  moveTop(`${prefix}fire-station-label`);
 }
 
 export function applyLayerVisibility(map, prefix = "") {
@@ -737,6 +827,9 @@ export function applyLayerVisibility(map, prefix = "") {
     [`${prefix}traffic-line`, layerState.liveTraffic],
     [`${prefix}police-symbol`, layerState.police],
     [`${prefix}police-label`, layerState.police],
+    [`${prefix}fire-station-halo`, layerState.fireStations],
+    [`${prefix}fire-station-point`, layerState.fireStations],
+    [`${prefix}fire-station-label`, layerState.fireStations],
     [`${prefix}school-symbol`, layerState.schools],
     [`${prefix}school-label`, layerState.schools],
     [`${prefix}rail-casing`, layerState.rail],
