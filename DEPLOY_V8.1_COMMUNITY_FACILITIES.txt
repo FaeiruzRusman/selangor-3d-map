@@ -1,0 +1,28 @@
+SUO 3D GeoPortal v8.1 - Community Facilities Integration
+
+Pembetulan utama:
+1. Layer Balai Bomba Selangor (37 BBP) diintegrasi terus dalam js/layers.js.
+2. DATA_URLS.fire ditambah dalam js/config.js.
+3. layerState.fireStations ditambah dan disambung kepada visibility/toggle-all/compare.
+4. Popup Balai Bomba ditambah dalam js/app.js.
+5. Panel Layer Contents dikemas kini:
+   1. Hierarki Bandar DPN2
+   2. Kemudahan Masyarakat
+      - Kesihatan
+      - Keselamatan
+        * Polis Diraja Malaysia
+        * Balai Bomba & Penyelamat
+   3. Pendidikan
+   4. Flood Intelligence Fasa 1
+   5. Pengangkutan Awam Rel
+   6. Live Traffic
+   7. Lot Kadaster
+   8. Pentadbiran
+   9. Peta Asas
+6. Skrip patch community-facilities lama dibuang untuk elakkan dua sistem layer bertindih.
+7. Draw order dikemas kini supaya kemudahan masyarakat kekal jelas di atas traffic/rel.
+
+Data Balai Bomba:
+- data/balai_bomba_negeri_selangor_final.geojson
+- 37 rekod
+- WGS84 / EPSG:4326

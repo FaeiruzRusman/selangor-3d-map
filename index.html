@@ -99,36 +99,32 @@
 </div>
 </section>
 <section class="layer-category">
-<button aria-expanded="true" class="layer-category-header" data-layer-category="facilities" type="button">
+<button aria-expanded="true" class="layer-category-header" data-layer-category="communityFacilities" type="button">
 <span class="layer-category-icon">▦</span>
 <span>
-<strong>Kemudahan</strong>
-<small>2 layer</small>
+<strong>Kemudahan Masyarakat</strong>
+<small>Kesihatan • Keselamatan • Pendidikan</small>
 </span>
 <span class="layer-category-chevron">⌄</span>
 </button>
-<div class="layer-category-content" data-layer-category-content="facilities">
+<div class="layer-category-content" data-layer-category-content="communityFacilities">
 <div class="layer-group nested-layer-group">
 <div class="layer-item layer-item-expandable">
 <button aria-controls="healthLegendPanel" aria-expanded="false" class="layer-expand-btn" id="healthLegendBtn" title="Buka legend kesihatan" type="button">▸</button>
 <span class="legend-symbol health-facility-symbol"></span>
 <span class="layer-copy">
 <strong>Kesihatan</strong>
-<small>Kemudahan Kesihatan Negeri Selangor</small>
+<small>87 kemudahan kesihatan Negeri Selangor</small>
 </span>
 <input checked="" id="healthFacilityToggle" type="checkbox"/>
 </div>
 <div class="layer-legend-panel" hidden="" id="healthLegendPanel">
-<div class="legend-heading">
-<span>Legend Kemudahan Kesihatan</span>
-<small>87 kemudahan kesihatan rasmi</small>
-</div>
+<div class="legend-heading"><span>Legend Kemudahan Kesihatan</span><small>87 rekod</small></div>
 <div class="legend-list">
 <div class="legend-row"><span class="legend-hospital-icon hospital-color"></span><span>Hospital</span></div>
 <div class="legend-row"><span class="legend-hospital-icon clinic-color"></span><span>Klinik Kesihatan</span></div>
 <div class="legend-row"><span class="legend-hospital-icon mother-child-color"></span><span>Klinik Ibu dan Anak</span></div>
 <div class="legend-row"><span class="legend-hospital-icon village-clinic-color"></span><span>Klinik Desa</span></div>
-<div class="legend-row"><span class="legend-hospital-icon other-health-color"></span><span>Lain-lain Kemudahan Kesihatan</span></div>
 </div>
 </div>
 </div>
@@ -138,44 +134,47 @@
 <span class="legend-symbol police-layer-symbol"></span>
 <span class="layer-copy">
 <strong>Keselamatan</strong>
-<small>17 lokasi IPK dan IPD</small>
+<small>PDRM + 37 Balai Bomba &amp; Penyelamat</small>
 </span>
-<input checked="" id="policeToggle" type="checkbox"/>
+<span class="layer-group-status">2 layer</span>
 </div>
 <div class="layer-legend-panel" hidden="" id="policeLegendPanel">
-<div class="legend-heading">
-<span>Legend Keselamatan Awam</span>
-<small>Hierarki pentadbiran PDRM</small>
-</div>
+<div class="legend-heading"><span>Keselamatan Awam</span><small>Polis &amp; Bomba</small></div>
+<label class="layer-item safety-child-layer">
+<span class="legend-police-icon police-ipd-color"></span>
+<span class="layer-copy"><strong>Polis Diraja Malaysia</strong><small>IPK &amp; IPD Selangor (17 lokasi)</small></span>
+<input checked="" id="policeToggle" type="checkbox"/>
+</label>
+<label class="layer-item safety-child-layer">
+<span class="legend-fire-icon"></span>
+<span class="layer-copy"><strong>Balai Bomba &amp; Penyelamat</strong><small>37 BBP • 7 Zon</small></span>
+<input checked="" id="fireStationToggle" type="checkbox"/>
+</label>
 <div class="legend-list">
-<div class="legend-row"><span class="legend-police-icon police-ipk-color"></span><span>IPK (2)</span></div>
-<div class="legend-row"><span class="legend-police-icon police-ipd-color"></span><span>IPD (15)</span></div>
+<div class="legend-row"><span class="legend-police-icon police-ipk-color"></span><span>IPK</span></div>
+<div class="legend-row"><span class="legend-police-icon police-ipd-color"></span><span>IPD</span></div>
+<div class="legend-row"><span class="legend-fire-icon fire-zone-color"></span><span>BBP / Pejabat Zon</span></div>
+<div class="legend-row"><span class="legend-fire-icon fire-bbp-color"></span><span>BBP</span></div>
 </div>
 </div>
 </div>
-<div class="layer-group nested-layer-group">
+<div class="community-subcategory education-subcategory"><div class="community-subcategory-title"><span class="layer-category-icon">▤</span><span><strong>Pendidikan</strong></span></div><div class="layer-group nested-layer-group">
 <div class="layer-item layer-item-expandable">
 <button aria-controls="schoolLegendPanel" aria-expanded="false" class="layer-expand-btn" id="schoolLegendBtn" title="Buka legend pendidikan" type="button">▸</button>
 <span class="legend-symbol school-layer-symbol"></span>
-<span class="layer-copy">
-<strong>Pendidikan</strong>
-<small>945 sekolah Negeri Selangor</small>
-</span>
+<span class="layer-copy"><strong>Sekolah Negeri Selangor</strong><small>945 sekolah</small></span>
 <input checked="" id="schoolToggle" type="checkbox"/>
 </div>
 <div class="layer-legend-panel" hidden="" id="schoolLegendPanel">
-<div class="legend-heading">
-<span>Legend Pendidikan</span>
-<small>Taburan sekolah Negeri Selangor</small>
-</div>
+<div class="legend-heading"><span>Legend Pendidikan</span><small>Taburan sekolah Negeri Selangor</small></div>
 <div class="legend-list">
 <div class="legend-row"><span class="legend-school-icon school-primary-color"></span><span>Sekolah Rendah (664)</span></div>
 <div class="legend-row"><span class="legend-school-icon school-secondary-color"></span><span>Sekolah Menengah (281)</span></div>
 </div>
 </div>
-</div>
-</div>
+</div></div></div>
 </section>
+
 <section class="layer-category">
 <button aria-expanded="true" class="layer-category-header" data-layer-category="flood" type="button">
 <span class="layer-category-icon">≋</span>
@@ -214,7 +213,52 @@
 </div>
 </div>
 </section>
-<section class="layer-category">
+<section class="layer-category cadastral-category">
+<button aria-expanded="false" class="layer-category-header" data-layer-category="cadastral" type="button">
+<span class="layer-category-icon">▦</span>
+<span>
+<strong>Lot Kadaster</strong>
+<small>1 layer</small>
+</span>
+<span class="layer-category-chevron">⌄</span>
+</button>
+<div class="layer-category-content" data-layer-category-content="cadastral" hidden="">
+<div class="layer-group nested-layer-group">
+<div class="layer-item layer-item-expandable">
+<button aria-controls="cadastralLegendPanel" aria-expanded="false" class="layer-expand-btn" id="cadastralLegendBtn" title="Buka legend lot kadaster" type="button">▸</button>
+<span class="legend-symbol cadastral-layer-symbol"></span>
+<span class="layer-copy">
+<strong>Lot Kadaster Selangor 2023</strong>
+<small>1,350,128 lot • Vector Tile</small>
+</span>
+<input aria-label="Paparkan Lot Kadaster Selangor 2023" id="cadastralToggle" type="checkbox"/>
+</div>
+<div class="layer-legend-panel" hidden="" id="cadastralLegendPanel">
+<div class="legend-heading">
+<span>Legend Lot Kadaster</span>
+<small>NDCDB Selangor 2023</small>
+</div>
+<div class="legend-list">
+<div class="legend-row">
+<span class="cadastral-legend-fill"></span>
+<span>Poligon Lot</span>
+</div>
+<div class="legend-row">
+<span class="cadastral-legend-line"></span>
+<span>Sempadan Lot</span>
+</div>
+<div class="legend-row">
+<span class="cadastral-legend-label">123</span>
+<span>Nombor Lot (zoom dekat)</span>
+</div>
+</div>
+<div class="cadastral-status" id="cadastralStatus">
+                    Menunggu URL Vector Tile dikonfigurasi.
+                  </div>
+</div>
+</div>
+</div>
+</section><section class="layer-category">
 <button aria-expanded="true" class="layer-category-header" data-layer-category="publicTransport" type="button">
 <span class="layer-category-icon">⌁</span>
 <span>
@@ -330,52 +374,6 @@
 </div>
 </section>
 
-<section class="layer-category cadastral-category">
-<button aria-expanded="false" class="layer-category-header" data-layer-category="cadastral" type="button">
-<span class="layer-category-icon">▦</span>
-<span>
-<strong>Lot Kadaster</strong>
-<small>1 layer</small>
-</span>
-<span class="layer-category-chevron">⌄</span>
-</button>
-<div class="layer-category-content" data-layer-category-content="cadastral" hidden="">
-<div class="layer-group nested-layer-group">
-<div class="layer-item layer-item-expandable">
-<button aria-controls="cadastralLegendPanel" aria-expanded="false" class="layer-expand-btn" id="cadastralLegendBtn" title="Buka legend lot kadaster" type="button">▸</button>
-<span class="legend-symbol cadastral-layer-symbol"></span>
-<span class="layer-copy">
-<strong>Lot Kadaster Selangor 2023</strong>
-<small>1,350,128 lot • Vector Tile</small>
-</span>
-<input aria-label="Paparkan Lot Kadaster Selangor 2023" id="cadastralToggle" type="checkbox"/>
-</div>
-<div class="layer-legend-panel" hidden="" id="cadastralLegendPanel">
-<div class="legend-heading">
-<span>Legend Lot Kadaster</span>
-<small>NDCDB Selangor 2023</small>
-</div>
-<div class="legend-list">
-<div class="legend-row">
-<span class="cadastral-legend-fill"></span>
-<span>Poligon Lot</span>
-</div>
-<div class="legend-row">
-<span class="cadastral-legend-line"></span>
-<span>Sempadan Lot</span>
-</div>
-<div class="legend-row">
-<span class="cadastral-legend-label">123</span>
-<span>Nombor Lot (zoom dekat)</span>
-</div>
-</div>
-<div class="cadastral-status" id="cadastralStatus">
-                    Menunggu URL Vector Tile dikonfigurasi.
-                  </div>
-</div>
-</div>
-</div>
-</section>
 <section class="layer-category">
 <button aria-expanded="false" class="layer-category-header" data-layer-category="administration" type="button">
 <span class="layer-category-icon">▱</span>

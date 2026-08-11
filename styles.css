@@ -5096,3 +5096,39 @@ body.map-middle-pan-active {
 }
 .popup-info-grid span { color:#64748B; }
 .popup-info-grid strong { color:#1F2937; font-weight:700; }
+
+
+/* v8.1 Kemudahan Masyarakat / Keselamatan */
+.layer-group-status {
+  margin-left:auto; font-size:10px; opacity:.55; white-space:nowrap;
+}
+.safety-child-layer {
+  margin:6px 0; padding:8px 10px; border-radius:8px;
+  background:rgba(255,255,255,.035);
+}
+.legend-fire-icon {
+  width:13px; height:13px; border-radius:50%; display:inline-block;
+  background:#DC2626; border:2px solid #fff; box-shadow:0 0 0 1px #7F1D1D;
+  flex:0 0 auto;
+}
+.legend-fire-icon.fire-zone-color { background:#991B1B; }
+.legend-fire-icon.fire-bbp-color { background:#DC2626; }
+
+
+/* v8.2 — Kemudahan Masyarakat: Pendidikan nested subgroup */
+.community-subcategory {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(148, 163, 184, .16);
+}
+.community-subcategory-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 8px;
+  font-size: 12px;
+}
+.community-subcategory-title .layer-category-icon {
+  width: 20px;
+  opacity: .85;
+}

@@ -1,0 +1,20 @@
+SUO 3D GeoPortal v8.2
+
+Perubahan Layer Contents:
+1. Hierarki Bandar DPN2
+2. Kemudahan Masyarakat
+   - Kesihatan
+   - Keselamatan
+   - Pendidikan
+3. Flood Intelligence Fasa 1
+4. Lot Kadaster
+5. Pengangkutan Awam Rel
+6. Live Traffic
+7. Pentadbiran
+8. Peta Asas
+
+Perubahan:
+- Pendidikan dipindahkan masuk ke Kemudahan Masyarakat.
+- Lot Kadaster dipindahkan ke atas Pengangkutan Awam Rel.
+- Semua ID toggle sekolah dikekalkan, jadi fungsi school layer sedia ada tidak berubah.
+- Integrasi Balai Bomba v8.1 dikekalkan.
