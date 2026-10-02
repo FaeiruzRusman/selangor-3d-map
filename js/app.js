@@ -117,6 +117,7 @@ const DEEP_LINK_PRESETS = {
 };
 
 const deepLinkPreset = DEEP_LINK_PRESETS[deepLinkFocus] || null;
+let deepLinkApplied = false;
 
 if (deepLinkPreset) {
   Object.assign(layerState, deepLinkPreset.state);
@@ -220,7 +221,8 @@ map.on("style.load", async () => {
     await addPortalLayers(map);
     applyLayerRenderOrder(map);
 
-    if (deepLinkPreset) {
+    if (deepLinkPreset && !deepLinkApplied) {
+      deepLinkApplied = true;
       applyDeepLinkView();
     }
 
