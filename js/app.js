@@ -51,6 +51,139 @@ let nightMode = false;
 let activeMarker = null;
 let cityLookup = new Map();
 
+const deepLinkParams = new URLSearchParams(window.location.search);
+const deepLinkFocus = (deepLinkParams.get("focus") || deepLinkParams.get("theme") || "")
+  .trim()
+  .toLowerCase();
+
+const DEEP_LINK_PRESETS = {
+  health: {
+    view: { center: [101.48, 3.18], zoom: 9.6, pitch: 48, bearing: 0 },
+    state: {
+      cityHierarchy: false,
+      pbt: true,
+      districts: true,
+      cadastral: false,
+      healthFacilities: true,
+      liveTraffic: false,
+      police: false,
+      fireStations: false,
+      schools: false,
+      rail: false,
+      railStations: false,
+      floodRain: false,
+      terrain: true,
+      buildings: true
+    }
+  },
+  mobility: {
+    view: { center: [101.53, 3.08], zoom: 9.7, pitch: 48, bearing: 0 },
+    state: {
+      cityHierarchy: false,
+      pbt: true,
+      districts: true,
+      cadastral: false,
+      healthFacilities: false,
+      liveTraffic: false,
+      police: false,
+      fireStations: false,
+      schools: false,
+      rail: true,
+      railStations: true,
+      floodRain: false,
+      terrain: true,
+      buildings: true
+    }
+  },
+  environment: {
+    view: { center: [101.48, 3.18], zoom: 9.5, pitch: 45, bearing: 0 },
+    state: {
+      cityHierarchy: false,
+      pbt: true,
+      districts: true,
+      cadastral: false,
+      healthFacilities: false,
+      liveTraffic: false,
+      police: false,
+      fireStations: false,
+      schools: false,
+      rail: false,
+      railStations: false,
+      floodRain: true,
+      terrain: true,
+      buildings: true
+    }
+  }
+};
+
+const deepLinkPreset = DEEP_LINK_PRESETS[deepLinkFocus] || null;
+
+if (deepLinkPreset) {
+  Object.assign(layerState, deepLinkPreset.state);
+}
+
+function syncDeepLinkToggles() {
+  const toggleMap = {
+    cityHierarchy: "cityHierarchyToggle",
+    pbt: "pbtToggle",
+    districts: "districtToggle",
+    cadastral: "cadastralToggle",
+    healthFacilities: "healthFacilityToggle",
+    liveTraffic: "trafficToggle",
+    police: "policeToggle",
+    fireStations: "fireStationToggle",
+    schools: "schoolToggle",
+    rail: "railToggle",
+    railStations: "railStationToggle",
+    floodRain: "floodRainToggle",
+    terrain: "terrainToggle",
+    buildings: "buildingToggle"
+  };
+
+  Object.entries(toggleMap).forEach(([key, id]) => {
+    const toggle = document.getElementById(id);
+    if (toggle) toggle.checked = Boolean(layerState[key]);
+  });
+}
+
+function applyDeepLinkView() {
+  if (!deepLinkPreset) return;
+
+  syncDeepLinkToggles();
+  applyLayerVisibility(map);
+  flood.setVisible(layerState.floodRain);
+
+  if (layerState.terrain && viewMode === "3d") {
+    enableTerrain(map);
+  } else {
+    disableTerrain(map);
+  }
+
+  try {
+    map.setConfigProperty("basemap", "show3dObjects", layerState.buildings);
+  } catch (_) {}
+
+  map.flyTo({
+    ...deepLinkPreset.view,
+    duration: 1200,
+    essential: true
+  });
+
+  updateLayerCount();
+
+  const labels = {
+    health: "Kemudahan Kesihatan",
+    mobility: "Rangkaian Rel & Stesen",
+    environment: "Flood Intelligence"
+  };
+
+  const label = labels[deepLinkFocus];
+  if (label) {
+    showStartupWarning("Paparan fokus SUO: " + label);
+  }
+}
+
+
 function hideLoadingScreen() {
   const loadingScreen = document.getElementById("loadingScreen");
   if (loadingScreen) {
@@ -85,7 +218,11 @@ map.on("style.load", async () => {
 
   try {
     await addPortalLayers(map);
-applyLayerRenderOrder(map);
+    applyLayerRenderOrder(map);
+
+    if (deepLinkPreset) {
+      applyDeepLinkView();
+    }
 
     if (viewMode === "3d" && layerState.terrain) {
       enableTerrain(map);
