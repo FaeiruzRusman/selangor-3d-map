@@ -52,66 +52,128 @@ let activeMarker = null;
 let cityLookup = new Map();
 
 const deepLinkParams = new URLSearchParams(window.location.search);
-const deepLinkFocus = (deepLinkParams.get("focus") || deepLinkParams.get("theme") || "")
+const rawDeepLinkFocus = (deepLinkParams.get("focus") || deepLinkParams.get("theme") || "")
   .trim()
   .toLowerCase();
+
+const DEEP_LINK_ALIASES = {
+  hospital: "health",
+  hospitals: "health",
+  klinik: "health",
+  healthcare: "health",
+  school: "schools",
+  sekolah: "schools",
+  ipk: "police",
+  ipd: "police",
+  pdrm: "police",
+  bomba: "fire",
+  firestation: "fire",
+  rail: "mobility",
+  railway: "mobility",
+  station: "mobility",
+  stations: "mobility",
+  kadaster: "cadastral",
+  lot: "cadastral",
+  boundary: "pbt",
+  daerah: "districts",
+  district: "districts",
+  banjir: "environment",
+  flood: "environment",
+  traffic: "traffic",
+  trafik: "traffic"
+};
+
+const deepLinkFocus = DEEP_LINK_ALIASES[rawDeepLinkFocus] || rawDeepLinkFocus;
 
 const DEEP_LINK_PRESETS = {
   health: {
     view: { center: [101.48, 3.18], zoom: 9.6, pitch: 48, bearing: 0 },
     state: {
-      cityHierarchy: false,
-      pbt: true,
-      districts: true,
-      cadastral: false,
-      healthFacilities: true,
-      liveTraffic: false,
-      police: false,
-      fireStations: false,
-      schools: false,
-      rail: false,
-      railStations: false,
-      floodRain: false,
-      terrain: true,
-      buildings: true
+      cityHierarchy: false, pbt: true, districts: true, cadastral: false,
+      healthFacilities: true, liveTraffic: false, police: false, fireStations: false,
+      schools: false, rail: false, railStations: false, floodRain: false,
+      terrain: true, buildings: true
+    }
+  },
+  schools: {
+    view: { center: [101.48, 3.18], zoom: 9.7, pitch: 48, bearing: 0 },
+    state: {
+      cityHierarchy: false, pbt: true, districts: true, cadastral: false,
+      healthFacilities: false, liveTraffic: false, police: false, fireStations: false,
+      schools: true, rail: false, railStations: false, floodRain: false,
+      terrain: true, buildings: true
+    }
+  },
+  police: {
+    view: { center: [101.48, 3.18], zoom: 9.7, pitch: 48, bearing: 0 },
+    state: {
+      cityHierarchy: false, pbt: true, districts: true, cadastral: false,
+      healthFacilities: false, liveTraffic: false, police: true, fireStations: false,
+      schools: false, rail: false, railStations: false, floodRain: false,
+      terrain: true, buildings: true
+    }
+  },
+  fire: {
+    view: { center: [101.48, 3.18], zoom: 9.7, pitch: 48, bearing: 0 },
+    state: {
+      cityHierarchy: false, pbt: true, districts: true, cadastral: false,
+      healthFacilities: false, liveTraffic: false, police: false, fireStations: true,
+      schools: false, rail: false, railStations: false, floodRain: false,
+      terrain: true, buildings: true
     }
   },
   mobility: {
     view: { center: [101.53, 3.08], zoom: 9.7, pitch: 48, bearing: 0 },
     state: {
-      cityHierarchy: false,
-      pbt: true,
-      districts: true,
-      cadastral: false,
-      healthFacilities: false,
-      liveTraffic: false,
-      police: false,
-      fireStations: false,
-      schools: false,
-      rail: true,
-      railStations: true,
-      floodRain: false,
-      terrain: true,
-      buildings: true
+      cityHierarchy: false, pbt: true, districts: true, cadastral: false,
+      healthFacilities: false, liveTraffic: false, police: false, fireStations: false,
+      schools: false, rail: true, railStations: true, floodRain: false,
+      terrain: true, buildings: true
+    }
+  },
+  cadastral: {
+    view: { center: [101.53, 3.08], zoom: 11.5, pitch: 38, bearing: 0 },
+    state: {
+      cityHierarchy: false, pbt: true, districts: true, cadastral: true,
+      healthFacilities: false, liveTraffic: false, police: false, fireStations: false,
+      schools: false, rail: false, railStations: false, floodRain: false,
+      terrain: false, buildings: true
+    }
+  },
+  pbt: {
+    view: { center: [101.48, 3.18], zoom: 9.4, pitch: 35, bearing: 0 },
+    state: {
+      cityHierarchy: false, pbt: true, districts: false, cadastral: false,
+      healthFacilities: false, liveTraffic: false, police: false, fireStations: false,
+      schools: false, rail: false, railStations: false, floodRain: false,
+      terrain: false, buildings: false
+    }
+  },
+  districts: {
+    view: { center: [101.48, 3.18], zoom: 9.2, pitch: 35, bearing: 0 },
+    state: {
+      cityHierarchy: false, pbt: false, districts: true, cadastral: false,
+      healthFacilities: false, liveTraffic: false, police: false, fireStations: false,
+      schools: false, rail: false, railStations: false, floodRain: false,
+      terrain: false, buildings: false
     }
   },
   environment: {
     view: { center: [101.48, 3.18], zoom: 9.5, pitch: 45, bearing: 0 },
     state: {
-      cityHierarchy: false,
-      pbt: true,
-      districts: true,
-      cadastral: false,
-      healthFacilities: false,
-      liveTraffic: false,
-      police: false,
-      fireStations: false,
-      schools: false,
-      rail: false,
-      railStations: false,
-      floodRain: true,
-      terrain: true,
-      buildings: true
+      cityHierarchy: false, pbt: true, districts: true, cadastral: false,
+      healthFacilities: false, liveTraffic: false, police: false, fireStations: false,
+      schools: false, rail: false, railStations: false, floodRain: true,
+      terrain: true, buildings: true
+    }
+  },
+  traffic: {
+    view: { center: [101.53, 3.08], zoom: 10.2, pitch: 48, bearing: 0 },
+    state: {
+      cityHierarchy: false, pbt: true, districts: true, cadastral: false,
+      healthFacilities: false, liveTraffic: true, police: false, fireStations: false,
+      schools: false, rail: false, railStations: false, floodRain: false,
+      terrain: true, buildings: true
     }
   }
 };
@@ -174,8 +236,15 @@ function applyDeepLinkView() {
 
   const labels = {
     health: "Kemudahan Kesihatan",
+    schools: "Pendidikan",
+    police: "Polis Diraja Malaysia",
+    fire: "Balai Bomba & Penyelamat",
     mobility: "Rangkaian Rel & Stesen",
-    environment: "Flood Intelligence"
+    cadastral: "Lot Kadaster",
+    pbt: "Sempadan PBT",
+    districts: "Sempadan Daerah",
+    environment: "Flood Intelligence",
+    traffic: "Live Traffic"
   };
 
   const label = labels[deepLinkFocus];
