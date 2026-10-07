@@ -5437,3 +5437,50 @@ input[type="checkbox"]{accent-color:#b93a3e}
 button:focus-visible,input:focus-visible,select:focus-visible{
   outline-color:#e9b62e
 }
+
+
+/* v8.2B — Visibility pass for legacy dark-theme components */
+.sidebar-collapse-bar,
+.layer-panel-header,
+.layer-section-header,
+.panel-collapse-header,
+.collapsible-header {
+  background: linear-gradient(90deg,#fff1d1,#fff8ea) !important;
+  color:#7f2f32 !important;
+  border:1px solid #e4c98f !important;
+  box-shadow:none !important;
+}
+.sidebar-collapse-bar span,
+.layer-panel-header span,
+.layer-section-header span,
+.panel-collapse-header span,
+.collapsible-header span {
+  color:#7f2f32 !important;
+}
+.sidebar-collapse-bar button,
+.layer-panel-header button,
+.layer-section-header button,
+.panel-collapse-header button,
+.collapsible-header button {
+  color:#7f2f32 !important;
+  background:#fffaf0 !important;
+  border:1px solid #d8b96f !important;
+}
+.sidebar-collapse-bar button:hover,
+.layer-panel-header button:hover,
+.layer-section-header button:hover,
+.panel-collapse-header button:hover,
+.collapsible-header button:hover {
+  color:#fff !important;
+  background:#a83b3f !important;
+  border-color:#a83b3f !important;
+}
+/* Generic legacy dark surfaces: convert to light Selangor family where identifiable */
+.left-sidebar .section-header,
+.right-sidebar .section-header,
+.left-sidebar .panel-title-bar,
+.right-sidebar .panel-title-bar {
+  background:#fff1d1 !important;
+  color:#7f2f32 !important;
+  border-color:#e4c98f !important;
+}
