@@ -5132,3 +5132,107 @@ body.map-middle-pan-active {
   width: 20px;
   opacity: .85;
 }
+
+
+/* =========================================================
+   SUO DESIGN SYSTEM v8.1 — SELANGOR URBAN INTELLIGENCE
+   Visual refresh only: preserves GeoPortal functionality.
+   ========================================================= */
+:root {
+  --bg: #07111f;
+  --bg-2: #0a1829;
+  --panel: rgba(12, 29, 49, 0.95);
+  --panel-2: rgba(255,255,255,0.045);
+  --line: rgba(176, 197, 218, 0.14);
+  --text: #f4f7fb;
+  --muted: #9aadc1;
+  --accent: #f7b500;
+  --accent-2: #ffd45a;
+  --suo-red: #d71920;
+  --cyan: #35bfd1;
+  --blue: #4ba8d8;
+  --green: #47b881;
+  --red: #e25b61;
+  --shadow: 0 14px 34px rgba(0,0,0,0.24);
+}
+
+/* Structural SUO surfaces */
+.app-header {
+  background: linear-gradient(90deg, #06101d 0%, #0a192a 58%, #0c2034 100%);
+  border-bottom-color: rgba(247,181,0,.20);
+}
+.sidebar {
+  background: linear-gradient(180deg, #0a1727 0%, #0b192a 100%);
+}
+.panel {
+  border-color: rgba(176,197,218,.13);
+  background: linear-gradient(145deg, rgba(17,39,64,.96), rgba(10,26,44,.96));
+  box-shadow: 0 10px 28px rgba(0,0,0,.20);
+}
+.panel:hover { border-color: rgba(247,181,0,.20); }
+
+/* SUO yellow is a signature, not decoration everywhere */
+.section-label, .eyebrow, .compare-kicker { color: var(--accent); }
+.header-btn.secondary, .icon-btn {
+  color: var(--text);
+  background: rgba(255,255,255,.055);
+  border-color: rgba(176,197,218,.16);
+}
+.header-btn.secondary:hover, .icon-btn:hover {
+  border-color: rgba(247,181,0,.38);
+  background: rgba(247,181,0,.07);
+}
+.header-btn:not(.secondary), .header-btn.active,
+.search-form button, .chat-form button, .mini-btn,
+.view-mode-buttons button.active, .compare-segment button.active {
+  background: linear-gradient(135deg, #f7b500, #ffc928);
+  color: #171100;
+}
+
+/* Quiet cards: selected/important states carry the SUO accent */
+.kpi-card {
+  border-color: rgba(176,197,218,.13);
+  background: linear-gradient(145deg, rgba(22,45,72,.92), rgba(12,29,49,.94));
+  box-shadow: none;
+}
+.layer-category, .layer-group, .nested-layer-group {
+  border-color: rgba(176,197,218,.12);
+}
+.layer-item:hover { background: rgba(247,181,0,.035); }
+
+/* Intelligence colours are semantic only */
+.network-intelligence-panel { border-top: 2px solid rgba(53,191,209,.72); }
+.flood-launch-card { border-top: 2px solid rgba(75,168,216,.72); }
+.weather-launch-card { border-top: 2px solid rgba(75,168,216,.48); }
+.executive-landuse-panel { border-top: 2px solid rgba(71,184,129,.68); }
+[data-right-component="urban-planning-ai"] { border-top: 2px solid rgba(247,181,0,.70); }
+.info-panel { border-top: 2px solid rgba(176,197,218,.20); }
+
+/* Map controls stay visually part of SUO */
+.basemap-control, .view-mode-control, .compare-panel, .map-status {
+  background: rgba(7,17,31,.90);
+  border-color: rgba(176,197,218,.18);
+  box-shadow: 0 10px 28px rgba(0,0,0,.24);
+}
+
+/* Selangor red reserved for warnings/critical states */
+.policy-status.error, .network-clear-btn:hover {
+  border-color: rgba(215,25,32,.42);
+}
+
+/* Brand polish */
+.brand-mark {
+  background: linear-gradient(145deg, #ffc928, #f7b500);
+  box-shadow: 0 7px 20px rgba(247,181,0,.18);
+}
+.live-pill {
+  color: #062019;
+  background: #56cda2;
+}
+.status-dot { background: #56cda2; }
+
+/* Consistent interaction language */
+button, select, input, .panel, .kpi-card { transition: border-color .16s ease, background .16s ease, box-shadow .16s ease, transform .16s ease; }
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline-color: #ffc928;
+}
