@@ -5484,3 +5484,53 @@ button:focus-visible,input:focus-visible,select:focus-visible{
   color:#7f2f32 !important;
   border-color:#e4c98f !important;
 }
+
+
+/* v8.2C — Complete legacy dark-control cleanup */
+.buffer-tool-card,.route-tool-card{
+ background:#fffaf3!important;border-color:#eadbc8!important
+}
+.buffer-tool-icon,.route-tool-icon{
+ color:#9d3438!important;background:#fff1d1!important;border-color:#e4c98f!important
+}
+.buffer-tool-heading strong,.route-tool-heading strong,
+.network-section-title strong,.network-result-box strong{
+ color:#3d332e!important
+}
+.buffer-input-row input,.buffer-input-row select,
+.route-option-grid select,.network-form-grid select,.network-field select{
+ color:#3d332e!important;background:#fffdf9!important;border-color:#dccbb7!important
+}
+.route-check-option{
+ color:#4d433d!important;background:#fffaf3!important;border-color:#dccbb7!important
+}
+.route-check-option input{accent-color:#b93a3e!important}
+.buffer-run-btn,.route-run-btn,.network-primary-btn{
+ color:#7f2f32!important;background:#fff1d1!important;border-color:#e4c98f!important
+}
+.buffer-run-btn:hover,.buffer-run-btn.active,
+.route-run-btn:hover,.route-run-btn.active,
+.network-primary-btn:hover,.network-primary-btn.active{
+ color:#3c2a08!important;background:#f4bd32!important;border-color:#e0aa25!important
+}
+.network-version-badge{
+ color:#7f2f32!important;background:#fff1d1!important;border-color:#e4c98f!important
+}
+.network-tabs{background:#fff8ef!important;border-color:#eadbc8!important}
+.network-tab{color:#756b64!important}
+.network-tab.active{
+ color:#fff!important;background:#a83b3f!important
+}
+.network-mode-grid button,.network-feature-list button{
+ color:#4d433d!important;background:#fffaf3!important;border-color:#dccbb7!important
+}
+.network-mode-grid button.active,.network-mode-grid button:hover,.network-feature-list button:hover{
+ color:#3c2a08!important;background:#f4bd32!important;border-color:#e0aa25!important
+}
+.network-result-box,.network-beta-note,.network-status{
+ color:#655b54!important;background:#fffaf3!important;border-color:#e4c98f!important
+}
+.network-clear-btn{
+ color:#9d3438!important;background:#fbeceb!important;border-color:#e8b9b6!important
+}
+.network-clear-btn:hover{color:#fff!important;background:#b93a3e!important;border-color:#b93a3e!important}
