@@ -5236,3 +5236,95 @@ button, select, input, .panel, .kpi-card { transition: border-color .16s ease, b
 button:focus-visible, input:focus-visible, select:focus-visible {
   outline-color: #ffc928;
 }
+
+
+/* =========================================================
+   SUO PORTAL UNIFIED THEME v8.2
+   Light institutional UI to match the main SUO portal.
+   ========================================================= */
+:root{
+ --bg:#f4f6f8; --bg-2:#eef1f4;
+ --panel:rgba(255,255,255,.97); --panel-2:#f5f7f9;
+ --line:#d9dee5; --text:#17202b; --muted:#657180;
+ --accent:#f7b500; --accent-2:#ffca28;
+ --suo-red:#d71920; --cyan:#188ea3; --blue:#287eae;
+ --green:#248b64; --red:#d43c43;
+ --shadow:0 8px 24px rgba(24,39,55,.08);
+}
+html,body{background:var(--bg);color:var(--text)}
+.app-header{
+ background:#fff;
+ border-bottom:3px solid var(--accent);
+ box-shadow:0 2px 12px rgba(24,39,55,.07);
+}
+.app-header h1,.header-btn.secondary,.icon-btn{color:var(--text)}
+.app-header h1 span,.muted{color:var(--muted)}
+.sidebar{
+ background:#f2f4f6;
+}
+.left-sidebar{border-right:1px solid var(--line)}
+.right-sidebar{border-left:1px solid var(--line)}
+.panel{
+ background:#fff;
+ border:1px solid var(--line);
+ box-shadow:var(--shadow);
+}
+.panel:hover{border-color:#c8ced6}
+.section-label,.eyebrow,.compare-kicker{color:#a86f00}
+.sidebar-collapse-bar{color:var(--muted)}
+.header-btn.secondary,.icon-btn{
+ background:#fff;border-color:var(--line);
+}
+.header-btn.secondary:hover,.icon-btn:hover{
+ background:#f7f8fa;border-color:#b9c1ca;
+}
+.header-btn:not(.secondary),.header-btn.active,
+.search-form button,.chat-form button,.mini-btn,
+.view-mode-buttons button.active,.compare-segment button.active{
+ background:var(--accent);color:#171100;
+}
+.search-form input,.chat-form input,
+.basemap-control select,.compare-grid select,
+.view-mode-buttons,.compare-segment{
+ color:var(--text);background:#fff;border-color:var(--line);
+}
+.layer-item{border-bottom-color:#e7eaee}
+.layer-item:hover{background:#f7f8fa}
+.layer-copy small{color:var(--muted)}
+.kpi-card{
+ background:#fff;border:1px solid var(--line);box-shadow:none;
+}
+.kpi-card span,.kpi-card small{color:var(--muted)}
+.quick-grid button,.tool-grid button,.result-item{
+ color:var(--text);background:#f6f7f9;border-color:var(--line);
+}
+.quick-grid button:hover,.tool-grid button:hover,.tool-grid button.active{
+ color:#171100;background:var(--accent);border-color:var(--accent);
+}
+.basemap-control,.view-mode-control,.compare-panel,.map-status{
+ color:var(--text);background:rgba(255,255,255,.95);
+ border-color:var(--line);box-shadow:var(--shadow);
+}
+.map-status{color:#364152}
+.network-intelligence-panel{border-top:3px solid #188ea3}
+.flood-launch-card{border-top:3px solid #287eae}
+.weather-launch-card{border-top:3px solid #5a9ec2}
+.executive-landuse-panel{border-top:3px solid #248b64}
+[data-right-component="urban-planning-ai"]{border-top:3px solid var(--accent)}
+.info-panel{border-top:3px solid #aeb6c0}
+.chat-bubble.bot{color:#283442;background:#eef1f5}
+.chat-bubble.user{color:#171100;background:var(--accent)}
+.feature-info{color:var(--muted)}
+.feature-info strong{color:var(--text)}
+.live-pill{color:#fff;background:#248b64}
+.donut-hole{background:#fff}
+.policy-status{background:#f6f7f9}
+.urban-group h3{color:#263341}
+.empty-state{background:#fafbfc}
+.compare-panel-heading button,.compare-actions button{
+ color:var(--text);background:#fff;border-color:var(--line)
+}
+.sync-control{color:var(--text)}
+.mapboxgl-popup-content{color:#17202b;background:#fff}
+.brand-mark{background:var(--accent);color:#171100;box-shadow:none}
+
