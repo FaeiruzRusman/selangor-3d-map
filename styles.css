@@ -5328,3 +5328,112 @@ html,body{background:var(--bg);color:var(--text)}
 .mapboxgl-popup-content{color:#17202b;background:#fff}
 .brand-mark{background:var(--accent);color:#171100;box-shadow:none}
 
+
+
+/* =========================================================
+   SUO SELANGOR LIGHT HERITAGE THEME v8.2A
+   Harmonised from Selangor flag: red + yellow, softened for UI.
+   ========================================================= */
+:root{
+  --bg:#fff9f2;
+  --bg-2:#fff4e5;
+  --panel:#fffdf9;
+  --panel-2:#fff7ec;
+  --line:#eadbc8;
+  --text:#332b27;
+  --muted:#756b64;
+  --accent:#f4bd32;
+  --accent-2:#ffd76b;
+  --suo-red:#b93a3e;
+  --suo-red-soft:#f7e6e3;
+  --suo-yellow-soft:#fff2c9;
+  --cyan:#4d8f99;
+  --blue:#567e9b;
+  --green:#668b70;
+  --red:#b93a3e;
+  --shadow:0 9px 25px rgba(91,60,38,.08);
+}
+html,body{background:var(--bg);color:var(--text)}
+.app-header{
+  background:linear-gradient(90deg,#fffdf9 0%,#fff8ed 72%,#fff2dc 100%);
+  border-bottom:3px solid var(--accent);
+  box-shadow:0 2px 14px rgba(91,60,38,.07);
+}
+.app-header::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:5px;
+  background:var(--suo-red);
+}
+.sidebar{background:#fff8ef}
+.left-sidebar{border-right:1px solid var(--line)}
+.right-sidebar{border-left:1px solid var(--line)}
+.panel{
+  background:rgba(255,253,249,.98);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.panel:hover{border-color:#dcc6ab}
+.section-label,.eyebrow,.compare-kicker{color:#9d3438}
+.header-btn.secondary,.icon-btn{
+  color:var(--text);background:#fffdf9;border-color:var(--line)
+}
+.header-btn.secondary:hover,.icon-btn:hover{
+  background:var(--suo-yellow-soft);border-color:#e2bd65
+}
+.header-btn:not(.secondary),.header-btn.active,
+.search-form button,.chat-form button,.mini-btn,
+.view-mode-buttons button.active,.compare-segment button.active{
+  background:linear-gradient(135deg,#f6c54d,#f0b92b);
+  color:#3c2a08;border-color:#e8ae21
+}
+.layer-category,.layer-group,.nested-layer-group{border-color:#eadfD1}
+.layer-item{border-bottom-color:#eee3d7}
+.layer-item:hover{background:#fff3dc}
+.layer-copy strong{color:#3d332e}
+.layer-copy small{color:var(--muted)}
+.kpi-card{
+  background:linear-gradient(145deg,#fffdf9,#fff8ef);
+  border:1px solid #eadbc8;box-shadow:none
+}
+.kpi-card strong{color:#9d3438}
+.kpi-card span,.kpi-card small{color:var(--muted)}
+.quick-grid button,.tool-grid button,.result-item{
+  color:var(--text);background:#fffaf3;border-color:#e5d7c7
+}
+.quick-grid button:hover,.tool-grid button:hover,.tool-grid button.active{
+  color:#3c2a08;background:#f7d77d;border-color:#e5b843
+}
+.search-form input,.chat-form input,
+.basemap-control select,.compare-grid select,
+.view-mode-buttons,.compare-segment{
+  color:var(--text);background:#fffdf9;border-color:#e3d3c1
+}
+.basemap-control,.view-mode-control,.compare-panel,.map-status{
+  color:var(--text);background:rgba(255,253,249,.96);
+  border-color:#e3d3c1;box-shadow:var(--shadow)
+}
+/* Intelligence modules use muted complementary accents, not competing brand colours */
+.network-intelligence-panel{border-top:3px solid #4d8f99}
+.flood-launch-card{border-top:3px solid #567e9b}
+.weather-launch-card{border-top:3px solid #7fa5b7}
+.executive-landuse-panel{border-top:3px solid #668b70}
+[data-right-component="urban-planning-ai"]{border-top:3px solid #f0b92b}
+.info-panel{border-top:3px solid #b9a998}
+.chat-bubble.bot{color:#443933;background:#f5ede5}
+.chat-bubble.user{color:#3c2a08;background:#f7d77d}
+.live-pill{color:#fff;background:#668b70}
+.brand-mark{
+  background:linear-gradient(145deg,#f6c54d,#efb627);
+  color:#3c2a08;box-shadow:0 5px 15px rgba(192,139,25,.15)
+}
+.status-dot{background:#668b70}
+.mapboxgl-popup-content{color:#332b27;background:#fffdf9}
+.standard-popup-content h3{color:#332b27}
+.standard-popup-content .popup-kicker{color:#9d3438}
+.popup-info-grid span{color:#756b64}
+.popup-info-grid strong{color:#332b27}
+/* Red is controlled: identity marker, warnings, and selected emphasis only */
+.policy-status.error,.network-clear-btn:hover{border-color:#c86a6d}
+input[type="checkbox"]{accent-color:#b93a3e}
+button:focus-visible,input:focus-visible,select:focus-visible{
+  outline-color:#e9b62e
+}
